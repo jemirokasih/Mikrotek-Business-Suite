@@ -297,14 +297,21 @@ body.layout-sidebar-active #headerbar {
     justify-content: space-between !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    background: transparent !important;
-    padding: 0 0 20px 0 !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    margin-bottom: 12px !important;
-    border: none !important;
+    background: #ffffff !important;
+    padding: 16px 24px !important;
+    border-radius: 12px !important;
+    border: 1px solid var(--card-border) !important;
+    box-shadow: var(--card-shadow) !important;
+    margin-bottom: 24px !important;
     position: relative !important;
     clear: both !important;
+}
+
+body.layout-sidebar-active #headerbar .headerbar-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 20px !important;
+    flex-wrap: wrap !important;
 }
 
 body.layout-sidebar-active #headerbar h1.headerbar-title,
@@ -312,15 +319,14 @@ body.layout-sidebar-active #headerbar h1,
 body.layout-sidebar-active #headerbar .headerbar-title {
     display: flex !important;
     align-items: center !important;
-    font-size: 22px !important;
+    font-size: 20px !important;
     font-weight: 700 !important;
     color: #0f172a !important;
-    letter-spacing: -0.5px !important;
+    letter-spacing: -0.4px !important;
     margin: 0 !important;
     padding: 0 !important;
     line-height: 1.3 !important;
     float: none !important;
-    margin-right: auto !important;
 }
 
 body.layout-sidebar-active #headerbar .headerbar-item,

@@ -1,6 +1,25 @@
 <div id="headerbar">
 
-    <h1 class="headerbar-title"><?php _trans('clients'); ?></h1>
+    <div class="headerbar-left">
+        <h1 class="headerbar-title"><?php _trans('clients'); ?></h1>
+
+        <div class="headerbar-item visible-lg">
+            <div class="btn-group btn-group-sm index-options">
+                <a href="<?php echo site_url('clients/status/active'); ?>"
+                   class="btn <?php echo $this->uri->segment(3) == 'active' || ! $this->uri->segment(3) ? 'btn-primary' : 'btn-default' ?>">
+                    <?php _trans('active'); ?>
+                </a>
+                <a href="<?php echo site_url('clients/status/inactive'); ?>"
+                   class="btn  <?php echo $this->uri->segment(3) == 'inactive' ? 'btn-primary' : 'btn-default' ?>">
+                    <?php _trans('inactive'); ?>
+                </a>
+                <a href="<?php echo site_url('clients/status/all'); ?>"
+                   class="btn  <?php echo $this->uri->segment(3) == 'all' ? 'btn-primary' : 'btn-default' ?>">
+                    <?php _trans('all'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="headerbar-item pull-right">
         <button type="button" class="btn btn-default btn-sm submenu-toggle hidden-lg"
@@ -10,23 +29,6 @@
         <a class="btn btn-primary btn-sm" href="<?php echo site_url('clients/form'); ?>">
             <i class="fa fa-plus"></i> <?php _trans('new'); ?>
         </a>
-    </div>
-
-    <div class="headerbar-item pull-right visible-lg">
-        <div class="btn-group btn-group-sm index-options">
-            <a href="<?php echo site_url('clients/status/active'); ?>"
-               class="btn <?php echo $this->uri->segment(3) == 'active' || ! $this->uri->segment(3) ? 'btn-primary' : 'btn-default' ?>">
-                <?php _trans('active'); ?>
-            </a>
-            <a href="<?php echo site_url('clients/status/inactive'); ?>"
-               class="btn  <?php echo $this->uri->segment(3) == 'inactive' ? 'btn-primary' : 'btn-default' ?>">
-                <?php _trans('inactive'); ?>
-            </a>
-            <a href="<?php echo site_url('clients/status/all'); ?>"
-               class="btn  <?php echo $this->uri->segment(3) == 'all' ? 'btn-primary' : 'btn-default' ?>">
-                <?php _trans('all'); ?>
-            </a>
-        </div>
     </div>
 
 </div>

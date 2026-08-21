@@ -4,6 +4,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.18] - 2026-08-21
+
+### 🎨 Restorasi Card Headerbar Putih & Layout Urutan Baru (Title -> Tabs -> +New)
+- **White Card Container (`modern_sidebar.css`)**: Mengembalikan kotak card putih `#ffffff` untuk `#headerbar` dengan border `1px solid #e2e8f0`, sudut `12px`, padding internal `16px 24px`, dan shadow `var(--card-shadow)`.
+- **Layout Order Reordering**: Mengatur urutan elemen headerbar secara presisi:
+  - **Kiri**: Judul halaman (e.g. `Invoices`, `Quotes`, `Clients`) berdampingan langsung di sampingnya dengan Tab Status Filter (`All`, `Draft`, `Sent`, `Viewed`, `Paid`, `Overdue`, `Proforma Invoices`).
+  - **Pojok Kanan**: Tombol aksi utama `+ New`.
+
+---
+
 ## [v1.7.17] - 2026-08-21
 
 ### 🎨 Pemindahan Paginasi ke Bawah Tabel (Bottom Table Pagination)
