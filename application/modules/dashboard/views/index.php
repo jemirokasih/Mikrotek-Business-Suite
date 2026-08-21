@@ -56,33 +56,55 @@
             <div class="col-xs-12">
                 <div id="panel-quick-actions" class="panel panel-default quick-actions">
                     <div class="panel-heading">
-                        <b><?php _trans('quick_actions'); ?></b>
+                        <b><i class="fa fa-bolt text-primary"></i> <?php _trans('quick_actions'); ?></b>
                     </div>
-                    <div class="btn-group btn-group-justified no-margin">
-                        <?php if ($can_add_client) : ?>
-                            <a href="<?php echo site_url('clients/form'); ?>" class="btn btn-default">
-                                <i class="fa fa-user fa-margin"></i>
-                                <span class="hidden-xs"><?php _trans('add_client'); ?></span>
-                            </a>
-                        <?php endif; ?>
-                        <?php if ($can_create_quote) : ?>
-                            <a href="javascript:void(0)" class="create-quote btn btn-default">
-                                <i class="fa fa-file fa-margin"></i>
-                                <span class="hidden-xs"><?php _trans('create_quote'); ?></span>
-                            </a>
-                        <?php endif; ?>
-                        <?php if ($can_create_invoice) : ?>
-                            <a href="javascript:void(0)" class="create-invoice btn btn-default">
-                                <i class="fa fa-file-text fa-margin"></i>
-                                <span class="hidden-xs"><?php _trans('create_invoice'); ?></span>
-                            </a>
-                        <?php endif; ?>
-                        <?php if ($can_enter_payment) : ?>
-                            <a href="<?php echo site_url('payments/form'); ?>" class="btn btn-default">
-                                <i class="fa fa-credit-card fa-margin"></i>
-                                <span class="hidden-xs"><?php _trans('enter_payment'); ?></span>
-                            </a>
-                        <?php endif; ?>
+                    <div class="panel-body">
+                        <div class="quick-actions-grid">
+                            <?php if ($can_add_client) : ?>
+                                <a href="<?php echo site_url('clients/form'); ?>" class="quick-action-item action-client">
+                                    <div class="quick-action-icon">
+                                        <i class="fa fa-user-plus"></i>
+                                    </div>
+                                    <div class="quick-action-info">
+                                        <span class="quick-action-title"><?php _trans('add_client'); ?></span>
+                                        <span class="quick-action-desc"><?php echo trans('client'); ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                            <?php if ($can_create_quote) : ?>
+                                <a href="javascript:void(0)" class="create-quote quick-action-item action-quote">
+                                    <div class="quick-action-icon">
+                                        <i class="fa fa-file-text-o"></i>
+                                    </div>
+                                    <div class="quick-action-info">
+                                        <span class="quick-action-title"><?php _trans('create_quote'); ?></span>
+                                        <span class="quick-action-desc"><?php echo trans('quote'); ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                            <?php if ($can_create_invoice) : ?>
+                                <a href="javascript:void(0)" class="create-invoice quick-action-item action-invoice">
+                                    <div class="quick-action-icon">
+                                        <i class="fa fa-file-text"></i>
+                                    </div>
+                                    <div class="quick-action-info">
+                                        <span class="quick-action-title"><?php _trans('create_invoice'); ?></span>
+                                        <span class="quick-action-desc"><?php echo trans('invoice'); ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                            <?php if ($can_enter_payment) : ?>
+                                <a href="<?php echo site_url('payments/form'); ?>" class="quick-action-item action-payment">
+                                    <div class="quick-action-icon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <div class="quick-action-info">
+                                        <span class="quick-action-title"><?php _trans('enter_payment'); ?></span>
+                                        <span class="quick-action-desc"><?php echo trans('payment'); ?></span>
+                                    </div>
+                                </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>

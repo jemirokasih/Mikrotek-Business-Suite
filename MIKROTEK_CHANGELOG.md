@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.14] - 2026-08-21
+
+### 🎨 Pembaruan & Merapikan Layout Quick Actions Dashboard
+- **Modern Grid Quick Actions (`dashboard/views/index.php` & `modern_sidebar.css`)**: Memperbarui tampilan tombol "Quick Actions" di Dashboard dari `btn-group-justified` yang kaku menjadi **Card Action Grid** yang modern dan responsif.
+- **Visual Badge & Descriptive Labels**: Setiap aksi cepat (Tambah Pelanggan, Buat Penawaran, Buat Faktur, Catat Pembayaran) dilengkapi dengan badge ikon berwarna khusus (Soft Blue, Green, Purple, Orange) serta teks sub-label untuk tampilan yang jauh lebih bersih, rapi, dan mudah diakses.
+
+---
+
 ## [v1.7.13] - 2026-08-21
 
 ### 🎨 Clean Frameless Headerbar (Menghapus Background Putih Headerbar)
