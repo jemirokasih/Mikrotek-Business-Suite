@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.33] - 2026-08-22
+
+### 🖥️ Maksimasi Area Tampilan Roundcube & Menu Opsi Ringkas (`index.php`)
+- **Penambahan Tinggi Container Roundcube (`calc(100vh - 125px)`)**: Memperbesar area tampilan container Roundcube Webmail agar dapat memanfaatkan seluruh ruang layar secara maksimal dan immersive.
+- **Dropdown Menu Opsi Pojok Kanan Atas**: Merangkum tombol Refresh Webmail, Buka di Tab Baru, dan Pengaturan Webmail ke dalam 1 tombol dropdown mini (`fa-ellipsis-v`) di pojok kanan atas bar, sehingga tidak mengganggu antarmuka Roundcube.
+
+---
+
 ## [v1.7.32] - 2026-08-22
 
 ### 🚀 Install Source Code Official Roundcube Webmail 1.6.10 Complete Package
