@@ -86,9 +86,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan kolom `signature_type`, `signature_name`, `signature_title`, & `signature_image` pada tabel `ip_invoices` & `ip_quotes` (SQL: `051_1.8.0.sql`).
   - Mengupdate modal pembuatan Invoice & Quote (`modal_create_invoice.php` & `modal_create_quote.php`) untuk memilih **Digital Signature** atau **Manual Signature (Ruang Kosong)** beserta **Nama & Jabatan Penanggung Jawab**.
   - Menambahkan konfigurasi `REMOVE_INDEXPHP=true` pada `ipconfig.php` & `.htaccess` rewrite rule untuk membebaskan `index.php` dari URL scan QR Code.
-  - Memperbesar jarak area Tanda Tangan Manual (`height: 95px`) pada cetakan PDF (`Mikrotek.php`) agar memberikan ruang lega untuk tanda tangan basah dan penempelan fisik Materai (10.000).
+  - Menggunakan struktur tabel dengan `height: 90px; line-height: 90px;` pada area Tanda Tangan Manual (`Mikrotek.php`) agar mPDF terlarang mengonpres/menciutkan jarak vertikal.
 
 ---
+
 
 
 
