@@ -46,7 +46,7 @@
                                 <div class="form-group">
                                     <label for="employee_number"><?php _trans('employee_number'); ?> *</label>
                                     <input type="text" name="employee_number" id="employee_number" class="form-control"
-                                           value="<?php echo $this->mdl_employees->form_value('employee_number', true); ?>" required>
+                                           value="<?php echo $this->mdl_employees->form_value('employee_number', true); ?>">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
@@ -63,7 +63,7 @@
                                 <div class="form-group">
                                     <label for="first_name"><?php _trans('first_name'); ?> *</label>
                                     <input type="text" name="first_name" id="first_name" class="form-control"
-                                           value="<?php echo $this->mdl_employees->form_value('first_name', true); ?>" required>
+                                           value="<?php echo $this->mdl_employees->form_value('first_name', true); ?>">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
@@ -110,7 +110,7 @@
                                 <div class="form-group">
                                     <label for="email"><?php _trans('email'); ?> *</label>
                                     <input type="email" name="email" id="email" class="form-control"
-                                           value="<?php echo $this->mdl_employees->form_value('email', true); ?>" required>
+                                           value="<?php echo $this->mdl_employees->form_value('email', true); ?>">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-4">

@@ -44,6 +44,26 @@ class Mdl_Employees extends Response_Model
                 'label' => trans('last_name'),
                 'rules' => 'trim',
             ],
+            'gender' => [
+                'field' => 'gender',
+                'label' => trans('gender'),
+                'rules' => 'trim',
+            ],
+            'birth_date' => [
+                'field' => 'birth_date',
+                'label' => trans('birth_date'),
+                'rules' => 'trim',
+            ],
+            'birth_place' => [
+                'field' => 'birth_place',
+                'label' => trans('birth_place'),
+                'rules' => 'trim',
+            ],
+            'national_id' => [
+                'field' => 'national_id',
+                'label' => trans('national_id'),
+                'rules' => 'trim',
+            ],
             'email' => [
                 'field' => 'email',
                 'label' => trans('email'),
@@ -58,6 +78,41 @@ class Mdl_Employees extends Response_Model
                 'field' => 'mobile',
                 'label' => trans('mobile'),
                 'rules' => 'trim',
+            ],
+            'address_1' => [
+                'field' => 'address_1',
+                'label' => trans('street_address'),
+                'rules' => 'trim',
+            ],
+            'address_2' => [
+                'field' => 'address_2',
+                'label' => trans('street_address_2'),
+                'rules' => 'trim',
+            ],
+            'city' => [
+                'field' => 'city',
+                'label' => trans('city'),
+                'rules' => 'trim',
+            ],
+            'state' => [
+                'field' => 'state',
+                'label' => trans('state'),
+                'rules' => 'trim',
+            ],
+            'zip_code' => [
+                'field' => 'zip_code',
+                'label' => trans('zip_code'),
+                'rules' => 'trim',
+            ],
+            'country' => [
+                'field' => 'country',
+                'label' => trans('country'),
+                'rules' => 'trim',
+            ],
+            'company_id' => [
+                'field' => 'company_id',
+                'label' => trans('company'),
+                'rules' => 'numeric',
             ],
             'department' => [
                 'field' => 'department',
@@ -74,10 +129,40 @@ class Mdl_Employees extends Response_Model
                 'label' => trans('employment_status'),
                 'rules' => 'trim',
             ],
-            'company_id' => [
-                'field' => 'company_id',
-                'label' => trans('company'),
-                'rules' => 'numeric',
+            'join_date' => [
+                'field' => 'join_date',
+                'label' => trans('join_date'),
+                'rules' => 'trim',
+            ],
+            'active' => [
+                'field' => 'active',
+                'label' => trans('active'),
+                'rules' => 'trim',
+            ],
+            'bank_name' => [
+                'field' => 'bank_name',
+                'label' => trans('bank_name'),
+                'rules' => 'trim',
+            ],
+            'bank_account_number' => [
+                'field' => 'bank_account_number',
+                'label' => trans('account_number'),
+                'rules' => 'trim',
+            ],
+            'bank_account_holder' => [
+                'field' => 'bank_account_holder',
+                'label' => trans('bank_account_holder'),
+                'rules' => 'trim',
+            ],
+            'tax_id' => [
+                'field' => 'tax_id',
+                'label' => trans('tax_id'),
+                'rules' => 'trim',
+            ],
+            'notes' => [
+                'field' => 'notes',
+                'label' => trans('notes'),
+                'rules' => 'trim',
             ],
         ];
     }
@@ -102,6 +187,7 @@ class Mdl_Employees extends Response_Model
             $db_array['join_date'] = null;
         }
 
+        $db_array['active']        = isset($_POST['active']) ? (int) $_POST['active'] : 0;
         $db_array['date_modified'] = date('Y-m-d H:i:s');
 
         return $db_array;
