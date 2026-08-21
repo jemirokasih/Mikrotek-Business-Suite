@@ -75,10 +75,6 @@ class Payment_Methods extends Admin_Controller
      */
     public function delete($id)
     {
-        if ( ! $this->ensure_valid_post_request('payment_methods/index')) {
-            return;
-        }
-
         $this->mdl_payment_methods->delete($id);
         redirect('payment_methods');
     }
