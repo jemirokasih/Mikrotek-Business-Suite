@@ -1,6 +1,7 @@
 <div id="modal-create-user-account" class="modal col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2"
      role="dialog" aria-labelledby="modal-create-user-account" aria-hidden="true">
     <form id="form-create-user-account">
+        <?php _csrf_field(); ?>
         <input type="hidden" name="employee_id" value="<?php echo $employee->employee_id; ?>">
 
         <div class="modal-content">
