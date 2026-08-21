@@ -87,6 +87,16 @@ $einvoicingOpt = $einvoicing ? $einvoicingTip . trans('optional') . ')"' : '';
                                     <option value=""><?php echo trans('none'); ?></option>
 <?php
 $curr_company_id = $this->mdl_users->form_value('company_id');
+if (!$curr_company_id) {
+    $logged_user_id = $this->session->userdata('user_id');
+    if ($logged_user_id) {
+        $logged_user = $this->mdl_users->get_by_id($logged_user_id);
+        $curr_company_id = $logged_user->company_id ?? null;
+    }
+    if (!$curr_company_id && !empty($companies)) {
+        $curr_company_id = $companies[0]->company_id;
+    }
+}
 foreach ($companies as $comp) {
     ?>
                                     <option value="<?php echo $comp->company_id; ?>" <?php check_select($curr_company_id, $comp->company_id); ?>>

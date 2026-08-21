@@ -288,6 +288,18 @@ class Setup extends MX_Controller
             $db_array              = $this->mdl_users->db_array();
             $db_array['user_type'] = 1;
 
+            $this->load->model('companies/mdl_companies');
+            $company_name = !empty($db_array['user_company']) ? $db_array['user_company'] : $db_array['user_name'];
+            $comp_id = $this->mdl_companies->save(null, [
+                'company_name'      => $company_name,
+                'company_email'     => $db_array['user_email'] ?? '',
+                'company_address_1' => $db_array['user_address_1'] ?? '',
+                'company_city'      => $db_array['user_city'] ?? '',
+                'company_phone'     => $db_array['user_phone'] ?? '',
+            ]);
+            $db_array['company_id']   = $comp_id;
+            $db_array['user_company'] = $company_name;
+
             $this->mdl_users->save(null, $db_array);
 
             $this->session->set_userdata('install_step', 'calculation_info');

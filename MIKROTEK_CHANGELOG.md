@@ -43,11 +43,12 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan file migrasi `application/modules/setup/sql/045_1.7.4.sql`.
 - **Modul Master Perusahaan (`application/modules/companies/`)**:
   - `Mdl_companies.php`, `Companies.php` (CRUD Controller), `views/index.php` & `views/form.php` untuk mengelola master perusahaan.
-- **Integrasi Hirarki Company pada Form User (`users/form`)**:
-  - Mengupdate `Mdl_users.php` & `Users.php` controller untuk menyimpan relasi `company_id` dan memperbarui `user_company`.
-  - Mengupdate `users/views/form.php` dengan dropdown seleksi Company untuk tipe pengguna Admin & Staff, dan secara otomatis menyembunyikannya untuk tipe pengguna Client/Guest login.
-  - Menambahkan menu **Companies** pada navbar navigasi utama di bawah menu Settings.
+- **Auto Default Company & Seeding**:
+  - Mengotomatisasi pembuatan record perusahaan utama pada `ip_companies` saat setup awal (`Setup.php` -> `create_user()`).
+  - Mengisi otomatis record perusahaan default (`PT Mikrotek Zemiro Indonesia`, ID: 1) untuk user admin utama.
+  - Menetapkan default seleksi perusahaan pada form user (`users/form`) ke perusahaan user yang sedang login atau perusahaan pertama.
 
 ---
+
 
 
