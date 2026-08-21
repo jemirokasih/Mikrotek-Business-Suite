@@ -270,6 +270,11 @@ if ($change_user) {
     </h1>
 
     <div class="headerbar-item pull-right<?php echo ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) ? ' btn-group' : ''; ?>">
+<?php if (has_permission('receipts', 'create')) : ?>
+        <a href="<?php echo site_url('receipts/create_from_invoice/' . $invoice_id); ?>" class="btn btn-sm btn-info pull-right" style="margin-left: 5px;">
+            <i class="fa fa-print"></i> <?php _trans('create_receipt'); ?>
+        </a>
+<?php endif; ?>
 
         <div class="options btn-group btn-group-sm">
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">

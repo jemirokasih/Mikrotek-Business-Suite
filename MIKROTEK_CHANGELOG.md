@@ -63,13 +63,12 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - `views/index.php`, `views/form.php`, `views/view.php`: UI pengelola & pratinjau kwitansi.
 - **Template PDF Kwitansi**:
   - `application/views/receipt_templates/pdf/Kwitansi.php`: Template PDF standar Kwitansi Indonesia (Kop Perusahaan, Nomor Kwitansi, Terbilang, Faktur Terkait, Jumlah Nominal, Tanggal, & Tanda Tangan).
-- **Integrasi Invoice, Payment, Navigasi, & RBAC**:
-  - `Invoices.php` & `invoices/views/view.php`: Menambahkan aksi **Terbitkan Kwitansi** pada dropdown opsi Invoice dan menampilkan riwayat Kwitansi terkait di halaman detail Invoice.
-  - `partial_payments_table.php`: Menambahkan aksi **Terbitkan Kwitansi** pada opsi transaksi Payment.
-  - `navbar.php`: Menambahkan dropdown menu **Kwitansi / Receipts**.
-  - `Mdl_roles.php`: Menambahkan hak akses modul `receipts` pada matriks RBAC.
+- **Fix Penerbitan Kwitansi untuk Invoice Lunas (Paid / Read-Only)**:
+  - Mengupdate `Receipts.php` (`create_from_invoice`) agar secara otomatis mengambil tanggal, nominal, metode pembayaran, dan ID transaksi dari pembayaran terakhir jika Invoice sudah berstatus Lunas (Paid).
+  - Menambahkan tombol utama **Terbitkan Kwitansi** secara langsung di baris header atas `invoices/views/view.php` agar selalu dapat diakses baik dalam status Draft, Sent, Paid, maupun Read-Only.
 
 ---
+
 
 
 

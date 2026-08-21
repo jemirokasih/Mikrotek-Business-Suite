@@ -88,21 +88,32 @@ class Receipts extends Admin_Controller
         check_permission('receipts', 'create');
 
         $this->load->model('invoices/mdl_invoices');
+        $this->load->model('payments/mdl_payments');
+
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
 
         if (!$invoice) {
             show_404();
         }
 
+        // Fetch latest payment if exists
+        $latest_payment = $this->mdl_payments->where('ip_payments.invoice_id', $invoice_id)->order_by('payment_id', 'DESC')->get()->row();
+        $payment_method_id = $latest_payment ? $latest_payment->payment_method_id : null;
+        $payment_id = $latest_payment ? $latest_payment->payment_id : null;
+        $amount = ($latest_payment && $latest_payment->payment_amount > 0) ? $latest_payment->payment_amount : ($invoice->invoice_total > 0 ? $invoice->invoice_total : 0);
+        $receipt_date = $latest_payment ? $latest_payment->payment_date : date('Y-m-d');
+
         $db_array = [
             'user_id'                   => $this->session->userdata('user_id'),
-            'company_id'                => $this->session->userdata('company_id') ?: $invoice->company_id ?? null,
+            'company_id'                => $this->session->userdata('company_id') ?: ($invoice->company_id ?? null),
             'client_id'                 => $invoice->client_id,
             'invoice_id'                => $invoice->invoice_id,
+            'payment_id'                => $payment_id,
             'receipt_number'            => $this->mdl_receipts->generate_receipt_number(),
-            'receipt_date'              => date('Y-m-d'),
-            'receipt_amount'            => $invoice->invoice_balance > 0 ? $invoice->invoice_balance : $invoice->invoice_total,
-            'receipt_notes'             => 'Pembayaran untuk Faktur #' . $invoice->invoice_number,
+            'receipt_date'              => $receipt_date,
+            'receipt_amount'            => $amount,
+            'receipt_payment_method_id' => $payment_method_id,
+            'receipt_notes'             => 'Pembayaran Lunas untuk Faktur #' . $invoice->invoice_number,
             'receipt_url_key'           => $this->mdl_receipts->generate_url_key(),
             'receipt_status'            => 2,
             'receipt_date_created'      => date('Y-m-d H:i:s'),
