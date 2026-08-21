@@ -85,10 +85,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 - **Fitur Opsi Tanda Tangan (Digital vs Manual Signature)**:
   - Menambahkan kolom `signature_type`, `signature_name`, `signature_title`, & `signature_image` pada tabel `ip_invoices` & `ip_quotes` (SQL: `051_1.8.0.sql`).
   - Mengupdate modal pembuatan Invoice & Quote (`modal_create_invoice.php` & `modal_create_quote.php`) untuk memilih **Digital Signature** atau **Manual Signature (Ruang Kosong)** beserta **Nama & Jabatan Penanggung Jawab**.
-  - Mengupdate halaman detail & controller Ajax Invoice & Quote (`view.php` & `Ajax.php`) agar pengaturan tanda tangan dapat diubah dan disimpan kapan saja.
-  - Mengintegrasikan blok tanda tangan otomatis di bagian bawah cetakan PDF (`Warm Regards, [TTD Digital/Ruang Kosong], Nama & Jabatan Penanggung Jawab`) pada template PDF Mikrotek (`Mikrotek.php`).
+  - Menambahkan pengaturan terpusat **Nama Penanggung Jawab Default** (`default_signature_name`) & **Jabatan Penanggung Jawab Default** (`default_signature_title`) pada Sistem Pengaturan (`partial_settings_invoices.php`).
 
 ---
+
 
 
 

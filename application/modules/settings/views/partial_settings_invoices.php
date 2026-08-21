@@ -289,6 +289,26 @@ foreach ($pdf_invoice_templates as $invoice_template) {
                         </div>
 
                         <div class="form-group">
+                            <label for="settings[default_signature_name]">
+                                Nama Penanggung Jawab Default (TTD)
+                            </label>
+                            <input type="text" name="settings[default_signature_name]" id="settings[default_signature_name]"
+                                   class="form-control"
+                                   value="<?php echo html_escape(get_setting('default_signature_name')); ?>"
+                                   placeholder="Contoh: Jemiro Kasih">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="settings[default_signature_title]">
+                                Jabatan Penanggung Jawab Default (TTD)
+                            </label>
+                            <input type="text" name="settings[default_signature_title]" id="settings[default_signature_title]"
+                                   class="form-control"
+                                   value="<?php echo html_escape(get_setting('default_signature_title')); ?>"
+                                   placeholder="Contoh: Finance Manager / Direktur Utama">
+                        </div>
+
+                        <div class="form-group">
                             <label for="settings[public_invoice_template]">
                                 <?php _trans('default_public_template'); ?>
                             </label>

@@ -22,8 +22,8 @@
                     payment_method: $('#payment_method_id').val(),
                     is_proforma: $('#is_proforma').is(':checked') ? 1 : 0,
                     signature_type: $('#signature_type').val(),
-                    signature_name: $('#signature_name').val(),
-                    signature_title: $('#signature_title').val()
+                    signature_name: '<?php echo html_escape(get_setting('default_signature_name')); ?>',
+                    signature_title: '<?php echo html_escape(get_setting('default_signature_title')); ?>'
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
@@ -110,30 +110,12 @@ foreach ($invoice_groups as $invoice_group) {
                 </select>
             </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-4">
-                    <div class="form-group">
-                        <label for="signature_type">Tipe Tanda Tangan</label>
-                        <select name="signature_type" id="signature_type" class="form-control">
-                            <option value="manual">Manual Signature (Ruang Kosong)</option>
-                            <option value="digital">Digital Signature</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="form-group">
-                        <label for="signature_name">Nama Penanggung Jawab</label>
-                        <input type="text" name="signature_name" id="signature_name" class="form-control"
-                               value="<?php echo html_escape($this->session->userdata('user_name')); ?>" placeholder="Contoh: Jemiro Kasih">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                    <div class="form-group">
-                        <label for="signature_title">Jabatan Penanggung Jawab</label>
-                        <input type="text" name="signature_title" id="signature_title" class="form-control"
-                               value="Finance Manager" placeholder="Contoh: Direktur Utama / Finance">
-                    </div>
-                </div>
+            <div class="form-group">
+                <label for="signature_type">Tipe Tanda Tangan</label>
+                <select name="signature_type" id="signature_type" class="form-control">
+                    <option value="manual">Manual Signature (Ruang Kosong)</option>
+                    <option value="digital">Digital Signature</option>
+                </select>
             </div>
 
             <div class="form-group">
