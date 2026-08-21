@@ -4,6 +4,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.31] - 2026-08-21
+
+### 🐛 Perbaikan Tampilan Popup / Modal Dialog (`modern_sidebar.css`)
+- **Restorasi & Standarisasi Modal Pop-up**:
+  - Mengonstruksi ulang selektor form transparan agar mengecualikan form modal dialog (`form:not(.modal-content)`). Perubahan ini mengembalikan tampilan card latar belakang putih, sudut rounded `14px`, border, dan bayangan (*shadow*) pada modal pop-up *Create Invoice*, *Create Quote*, serta dialog aplikasi lainnya.
+  - Menambahkan styling modern untuk `.modal-header`, `.modal-body`, `.modal-footer`, dan komponen dropdown `.select2` di dalam modal.
+
+---
+
 ## [v1.7.30] - 2026-08-21
 
 ### 🎨 Peningkatan Kontras UI & Keterbacaan Teks (`modern_sidebar.css`)
