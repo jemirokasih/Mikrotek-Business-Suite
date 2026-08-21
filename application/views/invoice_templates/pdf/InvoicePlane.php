@@ -322,6 +322,11 @@ if ($legacy_calculation) {
                 <b><?php echo format_currency($invoice->invoice_balance); ?></b>
             </td>
         </tr>
+        <tr>
+            <td class="text-right" colspan="<?php echo $colspan + 1 ?>" style="font-style: italic; background-color: #f9f9f9; padding: 6px;">
+                <b>Terbilang:</b> # <?php echo in_words($invoice->invoice_total); ?> #
+            </td>
+        </tr>
         </tbody>
     </table>
 

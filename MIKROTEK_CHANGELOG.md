@@ -78,10 +78,12 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan tab filter **Proforma Invoices** pada halaman daftar Invoice (`invoices/status/proforma`).
   - Menampilkan badge **PROFORMA INVOICE** pada tabel daftar & halaman detail Invoice jika `is_proforma = 1`.
   - Menambahkan tombol **Konversi ke Invoice Resmi** (`invoices/convert_proforma/$id`) untuk mengubah status `is_proforma = 0` dan menerbitkan nomor Invoice resmi secara instan.
-- **Template PDF Dynamic Header**:
-  - Mengupdate `InvoicePlane.php` (PDF Template) agar otomatis menampilkan judul **PROFORMA INVOICE** saat `is_proforma = 1`.
+- **Fitur Terbilang / In Words pada Quote & Invoice**:
+  - Menambahkan fungsi helper global `in_words($amount)` / `terbilang($amount)` pada `application/helpers/number_helper.php`.
+  - Mengintegrasikan baris **Terbilang** Bahasa Indonesia pada ringkasan total tampilan web dan cetak PDF Invoice & Penawaran (Quote).
 
 ---
+
 
 
 

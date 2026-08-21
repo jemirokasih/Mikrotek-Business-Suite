@@ -261,6 +261,11 @@ if ($legacy_calculation) {
                 <b><?php echo format_currency(htmlsc($quote->quote_total)); ?></b>
             </td>
         </tr>
+        <tr>
+            <td class="text-right" colspan="<?php echo $colspan + 1 ?>" style="font-style: italic; background-color: #f9f9f9; padding: 6px;">
+                <b>Terbilang:</b> # <?php echo in_words($quote->quote_total); ?> #
+            </td>
+        </tr>
         </tbody>
     </table>
 </main>

@@ -102,3 +102,51 @@ function standardize_amount($amount): float|int|string|array|false|null
 
     return $amount;
 }
+
+/**
+ * Return amount converted to Indonesian words (Terbilang / In Words).
+ * Example: 1500000 -> "Satu Juta Lima Ratus Ribu Rupiah"
+ *
+ * @param float|int|string|null $amount
+ * @return string
+ */
+function in_words($amount): string
+{
+    $number = abs((float) standardize_amount($amount));
+    if ($number == 0) {
+        return 'Nol Rupiah';
+    }
+
+    $words = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
+    $temp = "";
+
+    if ($number < 12) {
+        $temp = " " . $words[(int)$number];
+    } else if ($number < 20) {
+        $temp = in_words($number - 10) . " Belas";
+    } else if ($number < 100) {
+        $temp = in_words($number / 10) . " Puluh" . in_words($number % 10);
+    } else if ($number < 200) {
+        $temp = " Seratus" . in_words($number - 100);
+    } else if ($number < 1000) {
+        $temp = in_words($number / 100) . " Ratus" . in_words($number % 100);
+    } else if ($number < 2000) {
+        $temp = " Seribu" . in_words($number - 1000);
+    } else if ($number < 1000000) {
+        $temp = in_words($number / 1000) . " Ribu" . in_words($number % 1000);
+    } else if ($number < 1000000000) {
+        $temp = in_words($number / 1000000) . " Juta" . in_words($number % 1000000);
+    } else if ($number < 1000000000000) {
+        $temp = in_words($number / 1000000000) . " Milyar" . in_words(fmod($number, 1000000000));
+    } else if ($number < 1000000000000000) {
+        $temp = in_words($number / 1000000000000) . " Trilyun" . in_words(fmod($number, 1000000000000));
+    }
+
+    $clean_text = trim(str_replace('Rupiah', '', $temp));
+    return $clean_text . " Rupiah";
+}
+
+function terbilang($amount): string
+{
+    return in_words($amount);
+}
