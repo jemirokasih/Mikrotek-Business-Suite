@@ -187,10 +187,22 @@ class Employees extends Admin_Controller
             return;
         }
 
-        // Check if email already exists in ip_users
+        // Check if email already exists in ip_users -> if found, link directly!
         $existing_user = $this->db->where('user_email', $user_email)->get('ip_users')->row();
         if ($existing_user) {
-            echo json_encode(['success' => 0, 'error' => 'A user account with this email already exists.']);
+            $this->db->where('employee_id', $employee_id);
+            $this->db->update('ip_employees', [
+                'user_id'       => $existing_user->user_id,
+                'date_modified' => date('Y-m-d H:i:s'),
+            ]);
+
+            $this->session->set_flashdata('alert_success', trans('user_account_linked_successfully'));
+
+            echo json_encode([
+                'success' => 1,
+                'user_id' => $existing_user->user_id,
+                'message' => trans('user_account_linked_successfully'),
+            ]);
 
             return;
         }

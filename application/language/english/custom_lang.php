@@ -43,6 +43,7 @@ $lang = [
     'activate'                          => 'Activate',
     'deactivate'                        => 'Deactivate',
     'user_account_created_successfully' => 'User Account has been created and linked successfully.',
+    'user_account_linked_successfully'  => 'Existing User Account found with this email and linked successfully.',
     'employee_saved_successfully'       => 'Employee record saved successfully.',
     'employee_deleted_successfully'     => 'Employee record deleted successfully.',
 ];
