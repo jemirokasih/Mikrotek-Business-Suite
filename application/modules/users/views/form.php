@@ -19,16 +19,20 @@ $einvoicingOpt = $einvoicing ? $einvoicingTip . trans('optional') . ')"' : '';
             $('#administrator_fields').hide();
             $('#guest_fields').hide();
             $('#role_select_group').hide();
+            $('#company_select_group').hide();
 
             var user_type = $('#user_type').val();
 
             if (user_type === '1') {
                 $('#administrator_fields').show();
+                $('#company_select_group').show();
             } else if (user_type === '3') {
                 $('#administrator_fields').show();
                 $('#role_select_group').show();
+                $('#company_select_group').show();
             } else if (user_type === '2') {
                 $('#guest_fields').show();
+                $('#company_select_group').hide();
             }
         }
 
@@ -75,6 +79,23 @@ $einvoicingOpt = $einvoicing ? $einvoicingTip . trans('optional') . ')"' : '';
                                 <label for="user_company"><?php _trans('company'); ?> (<?php _trans($itsCompany ? 'required_field' : 'optional'); ?>)</label><?php echo $qr_code_info; ?>
                                 <input type="text" name="user_company" id="user_company" class="form-control"
                                        value="<?php echo $this->mdl_users->form_value('user_company', true); ?>">
+                            </div>
+
+                            <div class="form-group" id="company_select_group">
+                                <label for="company_id"><?php echo trans('select_company'); ?></label>
+                                <select name="company_id" id="company_id" class="form-control simple-select">
+                                    <option value=""><?php echo trans('none'); ?></option>
+<?php
+$curr_company_id = $this->mdl_users->form_value('company_id');
+foreach ($companies as $comp) {
+    ?>
+                                    <option value="<?php echo $comp->company_id; ?>" <?php check_select($curr_company_id, $comp->company_id); ?>>
+                                        <?php echo html_escape($comp->company_name); ?>
+                                    </option>
+<?php
+}
+?>
+                                </select>
                             </div>
 
                             <div class="form-group">

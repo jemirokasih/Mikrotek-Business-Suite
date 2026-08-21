@@ -870,4 +870,10 @@ $lang = [
     'staff_custom_role'   => 'Staff / Custom Role',
     'user_role'           => 'User Role',
     'access_denied'       => 'Access Denied: You do not have permission to view or perform this action.',
+
+    // Companies / Multi-Company
+    'companies'        => 'Companies',
+    'company_form'     => 'Company Form',
+    'company_details'  => 'Company Details',
+    'select_company'   => 'Select Company',
 ];

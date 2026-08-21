@@ -36,5 +36,18 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Mengupdate `users/views/form.php` dengan grup seleksi Role otomatis jika tipe pengguna memilih Staff/Custom Role.
   - Mengupdate `application/modules/layout/views/includes/navbar.php` agar hanya menampilkan menu navigasi sesuai izin role user yang sedang login.
 
+### 🏢 Fitur Baru: Hirarki Company & Multi-Company User (Branch `dev`)
+- **Database Schema**:
+  - Membuat tabel `ip_companies` (`company_id`, `company_name`, `company_address_1`, `company_city`, `company_phone`, `company_email`, `company_active`).
+  - Menambahkan kolom `company_id` pada tabel `ip_users`.
+  - Menambahkan file migrasi `application/modules/setup/sql/045_1.7.4.sql`.
+- **Modul Master Perusahaan (`application/modules/companies/`)**:
+  - `Mdl_companies.php`, `Companies.php` (CRUD Controller), `views/index.php` & `views/form.php` untuk mengelola master perusahaan.
+- **Integrasi Hirarki Company pada Form User (`users/form`)**:
+  - Mengupdate `Mdl_users.php` & `Users.php` controller untuk menyimpan relasi `company_id` dan memperbarui `user_company`.
+  - Mengupdate `users/views/form.php` dengan dropdown seleksi Company untuk tipe pengguna Admin & Staff, dan secara otomatis menyembunyikannya untuk tipe pengguna Client/Guest login.
+  - Menambahkan menu **Companies** pada navbar navigasi utama di bawah menu Settings.
+
 ---
+
 

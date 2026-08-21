@@ -163,6 +163,7 @@
                     </a>
                     <ul class="dropdown-menu">
                         <?php if (has_permission('settings')) : ?>
+                            <li><?php echo anchor('companies/index', trans('companies')); ?></li>
                             <li><?php echo anchor('custom_fields/index', trans('custom_fields')); ?></li>
                             <li><?php echo anchor('email_templates/index', trans('email_templates')); ?></li>
                             <li><?php echo anchor('invoice_groups/index', trans('invoice_groups')); ?></li>

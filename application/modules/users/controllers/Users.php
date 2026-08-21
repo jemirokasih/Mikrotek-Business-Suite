@@ -59,7 +59,17 @@ class Users extends Admin_Controller
             $db_array                 = $this->mdl_users->db_array();
             $db_array['user_type']    = (int) $this->input->post('user_type');
             $db_array['user_role_id'] = $this->input->post('user_role_id') ? (int) $this->input->post('user_role_id') : null;
-            $id                       = $this->mdl_users->save($id, $db_array);
+            $db_array['company_id']   = $this->input->post('company_id') ? (int) $this->input->post('company_id') : null;
+
+            if ($db_array['company_id']) {
+                $this->load->model('companies/mdl_companies');
+                $comp = $this->mdl_companies->get_by_id($db_array['company_id']);
+                if ($comp) {
+                    $db_array['user_company'] = $comp->company_name;
+                }
+            }
+
+            $id = $this->mdl_users->save($id, $db_array);
 
             $this->load->model('custom_fields/mdl_user_custom');
             $this->mdl_user_custom->save_custom($id, $this->input->post('custom'));
@@ -150,6 +160,7 @@ class Users extends Admin_Controller
         $custom_fields['ip_invoice_custom'] = $this->mdl_custom_fields->by_table('ip_invoice_custom')->get()->result();
 
         $this->load->model('roles/mdl_roles');
+        $this->load->model('companies/mdl_companies');
 
         $this->layout->set(
             [
@@ -164,6 +175,7 @@ class Users extends Admin_Controller
                 'languages'        => get_available_languages(),
                 'einvoicing'       => get_setting('einvoicing'),
                 'roles'            => $this->mdl_roles->get()->result(),
+                'companies'        => $this->mdl_companies->get()->result(),
             ]
         );
 

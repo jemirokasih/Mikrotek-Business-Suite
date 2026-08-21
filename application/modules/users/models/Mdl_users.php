@@ -45,12 +45,13 @@ class Mdl_Users extends Response_Model
 
     public function default_select(): void
     {
-        $this->db->select('SQL_CALC_FOUND_ROWS ip_users.*, ip_roles.role_name', false);
+        $this->db->select('SQL_CALC_FOUND_ROWS ip_users.*, ip_roles.role_name, ip_companies.company_name AS company_name_master', false);
     }
 
     public function default_join(): void
     {
         $this->db->join('ip_roles', 'ip_roles.role_id = ip_users.user_role_id', 'left');
+        $this->db->join('ip_companies', 'ip_companies.company_id = ip_users.company_id', 'left');
     }
 
     public function default_order_by(): void
