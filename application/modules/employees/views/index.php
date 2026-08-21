@@ -1,12 +1,66 @@
 <div id="headerbar">
-    <h1 class="headerbar-title"><?php _trans('employees'); ?></h1>
+
+    <div class="headerbar-left">
+        <h1 class="headerbar-title"><?php _trans('employees'); ?></h1>
+
+        <div class="headerbar-item visible-lg">
+            <div class="btn-group btn-group-sm index-options">
+                <a href="<?php echo site_url('employees/status/active'); ?>"
+                   class="btn <?php echo $status == 'active' || !$status ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('active'); ?>
+                </a>
+                <a href="<?php echo site_url('employees/status/linked'); ?>"
+                   class="btn <?php echo $status == 'linked' ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('linked_user_account'); ?>
+                </a>
+                <a href="<?php echo site_url('employees/status/inactive'); ?>"
+                   class="btn <?php echo $status == 'inactive' ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('inactive'); ?>
+                </a>
+                <a href="<?php echo site_url('employees/status/all'); ?>"
+                   class="btn <?php echo $status == 'all' ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('all'); ?>
+                </a>
+            </div>
+        </div>
+    </div>
 
     <div class="headerbar-item pull-right">
+        <button type="button" class="btn btn-default btn-sm submenu-toggle hidden-lg"
+                data-toggle="collapse" data-target="#ip-submenu-collapse">
+            <i class="fa fa-bars"></i> <?php _trans('submenu'); ?>
+        </button>
         <?php if (has_permission('employees', 'create')) : ?>
             <a class="btn btn-sm btn-primary" href="<?php echo site_url('employees/form'); ?>">
                 <i class="fa fa-plus"></i> <?php _trans('add_employee'); ?>
             </a>
         <?php endif; ?>
+    </div>
+
+</div>
+
+<div id="submenu">
+    <div class="collapse clearfix" id="ip-submenu-collapse">
+        <div class="submenu-row">
+            <div class="btn-group btn-group-sm index-options">
+                <a href="<?php echo site_url('employees/status/active'); ?>"
+                   class="btn <?php echo $status == 'active' || !$status ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('active'); ?>
+                </a>
+                <a href="<?php echo site_url('employees/status/linked'); ?>"
+                   class="btn <?php echo $status == 'linked' ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('linked_user_account'); ?>
+                </a>
+                <a href="<?php echo site_url('employees/status/inactive'); ?>"
+                   class="btn <?php echo $status == 'inactive' ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('inactive'); ?>
+                </a>
+                <a href="<?php echo site_url('employees/status/all'); ?>"
+                   class="btn <?php echo $status == 'all' ? 'btn-primary' : 'btn-default'; ?>">
+                    <?php _trans('all'); ?>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -14,23 +68,7 @@
 
     <?php $this->layout->load_view('layout/alerts'); ?>
 
-    <ul class="nav nav-tabs nav-tabs-noborder">
-        <li class="<?php echo $status == 'active' ? 'active' : ''; ?>">
-            <a href="<?php echo site_url('employees/status/active'); ?>"><?php _trans('active'); ?></a>
-        </li>
-        <li class="<?php echo $status == 'linked' ? 'active' : ''; ?>">
-            <a href="<?php echo site_url('employees/status/linked'); ?>"><?php _trans('linked_user_account'); ?></a>
-        </li>
-        <li class="<?php echo $status == 'inactive' ? 'active' : ''; ?>">
-            <a href="<?php echo site_url('employees/status/inactive'); ?>"><?php _trans('inactive'); ?></a>
-        </li>
-        <li class="<?php echo $status == 'all' ? 'active' : ''; ?>">
-            <a href="<?php echo site_url('employees/status/all'); ?>"><?php _trans('all'); ?></a>
-        </li>
-    </ul>
-
-    <div class="tab-content">
-        <div class="table-responsive">
+    <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
@@ -133,8 +171,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-
 </div>
 
 <div id="modal-placeholder"></div>

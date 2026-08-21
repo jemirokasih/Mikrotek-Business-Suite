@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.25] - 2026-08-21
+
+### 🎨 Standarisasi Tab Filter Halaman Karyawan (`employees/views/index.php`)
+- **Harmonisasi Headerbar & Tab Status Filter**: Mengubah navigasi filter status (*Active*, *Linked User Account*, *Inactive*, *All*) pada daftar karyawan agar berada di dalam `#headerbar` (`.index-options`) dan drawer `#submenu` selaras dengan modul lainnya (Invoices, Quotes, Clients, Payments, Products, Tasks).
+
+---
+
 ## [v1.7.24] - 2026-08-21
 
 ### 🎨 Layout Panel Settings Full-Width Edge-to-Edge (`settings/views/`)
