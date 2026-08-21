@@ -87,9 +87,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Mengupdate modal pembuatan Invoice & Quote (`modal_create_invoice.php` & `modal_create_quote.php`) untuk memilih **Digital Signature** atau **Manual Signature (Ruang Kosong)** beserta **Nama & Jabatan Penanggung Jawab**.
   - Menambahkan konfigurasi `REMOVE_INDEXPHP=true` pada `ipconfig.php` & `.htaccess` rewrite rule untuk membebaskan `index.php` dari URL scan QR Code.
   - Menambahkan pengaturan **Header PDF Faktur** (`pdf_invoice_header`) & **Header PDF Penawaran** (`pdf_quote_header`) pada System Settings (`partial_settings_invoices.php` & `partial_settings_quotes.php`).
-  - Mengupdate `mpdf_helper.php` dengan `SetHTMLHeaderByName('defaultHeader')` & `sanitize_pdf_header_content()` sehingga Header HTML otomatis muncul dan berulang di bagian atas seluruh halaman pada dokumen PDF multi-halaman.
+  - Memperbarui `sanitize_pdf_header_content()` & `sanitize_pdf_footer_content()` agar tidak menghapus atribut `style`, `class`, `src`, `width`, `height`, `align` serta tag `table`, `tr`, `td`, `img`, `hr` sehingga desain Kop / Header HTML muncul sempurna 100% pada cetakan PDF.
 
 ---
+
 
 
 

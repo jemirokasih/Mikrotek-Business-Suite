@@ -23,21 +23,20 @@ if ( ! defined('BASEPATH')) {
  */
 function sanitize_pdf_footer_content(?string $footer): string
 {
-    if ($footer === null) {
+    if (empty($footer)) {
         return '';
     }
 
-    $footer     = str_ireplace(['<br>', '<br/>', '<br />'], "\n", $footer);
     $normalized = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $footer);
-
-    $allowedTags = ['b', 'strong', 'i', 'em', 'u', 'p', 'br', 'small', 'span', 'div'];
+    $allowedTags = ['b', 'strong', 'i', 'em', 'u', 'p', 'br', 'small', 'span', 'div', 'img', 'table', 'tr', 'td', 'th', 'tbody', 'thead', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr'];
+    $allowedAttributes = ['style', 'class', 'src', 'width', 'height', 'align', 'valign', 'border', 'cellpadding', 'cellspacing', 'colspan', 'rowspan'];
 
     $previousInternalErrors = libxml_use_internal_errors(true);
     $dom                    = new DOMDocument('1.0', 'UTF-8');
 
     $dom->loadHTML('<?xml encoding="utf-8"?><div id="ip-footer-wrapper">' . $normalized . '</div>', LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
-    $cleanNode = static function (DOMNode $node) use (&$cleanNode, $allowedTags): void {
+    $cleanNode = static function (DOMNode $node) use (&$cleanNode, $allowedTags, $allowedAttributes): void {
         /** @var DOMNode $child */
         foreach (iterator_to_array($node->childNodes) as $child) {
             if ($child instanceof DOMElement) {
@@ -48,8 +47,19 @@ function sanitize_pdf_footer_content(?string $footer): string
                     continue;
                 }
 
-                while ($child->attributes->length > 0) {
-                    $child->removeAttributeNode($child->attributes->item(0));
+                if ($child->hasAttributes()) {
+                    $attributesToRemove = [];
+                    foreach ($child->attributes as $attr) {
+                        $attrName = mb_strtolower($attr->nodeName);
+                        if ($attrName === 'src' && preg_match('/^\s*javascript:/i', $attr->nodeValue)) {
+                            $attributesToRemove[] = $attr->nodeName;
+                        } elseif ( ! in_array($attrName, $allowedAttributes, true)) {
+                            $attributesToRemove[] = $attr->nodeName;
+                        }
+                    }
+                    foreach ($attributesToRemove as $attrName) {
+                        $child->removeAttribute($attrName);
+                    }
                 }
 
                 $cleanNode($child);
@@ -158,10 +168,10 @@ function pdf_create(
         throw new \RuntimeException(sprintf('Directory "%s" was not created', UPLOADS_ARCHIVE_FOLDER));
     }
 
-    $invoiceHeader = sanitize_pdf_header_content($CI->mdl_settings->settings['pdf_invoice_header'] ?? '');
-    $quoteHeader   = sanitize_pdf_header_content($CI->mdl_settings->settings['pdf_quote_header'] ?? '');
-    $invoiceFooter = sanitize_pdf_footer_content($CI->mdl_settings->settings['pdf_invoice_footer'] ?? '');
-    $quoteFooter   = sanitize_pdf_footer_content($CI->mdl_settings->settings['pdf_quote_footer'] ?? '');
+    $invoiceHeader = sanitize_pdf_header_content(get_setting('pdf_invoice_header'));
+    $quoteHeader   = sanitize_pdf_header_content(get_setting('pdf_quote_header'));
+    $invoiceFooter = sanitize_pdf_footer_content(get_setting('pdf_invoice_footer'));
+    $quoteFooter   = sanitize_pdf_footer_content(get_setting('pdf_quote_footer'));
 
     // Set the default header that shall always be available for mPDF
     $mpdf->DefHTMLHeaderByName('defaultHeader', '');
@@ -174,6 +184,9 @@ function pdf_create(
         $mpdf->DefHTMLHeaderByName('header', '<div id="header">' . $invoiceHeader . '</div>');
         $mpdf->DefHTMLHeaderByName('defaultHeader', '<div id="header">' . $invoiceHeader . '</div>');
         $mpdf->DefHTMLHeaderByName('html_header', '<div id="header">' . $invoiceHeader . '</div>');
+        $mpdf->SetHTMLHeaderByName('header');
+        $mpdf->SetHTMLHeaderByName('html_header');
+        $mpdf->SetHTMLHeaderByName('defaultHeader');
     }
 
     // Set the header if voucher is quote and if set in settings
@@ -182,6 +195,9 @@ function pdf_create(
         $mpdf->DefHTMLHeaderByName('header', '<div id="header">' . $quoteHeader . '</div>');
         $mpdf->DefHTMLHeaderByName('defaultHeader', '<div id="header">' . $quoteHeader . '</div>');
         $mpdf->DefHTMLHeaderByName('html_header', '<div id="header">' . $quoteHeader . '</div>');
+        $mpdf->SetHTMLHeaderByName('header');
+        $mpdf->SetHTMLHeaderByName('html_header');
+        $mpdf->SetHTMLHeaderByName('defaultHeader');
     }
 
     //Set the default footer that shall always be available for mPDF
@@ -216,7 +232,6 @@ function pdf_create(
         $mpdf->showWatermarkText = true;
     }
 
-    $mpdf->SetHTMLHeaderByName('defaultHeader');
     $mpdf->SetHTMLFooterByName('defaultFooter');
 
     try {
