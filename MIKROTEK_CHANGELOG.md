@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.2] - 2026-08-21
+
+### 🎨 Fix Asset Inclusion & Component Polish pada Modern Sidebar Layout
+- **Fix Asset & Script Loading (`layout_sidebar.php`)**: Memuat `layout/includes/head` dan `scripts.min.js` secara lengkap agar seluruh stylesheet tema, plugin jQuery, datepicker, select2, dan fungsi javascript bawaan InvoicePlane termuat dengan sempurna.
+- **Enhanced CSS Component Overrides (`modern_sidebar.css`)**: Memperbarui styling `#headerbar`, `.panel`, `.table`, `.form-control`, `.btn`, dan `.label` untuk menyelaraskan tata letak konten di dalam Modern Sidebar Layout.
+
+---
+
 ## [v1.7.1] - 2026-08-21
 
 ### 🎨 Pengaturan Layout Default (Modern Sidebar) & Tombol Rollback Legacy

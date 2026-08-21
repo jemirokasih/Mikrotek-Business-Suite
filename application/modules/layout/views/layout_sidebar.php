@@ -1,17 +1,11 @@
 <!DOCTYPE html>
 <html class="no-js" lang="<?php echo trans('cldr'); ?>">
 <head>
-    <title><?php echo get_setting('custom_title', 'Mikrotek Business Suite', true); ?></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <link rel="icon" type="image/png" href="<?php echo base_url('assets/core/img/favicon.png'); ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/core/css/style.css'); ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/core/css/custom.css'); ?>">
-    <link rel="stylesheet" href="<?php echo base_url('assets/core/css/modern_sidebar.css'); ?>">
-    
-    <script src="<?php echo base_url('assets/core/js/dependencies.js'); ?>"></script>
+<?php
+    // Load full head includes (theme style.css, custom.css, dependencies, datepicker, dropzone, etc.)
+    $this->layout->load_view('layout/includes/head');
+?>
+    <link rel="stylesheet" href="<?php echo base_url('assets/core/css/modern_sidebar.css'); ?>" type="text/css">
 </head>
 <body class="layout-sidebar-active">
 
@@ -25,7 +19,7 @@
                 <i class="fa fa-bars"></i>
             </button>
             <span style="font-weight: 600; font-size: 16px; margin-left: 15px; color: #1e293b;" class="hidden-xs">
-                <?php echo get_setting('custom_title', 'Mikrotek Business Suite', true); ?>
+                <?php echo get_setting('custom_title', MIKROTEK_APP_NAME, true); ?>
             </span>
         </div>
 
@@ -56,7 +50,18 @@
         <?php echo $content; ?>
     </div>
 
+    <footer id="app-footer" class="text-center" style="padding: 15px 0; margin-top: 30px; font-size: 12px; color: #777; border-top: 1px solid #e7e7e7;">
+        <?php echo MIKROTEK_APP_NAME; ?> <?php echo MIKROTEK_INVOICE_VERSION; ?>
+    </footer>
+
     <div id="modal-placeholder"></div>
+
+    <?php echo $this->layout->load_view('layout/includes/fullpage-loader'); ?>
+
+    <script defer src="<?php _core_asset('js/scripts.min.js'); ?>"></script>
+<?php if (trans('cldr') != 'en') { ?>
+    <script src="<?php _core_asset('js/locales/bootstrap-datepicker.' . trans('cldr') . '.js'); ?>"></script>
+<?php } ?>
 
     <script>
     $(function () {
