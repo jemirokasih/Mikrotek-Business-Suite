@@ -411,6 +411,57 @@ body.layout-sidebar-active .index-options .btn-warning,
     box-shadow: 0 1px 3px rgba(217, 119, 6, 0.25) !important;
 }
 
+/* Model Pager / Pagination Button Group Consistency */
+body.layout-sidebar-active .model-pager,
+body.layout-sidebar-active #headerbar .model-pager,
+.model-pager {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+    background-color: #f1f5f9 !important;
+    padding: 3px !important;
+    border-radius: 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+    float: none !important;
+}
+
+body.layout-sidebar-active .model-pager .btn,
+body.layout-sidebar-active #headerbar .model-pager .btn,
+.model-pager .btn {
+    padding: 5px 10px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    border: none !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    transition: all 0.15s ease !important;
+    box-shadow: none !important;
+    transform: none !important;
+    float: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background-color: transparent !important;
+    color: #475569 !important;
+}
+
+body.layout-sidebar-active .model-pager .btn:hover:not(.disabled),
+.model-pager .btn:hover:not(.disabled) {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+}
+
+body.layout-sidebar-active .model-pager .btn.disabled,
+.model-pager .btn.disabled {
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    background-color: transparent !important;
+    color: #94a3b8 !important;
+}
+
 /* Modern & Compact Nav Tabs & Nav Pills */
 body.layout-sidebar-active .nav-tabs {
     border-bottom: 1px solid #e2e8f0;

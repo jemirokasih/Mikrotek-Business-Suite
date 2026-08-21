@@ -4,6 +4,19 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.16] - 2026-08-21
+
+### 🎨 Standarisasi Skala Ukuran & Konsistensi UI Elements
+- **Harmonized Size Scale (`modern_sidebar.css`)**: Mengatur skala ukuran seluruh komponen UI agar konsisten secara presisi across the system:
+  - Headerbar Titles: `20px`
+  - Card/Panel Headers: `14px / 15px bold`
+  - Standard Buttons & Inputs: `36px - 38px` (Font `13px`)
+  - Small Controls, Tab Items & Pager Buttons (`.model-pager`): `32px` container / `26px` button (Font `12px`)
+  - Tables & Data: `13px` cell text / `12px uppercase` header
+  - Badges & Labels (`.label`): `11px` (Padding `4px 8px`)
+
+---
+
 ## [v1.7.15] - 2026-08-21
 
 ### 🎨 Desain Compact Segmented Control Tab Filter Status (All, Draft, Sent, Viewed, Paid, etc.)
