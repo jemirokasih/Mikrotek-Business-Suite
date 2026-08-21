@@ -1,20 +1,26 @@
 <img align="right" alt="Mikrotek Business Suite logo" src="/assets/core/img/favicon.png">
 
-# Mikrotek Business Suite `v1.2.0`
+# Mikrotek Business Suite `v1.3.0`
 
-_An enhanced, open-source business operations, invoicing, multi-company, and role-based management platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
+_An enhanced, open-source business operations, invoicing, multi-company, employee management, and role-based platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
 
 ---
 
 ## 📌 About Mikrotek Business Suite
 
-**Mikrotek Business Suite** is a customized distribution of [InvoicePlane](https://invoiceplane.com/), tailored for comprehensive business operations. It expands standard invoicing capabilities with custom Role-Based Access Control (RBAC), multi-company management, Indonesian receipt/kwitansi generation with auto-terbilang, dynamic proforma invoicing, multiple client contacts (PIC), bank account management, project integrations, and custom PDF outputs (signatures, headers, and localized formatting).
+**Mikrotek Business Suite** is a customized distribution of [InvoicePlane](https://invoiceplane.com/), tailored for comprehensive business operations. It expands standard invoicing capabilities with custom Role-Based Access Control (RBAC), multi-company management, Employee/HR management, Indonesian receipt/kwitansi generation with auto-terbilang, dynamic proforma invoicing, multiple client contacts (PIC), bank account management, project integrations, and custom PDF outputs.
 
 > **Credit & Attribution:** This application is powered by **InvoicePlane** (licensed under the MIT License). We extend our deepest gratitude to the original InvoicePlane team and open-source contributors.
 
 ---
 
-## ✨ Features & Extensions in v1.2.0
+## ✨ Features & Extensions in v1.3.0
+
+- 👥 **Employee / HR Management Module (`employees`)**:
+  - Employee master data (Personal, Contact, Employment, and Bank/Payroll details).
+  - Single-page stacked panel form layout for seamless user experience.
+  - Auto-generated employee numbers (`EMP-0001`).
+  - **On-Demand User Account Provisioning & Auto-Link**: Optionally create or automatically link existing `ip_users` accounts by email.
 
 - 🔐 **Role & Multi-User Access Control (RBAC)**:
   - Custom roles with modular permissions matrix (Invoices, Quotes, Clients, Payments, Products, Projects, Receipts, Reports, Settings, Users, Roles).

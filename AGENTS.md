@@ -106,6 +106,10 @@ There is no `quickstart.yml`. InvoicePlane does not have `php artisan` commands.
 
 ## Documentation / changelog rules
 
+- **Versioning & Changelog Protocol**: For every code change, bug fix, or feature update:
+  - Always bump the version number in `package.json` and `composer.json` (e.g. `1.2.0` -> `1.2.1` -> `1.2.2`, or `1.3.0` for major updates).
+  - Always document changes under the new version header in `MIKROTEK_CHANGELOG.md`.
+- **GitHub Release on Merge to Main**: Whenever code is merged to `main` branch, ALWAYS create a new GitHub Release (`gh release create vX.Y.Z`) complete with detailed changelog release notes.
 - **Do NOT change CVSSv3 scores, CWE identifiers, or Severity labels** in vulnerability tables unless the user explicitly asks. These are set by the security researchers and maintainer.
 - When populating empty cells (`—`) in a vulnerability table, touch only those empty cells. Leave all other columns in the same row unchanged.
 - GHSA advisory links follow the pattern: `https://github.com/InvoicePlane/InvoicePlane/security/advisories/GHSA-xxxx-xxxx-xxxx`

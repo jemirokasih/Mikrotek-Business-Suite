@@ -4,6 +4,26 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.3.0] - 2026-08-21
+
+### 👥 Modul Employee / Karyawan & On-Demand User Account
+- **Modul Employees (`application/modules/employees/`)**:
+  - `Mdl_employees.php`: Model pengelola data karyawan, penomoran otomatis `EMP-XXXX`, filter status aktif/non-aktif, & integrasi scope perusahaan.
+  - `Employees.php`: Controller CRUD Karyawan, handler toggle status aktif, detail profil, dan integrasi RBAC permissions.
+- **Redesain Formulir 1-Halaman (Single-Page Form UI)**:
+  - Mengubah formulir karyawan (`form.php`) dari tampilan berbasis Tab menjadi **Single-Page 2-Column Stacked Panel Layout** (seperti form Klien) agar seluruh field wajib (termasuk Email) dapat diisi dan divalidasi langsung tanpa berpindah tab.
+- **On-Demand User Account Creation & Auto-Linking**:
+  - Modal pembuatan akun pengguna (`modal_create_user_account.php`) untuk membuat atau mentautkan akun pengguna `ip_users` secara opsional.
+  - **Auto-Link Email Terdaftar**: Jika email karyawan yang didaftarkan sudah memiliki akun `ip_users`, sistem secara otomatis mengaitkan ID pengguna tersebut tanpa memicu error duplikat.
+
+### 🛠️ Perbaikan & Patch (Bug Fixes)
+- **Fix `MY_Model::paginate()` Call**: Menambahkan argumen URL wajib (`site_url('employees/status/' . $status)`) pada panggilan `paginate()` di `Employees.php`.
+- **Fix CSRF Protection**: Menambahkan helper `_csrf_field()` pada form karyawan dan modal pembuat akun pengguna untuk mencegah error *"The action you have requested is not allowed."*.
+- **Fix Multi-Field Save Sanitization**: Mendaftarkan seluruh 27 field input ke dalam `validation_rules()` di `Mdl_employees.php` agar `db_array()` menyimpan seluruh data input form ke database.
+- **Fix Crypt Password Hashing**: Mengganti pemanggilan library `Cryptor::genSalt()` menjadi `$this->load->library('crypt')` dengan `$this->crypt->salt()` & `$this->crypt->generate_password()` untuk mengatasi error 500 (*Network error*).
+
+---
+
 ## [2026-08-21] - Initial Setup & Fixes (Branch `dev`)
 
 ### 🚀 Setup & Konfigurasi
