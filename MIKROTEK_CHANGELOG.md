@@ -4,6 +4,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.3] - 2026-08-21
+
+### 🎨 Perbaikan Zebra Striping Tabel, Responsive Layout & Minimizable Sidebar
+- **Distinct Table Zebra Striping (`modern_sidebar.css`)**: Mengatur latar baris ganjil (`#ffffff`) dan genap (`#f8fafc`) dengan border yang jelas agar data tabel (invoices, quotes, clients, attendance) mudah dibaca.
+- **Minimizable Sidebar & Floating Submenus**: Menyediakan animasi lipat (*collapse*) sidebar ke ukuran 70px dengan popover submenu melayang (*floating accordion*) saat kursor berada di atas ikon.
+- **Enhanced Responsive Mobile Layout**: Menambahkan `.sidebar-backdrop` overlay untuk navigasi drawer seluler serta kontainer tabel yang dapat di-scroll secara horizontal pada layar kecil.
+
+---
+
 ## [v1.7.2] - 2026-08-21
 
 ### 🎨 Fix Asset Inclusion & Component Polish pada Modern Sidebar Layout

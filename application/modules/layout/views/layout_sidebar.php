@@ -63,6 +63,9 @@
     <script src="<?php _core_asset('js/locales/bootstrap-datepicker.' . trans('cldr') . '.js'); ?>"></script>
 <?php } ?>
 
+    <!-- Sidebar Backdrop for Mobile Drawer -->
+    <div class="sidebar-backdrop"></div>
+
     <script>
     $(function () {
         // Toggle Sidebar Collapsed State
@@ -74,6 +77,10 @@
                 $('body').toggleClass('sidebar-collapsed');
                 Cookies.set('sidebar_collapsed', $('body').hasClass('sidebar-collapsed') ? '1' : '0', { expires: 365 });
             }
+        });
+
+        $('.sidebar-backdrop').click(function () {
+            $('body').removeClass('mobile-sidebar-open');
         });
 
         // Restore Collapsed State from Cookie

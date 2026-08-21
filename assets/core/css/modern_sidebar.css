@@ -65,6 +65,10 @@ body.sidebar-collapsed #sidebar-wrapper {
     transition: opacity 0.2s;
 }
 
+body.sidebar-collapsed .sidebar-brand {
+    padding: 0 19px;
+}
+
 body.sidebar-collapsed .sidebar-brand span {
     display: none;
 }
@@ -150,11 +154,6 @@ body.sidebar-collapsed .sidebar-group-title {
     white-space: nowrap;
 }
 
-body.sidebar-collapsed .sidebar-nav-link span.nav-text,
-body.sidebar-collapsed .sidebar-nav-link i.arrow-icon {
-    display: none;
-}
-
 .sidebar-nav-link i.arrow-icon {
     font-size: 12px;
     transition: transform 0.2s;
@@ -182,8 +181,41 @@ body.sidebar-collapsed .sidebar-nav-link i.arrow-icon {
     font-size: 13px;
 }
 
+/* Minimizable / Collapsible Sidebar Behavior */
+body.sidebar-collapsed .sidebar-nav-link {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+body.sidebar-collapsed .sidebar-nav-link i.nav-icon {
+    margin-right: 0;
+    font-size: 18px;
+}
+
+body.sidebar-collapsed .sidebar-nav-link span.nav-text,
+body.sidebar-collapsed .sidebar-nav-link i.arrow-icon {
+    display: none;
+}
+
 body.sidebar-collapsed .sidebar-submenu {
     display: none !important;
+}
+
+body.sidebar-collapsed .sidebar-nav-item:hover > .sidebar-submenu {
+    display: block !important;
+    position: absolute;
+    left: var(--sidebar-collapsed-width);
+    top: 0;
+    width: 200px;
+    background-color: #1e293b;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1050;
+}
+
+body.sidebar-collapsed .sidebar-nav-item:hover > .sidebar-submenu .sidebar-nav-link {
+    padding-left: 20px;
+    justify-content: flex-start;
 }
 
 /* Main Topbar Header */
@@ -310,11 +342,23 @@ body.layout-sidebar-active .panel-body {
     padding: 20px;
 }
 
-/* Tables Modernization */
+/* ==========================================================================
+   Table Zebra Striping & Clean Layout Polish
+   ========================================================================== */
+
 body.layout-sidebar-active .table-content,
 body.layout-sidebar-active #content {
     background: transparent;
     padding: 0;
+}
+
+body.layout-sidebar-active .table-responsive {
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 body.layout-sidebar-active .table {
@@ -322,25 +366,36 @@ body.layout-sidebar-active .table {
 }
 
 body.layout-sidebar-active .table > thead > tr > th {
-    background-color: #f8fafc;
-    color: #475569;
-    font-weight: 600;
-    font-size: 13px;
+    background-color: #f1f5f9;
+    color: #334155;
+    font-weight: 700;
+    font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 2px solid #cbd5e1;
     padding: 12px 16px;
+}
+
+/* Distinct Table Zebra Striping (Odd vs Even) */
+body.layout-sidebar-active .table-striped > tbody > tr:nth-of-type(odd),
+body.layout-sidebar-active .table > tbody > tr:nth-child(odd) {
+    background-color: #ffffff !important;
+}
+
+body.layout-sidebar-active .table-striped > tbody > tr:nth-of-type(even),
+body.layout-sidebar-active .table > tbody > tr:nth-child(even) {
+    background-color: #f8fafc !important;
+}
+
+body.layout-sidebar-active .table-hover > tbody > tr:hover {
+    background-color: #f1f5f9 !important;
 }
 
 body.layout-sidebar-active .table > tbody > tr > td {
     padding: 14px 16px;
     vertical-align: middle;
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid #e2e8f0;
     color: #334155;
-}
-
-body.layout-sidebar-active .table-hover > tbody > tr:hover {
-    background-color: #f8fafc;
 }
 
 /* Form Controls & Buttons */
@@ -422,7 +477,33 @@ body.layout-sidebar-active #main-area {
     border: none !important;
 }
 
+/* Mobile Sidebar Backdrop Overlay */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.5);
+    z-index: 1035;
+}
+body.mobile-sidebar-open .sidebar-backdrop {
+    display: block;
+}
+
 /* Responsive Mobile Rules */
+@media (max-width: 991px) {
+    body.layout-sidebar-active #headerbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    body.layout-sidebar-active #headerbar .headerbar-item {
+        margin-top: 10px;
+        width: 100%;
+    }
+}
+
 @media (max-width: 768px) {
     #sidebar-wrapper {
         transform: translateX(-100%);
