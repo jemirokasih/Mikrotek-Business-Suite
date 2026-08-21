@@ -34,7 +34,8 @@ class Employees extends Admin_Controller
                 break;
         }
 
-        $employees = $this->mdl_employees->paginate()->get()->result();
+        $this->mdl_employees->paginate(site_url('employees/status/' . $status), $page, 4);
+        $employees = $this->mdl_employees->get()->result();
 
         $this->layout->set([
             'employees'          => $employees,
