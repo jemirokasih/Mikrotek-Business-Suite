@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.8] - 2026-08-21
+
+### 🛠️ Fix Direct Page Navigation & Chevron Toggle pada Parent Menu Sidebar
+- **Direct Navigation Href (`sidebar_menu.php`)**: Mengarahkan `href` link judul menu induk ("Invoices", "Quotes", "Payments", "Clients", "Products", "Projects", "Employees", "Settings", dll) ke URL halaman utama terkait (`invoices/index`, `quotes/index`, `payments/index`, `clients/index`, `employees/index`, `settings`).
+- **Independent Chevron Accordion Toggle**: Ikon panah (`.arrow-icon`) menangani fungsi expand/collapse accordion submenu secara independen tanpa mengganggu navigasi langsung saat mengklik teks judul menu.
+
+---
+
 ## [v1.7.7] - 2026-08-21
 
 ### 🛠️ Fix Instant Click Response untuk Accordion Header Submenu

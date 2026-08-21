@@ -101,11 +101,11 @@
             $('body').addClass('sidebar-collapsed');
         }
 
-        // Submenu Accordion Toggle (JQuery fallback)
-        $(document).on('click', '.sidebar-nav-item.has-submenu > a', function (e) {
+        // Chevron Arrow Toggle Handler
+        $(document).on('click', '.arrow-icon', function (e) {
             e.preventDefault();
-            var $item = $(this).parent('.sidebar-nav-item');
-            $item.toggleClass('open');
+            e.stopPropagation();
+            toggleSidebarSubmenu(this);
         });
     });
     </script>

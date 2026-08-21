@@ -20,10 +20,10 @@
                 
                 <?php if (has_permission('invoices')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['invoices', 'recurring']) ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('invoices/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-file-text-o nav-icon"></i>
                             <span class="nav-text"><?php _trans('invoices'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('invoices/index'); ?>" class="sidebar-nav-link"><?php _trans('view_invoices'); ?></a></li>
@@ -38,10 +38,10 @@
 
                 <?php if (has_permission('quotes')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'quotes') ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('quotes/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-file-o nav-icon"></i>
                             <span class="nav-text"><?php _trans('quotes'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('quotes/index'); ?>" class="sidebar-nav-link"><?php _trans('view_quotes'); ?></a></li>
@@ -54,10 +54,10 @@
 
                 <?php if (has_permission('payments')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'payments') ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('payments/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-credit-card nav-icon"></i>
                             <span class="nav-text"><?php _trans('payments'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('payments/index'); ?>" class="sidebar-nav-link"><?php _trans('view_payments'); ?></a></li>
@@ -71,10 +71,10 @@
 
                 <?php if (has_permission('receipts')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'receipts') ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('receipts/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-print nav-icon"></i>
                             <span class="nav-text"><?php _trans('receipts'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('receipts/index'); ?>" class="sidebar-nav-link"><?php _trans('view_receipts'); ?></a></li>
@@ -92,10 +92,10 @@
 
                 <?php if (has_permission('clients')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'clients') ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('clients/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-users nav-icon"></i>
                             <span class="nav-text"><?php _trans('clients'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('clients/index'); ?>" class="sidebar-nav-link"><?php _trans('view_clients'); ?></a></li>
@@ -122,10 +122,10 @@
 
                 <?php if (has_permission('products')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['products', 'families', 'units']) ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('products/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-cube nav-icon"></i>
                             <span class="nav-text"><?php _trans('products'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('products/index'); ?>" class="sidebar-nav-link"><?php _trans('view_products'); ?></a></li>
@@ -141,10 +141,10 @@
                 <?php if (get_setting('projects_enabled') == 1) : ?>
                     <?php if (has_permission('projects') || has_permission('tasks')) : ?>
                         <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['projects', 'tasks']) ? 'open active' : ''; ?>">
-                            <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                            <a href="<?php echo site_url('projects/index'); ?>" class="sidebar-nav-link">
                                 <i class="fa fa-briefcase nav-icon"></i>
                                 <span class="nav-text"><?php _trans('projects'); ?> &amp; <?php _trans('tasks'); ?></span>
-                                <i class="fa fa-chevron-right arrow-icon"></i>
+                                <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                             </a>
                             <ul class="sidebar-submenu">
                                 <?php if (has_permission('projects')) : ?>
@@ -166,10 +166,10 @@
 
             <?php if (has_permission('employees')) : ?>
                 <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'employees') ? 'open active' : ''; ?>">
-                    <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                    <a href="<?php echo site_url('employees/index'); ?>" class="sidebar-nav-link">
                         <i class="fa fa-id-badge nav-icon"></i>
                         <span class="nav-text"><?php _trans('employees'); ?></span>
-                        <i class="fa fa-chevron-right arrow-icon"></i>
+                        <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a href="<?php echo site_url('employees/index'); ?>" class="sidebar-nav-link"><?php _trans('view_employees'); ?></a></li>
@@ -181,10 +181,10 @@
             <?php endif; ?>
 
             <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['attendance', 'leaves']) ? 'open active' : ''; ?>">
-                <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                <a href="<?php echo site_url('attendance/clock'); ?>" class="sidebar-nav-link">
                     <i class="fa fa-clock-o nav-icon"></i>
                     <span class="nav-text"><?php _trans('attendance'); ?> &amp; <?php _trans('leave'); ?></span>
-                    <i class="fa fa-chevron-right arrow-icon"></i>
+                    <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                 </a>
                 <ul class="sidebar-submenu">
                     <li><a href="<?php echo site_url('attendance/clock'); ?>" class="sidebar-nav-link"><?php _trans('attendance_portal'); ?></a></li>
@@ -203,10 +203,10 @@
             <?php if (has_permission('reports')) : ?>
                 <li class="sidebar-group-title">Reports</li>
                 <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'reports') ? 'open active' : ''; ?>">
-                    <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                    <a href="<?php echo site_url('reports/invoice_aging'); ?>" class="sidebar-nav-link">
                         <i class="fa fa-bar-chart nav-icon"></i>
                         <span class="nav-text"><?php _trans('reports'); ?></span>
-                        <i class="fa fa-chevron-right arrow-icon"></i>
+                        <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                     </a>
                     <ul class="sidebar-submenu">
                         <li><a href="<?php echo site_url('reports/invoice_aging'); ?>" class="sidebar-nav-link"><?php _trans('invoice_aging'); ?></a></li>
@@ -224,10 +224,10 @@
 
                 <?php if (has_permission('settings')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['settings', 'companies', 'custom_fields', 'email_templates', 'invoice_groups', 'payment_methods', 'tax_rates', 'import']) ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('settings'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-cogs nav-icon"></i>
                             <span class="nav-text"><?php _trans('settings'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <li><a href="<?php echo site_url('settings'); ?>" class="sidebar-nav-link"><?php _trans('system_settings'); ?></a></li>
@@ -244,10 +244,10 @@
 
                 <?php if (has_permission('users') || has_permission('roles')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['users', 'roles']) ? 'open active' : ''; ?>">
-                        <a href="javascript:void(0)" onclick="toggleSidebarSubmenu(this); return false;" class="sidebar-nav-link toggle-submenu">
+                        <a href="<?php echo site_url('users/index'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-shield nav-icon"></i>
                             <span class="nav-text"><?php _trans('user_accounts'); ?> &amp; <?php _trans('user_roles'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon"></i>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
                             <?php if (has_permission('users')) : ?>
