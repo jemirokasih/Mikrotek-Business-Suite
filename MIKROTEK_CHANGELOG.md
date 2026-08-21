@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.24] - 2026-08-21
+
+### 🎨 Layout Panel Settings Full-Width Edge-to-Edge (`settings/views/`)
+- **Full-Width Card Layout**: Mengubah wrapper container seluruh tab panel pengaturan dari `col-md-8 col-md-offset-2` menjadi `col-xs-12` agar tampilan card/panel melebar penuh dari ujung kiri ke ujung kanan (edge-to-edge).
+- **Optimasi Grid 2 Kolom**: Elemen form internal pada seluruh tab pengaturan kini memanfaatkan lebar layar secara maksimal dalam susunan grid 2 kolom / multi-kolom yang seimbang di sisi kiri dan kanan.
+
+---
+
 ## [v1.7.23] - 2026-08-21
 
 ### 🚚 Pemindahan Menu Rekening Bank ke Settings Submenu (`sidebar_menu.php`)

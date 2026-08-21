@@ -77,7 +77,7 @@
 
         <div class="tab-content">
 
-            <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <div class="col-xs-12">
                 <?php $this->layout->load_view('layout/alerts'); ?>
 
                 <?php if ( ! empty($missing_allowlisted_template_settings)) { ?>
