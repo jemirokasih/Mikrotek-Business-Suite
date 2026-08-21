@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.6] - 2026-08-21
+
+### 🛠️ Penambahan Seluruh Sub-Menu Navigasi & Event Handler Foolproof Accordion
+- **Lengkapi Seluruh Sub-Menu Navigasi (`sidebar_menu.php`)**: Menambahkan seluruh item menu bawaan InvoicePlane (Invoice Archive, Enter Payment, Payment Logs, Product Families & Units, Projects & Tasks, All Financial Reports, Companies, Custom Fields, Email Templates, Invoice Groups, Tax Rates, Import, dll).
+- **Foolproof Click Selector Handler (`layout_sidebar.php`)**: Menggunakan selector `.sidebar-nav-item.has-submenu > a` agar klik pada elemen teks (`<span class="nav-text">`), ikon (`<i class="nav-icon">`), maupun panah (`<i class="arrow-icon">`) 100% membuka accordion dropdown dengan sempurna.
+
+---
+
 ## [v1.7.5] - 2026-08-21
 
 ### 🛠️ Perbaikan Tag Script pada Partial Settings General (`partial_settings_general.php`)

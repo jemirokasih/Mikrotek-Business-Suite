@@ -172,7 +172,8 @@ body.sidebar-collapsed .sidebar-group-title {
     display: none;
 }
 
-body:not(.sidebar-collapsed) .sidebar-nav-item.open > .sidebar-submenu {
+body:not(.sidebar-collapsed) .sidebar-nav-item.open > .sidebar-submenu,
+body:not(.sidebar-collapsed) .sidebar-nav-item.has-submenu.open > .sidebar-submenu {
     display: block !important;
 }
 
