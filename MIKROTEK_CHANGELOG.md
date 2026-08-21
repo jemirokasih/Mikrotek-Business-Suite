@@ -78,11 +78,11 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan tab filter **Proforma Invoices** pada halaman daftar Invoice (`invoices/status/proforma`).
   - Menampilkan badge **PROFORMA INVOICE** pada tabel daftar & halaman detail Invoice jika `is_proforma = 1`.
   - Menambahkan tombol **Konversi ke Invoice Resmi** (`invoices/convert_proforma/$id`) untuk mengubah status `is_proforma = 0` dan menerbitkan nomor Invoice resmi secara instan.
-- **Template PDF Kustom Mikrotek & Pengaturan Sembunyikan Paid & Balance**:
-  - Membuat template PDF kustom khusus **`Mikrotek.php`** untuk Invoice (`application/views/invoice_templates/pdf/Mikrotek.php`) & Quote (`application/views/quote_templates/pdf/Mikrotek.php`).
-  - Menambahkan opsi pengaturan `pdf_hide_paid_and_balance` di halaman Pengaturan Invoice (`settings/partial_settings_invoices.php`) untuk menyembunyikan/menampilkan baris **Paid** & **Balance** pada cetak PDF Invoice.
+- **Penyempurnaan Fungsi Terbilang Standar Bahasa Indonesia (KBBI)**:
+  - Mengupdate helper `in_words()` pada `number_helper.php` dengan tata bahasa terbilang Indonesia baku (Seribu, Seratus, Miliar, Triliun, pecahan Sen, & format huruf kapital ucwords).
 
 ---
+
 
 
 

@@ -104,49 +104,76 @@ function standardize_amount($amount): float|int|string|array|false|null
 }
 
 /**
- * Return amount converted to Indonesian words (Terbilang / In Words).
+ * Return amount converted to standard Indonesian words (Terbilang Bahasa Indonesia).
  * Example: 1500000 -> "Satu Juta Lima Ratus Ribu Rupiah"
+ * Example: 1000 -> "Seribu Rupiah"
+ * Example: 2500.50 -> "Dua Ribu Lima Ratus Rupiah Lima Puluh Sen"
  *
  * @param float|int|string|null $amount
  * @return string
  */
 function in_words($amount): string
 {
-    $number = abs((float) standardize_amount($amount));
-    if ($number == 0) {
+    $val = (float) standardize_amount($amount);
+    if ($val == 0) {
         return 'Nol Rupiah';
     }
 
-    $words = ["", "Satu", "Dua", "Tiga", "Empat", "Lima", "Enam", "Tujuh", "Delapan", "Sembilan", "Sepuluh", "Sebelas"];
-    $temp = "";
+    $int_part = (int) floor(abs($val));
+    $decimal_part = (int) round((abs($val) - $int_part) * 100);
 
-    if ($number < 12) {
-        $temp = " " . $words[(int)$number];
-    } else if ($number < 20) {
-        $temp = in_words($number - 10) . " Belas";
-    } else if ($number < 100) {
-        $temp = in_words($number / 10) . " Puluh" . in_words($number % 10);
-    } else if ($number < 200) {
-        $temp = " Seratus" . in_words($number - 100);
-    } else if ($number < 1000) {
-        $temp = in_words($number / 100) . " Ratus" . in_words($number % 100);
-    } else if ($number < 2000) {
-        $temp = " Seribu" . in_words($number - 1000);
-    } else if ($number < 1000000) {
-        $temp = in_words($number / 1000) . " Ribu" . in_words($number % 1000);
-    } else if ($number < 1000000000) {
-        $temp = in_words($number / 1000000) . " Juta" . in_words($number % 1000000);
-    } else if ($number < 1000000000000) {
-        $temp = in_words($number / 1000000000) . " Milyar" . in_words(fmod($number, 1000000000));
-    } else if ($number < 1000000000000000) {
-        $temp = in_words($number / 1000000000000) . " Trilyun" . in_words(fmod($number, 1000000000000));
+    $terbilang_int = trim(preg_replace('/\s+/', ' ', terbilang_satuan($int_part)));
+    
+    $result = $terbilang_int . ' Rupiah';
+
+    if ($decimal_part > 0) {
+        $terbilang_dec = trim(preg_replace('/\s+/', ' ', terbilang_satuan($decimal_part)));
+        $result .= ' ' . $terbilang_dec . ' Sen';
     }
 
-    $clean_text = trim(str_replace('Rupiah', '', $temp));
-    return $clean_text . " Rupiah";
+    return ucwords(strtolower($result));
 }
 
 function terbilang($amount): string
 {
     return in_words($amount);
+}
+
+function terbilang_satuan($number): string
+{
+    $number = (float) $number;
+    $words = ['', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan', 'Sepuluh', 'Sebelas'];
+
+    if ($number < 12) {
+        return ' ' . $words[(int) $number];
+    }
+    if ($number < 20) {
+        return terbilang_satuan($number - 10) . ' Belas';
+    }
+    if ($number < 100) {
+        return terbilang_satuan((int) ($number / 10)) . ' Puluh' . terbilang_satuan((int) $number % 10);
+    }
+    if ($number < 200) {
+        return ' Seratus' . terbilang_satuan($number - 100);
+    }
+    if ($number < 1000) {
+        return terbilang_satuan((int) ($number / 100)) . ' Ratus' . terbilang_satuan((int) $number % 100);
+    }
+    if ($number < 2000) {
+        return ' Seribu' . terbilang_satuan($number - 1000);
+    }
+    if ($number < 1000000) {
+        return terbilang_satuan((int) ($number / 1000)) . ' Ribu' . terbilang_satuan((int) $number % 1000);
+    }
+    if ($number < 1000000000) {
+        return terbilang_satuan((int) ($number / 1000000)) . ' Juta' . terbilang_satuan((int) $number % 1000000);
+    }
+    if ($number < 1000000000000) {
+        return terbilang_satuan((int) ($number / 1000000000)) . ' Miliar' . terbilang_satuan(fmod($number, 1000000000));
+    }
+    if ($number < 1000000000000000) {
+        return terbilang_satuan((int) ($number / 1000000000000)) . ' Triliun' . terbilang_satuan(fmod($number, 1000000000000));
+    }
+
+    return '';
 }
