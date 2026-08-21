@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.34] - 2026-08-22
+
+### 🖥️ Full-screen Webmail Container & Floating Right Options Button (`index.php`)
+- **Pembersihan Header Card**: Menghapus container headerbar putih di atas iframe sepenuhnya sehingga area tampilan Roundcube Webmail menjadi 100% full height & full screen (`calc(100vh - 20px)`).
+- **Floating Button Kanan Layar (`top: 18px; right: 25px;`)**: Memasang tombol melayang transparan modern (glassmorphism style) di pojok kanan layar. Saat diklik, tombol ini akan menampilkan opsi *Refresh Webmail*, *Buka di Tab Baru*, dan *Pengaturan Webmail* (Admin) tanpa mengganggu tampilan Roundcube.
+
+---
+
 ## [v1.7.33] - 2026-08-22
 
 ### 🖥️ Maksimasi Area Tampilan Roundcube & Menu Opsi Ringkas (`index.php`)
