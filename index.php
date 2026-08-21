@@ -29,7 +29,7 @@ $dotenv->load();
  */
 function env($env_key, $default = null)
 {
-    if (isset($_ENV[$env_key])) {
+    if (isset($_ENV[$env_key]) && $_ENV[$env_key] !== '') {
         return $_ENV[$env_key];
     }
 
