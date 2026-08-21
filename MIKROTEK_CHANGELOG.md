@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.36] - 2026-08-22
+
+### 🎨 Penyesuaian Padding Container Roundcube & Tombol Icon-Only Samping (`index.php`)
+- **Penyesuaian Padding Card (`padding: 15px`)**: Menyesuaikan padding container webmail dengan standar tata letak komponen aplikasi Mikrotek Suite lainnya (`border-radius: 12px` & `box-shadow` card halus), sehingga tampilan halaman konsisten dan rapi.
+- **Tombol Opsi Icon-Only Melayang (`fa-cog`)**: Mengubah tombol opsi samping di pinggir kanan layar menjadi format **Icon-Only** (`fa-cog`) tanpa teks, menjadikannya ultra-ringkas, elegan, dan tidak menghalangi antarmuka.
+
+---
+
 ## [v1.7.35] - 2026-08-22
 
 ### 💄 Reposisi Tombol Melayang Opsi Webmail (`index.php`)

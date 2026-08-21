@@ -1,10 +1,10 @@
 <?php if ($is_configured) : ?>
-    <!-- Floating Options Button Attached to Right Screen Edge (Below Topbar) -->
-    <div class="btn-group" style="position: fixed; top: 130px; right: 0px; z-index: 99999;">
-        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px 0 0 20px; padding: 8px 14px; background: #3b82f6; color: #ffffff; border: none; box-shadow: -2px 4px 12px rgba(0,0,0,0.18); font-weight: 600;">
-            <i class="fa fa-cog"></i> Opsi Webmail <span class="caret"></span>
+    <!-- Sleek Icon-only Floating Button Attached to Right Screen Edge -->
+    <div class="btn-group" style="position: fixed; top: 120px; right: 0px; z-index: 99999;">
+        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 10px 0 0 10px; padding: 10px 12px; background: #3b82f6; color: #ffffff; border: none; box-shadow: -2px 4px 12px rgba(59,130,246,0.3); transition: all 0.2s;" title="Opsi Webmail">
+            <i class="fa fa-cog" style="font-size: 15px;"></i>
         </button>
-        <ul class="dropdown-menu dropdown-menu-right" style="border-radius: 10px 0 10px 10px; box-shadow: -4px 10px 25px rgba(0,0,0,0.18); border: 1px solid #e2e8f0; font-size: 13px; padding: 6px 0; min-width: 185px; margin-right: 2px;">
+        <ul class="dropdown-menu dropdown-menu-right" style="border-radius: 10px 0 10px 10px; box-shadow: -4px 10px 25px rgba(0,0,0,0.15); border: 1px solid #e2e8f0; font-size: 13px; padding: 6px 0; min-width: 185px; margin-right: 2px;">
             <li>
                 <a href="#" onclick="var f = document.getElementById('webmail-iframe'); if (f) f.src = f.src; return false;">
                     <i class="fa fa-refresh" style="color: #3b82f6; width: 18px;"></i> Refresh Webmail
@@ -29,9 +29,9 @@
 
 <?php echo $this->layout->load_view('layout/alerts'); ?>
 
-<div id="content" class="table-content" style="padding: 0; margin: -10px -15px -15px -15px;">
+<div id="content" class="table-content" style="padding: 15px;">
     <?php if ($is_configured) : ?>
-        <div class="webmail-container" style="background: #ffffff; overflow: hidden; height: calc(100vh - 20px); width: 100%; border: none;">
+        <div class="webmail-container" style="background: #ffffff; border-radius: 12px; border: 1px solid var(--card-border, #e2e8f0); box-shadow: var(--card-shadow, 0 1px 3px rgba(0,0,0,0.05)); overflow: hidden; height: calc(100vh - 120px); min-height: 620px; width: 100%;">
             <iframe id="webmail-iframe"
                     src="<?php echo htmlsc($webmail_url); ?>"
                     style="width: 100%; height: 100%; border: none; display: block;"
@@ -41,7 +41,7 @@
             </iframe>
         </div>
     <?php else : ?>
-        <div class="panel panel-default" style="border-radius: 12px; padding: 40px 20px; text-align: center; background: #ffffff; border: 1px solid var(--card-border, #e2e8f0); box-shadow: var(--card-shadow, 0 1px 3px rgba(0,0,0,0.05)); margin: 20px;">
+        <div class="panel panel-default" style="border-radius: 12px; padding: 40px 20px; text-align: center; background: #ffffff; border: 1px solid var(--card-border, #e2e8f0); box-shadow: var(--card-shadow, 0 1px 3px rgba(0,0,0,0.05));">
             <div style="font-size: 54px; color: #3b82f6; margin-bottom: 16px;">
                 <i class="fa fa-envelope-o"></i>
             </div>
