@@ -85,9 +85,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 - **Fitur Opsi Tanda Tangan (Digital vs Manual Signature)**:
   - Menambahkan kolom `signature_type`, `signature_name`, `signature_title`, & `signature_image` pada tabel `ip_invoices` & `ip_quotes` (SQL: `051_1.8.0.sql`).
   - Mengupdate modal pembuatan Invoice & Quote (`modal_create_invoice.php` & `modal_create_quote.php`) untuk memilih **Digital Signature** atau **Manual Signature (Ruang Kosong)** beserta **Nama & Jabatan Penanggung Jawab**.
-  - Menyelaraskan form pembuatan & detail Invoice/Quote agar tidak menampilkan field Nama/Jabatan Penanggung Jawab dan 100% menggunakan data terpusat dari System Settings.
+  - Menambahkan generasi **QR Code otomatis (Endroid QR Code)** pada blok Tanda Tangan Digital PDF template Mikrotek (`Mikrotek.php`). QR Code mengarah langsung ke URL publik digital invoice/quote (`guest/view/invoice/...`) yang dapat di-scan via smartphone untuk verifikasi dokumen resmi secara online.
 
 ---
+
 
 
 

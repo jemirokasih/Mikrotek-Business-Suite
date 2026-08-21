@@ -152,3 +152,24 @@ function invoice_qrcode($invoice_id, $width = 64): string
 
     return '';
 }
+
+/**
+ * Generates a base64 Data URI PNG QR code for a given URL using Endroid QR Code.
+ */
+function generate_qr_code_data_uri(string $url, int $size = 120): string
+{
+    if (empty($url)) {
+        return '';
+    }
+
+    try {
+        $writer = new \Endroid\QrCode\Writer\PngWriter();
+        $qrCode = \Endroid\QrCode\QrCode::create($url)
+            ->setSize($size)
+            ->setMargin(2);
+        $result = $writer->write($qrCode);
+        return $result->getDataUri();
+    } catch (\Exception $e) {
+        return '';
+    }
+}
