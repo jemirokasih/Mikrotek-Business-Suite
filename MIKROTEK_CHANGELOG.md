@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.10] - 2026-08-21
+
+### 🎨 Perbaikan Layout Fluid Corner-to-Corner Headerbar (Pojok Kiri s.d. Pojok Kanan)
+- **Flex Alignment Flush Left & Flush Right (`modern_sidebar.css`)**: Mengatur judul halaman (`h1.headerbar-title`) menempel rata di **pojok kiri ujung** (`margin-right: auto !important`) dan grup tombol aksi (`.headerbar-item`) menempel rata di **pojok kanan ujung** (`margin-left: auto !important`), menghilangkan celah/ruang kosong yang jepret di tengah.
+- **Clear Float Overrides**: Menghapus `float: left` dan `float: right` bawaan Bootstrap 3 pada `#headerbar` agar flexbox span 100% dari sudut ke sudut secara presisi.
+
+---
+
 ## [v1.7.9] - 2026-08-21
 
 ### 🎨 Pembaruan Desain Form Card-Style, Headerbar Fluid & Modern Button Elevation
