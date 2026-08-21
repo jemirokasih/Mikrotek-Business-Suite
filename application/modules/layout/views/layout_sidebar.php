@@ -25,13 +25,27 @@
 
     <!-- Main Topbar Header -->
     <header id="main-topbar">
-        <div class="topbar-left" style="display: flex; align-items: center;">
+        <div class="topbar-left" style="display: flex; align-items: center; flex: 1;">
             <button type="button" class="btn-toggle-sidebar" id="btn-toggle-sidebar" title="Toggle Sidebar">
                 <i class="fa fa-bars"></i>
             </button>
             <span style="font-weight: 600; font-size: 16px; margin-left: 15px; color: #1e293b;" class="hidden-xs">
                 <?php echo get_setting('custom_title', MIKROTEK_APP_NAME, true); ?>
             </span>
+
+            <?php if (isset($filter_display) && $filter_display == true) : ?>
+                <?php $this->layout->load_view('filter/jquery_filter'); ?>
+                <form class="topbar-search-form" role="search" onsubmit="return false;" style="margin-left: 15px; flex: 1; max-width: 320px;">
+                    <div class="input-group input-group-sm" style="width: 100%;">
+                        <input id="filter" type="text" class="search-query form-control"
+                               placeholder="<?php echo isset($filter_placeholder) ? $filter_placeholder : trans('filter'); ?>"
+                               style="border-radius: 8px 0 0 8px; border-right: none; height: 36px; font-size: 13px;">
+                        <span class="input-group-addon" style="border-radius: 0 8px 8px 0; background: #ffffff; border-left: none; color: #64748b; padding: 0 12px;">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </form>
+            <?php endif; ?>
         </div>
 
         <div class="topbar-right" style="display: flex; align-items: center; gap: 15px;">

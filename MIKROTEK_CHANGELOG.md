@@ -4,6 +4,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.32] - 2026-08-21
+
+### ✨ Penambahan Input Pencarian / Filter Real-time di Topbar Header (`layout_sidebar.php`)
+- **Integrasi Kotak Pencarian / Filter Live**:
+  - Mengintegrasikan kembali fungsi pencarian live tabel (`#filter` & `filter/jquery_filter`) ke dalam `#main-topbar` di [`layout_sidebar.php`](file:///Users/jemirokasih/invoiceplane/application/modules/layout/views/layout_sidebar.php).
+  - Menambahkan komponen form pencarian modern dengan ikon kaca pembesar (`fa-search`) di sebelah judul aplikasi pada topbar header. Fitur ini memungkinkan pengguna melakukan pencarian instant real-time pada seluruh halaman daftar (*Invoices*, *Quotes*, *Clients*, *Payments*, *Products*, *Tasks*, *Employees*, dll.).
+
+---
+
 ## [v1.7.31] - 2026-08-21
 
 ### 🐛 Perbaikan Tampilan Popup / Modal Dialog (`modern_sidebar.css`)
