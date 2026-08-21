@@ -6,7 +6,7 @@ if (!defined('BASEPATH')) {
 
 /*
  * InvoicePlane / Mikrotek Business Suite
- * Webmail Module (Roundcube Integration)
+ * Webmail Module (Unified Integrated Webmail & Roundcube Suite)
  */
 
 class Webmail extends Admin_Controller
@@ -20,17 +20,35 @@ class Webmail extends Admin_Controller
 
     public function index()
     {
-        $webmail_url = get_setting('webmail_url');
+        $webmail_url   = get_setting('webmail_url');
         $webmail_email = get_setting('webmail_email');
+
+        // Default to local bundled webmail endpoint if no external URL is specified
+        if (empty($webmail_url)) {
+            $webmail_url = base_url('webmail/app');
+        }
 
         $data = [
             'webmail_url'   => $webmail_url,
             'webmail_email' => $webmail_email,
-            'is_configured' => !empty($webmail_url),
+            'is_configured' => true,
         ];
 
         $this->layout->buffer('content', 'webmail/index', $data);
         $this->layout->render();
+    }
+
+    public function app()
+    {
+        // Internal bundled webmail application view
+        $webmail_email = get_setting('webmail_email') ?: get_setting('smtp_user');
+
+        $data = [
+            'webmail_email' => $webmail_email,
+            'smtp_host'     => get_setting('smtp_host'),
+        ];
+
+        $this->load->view('webmail/app', $data);
     }
 
     public function settings()
@@ -65,7 +83,7 @@ class Webmail extends Admin_Controller
         $webmail_email    = trim((string) $this->input->post('webmail_email', true));
         $webmail_password = (string) $this->input->post('webmail_password');
 
-        if (!empty($webmail_url) && !preg_match('#^https?://#i', $webmail_url)) {
+        if (!empty($webmail_url) && !preg_match('#^https?://#i', $webmail_url) && strpos($webmail_url, '/') !== 0) {
             $webmail_url = 'https://' . $webmail_url;
         }
 
@@ -78,7 +96,35 @@ class Webmail extends Admin_Controller
             $this->mdl_settings->save('webmail_password', $encrypted_pass);
         }
 
-        $this->session->set_flashdata('alert_success', 'Pengaturan Roundcube Webmail berhasil disimpan.');
+        $this->session->set_flashdata('alert_success', 'Pengaturan Webmail berhasil disimpan.');
+        redirect('webmail');
+    }
+
+    public function send_message()
+    {
+        $to_email = trim((string) $this->input->post('to_email', true));
+        $subject  = trim((string) $this->input->post('subject', true));
+        $message  = (string) $this->input->post('message');
+
+        if (empty($to_email) || empty($subject) || empty($message)) {
+            $this->session->set_flashdata('alert_error', 'Harap isi semua kolom email (Penerima, Subjek, dan Pesan).');
+            redirect('webmail');
+            return;
+        }
+
+        $this->load->helper('mailer');
+
+        if (mailer_configured()) {
+            $sent = email_invoice_template(null, $to_email, $subject, $message);
+            if ($sent) {
+                $this->session->set_flashdata('alert_success', 'Email berhasil dikirim ke ' . html_escape($to_email));
+            } else {
+                $this->session->set_flashdata('alert_error', 'Gagal mengirim email. Periksa pengaturan SMTP sistem.');
+            }
+        } else {
+            $this->session->set_flashdata('alert_error', 'Sistem email (SMTP) belum dikonfigurasi di Pengaturan Sistem.');
+        }
+
         redirect('webmail');
     }
 }

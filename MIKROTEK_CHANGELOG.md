@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.22] - 2026-08-22
+
+### ✉️ Fitur Baru: Internal Integrated Webmail Suite (Unified App Package)
+- **Bundled Webmail Application (`app.php`)**: Menyediakan aplikasi webmail internal langsung di dalam paket aplikasi Mikrotek Suite (`site_url('webmail/app')`). Pengguna dapat langsung berkirim pesan email, melihat kotak masuk, dan mengelola email tanpa ketergantungan server eksternal.
+- **Dukungan Dual-Mode**: Mendukung mode internal bawaan (langsung jadi 1 dengan aplikasi) maupun mode eksternal jika dikonfigurasi ke URL Roundcube tersendiri.
+
+---
+
 ## [v1.7.21] - 2026-08-22
 
 ### ✉️ Fitur Baru: Integrasi Roundcube Webmail (Embedded Iframe & Secure Credentials)
