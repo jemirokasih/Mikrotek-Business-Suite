@@ -37,7 +37,60 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <i class="fa fa-bullhorn fa-margin"></i> Mikrotek Business Suite - Pengumuman & Catatan Rilis
+            <i class="fa fa-info-circle fa-margin"></i> About <?php echo MIKROTEK_APP_NAME; ?>
+        </div>
+        <div class="panel-body">
+            <div class="media">
+                <div class="media-left">
+                    <img src="<?php echo base_url('assets/core/img/favicon.png'); ?>" alt="Mikrotek Logo" style="width: 64px; height: 64px; margin-right: 15px;">
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading" style="font-weight: bold; color: #2c3e50;">
+                        <?php echo MIKROTEK_APP_NAME; ?> <span class="label label-primary"><?php echo MIKROTEK_INVOICE_VERSION; ?></span>
+                    </h4>
+                    <p class="text-muted" style="margin-bottom: 15px;">
+                        Platform pengelolaan operasional bisnis, sistem invoicing, manajemen multi-perusahaan, kontrol hak akses berbasis peran (RBAC), modul kwitansi terintegrasi Terbilang Bahasa Indonesia, dan kustomisasi PDF profesional.
+                    </p>
+                </div>
+            </div>
+
+            <hr style="margin: 15px 0;">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5 style="font-weight: bold; color: #34495e;"><i class="fa fa-cubes text-primary"></i> Core Modules & Features:</h5>
+                    <ul class="list-unstyled" style="line-height: 1.8;">
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Role Access Control (RBAC):</strong> Matriks izin modular & Staff role</li>
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Multi-Company:</strong> Manajemen hirarki master perusahaan</li>
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Modul Kwitansi:</strong> Terintegrasi Auto-Terbilang Indonesia</li>
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Proforma Invoicing:</strong> Faktur sementara & konversi 1-klik</li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <h5 style="font-weight: bold; color: #34495e;"><i class="fa fa-sliders text-info"></i> Enhanced Tools & PDF:</h5>
+                    <ul class="list-unstyled" style="line-height: 1.8;">
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Multiple Client PICs:</strong> Pengelolaan kontak PIC per klien</li>
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Multi-Rekening Bank:</strong> Pilihan bank perusahaan di faktur</li>
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>Project Linkage:</strong> Pengikatan faktur/penawaran ke proyek</li>
+                        <li><i class="fa fa-check-square-o text-success"></i> <strong>PDF Kop & Signature:</strong> HTML Kop & Tanda Tangan Digital/Manual</li>
+                    </ul>
+                </div>
+            </div>
+
+            <hr style="margin: 15px 0;">
+
+            <div class="well well-sm" style="margin-bottom: 0; background-color: #f8f9fa;">
+                <small class="text-muted">
+                    <i class="fa fa-copyright"></i> Customized & Enhanced by <strong>PT Mikrotek Zemiro Indonesia</strong>.<br>
+                    <i class="fa fa-heart text-danger"></i> Powered by <strong>InvoicePlane</strong> (Licensed under MIT License). Copyright &copy; InvoicePlane Developers &amp; Contributors.
+                </small>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-bullhorn fa-margin"></i> <?php echo MIKROTEK_APP_NAME; ?> - Pengumuman & Catatan Rilis
         </div>
         <div class="panel-body">
 
