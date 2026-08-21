@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS `ip_attendance` (
+  `attendance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL DEFAULT 1,
+  `employee_id` int(11) NOT NULL,
+  `attendance_date` date NOT NULL,
+  `clock_in` datetime DEFAULT NULL,
+  `clock_out` datetime DEFAULT NULL,
+  `clock_in_ip` varchar(45) DEFAULT NULL,
+  `clock_out_ip` varchar(45) DEFAULT NULL,
+  `clock_in_location` varchar(255) DEFAULT NULL,
+  `clock_out_location` varchar(255) DEFAULT NULL,
+  `status` enum('present','late','absent','leave','sick','half_day') NOT NULL DEFAULT 'present',
+  `notes` text DEFAULT NULL,
+  `is_manual` tinyint(1) NOT NULL DEFAULT 0,
+  `created_by_user_id` int(11) DEFAULT NULL,
+  `date_created` datetime NOT NULL,
+  `date_modified` datetime NOT NULL,
+  PRIMARY KEY (`attendance_id`),
+  KEY `company_id` (`company_id`),
+  KEY `employee_id` (`employee_id`),
+  KEY `attendance_date` (`attendance_date`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

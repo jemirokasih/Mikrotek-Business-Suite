@@ -4,6 +4,29 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.4.0] - 2026-08-21
+
+### ⏱️ Modul Absensi (Attendance Module) & Employee Portal Clock-In/Out
+- **Database Migration (`054_1.8.3.sql`)**:
+  - Membuat tabel `ip_attendance` untuk menyimpan record kehadiran, tanggal, jam masuk, jam keluar, alamat IP, lokasi GPS, status kehadiran, catatan, dan flag absensi manual (`is_manual`).
+- **Modul Attendance (`application/modules/attendance/`)**:
+  - `Mdl_attendance.php`: Model pengelola query kehadiran, pencatatan otomatis status (Present/Late), penentuan waktu jam masuk/keluar, dan filter multi-perusahaan (`company_id`).
+  - `Attendance.php`: Controller pengelola Dashboard Absensi Harian Admin, Portal Absensi Mandiri Karyawan, Modal Absensi Manual, dan Laporan Rekapitulasi Bulanan.
+- **Portal Clock-In / Clock-Out Mandiri Karyawan (`attendance/clock`)**:
+  - Fitur **Clock In & Clock Out 1-Klik** untuk karyawan dengan akun login terhubung (`ip_users`).
+  - **Perekaman Real-time IP Address & GPS Geolocation**: Menggunakan HTML5 Geolocation API (`navigator.geolocation.getCurrentPosition()`) untuk menangkap latitude & longitude lokasi karyawan saat melakukan absensi.
+  - Widget Jam Digital Real-Time & Tabel Riwayat Absensi Bulanan Karyawan.
+- **Dashboard Absensi & Absensi Manual Admin (`attendance/index`)**:
+  - Dashboard ringkasan absensi harian dengan Kartu KPI (Total Employee, Present Today, Late Today, Absent Today, On Leave/Sick).
+  - Modal Absensi Manual (`modal_manual_attendance.php`) untuk Admin mengabsenkan atau memperbarui status & jam masuk/keluar karyawan secara manual.
+- **Laporan Rekapitulasi Absensi Bulanan (`attendance/report`)**:
+  - Halaman laporan rekap absensi per karyawan (Jumlah Hari Hadir, Terlambat, Izin/Sakit, Alpa, dan Total Jam Kerja Kumulatif).
+- **Integrasi RBAC & Bahasa**:
+  - Mendaftarkan modul `attendance` pada matriks hak akses `Mdl_roles.php` & menambahkan menu navigasi **Attendance** pada `navbar.php`.
+  - Menambahkan kamus string bahasa Inggris untuk seluruh komponen absensi pada `custom_lang.php`.
+
+---
+
 ## [v1.3.0] - 2026-08-21
 
 ### 👥 Modul Employee / Karyawan & On-Demand User Account

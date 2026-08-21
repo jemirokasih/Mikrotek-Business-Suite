@@ -45,6 +45,21 @@
                 </li>
                 <?php endif; ?>
 
+                <?php if (has_permission('attendance')) : ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-caret-down"></i> &nbsp;
+                        <span class="hidden-md"><?php _trans('attendance'); ?></span>
+                        <i class="visible-md-inline fa fa-clock-o"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><?php echo anchor('attendance/clock', trans('attendance_portal')); ?></li>
+                        <li><?php echo anchor('attendance/index', trans('daily_attendance')); ?></li>
+                        <li><?php echo anchor('attendance/report', trans('attendance_report')); ?></li>
+                    </ul>
+                </li>
+                <?php endif; ?>
+
                 <?php if (has_permission('quotes')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

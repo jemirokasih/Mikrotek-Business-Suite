@@ -97,6 +97,10 @@ class Mdl_Roles extends Response_Model
                 'label' => trans('employees'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
+            'attendance' => [
+                'label' => trans('attendance'),
+                'actions' => ['view', 'create', 'edit', 'delete'],
+            ],
         ];
     }
 }
