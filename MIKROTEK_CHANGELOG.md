@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.26] - 2026-08-22
+
+### 🔐 Hak Akses Pengaturan Webmail Khusus Administrator
+- **Restriksi Menu Konfigurasi (`Webmail.php` & `index.php`)**: Mengunci menu **Pengaturan Webmail** (`settings` & `save_settings`) khusus untuk pengguna bereperan **Administrator** (`has_permission('settings')`).
+- **Pengalaman Pengguna Biasa**: Pengguna biasa yang membuka menu **Webmail / Email** akan langsung diarahkan ke layar login / portal Roundcube Webmail tanpa melihat atau dapat mengubah URL/kredensial konfigurasi sistem.
+
+---
+
 ## [v1.7.25] - 2026-08-22
 
 ### 🐛 Perbaikan Permisi 403 Forbidden pada Modul Webmail

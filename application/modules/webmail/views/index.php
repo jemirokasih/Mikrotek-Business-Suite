@@ -21,9 +21,11 @@
                 <i class="fa fa-external-link"></i> Tab Baru
             </a>
         <?php endif; ?>
-        <a href="<?php echo site_url('webmail/settings'); ?>" class="btn btn-sm btn-primary">
-            <i class="fa fa-cog"></i> Pengaturan Webmail
-        </a>
+        <?php if (!empty($is_admin)) : ?>
+            <a href="<?php echo site_url('webmail/settings'); ?>" class="btn btn-sm btn-primary">
+                <i class="fa fa-cog"></i> Pengaturan Webmail
+            </a>
+        <?php endif; ?>
     </div>
 </div>
 

@@ -23,7 +23,7 @@ class Webmail extends Admin_Controller
         $webmail_url   = get_setting('webmail_url');
         $webmail_email = get_setting('webmail_email');
 
-        // Default to internal Roundcube action route (bypasses direct file htaccess block)
+        // Default to internal Roundcube action route
         if (empty($webmail_url)) {
             $webmail_url = site_url('webmail/roundcube');
         }
@@ -32,6 +32,7 @@ class Webmail extends Admin_Controller
             'webmail_url'   => $webmail_url,
             'webmail_email' => $webmail_email,
             'is_configured' => true,
+            'is_admin'      => has_permission('settings'),
         ];
 
         $this->layout->buffer('content', 'webmail/index', $data);
@@ -53,6 +54,10 @@ class Webmail extends Admin_Controller
 
     public function settings()
     {
+        if (!has_permission('settings')) {
+            redirect('webmail');
+        }
+
         $webmail_url    = get_setting('webmail_url');
         $webmail_email  = get_setting('webmail_email');
         $encrypted_pass = get_setting('webmail_password');
@@ -79,6 +84,9 @@ class Webmail extends Admin_Controller
 
     public function save_settings()
     {
+        if (!has_permission('settings')) {
+            redirect('webmail');
+        }
         $webmail_url      = trim((string) $this->input->post('webmail_url', true));
         $webmail_email    = trim((string) $this->input->post('webmail_email', true));
         $webmail_password = (string) $this->input->post('webmail_password');
