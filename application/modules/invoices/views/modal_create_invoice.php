@@ -21,9 +21,7 @@
                     user_id: '<?php echo $this->session->userdata('user_id'); ?>',
                     payment_method: $('#payment_method_id').val(),
                     is_proforma: $('#is_proforma').is(':checked') ? 1 : 0,
-                    signature_type: $('#signature_type').val(),
-                    signature_name: '<?php echo html_escape(get_setting('default_signature_name')); ?>',
-                    signature_title: '<?php echo html_escape(get_setting('default_signature_title')); ?>'
+                    signature_type: $('#signature_type').val()
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);

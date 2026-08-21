@@ -85,9 +85,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 - **Fitur Opsi Tanda Tangan (Digital vs Manual Signature)**:
   - Menambahkan kolom `signature_type`, `signature_name`, `signature_title`, & `signature_image` pada tabel `ip_invoices` & `ip_quotes` (SQL: `051_1.8.0.sql`).
   - Mengupdate modal pembuatan Invoice & Quote (`modal_create_invoice.php` & `modal_create_quote.php`) untuk memilih **Digital Signature** atau **Manual Signature (Ruang Kosong)** beserta **Nama & Jabatan Penanggung Jawab**.
-  - Menambahkan pengaturan terpusat **Nama Penanggung Jawab Default** (`default_signature_name`) & **Jabatan Penanggung Jawab Default** (`default_signature_title`) pada Sistem Pengaturan (`partial_settings_invoices.php`).
+  - Menyelaraskan form pembuatan & detail Invoice/Quote agar tidak menampilkan field Nama/Jabatan Penanggung Jawab dan 100% menggunakan data terpusat dari System Settings.
 
 ---
+
 
 
 

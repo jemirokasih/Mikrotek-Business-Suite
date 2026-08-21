@@ -19,9 +19,7 @@
                     quote_password: $('#quote_password').val(),
                     user_id: '<?php echo $this->session->userdata('user_id'); ?>',
                     invoice_group_id: $('#invoice_group_id').val(),
-                    signature_type: $('#signature_type').val(),
-                    signature_name: '<?php echo html_escape(get_setting('default_signature_name')); ?>',
-                    signature_title: '<?php echo html_escape(get_setting('default_signature_title')); ?>'
+                    signature_type: $('#signature_type').val()
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
