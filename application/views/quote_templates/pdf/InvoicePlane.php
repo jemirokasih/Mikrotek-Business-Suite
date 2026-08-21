@@ -13,96 +13,96 @@ $colspan = $show_item_discounts ? 5 : 4;
 </head>
 <body>
 <header class="clearfix">
+    <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+        <tr>
+            <td style="width: 55%; vertical-align: top;">
+                <div id="logo" style="text-align: left; margin-bottom: 15px;">
+                    <?php echo invoice_logo_pdf(); ?>
+                </div>
+                <div id="client">
+                    <div>
+                        <b><?php _htmlsc(format_client($quote)); ?></b>
+                    </div>
+                    <?php
+                    if ($quote->client_vat_id) {
+                        echo '<div>' . trans('vat_id_short') . ': ' . htmlsc($quote->client_vat_id) . '</div>';
+                    }
+                    if ($quote->client_tax_code) {
+                        echo '<div>' . trans('tax_code_short') . ': ' . htmlsc($quote->client_tax_code) . '</div>';
+                    }
+                    if ($quote->client_address_1) {
+                        echo '<div>' . htmlsc($quote->client_address_1) . '</div>';
+                    }
+                    if ($quote->client_address_2) {
+                        echo '<div>' . htmlsc($quote->client_address_2) . '</div>';
+                    }
+                    if ($quote->client_city || $quote->client_state || $quote->client_zip) {
+                        echo '<div>';
+                        if ($quote->client_city) {
+                            echo htmlsc($quote->client_city) . ' ';
+                        }
+                        if ($quote->client_state) {
+                            echo htmlsc($quote->client_state) . ' ';
+                        }
+                        if ($quote->client_zip) {
+                            echo htmlsc($quote->client_zip);
+                        }
+                        echo '</div>';
+                    }
+                    if ($quote->client_country) {
+                        echo '<div>' . get_country_name(trans('cldr'), htmlsc($quote->client_country)) . '</div>';
+                    }
 
-    <div id="logo">
-        <?php echo invoice_logo_pdf(); ?>
-    </div>
+                    if ($quote->client_phone) {
+                        echo '<br><div>' . trans('phone_abbr') . ': ' . htmlsc($quote->client_phone) . '</div>';
+                    }
+                    ?>
+                </div>
+            </td>
+            <td style="width: 45%; vertical-align: top; text-align: right;">
+                <div id="company" style="text-align: right;">
+                    <div><b><?php _htmlsc($quote->user_name); ?></b></div>
+                    <?php
+                    if ($quote->user_vat_id) {
+                        echo '<div>' . trans('vat_id_short') . ': ' . htmlsc($quote->user_vat_id) . '</div>';
+                    }
+                    if ($quote->user_tax_code) {
+                        echo '<div>' . trans('tax_code_short') . ': ' . htmlsc($quote->user_tax_code) . '</div>';
+                    }
+                    if ($quote->user_address_1) {
+                        echo '<div>' . htmlsc($quote->user_address_1) . '</div>';
+                    }
+                    if ($quote->user_address_2) {
+                        echo '<div>' . htmlsc($quote->user_address_2) . '</div>';
+                    }
+                    if ($quote->user_city || $quote->user_state || $quote->user_zip) {
+                        echo '<div>';
+                        if ($quote->user_city) {
+                            echo htmlsc($quote->user_city) . ' ';
+                        }
+                        if ($quote->user_state) {
+                            echo htmlsc($quote->user_state) . ' ';
+                        }
+                        if ($quote->user_zip) {
+                            echo htmlsc($quote->user_zip);
+                        }
+                        echo '</div>';
+                    }
+                    if ($quote->user_country) {
+                        echo '<div>' . get_country_name(trans('cldr'), htmlsc($quote->user_country)) . '</div>';
+                    }
 
-    <div id="client">
-        <div>
-            <b><?php _htmlsc(format_client($quote)); ?></b>
-        </div>
-<?php
-if ($quote->client_vat_id) {
-    echo '<div>' . trans('vat_id_short') . ': ' . htmlsc($quote->client_vat_id) . '</div>';
-}
-if ($quote->client_tax_code) {
-    echo '<div>' . trans('tax_code_short') . ': ' . htmlsc($quote->client_tax_code) . '</div>';
-}
-if ($quote->client_address_1) {
-    echo '<div>' . htmlsc($quote->client_address_1) . '</div>';
-}
-if ($quote->client_address_2) {
-    echo '<div>' . htmlsc($quote->client_address_2) . '</div>';
-}
-if ($quote->client_city || $quote->client_state || $quote->client_zip) {
-    echo '<div>';
-    if ($quote->client_city) {
-        echo htmlsc($quote->client_city) . ' ';
-    }
-    if ($quote->client_state) {
-        echo htmlsc($quote->client_state) . ' ';
-    }
-    if ($quote->client_zip) {
-        echo htmlsc($quote->client_zip);
-    }
-    echo '</div>';
-}
-if ($quote->client_country) {
-    echo '<div>' . get_country_name(trans('cldr'), htmlsc($quote->client_country)) . '</div>';
-}
-
-echo '<br>';
-
-if ($quote->client_phone) {
-    echo '<div>' . trans('phone_abbr') . ': ' . htmlsc($quote->client_phone) . '</div>';
-}
-?>
-
-    </div>
-    <div id="company">
-        <div><b><?php _htmlsc($quote->user_name); ?></b></div>
-<?php
-if ($quote->user_vat_id) {
-    echo '<div>' . trans('vat_id_short') . ': ' . htmlsc($quote->user_vat_id) . '</div>';
-}
-if ($quote->user_tax_code) {
-    echo '<div>' . trans('tax_code_short') . ': ' . htmlsc($quote->user_tax_code) . '</div>';
-}
-if ($quote->user_address_1) {
-    echo '<div>' . htmlsc($quote->user_address_1) . '</div>';
-}
-if ($quote->user_address_2) {
-    echo '<div>' . htmlsc($quote->user_address_2) . '</div>';
-}
-if ($quote->user_city || $quote->user_state || $quote->user_zip) {
-    echo '<div>';
-    if ($quote->user_city) {
-        echo htmlsc($quote->user_city) . ' ';
-    }
-    if ($quote->user_state) {
-        echo htmlsc($quote->user_state) . ' ';
-    }
-    if ($quote->user_zip) {
-        echo htmlsc($quote->user_zip);
-    }
-    echo '</div>';
-}
-if ($quote->user_country) {
-    echo '<div>' . get_country_name(trans('cldr'), htmlsc($quote->user_country)) . '</div>';
-}
-
-echo '<br/>';
-
-if ($quote->user_phone) {
-    echo '<div>' . trans('phone_abbr') . ': ' . htmlsc($quote->user_phone) . '</div>';
-}
-if ($quote->user_fax) {
-    echo '<div>' . trans('fax_abbr') . ': ' . htmlsc($quote->user_fax) . '</div>';
-}
-?>
-    </div>
-
+                    if ($quote->user_phone) {
+                        echo '<br><div>' . trans('phone_abbr') . ': ' . htmlsc($quote->user_phone) . '</div>';
+                    }
+                    if ($quote->user_fax) {
+                        echo '<div>' . trans('fax_abbr') . ': ' . htmlsc($quote->user_fax) . '</div>';
+                    }
+                    ?>
+                </div>
+            </td>
+        </tr>
+    </table>
 </header>
 
 <main>

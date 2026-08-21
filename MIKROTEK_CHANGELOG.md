@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.19] - 2026-08-21
+
+### 🐛 Perbaikan Header PDF Download (Fix Broken PDF Header Layout)
+- **CSS Margin & Font Cleanup (`custom-pdf.css`)**: Menghapus `margin-top: -130px !important` yang menyebabkan elemen header tergeser dan menabrak logo/margin atas dokumen PDF. Menghapus override font monospace `ccourier` dan menggantinya dengan font clean standard `dejavusans`.
+- **Stable 2-Column Table Header (`invoice_templates` & `quote_templates`)**: Mengubah struktur header HTML di template PDF (`InvoicePlane.php`) menjadi tabel 2 kolom yang kokoh dan presisi. Kolom kiri memuat Logo & Data Klien, kolom kanan memuat Data Perusahaan, mencegah bentrokan float CSS pada mPDF.
+
+---
+
 ## [v1.7.18] - 2026-08-21
 
 ### 🎨 Restorasi Card Headerbar Putih & Layout Urutan Baru (Title -> Tabs -> +New)
