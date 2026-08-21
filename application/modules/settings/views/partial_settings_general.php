@@ -1,3 +1,4 @@
+<script>
     $(function () {
         $('#btn_generate_cron_key').click(function () {
             $.post("<?php echo site_url('settings/ajax/get_cron_key'); ?>", function (data) {

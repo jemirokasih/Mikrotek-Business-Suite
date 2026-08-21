@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.5] - 2026-08-21
+
+### 🛠️ Perbaikan Tag Script pada Partial Settings General (`partial_settings_general.php`)
+- **Fix Syntax Render Text Script**: Mengembalikan tag `<script>` pembuka pada bagian paling atas file `partial_settings_general.php` untuk mencegah kode JavaScript tercetak sebagai teks mentah di tab General Settings.
+
+---
+
 ## [v1.7.4] - 2026-08-21
 
 ### 🛠️ Fix Event Handler & Display Rules Submenu Dropdown Sidebar
