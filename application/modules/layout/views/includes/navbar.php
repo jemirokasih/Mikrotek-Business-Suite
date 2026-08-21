@@ -29,6 +29,22 @@
                 </li>
                 <?php endif; ?>
 
+                <?php if (has_permission('employees')) : ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-caret-down"></i> &nbsp;
+                        <span class="hidden-md"><?php _trans('employees'); ?></span>
+                        <i class="visible-md-inline fa fa-id-card-o"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php if (has_permission('employees', 'create')) : ?>
+                            <li><?php echo anchor('employees/form', trans('add_employee')); ?></li>
+                        <?php endif; ?>
+                        <li><?php echo anchor('employees/index', trans('view_employees')); ?></li>
+                    </ul>
+                </li>
+                <?php endif; ?>
+
                 <?php if (has_permission('quotes')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

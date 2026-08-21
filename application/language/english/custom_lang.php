@@ -1,33 +1,45 @@
 <?php
 
 /**
- * CUSTOM LANGUAGE STRINGS.
- *
- * This file allows you to override or add custom language strings without
- * modifying the main ip_lang.php file. Language strings defined here will
- * extend (not replace) the translations from ip_lang.php.
- *
- * Add your custom Language Strings here with the following scheme:
- *
- * $lang = [
- *     'language_string_key' => 'Actual content of the Language String',
- *     'another_key'         => 'Another custom translation',
- * ];
- *
- * Please notice that 'language_string_key' should only contain alphanumeric
- * characters and underscores.
- *
- * Example - Override an existing translation:
- * $lang = [
- *     'client_name' => 'Customer Name',  // Changes "Client Name" to "Customer Name"
- * ];
- *
- * Example - Add a new custom translation:
- * $lang = [
- *     'my_custom_string' => 'My Custom Translation',
- * ];
- *
- * For more information, see the ip_lang.php file or visit the
- * community forums at https://community.invoiceplane.com/
+ * CUSTOM LANGUAGE STRINGS FOR MIKROTEK BUSINESS SUITE.
  */
-$lang = [];
+$lang = [
+    // Employees Module
+    'employee'                          => 'Employee',
+    'employees'                         => 'Employees',
+    'add_employee'                      => 'Add Employee',
+    'edit_employee'                     => 'Edit Employee',
+    'view_employee'                     => 'View Employee',
+    'view_employees'                    => 'View Employees',
+    'employee_number'                   => 'Employee Number',
+    'first_name'                        => 'First Name',
+    'last_name'                         => 'Last Name',
+    'gender'                            => 'Gender',
+    'male'                              => 'Male',
+    'female'                            => 'Female',
+    'birth_date'                        => 'Birth Date',
+    'birth_place'                       => 'Birth Place',
+    'national_id'                       => 'National ID / NIK',
+    'department'                        => 'Department',
+    'job_title'                         => 'Job Title',
+    'employment_status'                 => 'Employment Status',
+    'join_date'                         => 'Date Joined',
+    'full_time'                         => 'Full Time',
+    'part_time'                         => 'Part Time',
+    'contract'                          => 'Contract',
+    'intern'                            => 'Intern',
+    'freelance'                         => 'Freelance',
+    'bank_account_holder'               => 'Account Holder Name',
+    'tax_id'                            => 'Tax ID / NPWP',
+    'personal_information'              => 'Personal Information',
+    'contact_details'                   => 'Contact Details',
+    'employment_information'           => 'Employment Details',
+    'bank_payroll_details'              => 'Bank & Payroll Details',
+    'user_account_status'               => 'User Account Status',
+    'linked_user_account'               => 'Linked User Account',
+    'no_user_account'                   => 'No User Account Linked',
+    'create_user_account'               => 'Create User Account',
+    'user_account_created_successfully' => 'User Account has been created and linked successfully.',
+    'employee_saved_successfully'       => 'Employee record saved successfully.',
+    'employee_deleted_successfully'     => 'Employee record deleted successfully.',
+];

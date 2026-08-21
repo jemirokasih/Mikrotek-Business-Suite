@@ -100,6 +100,21 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Mengupdate `README.md` dengan judul utama `# Mikrotek Business Suite v1.2.0` serta gambaran fitur lengkap (RBAC, Multi-Company, Kwitansi, Proforma, Restriksi Bank).
   - Mengupdate `.github/copilot-instructions.md`, `.github/CONTRIBUTING.md`, dan `.github/PULL_REQUEST_TEMPLATE.md` sesuai penamaan resmi **Mikrotek Business Suite**.
 
+### 👥 Fitur Baru: Modul Employee / Karyawan & On-Demand User Account Provisioning (`employees`)
+- **Database Schema**:
+  - Membuat tabel `ip_employees` (`employee_id`, `company_id`, `user_id`, `employee_number`, `first_name`, `last_name`, `gender`, `birth_date`, `birth_place`, `national_id`, `email`, `phone`, `mobile`, `address_1`, `address_2`, `city`, `state`, `zip_code`, `country`, `department`, `job_title`, `employment_status`, `join_date`, `active`, `bank_name`, `bank_account_number`, `bank_account_holder`, `tax_id`, `notes`, `date_created`, `date_modified`).
+  - Menambahkan file migrasi `application/modules/setup/sql/053_1.8.2.sql`.
+- **Modul Employees (`application/modules/employees/`)**:
+  - `Mdl_employees.php`: Model pengelola karyawan, validasi data, & penomoran otomatis `EMP-XXXX`.
+  - `Employees.php`: Controller CRUD karyawan, pengelompokan UI/UX, & aksi pengubahan status aktif.
+  - `views/index.php`, `views/form.php`, `views/view.php`: UI modern berbasis tab (Personal Details, Contact Details, Employment Details, Bank & Payroll).
+- **Trigger On-Demand User Account Creation**:
+  - `views/modal_create_user_account.php` & handler AJAX `create_user_account()`: Tombol "Create User Account" memfasilitasi pembuatan akun login sistem (`ip_users`) secara otomatis dan mengaitkan `user_id` ke record karyawan hanya jika dibutuhkan.
+- **Integrasi RBAC & Bahasa Inggris**:
+  - Mendaftarkan permission `employees` pada `Mdl_roles.php` (View, Create, Edit, Delete).
+  - Menambahkan navigasi menu **Employees** pada `navbar.php`.
+  - Seluruh label UI, header tabel, dan pesan notifikasi menggunakan Bahasa Inggris (`custom_lang.php`).
+
 ---
 
 
