@@ -56,7 +56,7 @@
 
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button class="btn btn-success" id="btn-save-leave" type="button">
+                    <button class="btn btn-success" id="btn-save-leave" type="submit">
                         <i class="fa fa-check"></i> <?php _trans('submit'); ?>
                     </button>
                     <button class="btn btn-danger" type="button" data-dismiss="modal">
@@ -70,27 +70,33 @@
 
 <script>
 $(function () {
-    $('#modal-apply-leave').modal('show');
-
     $('.datepicker').datepicker({
         format: '<?php echo date_format_datepicker(); ?>',
         autoclose: true,
         todayHighlight: true
     });
 
-    $('#btn-save-leave').click(function () {
-        $.post("<?php echo site_url('leaves/save'); ?>", $('#form-apply-leave').serialize(), function (data) {
-            var response = JSON.parse(data);
+    $('#form-apply-leave').submit(function (e) {
+        e.preventDefault();
+        var $btn = $('#btn-save-leave');
+        $btn.prop('disabled', true).html('<i class="fa fa-circle-o-notch fa-spin"></i> Submitting...');
+
+        $.post("<?php echo site_url('leaves/save'); ?>", $(this).serialize(), function (data) {
+            var response = typeof data === 'string' ? JSON.parse(data) : data;
             if (response.success === 1) {
                 $('#modal-apply-leave').modal('hide');
                 window.location.reload();
             } else {
+                $btn.prop('disabled', false).html('<i class="fa fa-check"></i> <?php _trans('submit'); ?>');
                 $('.has-error').removeClass('has-error');
                 for (var key in response.validation_errors) {
                     $('#' + key).parent().addClass('has-error');
                 }
                 alert('Please correct validation errors.');
             }
+        }).fail(function () {
+            $btn.prop('disabled', false).html('<i class="fa fa-check"></i> <?php _trans('submit'); ?>');
+            alert('Network error. Please try again.');
         });
     });
 });

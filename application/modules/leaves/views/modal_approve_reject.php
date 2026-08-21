@@ -41,7 +41,7 @@
 
             <div class="modal-footer">
                 <div class="btn-group">
-                    <button class="btn btn-success" id="btn-submit-approval" type="button">
+                    <button class="btn btn-success" id="btn-submit-approval" type="submit">
                         <i class="fa fa-check"></i> <?php _trans('save'); ?> Decision
                     </button>
                     <button class="btn btn-danger" type="button" data-dismiss="modal">
@@ -55,17 +55,23 @@
 
 <script>
 $(function () {
-    $('#modal-approve-leave').modal('show');
+    $('#form-approve-leave').submit(function (e) {
+        e.preventDefault();
+        var $btn = $('#btn-submit-approval');
+        $btn.prop('disabled', true).html('<i class="fa fa-circle-o-notch fa-spin"></i> Saving...');
 
-    $('#btn-submit-approval').click(function () {
-        $.post("<?php echo site_url('leaves/save_approval'); ?>", $('#form-approve-leave').serialize(), function (data) {
-            var response = JSON.parse(data);
+        $.post("<?php echo site_url('leaves/save_approval'); ?>", $(this).serialize(), function (data) {
+            var response = typeof data === 'string' ? JSON.parse(data) : data;
             if (response.success === 1) {
                 $('#modal-approve-leave').modal('hide');
                 window.location.reload();
             } else {
+                $btn.prop('disabled', false).html('<i class="fa fa-check"></i> <?php _trans('save'); ?> Decision');
                 alert(response.message || 'Error processing approval.');
             }
+        }).fail(function () {
+            $btn.prop('disabled', false).html('<i class="fa fa-check"></i> <?php _trans('save'); ?> Decision');
+            alert('Network error. Please try again.');
         });
     });
 });

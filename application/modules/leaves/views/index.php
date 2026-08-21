@@ -105,9 +105,12 @@
 
 <script>
 $(function () {
-    $('.btn-approve-reject').click(function () {
+    $('.btn-approve-reject').click(function (e) {
+        e.preventDefault();
         var id = $(this).data('id');
-        $('#modal-placeholder').load("<?php echo site_url('leaves/modal_approve_reject/'); ?>" + id);
+        $('#modal-placeholder').load("<?php echo site_url('leaves/modal_approve_reject'); ?>/" + id, function () {
+            $('#modal-approve-leave').modal('show');
+        });
     });
 });
 </script>

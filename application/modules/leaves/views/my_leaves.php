@@ -91,8 +91,11 @@
 
 <script>
 $(function () {
-    $('#btn-apply-leave').click(function () {
-        $('#modal-placeholder').load("<?php echo site_url('leaves/modal_form'); ?>");
+    $('#btn-apply-leave').click(function (e) {
+        e.preventDefault();
+        $('#modal-placeholder').load("<?php echo site_url('leaves/modal_form'); ?>", function () {
+            $('#modal-apply-leave').modal('show');
+        });
     });
 
     $('.btn-cancel-leave').click(function () {

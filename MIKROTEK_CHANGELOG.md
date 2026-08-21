@@ -4,6 +4,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.6.2] - 2026-08-21
+
+### 🛠️ Perbaikan Callback Loading & Form Submit Modal Approval Cuti
+- **Fix Modal Load & Display Callback (`index.php` & `my_leaves.php`)**:
+  - Mengubah handler klik tombol `btn-approve-reject` dan `btn-apply-leave` agar memanggil `.modal('show')` secara eksplisit pada callback `.load()` jQuery.
+- **Form Submit Handler (`modal_approve_reject.php` & `modal_form.php`)**:
+  - Mengubah tipe button menjadi `type="submit"` dan menerapkan handler AJAX submit form yang bersih dengan indikator loading fa-spin.
+
+---
+
 ## [v1.6.1] - 2026-08-21
 
 ### 🛠️ Perbaikan Schema Field `job_title` pada Modul Cuti & Dashboard
