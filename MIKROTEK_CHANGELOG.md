@@ -4,6 +4,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.31] - 2026-08-22
+
+### 🔀 Fitur Dual-Mode Webmail (URL External cPanel vs Built-in Internal App)
+- **Pilihan Opsi Mode Integrasi (`settings.php` & `Webmail.php`)**: Menambahkan Opsi Pemilihan Mode Webmail di halaman Pengaturan Administrator:
+  - **Opsi 1: URL External (Roundcube cPanel / Hosting Webmail)**: Sangat cocok untuk perusahaan yang sudah memiliki portal Webmail cPanel tersendiri (`https://webmail.domain.com`).
+  - **Opsi 2: Built-in Internal Webmail App**: Sangat cocok untuk klien baru yang belum memiliki webmail eksternal, sehingga langsung menggunakan webmail bawaan aplikasi Mikrotek Suite.
+
+---
+
 ## [v1.7.30] - 2026-08-22
 
 ### 🔐 Layar Login Wajib Roundcube Webmail Karyawan (`roundcube.php`)

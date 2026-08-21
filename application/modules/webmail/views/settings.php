@@ -21,8 +21,30 @@
                         <i class="fa fa-server" style="color: #3b82f6; margin-right: 6px;"></i> Konfigurasi Server Webmail &amp; Roundcube (Administrator Only)
                     </div>
                     <div class="panel-body" style="padding: 24px;">
-                        <div class="alert alert-info" style="border-radius: 8px; font-size: 13px; margin-bottom: 20px;">
-                            <i class="fa fa-info-circle"></i> <strong>Built-in Roundcube Webmail:</strong> Aplikasi Roundcube sudah menyatu (built-in) secara otomatis di dalam Mikrotek Suite. Anda hanya perlu mengatur alamat Server Mail (IMAP &amp; SMTP) perusahaan di bawah ini.
+                        <div class="form-group">
+                            <label>Pilihan Mode Integrasi Webmail:</label>
+                            <div class="radio" style="margin-top: 8px;">
+                                <label style="font-weight: 600;">
+                                    <input type="radio" name="webmail_mode" value="external" <?php echo ($webmail_mode === 'external') ? 'checked' : ''; ?> onclick="document.getElementById('external-url-group').style.display='block';">
+                                    <strong>Opsi 1: URL External (Roundcube cPanel / Hosting Webmail)</strong>
+                                </label>
+                                <p class="help-block" style="margin-left: 20px;">Gunakan ini jika perusahaan/klien Anda sudah memiliki server Webmail Roundcube tersendiri (misal cPanel/Webmail domain).</p>
+                            </div>
+                            <div class="radio">
+                                <label style="font-weight: 600;">
+                                    <input type="radio" name="webmail_mode" value="internal" <?php echo ($webmail_mode !== 'external') ? 'checked' : ''; ?> onclick="document.getElementById('external-url-group').style.display='none';">
+                                    <strong>Opsi 2: Built-in Internal Webmail App</strong>
+                                </label>
+                                <p class="help-block" style="margin-left: 20px;">Gunakan aplikasi Webmail bawaan yang langsung menyatu 100% di dalam Mikrotek Suite.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="external-url-group" style="display: <?php echo ($webmail_mode === 'external') ? 'block' : 'none'; ?>;">
+                            <label for="webmail_url">URL Roundcube cPanel / External <span class="text-danger">*</span></label>
+                            <input type="url" name="webmail_url" id="webmail_url" class="form-control"
+                                   value="<?php echo html_escape($webmail_url); ?>"
+                                   placeholder="Contoh: https://webmail.domain.com atau https://domain.com:2096">
+                            <p class="help-block">Masukkan URL domain portal Roundcube Webmail cPanel/Hosting Anda.</p>
                         </div>
 
                         <div class="row">

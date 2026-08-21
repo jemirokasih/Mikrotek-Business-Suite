@@ -20,16 +20,18 @@ class Webmail extends Admin_Controller
 
     public function index()
     {
+        $webmail_mode  = get_setting('webmail_mode') ?: 'internal';
         $webmail_url   = get_setting('webmail_url');
         $webmail_email = get_setting('webmail_email');
 
-        // Default to internal Roundcube action route
-        if (empty($webmail_url)) {
-            $webmail_url = site_url('webmail/roundcube');
+        if ($webmail_mode === 'external' && !empty($webmail_url)) {
+            $target_url = $webmail_url;
+        } else {
+            $target_url = site_url('webmail/roundcube');
         }
 
         $data = [
-            'webmail_url'   => $webmail_url,
+            'webmail_url'   => $target_url,
             'webmail_email' => $webmail_email,
             'is_configured' => true,
             'is_admin'      => has_permission('settings'),
@@ -58,12 +60,14 @@ class Webmail extends Admin_Controller
             redirect('webmail');
         }
 
+        $webmail_mode           = get_setting('webmail_mode') ?: 'internal';
         $webmail_url            = get_setting('webmail_url');
         $webmail_imap_host      = get_setting('webmail_imap_host') ?: 'ssl://mail.mzi.co.id:993';
         $webmail_smtp_host      = get_setting('webmail_smtp_host') ?: 'ssl://mail.mzi.co.id:465';
         $webmail_default_domain = get_setting('webmail_default_domain') ?: 'mzi.co.id';
 
         $data = [
+            'webmail_mode'           => $webmail_mode,
             'webmail_url'            => $webmail_url,
             'webmail_imap_host'      => $webmail_imap_host,
             'webmail_smtp_host'      => $webmail_smtp_host,
@@ -79,6 +83,7 @@ class Webmail extends Admin_Controller
         if (!has_permission('settings')) {
             redirect('webmail');
         }
+        $webmail_mode           = trim((string) $this->input->post('webmail_mode', true));
         $webmail_url            = trim((string) $this->input->post('webmail_url', true));
         $webmail_imap_host      = trim((string) $this->input->post('webmail_imap_host', true));
         $webmail_smtp_host      = trim((string) $this->input->post('webmail_smtp_host', true));
@@ -88,12 +93,13 @@ class Webmail extends Admin_Controller
             $webmail_url = 'https://' . $webmail_url;
         }
 
+        $this->mdl_settings->save('webmail_mode', $webmail_mode);
         $this->mdl_settings->save('webmail_url', $webmail_url);
         $this->mdl_settings->save('webmail_imap_host', $webmail_imap_host);
         $this->mdl_settings->save('webmail_smtp_host', $webmail_smtp_host);
         $this->mdl_settings->save('webmail_default_domain', $webmail_default_domain);
 
-        $this->session->set_flashdata('alert_success', 'Konfigurasi Server Roundcube Webmail berhasil disimpan.');
+        $this->session->set_flashdata('alert_success', 'Konfigurasi Webmail berhasil disimpan.');
         redirect('webmail');
     }
 
