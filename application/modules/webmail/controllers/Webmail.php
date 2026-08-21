@@ -23,15 +23,10 @@ class Webmail extends Admin_Controller
         $webmail_url   = get_setting('webmail_url');
         $webmail_email = get_setting('webmail_email');
 
-        // Default to local bundled webmail endpoint if no external URL is specified
-        if (empty($webmail_url)) {
-            $webmail_url = base_url('webmail/app');
-        }
-
         $data = [
             'webmail_url'   => $webmail_url,
             'webmail_email' => $webmail_email,
-            'is_configured' => true,
+            'is_configured' => !empty($webmail_url),
         ];
 
         $this->layout->buffer('content', 'webmail/index', $data);

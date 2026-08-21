@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.23] - 2026-08-22
+
+### ✉️ Perbaikan Modul Webmail (Direct Roundcube Full Portal Integration)
+- **Direct Roundcube Webmail Iframe**: Menghapus override otomatis ke UI sederhana dan memastikan modul `webmail` memuat antarmuka **Roundcube Webmail** lengkap secara utuh (Kotak Masuk, Draft, Sampah, Folder, Kontak/Address Book, Pencarian, Filter, dan Pengaturan Identitas).
+- **Prompt Konfigurasi URL**: Menyajikan layar penyiapan yang mengarahkan pengguna untuk memasukkan URL Roundcube Webmail mereka jika belum dikonfigurasi.
+
+---
+
 ## [v1.7.22] - 2026-08-22
 
 ### ✉️ Fitur Baru: Internal Integrated Webmail Suite (Unified App Package)
