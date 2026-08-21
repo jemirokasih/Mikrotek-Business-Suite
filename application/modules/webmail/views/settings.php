@@ -21,12 +21,8 @@
                         <i class="fa fa-server" style="color: #3b82f6; margin-right: 6px;"></i> Konfigurasi Server Webmail &amp; Roundcube (Administrator Only)
                     </div>
                     <div class="panel-body" style="padding: 24px;">
-                        <div class="form-group">
-                            <label for="webmail_url">URL Portal Roundcube Webmail <span class="text-danger">*</span></label>
-                            <input type="url" name="webmail_url" id="webmail_url" class="form-control"
-                                   value="<?php echo html_escape($webmail_url); ?>"
-                                   placeholder="Contoh: https://webmail.mzi.co.id atau https://mail.domain.com" required>
-                            <p class="help-block">URL portal tempat aplikasi Roundcube Webmail di-host oleh sistem/administrator.</p>
+                        <div class="alert alert-info" style="border-radius: 8px; font-size: 13px; margin-bottom: 20px;">
+                            <i class="fa fa-info-circle"></i> <strong>Built-in Roundcube Webmail:</strong> Aplikasi Roundcube sudah menyatu (built-in) secara otomatis di dalam Mikrotek Suite. Anda hanya perlu mengatur alamat Server Mail (IMAP &amp; SMTP) perusahaan di bawah ini.
                         </div>
 
                         <div class="row">

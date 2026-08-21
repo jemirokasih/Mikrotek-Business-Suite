@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.28] - 2026-08-22
+
+### 🧹 Penyederhanaan Form Pengaturan Webmail (Pembersihan Field URL Manual)
+- **Eliminasi Field URL Eksternal (`settings.php`)**: Menghapus input field `URL Portal Roundcube Webmail` karena aplikasi Roundcube sudah **100% built-in** secara otomatis di dalam Mikrotek Suite (`site_url('webmail/roundcube')`).
+- **Fokus Pengaturan Admin**: Admin kini hanya perlu mengonfigurasi alamat Mail Server perusahaan (Server IMAP, Server SMTP, & Domain Default).
+
+---
+
 ## [v1.7.27] - 2026-08-22
 
 ### ⚙️ Pemisahan Pengaturan Server Admin & Login Karyawan Webmail
