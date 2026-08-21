@@ -84,10 +84,13 @@ function date_from_mysql($date, $ignore_post_check = false)
         if ( ! $_POST || $ignore_post_check) {
             $CI = &get_instance();
 
-            if ($date != null) {
-                $date = DateTime::createFromFormat('Y-m-d', $date);
+            if ($date != null && $date != '0000-00-00' && $date != '0000-00-00 00:00:00') {
+                $clean_date = mb_substr($date, 0, 10);
+                $d          = DateTime::createFromFormat('Y-m-d', $clean_date);
 
-                return $date->format($CI->mdl_settings->setting('date_format'));
+                if ($d !== false) {
+                    return $d->format($CI->mdl_settings->setting('date_format'));
+                }
             }
 
             return '';

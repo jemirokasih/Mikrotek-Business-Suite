@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.6.3] - 2026-08-21
+
+### 🛠️ Resilience Datetime String Parsing pada Helper Tanggal (`date_helper.php`)
+- **Fix Fatal Exception `date_from_mysql()`**: Mengubah parsing string tanggal pada `date_helper.php` agar mengekstrak 10 karakter pertama (`substr($date, 0, 10)`) dan memvalidasi `DateTime::createFromFormat()` dari hasil `false` ketika menerima format datetime MySQL (`Y-m-d H:i:s`), mencegah kesalahan fatal PHP (*HTTP 500*).
+
+---
+
 ## [v1.6.2] - 2026-08-21
 
 ### 🛠️ Perbaikan Callback Loading & Form Submit Modal Approval Cuti
