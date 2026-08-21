@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.4.2] - 2026-08-21
+
+### 🛠️ Perbaikan HTTP 500 pada Dashboard Utama (`Dashboard.php`)
+- **Fix Missing Models & Variables**: Memperbaiki kegagalan pemanggilan model `mdl_tasks` serta variabel `$invoice_overview_period` dan `$quote_overview_period` pada controller `Dashboard.php` yang memicu PHP Fatal Exception (*HTTP 500*).
+
+---
+
 ## [v1.4.1] - 2026-08-21
 
 ### ⏱️ Akses Portal Absensi & Quick Widget Dashboard Karyawan
