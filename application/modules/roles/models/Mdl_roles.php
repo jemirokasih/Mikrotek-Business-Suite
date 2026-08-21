@@ -81,6 +81,10 @@ class Mdl_Roles extends Response_Model
                 'label' => trans('users'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
+            'receipts' => [
+                'label' => trans('receipts'),
+                'actions' => ['view', 'create', 'edit', 'delete'],
+            ],
             'roles' => [
                 'label' => trans('user_roles'),
                 'actions' => ['view', 'create', 'edit', 'delete'],

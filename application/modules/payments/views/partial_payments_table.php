@@ -43,6 +43,14 @@ foreach ($payments as $payment) {
                                     <?php _trans('edit'); ?>
                                 </a>
                             </li>
+<?php if (has_permission('receipts', 'create')) : ?>
+                            <li>
+                                <a href="<?php echo site_url('receipts/create_from_payment/' . $payment->payment_id); ?>">
+                                    <i class="fa fa-print fa-margin"></i>
+                                    <?php _trans('create_receipt'); ?>
+                                </a>
+                            </li>
+<?php endif; ?>
                             <li>
                                 <form action="<?php echo site_url('payments/delete/' . $payment->payment_id); ?>"
                                       method="POST">

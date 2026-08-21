@@ -316,6 +316,14 @@ if ($invoice->invoice_balance != 0) {
                         <?php _trans('download_pdf'); ?>
                     </a>
                 </li>
+<?php if (has_permission('receipts', 'create')) : ?>
+                <li>
+                    <a href="<?php echo site_url('receipts/create_from_invoice/' . $invoice_id); ?>">
+                        <i class="fa fa-file-text-o fa-margin"></i>
+                        <?php _trans('create_receipt'); ?>
+                    </a>
+                </li>
+<?php endif; ?>
 <?php
 // eInvoice & user fields OK: Show download XML Option
 if ($einvoice->user) {
@@ -678,6 +686,45 @@ if ($default_custom) {
 <?php
 } // End if custom_fields
 ?>
+
+<?php if (!empty($receipts)) : ?>
+            <hr>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-print"></i> <?php _trans('receipts'); ?>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><?php _trans('receipt_number'); ?></th>
+                                <th><?php _trans('date'); ?></th>
+                                <th><?php _trans('amount'); ?></th>
+                                <th><?php _trans('options'); ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($receipts as $receipt) : ?>
+                                <tr>
+                                    <td>
+                                        <a href="<?php echo site_url('receipts/view/' . $receipt->receipt_id); ?>">
+                                            <strong><?php echo html_escape($receipt->receipt_number); ?></strong>
+                                        </a>
+                                    </td>
+                                    <td><?php echo date_from_mysql($receipt->receipt_date); ?></td>
+                                    <td><?php echo format_currency($receipt->receipt_amount); ?></td>
+                                    <td>
+                                        <a class="btn btn-sm btn-default" href="<?php echo site_url('receipts/generate_pdf/' . $receipt->receipt_id); ?>" target="_blank">
+                                            <i class="fa fa-print"></i> <?php _trans('pdf'); ?>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+<?php endif; ?>
 
         </div>
     </div>

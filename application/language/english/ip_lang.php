@@ -876,4 +876,13 @@ $lang = [
     'company_form'     => 'Company Form',
     'company_details'  => 'Company Details',
     'select_company'   => 'Select Company',
+
+    // Receipts / Kwitansi
+    'receipts'         => 'Kwitansi / Receipts',
+    'receipt'          => 'Kwitansi',
+    'create_receipt'   => 'Terbitkan Kwitansi',
+    'view_receipts'    => 'Daftar Kwitansi',
+    'receipt_number'   => 'Nomor Kwitansi',
+    'receipt_form'     => 'Form Kwitansi',
+    'receipt_details'  => 'Rincian Kwitansi',
 ];

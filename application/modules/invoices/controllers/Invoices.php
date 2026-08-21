@@ -191,6 +191,9 @@ class Invoices extends Admin_Controller
         $change_user = $this->db->from('ip_users')->where(['user_type' => 1, 'user_active' => 1])->select_sum('user_type')->get()->row();
         $change_user = $change_user->user_type > 1;
 
+        $this->load->model('receipts/mdl_receipts');
+        $invoice_receipts = $this->mdl_receipts->where('ip_receipts.invoice_id', $invoice_id)->get()->result();
+
         $this->layout->set(
             [
                 'invoice'           => $invoice,
@@ -212,6 +215,7 @@ class Invoices extends Admin_Controller
                 'invoice_statuses'   => $this->mdl_invoices->statuses(),
                 'payment_cf_exist'   => $payment_cf_exist,
                 'legacy_calculation' => config_item('legacy_calculation'),
+                'receipts'           => $invoice_receipts,
             ]
         );
 

@@ -79,6 +79,22 @@
                 </li>
                 <?php endif; ?>
 
+                <?php if (has_permission('receipts')) : ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-caret-down"></i> &nbsp;
+                        <span class="hidden-md"><?php _trans('receipts'); ?></span>
+                        <i class="visible-md-inline fa fa-print"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <?php if (has_permission('receipts', 'create')) : ?>
+                            <li><?php echo anchor('receipts/form', trans('create_receipt')); ?></li>
+                        <?php endif; ?>
+                        <li><?php echo anchor('receipts/index', trans('view_receipts')); ?></li>
+                    </ul>
+                </li>
+                <?php endif; ?>
+
                 <?php if (has_permission('products')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -52,7 +52,25 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Mengupdate controller `Sessions.php` agar user dengan tipe `3` (`Staff / Custom Role`) di-redirect ke `dashboard` setelah login berhasil.
   - Mengupdate `Mdl_sessions.php` untuk memuat `user_role_id`, `company_id`, dan matriks `user_role_permissions` ke dalam sesi pengguna saat login.
 
+### 🧾 Fitur Baru: Modul Receipt / Kwitansi (Terintegrasi Invoice & Payment) (Branch `dev`)
+- **Database Schema**:
+  - Membuat tabel `ip_receipts` (`receipt_id`, `company_id`, `user_id`, `client_id`, `invoice_id`, `payment_id`, `receipt_number`, `receipt_date`, `receipt_amount`, `receipt_notes`, `receipt_url_key`, `receipt_status`).
+  - Menambahkan grup penomoran kwitansi (`Kwitansi` / `KWT-`) pada `ip_invoice_groups`.
+  - Menambahkan file migrasi `application/modules/setup/sql/046_1.7.5.sql`.
+- **Modul Receipt (`application/modules/receipts/`)**:
+  - `Mdl_receipts.php`: Model pengelola kwitansi, penomoran otomatis, & helper fungsi **Terbilang Bahasa Indonesia** (contoh: `Satu Juta Lima Ratus Ribu Rupiah`).
+  - `Receipts.php`: Controller CRUD Kwitansi, generasi PDF, serta fitur 1-klik terbitkan Kwitansi dari Invoice (`create_from_invoice`) & Payment (`create_from_payment`).
+  - `views/index.php`, `views/form.php`, `views/view.php`: UI pengelola & pratinjau kwitansi.
+- **Template PDF Kwitansi**:
+  - `application/views/receipt_templates/pdf/Kwitansi.php`: Template PDF standar Kwitansi Indonesia (Kop Perusahaan, Nomor Kwitansi, Terbilang, Faktur Terkait, Jumlah Nominal, Tanggal, & Tanda Tangan).
+- **Integrasi Invoice, Payment, Navigasi, & RBAC**:
+  - `Invoices.php` & `invoices/views/view.php`: Menambahkan aksi **Terbitkan Kwitansi** pada dropdown opsi Invoice dan menampilkan riwayat Kwitansi terkait di halaman detail Invoice.
+  - `partial_payments_table.php`: Menambahkan aksi **Terbitkan Kwitansi** pada opsi transaksi Payment.
+  - `navbar.php`: Menambahkan dropdown menu **Kwitansi / Receipts**.
+  - `Mdl_roles.php`: Menambahkan hak akses modul `receipts` pada matriks RBAC.
+
 ---
+
 
 
 
