@@ -80,7 +80,17 @@ class Mdl_Sessions extends CI_Model
                     'user_email'    => $user->user_email,
                     'user_company'  => $user->user_company,
                     'user_language' => $user->user_language ?? 'system',
+                    'user_role_id'  => $user->user_role_id ?? null,
+                    'company_id'    => $user->company_id ?? null,
                 ];
+
+                if (!empty($user->user_role_id)) {
+                    $this->load->model('roles/mdl_roles');
+                    $role = $this->mdl_roles->get_by_id($user->user_role_id);
+                    if ($role) {
+                        $session_data['user_role_permissions'] = json_decode($role->role_permissions, true) ?: [];
+                    }
+                }
 
                 // Regenerate session ID on login to prevent session fixation attacks.
                 $this->session->sess_regenerate(true);
