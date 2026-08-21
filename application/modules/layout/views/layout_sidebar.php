@@ -88,10 +88,11 @@
             $('body').addClass('sidebar-collapsed');
         }
 
-        // Submenu Accordion Toggle
-        $('.sidebar-nav-link.toggle-submenu').click(function (e) {
+        // Submenu Accordion Toggle (Delegated for 100% Reliability)
+        $(document).on('click', '.toggle-submenu', function (e) {
             e.preventDefault();
-            var $item = $(this).parent('.sidebar-nav-item');
+            e.stopPropagation();
+            var $item = $(this).closest('.sidebar-nav-item');
             $item.toggleClass('open');
         });
     });

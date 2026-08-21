@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.4] - 2026-08-21
+
+### 🛠️ Fix Event Handler & Display Rules Submenu Dropdown Sidebar
+- **Delegated Accordion Toggle Handler (`layout_sidebar.php`)**: Menggunakan `$(document).on('click', '.toggle-submenu', ...)` dan `$(this).closest('.sidebar-nav-item')` untuk memastikan klik pada ikon/teks submenu (invoices, quotes, attendance) 100% membuka & menutup dropdown accordion.
+- **CSS Display Priority (`modern_sidebar.css`)**: Menambahkan `display: block !important` pada `body:not(.sidebar-collapsed) .sidebar-nav-item.open > .sidebar-submenu` agar tidak ter-override oleh rule CSS lain.
+
+---
+
 ## [v1.7.3] - 2026-08-21
 
 ### 🎨 Perbaikan Zebra Striping Tabel, Responsive Layout & Minimizable Sidebar
