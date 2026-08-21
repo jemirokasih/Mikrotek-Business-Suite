@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.24] - 2026-08-22
+
+### ✉️ Modul Roundcube Webmail Built-in (Unified Single Package Application)
+- **Built-in Roundcube Engine (`application/modules/webmail/roundcube/index.php`)**: Mengintegrasikan aplikasi **Roundcube Webmail** bawaan yang menyatu 100% di dalam kode sumber proyek Mikrotek Suite.
+- **Tampilan Roundcube Elastic Interface**: Menyediakan fitur bawaan Roundcube lengkap: Tulis Email (Compose), Kotak Masuk (Inbox), Pesan Terkirim, Draft, Sampah, Buku Alamat (Contacts/Address Book), Pencarian Email, dan Pengaturan.
+
+---
+
 ## [v1.7.23] - 2026-08-22
 
 ### ✉️ Perbaikan Modul Webmail (Direct Roundcube Full Portal Integration)

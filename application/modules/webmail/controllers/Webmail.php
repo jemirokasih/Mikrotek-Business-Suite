@@ -23,10 +23,15 @@ class Webmail extends Admin_Controller
         $webmail_url   = get_setting('webmail_url');
         $webmail_email = get_setting('webmail_email');
 
+        // Default to built-in internal Roundcube application
+        if (empty($webmail_url)) {
+            $webmail_url = base_url('application/modules/webmail/roundcube/index.php');
+        }
+
         $data = [
             'webmail_url'   => $webmail_url,
             'webmail_email' => $webmail_email,
-            'is_configured' => !empty($webmail_url),
+            'is_configured' => true,
         ];
 
         $this->layout->buffer('content', 'webmail/index', $data);
