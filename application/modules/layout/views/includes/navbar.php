@@ -185,6 +185,7 @@
                             <li><?php echo anchor('invoice_groups/index', trans('invoice_groups')); ?></li>
                             <li><?php echo anchor('invoices/archive', trans('invoice_archive')); ?></li>
                             <li><?php echo anchor('payment_methods/index', trans('payment_methods')); ?></li>
+                            <li><?php echo anchor('bank_accounts/index', 'Rekening Bank'); ?></li>
                             <li><?php echo anchor('tax_rates/index', trans('tax_rates')); ?></li>
                         <?php endif; ?>
                         <?php if (has_permission('users')) : ?>

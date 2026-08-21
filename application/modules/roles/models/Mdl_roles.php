@@ -89,6 +89,10 @@ class Mdl_Roles extends Response_Model
                 'label' => trans('user_roles'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
+            'bank_accounts' => [
+                'label' => 'Rekening Bank',
+                'actions' => ['view', 'create', 'edit', 'delete'],
+            ],
         ];
     }
 }

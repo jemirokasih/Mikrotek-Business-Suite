@@ -78,12 +78,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan tab filter **Proforma Invoices** pada halaman daftar Invoice (`invoices/status/proforma`).
   - Menampilkan badge **PROFORMA INVOICE** pada tabel daftar & halaman detail Invoice jika `is_proforma = 1`.
   - Menambahkan tombol **Konversi ke Invoice Resmi** (`invoices/convert_proforma/$id`) untuk mengubah status `is_proforma = 0` dan menerbitkan nomor Invoice resmi secara instan.
-- **Fitur Pengaturan Rekening Bank Transfer pada Payment Methods**:
-  - Menambahkan kolom `payment_method_bank_name`, `payment_method_account_number`, `payment_method_account_name`, & `payment_method_notes` pada tabel `ip_payment_methods` (SQL: `049_1.7.8.sql`).
-  - Mengupdate form & tabel daftar pengelola `payment_methods` (`form.php` & `index.php`) untuk memasukkan Nama Bank, No. Rekening, Atas Nama, & Catatan Instruksi Transfer.
-  - Mengintegrasikan blok **Informasi Pembayaran Transfer Bank** otomatis pada cetakan PDF Invoice Mikrotek (`Mikrotek.php`).
+- **Fitur Multi Rekening Bank (`bank_accounts`)**:
+  - Membuat tabel `ip_bank_accounts` (`bank_id`, `company_id`, `payment_method_id`, `bank_name`, `account_number`, `account_name`, `bank_notes`, `bank_active`) (SQL: `050_1.7.9.sql`).
+  - Membuat modul `bank_accounts` (`Mdl_bank_accounts.php`, `Bank_accounts.php`, views `index.php` & `form.php`) untuk mengelola daftar banyak rekening bank perusahaan.
+  - Mengintegrasikan navigasi menu **Rekening Bank** pada navbar & matriks hak akses RBAC (`Mdl_roles.php`).
+  - Mengupdate cetakan PDF Invoice Mikrotek (`Mikrotek.php`) agar dapat menampilkan **Multiple Rekening Bank Transfer** sekaligus dalam tabel rincian bank yang rapi.
 
 ---
+
 
 
 
