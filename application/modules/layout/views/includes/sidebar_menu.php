@@ -107,17 +107,26 @@
 
             <!-- Communication Group -->
             <li class="sidebar-group-title">Communication</li>
-            <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'webmail') ? 'open active' : ''; ?>">
-                <a href="<?php echo site_url('webmail'); ?>" class="sidebar-nav-link">
-                    <i class="fa fa-envelope nav-icon"></i>
-                    <span class="nav-text">Webmail / Email</span>
-                    <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
-                </a>
-                <ul class="sidebar-submenu">
-                    <li><a href="<?php echo site_url('webmail'); ?>" class="sidebar-nav-link">Buka Email</a></li>
-                    <li><a href="<?php echo site_url('webmail/settings'); ?>" class="sidebar-nav-link">Pengaturan Webmail</a></li>
-                </ul>
-            </li>
+            <?php if (has_permission('settings')) : ?>
+                <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'webmail') ? 'open active' : ''; ?>">
+                    <a href="<?php echo site_url('webmail'); ?>" class="sidebar-nav-link">
+                        <i class="fa fa-envelope nav-icon"></i>
+                        <span class="nav-text">Webmail / Email</span>
+                        <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="<?php echo site_url('webmail'); ?>" class="sidebar-nav-link">Buka Email</a></li>
+                        <li><a href="<?php echo site_url('webmail/settings'); ?>" class="sidebar-nav-link">Pengaturan Webmail</a></li>
+                    </ul>
+                </li>
+            <?php else : ?>
+                <li class="sidebar-nav-item <?php echo ($this->router->fetch_class() == 'webmail') ? 'active' : ''; ?>">
+                    <a href="<?php echo site_url('webmail'); ?>" class="sidebar-nav-link">
+                        <i class="fa fa-envelope nav-icon"></i>
+                        <span class="nav-text">Buka Email</span>
+                    </a>
+                </li>
+            <?php endif; ?>
 
             <!-- Products & Projects Group -->
             <?php if (has_permission('products') || (get_setting('projects_enabled') == 1 && (has_permission('projects') || has_permission('tasks')))) : ?>

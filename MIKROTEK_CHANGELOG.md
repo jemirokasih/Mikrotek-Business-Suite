@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.29] - 2026-08-22
+
+### ✉️ Menu "Buka Email" Langsung Khusus Karyawan (`sidebar_menu.php`)
+- **Navigasi Karyawan Simpel**: Karyawan/User biasa kini hanya melihat 1 menu sederhana **"Buka Email"** di bawah grup Communication tanpa submenu dropdown atau opsi pengaturan.
+- **Direct Login Experience**: Mengklik **Buka Email** akan membawa karyawan langsung ke portal login Roundcube Webmail untuk masuk dan mulai menggunakan email seperti biasa.
+
+---
+
 ## [v1.7.28] - 2026-08-22
 
 ### 🧹 Penyederhanaan Form Pengaturan Webmail (Pembersihan Field URL Manual)
