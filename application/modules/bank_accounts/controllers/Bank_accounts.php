@@ -36,7 +36,12 @@ class Bank_Accounts extends Admin_Controller
             redirect('bank_accounts');
         }
 
-        if (!$id && !$this->input->post('btn_submit')) {
+        if ($id && !$this->input->post('btn_submit')) {
+            if (!$this->mdl_bank_accounts->prep_form($id)) {
+                show_404();
+            }
+            $this->mdl_bank_accounts->set_form_value('is_update', true);
+        } elseif (!$id && !$this->input->post('btn_submit')) {
             $this->mdl_bank_accounts->set_form_value('bank_active', 1);
         }
 

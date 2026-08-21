@@ -82,9 +82,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Membuat tabel `ip_bank_accounts` (`bank_id`, `company_id`, `payment_method_id`, `bank_name`, `account_number`, `account_name`, `bank_notes`, `bank_active`) (SQL: `050_1.7.9.sql`).
   - Membuat modul `bank_accounts` (`Mdl_bank_accounts.php`, `Bank_accounts.php`, views `index.php` & `form.php`) untuk mengelola daftar banyak rekening bank perusahaan.
   - Mengintegrasikan navigasi menu **Rekening Bank** pada navbar & matriks hak akses RBAC (`Mdl_roles.php`).
-  - Membersihkan form & tabel `payment_methods` dari field bank tunggal agar terpusat penuh pada modul Master Rekening Bank (`bank_accounts`).
+  - Memperbaiki controller `Bank_accounts.php` (`prep_form($id)`) & view `form.php` (`is_update`) sehingga fungsi edit rekening bank berjalan 100% lancar.
 
 ---
+
 
 
 
