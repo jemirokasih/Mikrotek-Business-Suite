@@ -1,20 +1,25 @@
 <img align="right" alt="Mikrotek Business Suite logo" src="/assets/core/img/favicon.png">
 
-# Mikrotek Business Suite `v1.7.12`
+# Mikrotek Business Suite `v1.7.38`
 
-_An enhanced, open-source business operations, invoicing, multi-company, employee management, attendance tracking, and role-based platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
+_An enhanced, open-source business operations, invoicing, multi-company, employee management, attendance tracking, embedded webmail, and role-based platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
 
 ---
 
 ## 📌 About Mikrotek Business Suite
 
-**Mikrotek Business Suite** is a customized distribution of [InvoicePlane](https://invoiceplane.com/), tailored for comprehensive business operations. It expands standard invoicing capabilities with custom Role-Based Access Control (RBAC), multi-company management, Employee/HR management, Attendance & Geolocation Clock-In/Out tracking, Indonesian receipt/kwitansi generation with auto-terbilang, dynamic proforma invoicing, multiple client contacts (PIC), bank account management, project integrations, and custom PDF outputs.
+**Mikrotek Business Suite** is a customized distribution of [InvoicePlane](https://invoiceplane.com/), tailored for comprehensive business operations. It expands standard invoicing capabilities with custom Role-Based Access Control (RBAC), multi-company management, Employee/HR management, Attendance & Geolocation Clock-In/Out tracking, embedded Roundcube Webmail, Indonesian receipt/kwitansi generation with auto-terbilang, dynamic proforma invoicing, multiple client contacts (PIC), bank account management, project integrations, and custom PDF outputs.
 
-> **Credit & Attribution:** This application is powered by **InvoicePlane** (licensed under the MIT License). We extend our deepest gratitude to the original InvoicePlane team and open-source contributors.
+> **Credit & Attribution:** This application is powered by **InvoicePlane** (licensed under the MIT License) and integrates **Roundcube Webmail** (licensed under the GPLv3 License). We extend our deepest gratitude to the original InvoicePlane team and Roundcube Webmail open-source contributors.
 
 ---
 
 ## ✨ Features & Extensions in v1.4.0
+
+- ✉️ **Roundcube Webmail Integration Module (`webmail`)**:
+  - Embedded **Roundcube Webmail** engine supporting dual-mode operations: external cPanel/Hosting Webmail URL or internal built-in Roundcube application package.
+  - Role-based separation: Admin-managed server configs (IMAP/SMTP) & simple employee email login.
+  - Full-screen view with a floating right-edge option button for quick refresh, opening in new tabs, and settings access.
 
 - ⏱️ **Attendance & Clock-In/Out Module (`attendance`)**:
   - **Employee Self-Service Clock Portal (`attendance/clock`)**: 1-Click Clock In / Clock Out with real-time **HTML5 GPS Geolocation & IP Address tracking**.
@@ -92,5 +97,6 @@ All notable changes and release notes are recorded in [MIKROTEK_CHANGELOG.md](MI
 ## ⚖️ License & Credits
 
 - **Mikrotek Business Suite** is licensed under the [MIT License](LICENSE.txt).
-- **Powered by InvoicePlane**: Copyright (c) InvoicePlane Developers & Contributors.
-- For original InvoicePlane documentation and community support, visit [invoiceplane.com](https://invoiceplane.com).
+- **Powered by InvoicePlane**: Copyright (c) InvoicePlane Developers & Contributors (MIT License).
+- **Webmail powered by Roundcube**: Copyright (c) Roundcube Webmail Developers & Contributors (GPLv3 License).
+- For original InvoicePlane documentation and community support, visit [invoiceplane.com](https://invoiceplane.com) and Roundcube at [roundcube.net](https://roundcube.net).
