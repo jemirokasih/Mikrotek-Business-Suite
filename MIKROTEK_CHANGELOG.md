@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## 📌 Roadmap & Fitur Mendatang (Future Features)
+1. **📂 Integrasi File Storage Synology NAS (`modules/files`)**:
+   - Modul File Manager terpadu yang terhubung ke Synology NAS via protokol WebDAV / Local SMB Mount Path.
+   - Fitur Auto-Archive PDF Invoice/Quote otomatis ke folder Synology NAS.
+   - Manajemen dokumen lampiran klien, resi pembayaran, dan kontrak perusahaan.
+
+---
+
 ## [v1.7.37] - 2026-08-22
 
 ### 📐 Presisi Alignment Padding `#page-content-wrapper` (`index.php`)
