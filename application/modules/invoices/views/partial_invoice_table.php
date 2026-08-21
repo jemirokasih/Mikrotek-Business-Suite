@@ -36,6 +36,9 @@ $invoice_idx                    = 1;
                 if ($invoice->invoice_is_recurring) {?>&nbsp;<i class="fa fa-refresh" title="<?php _trans('recurring'); ?>"></i><?php }
                 ?>
                     </span>
+<?php if ($invoice->is_proforma == 1) : ?>
+                    <span class="label label-warning">PROFORMA</span>
+<?php endif; ?>
                 </td>
 
                 <td>

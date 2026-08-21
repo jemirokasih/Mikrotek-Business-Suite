@@ -55,6 +55,9 @@ class Invoices extends Admin_Controller
             case 'overdue':
                 $this->mdl_invoices->is_overdue();
                 break;
+            case 'proforma':
+                $this->mdl_invoices->where('ip_invoices.is_proforma', 1);
+                break;
         }
 
         $this->mdl_invoices->paginate(site_url('invoices/status/' . $status), $page);
@@ -389,5 +392,29 @@ class Invoices extends Admin_Controller
             // Recalculate invoice amounts
             $this->mdl_invoice_amounts->calculate($invoice_id->invoice_id, $global_discount);
         }
+    }
+
+    public function convert_proforma(int $invoice_id): void
+    {
+        $invoice = $this->mdl_invoices->get_by_id($invoice_id);
+
+        if (!$invoice || (int) $invoice->is_proforma !== 1) {
+            show_404();
+
+            return;
+        }
+
+        $db_array = [
+            'is_proforma' => 0,
+        ];
+
+        // If invoice_number was empty, generate official invoice number
+        if (empty($invoice->invoice_number)) {
+            $db_array['invoice_number'] = $this->mdl_invoices->get_invoice_number($invoice->invoice_group_id);
+        }
+
+        $this->mdl_invoices->save($invoice_id, $db_array);
+        $this->session->set_flashdata('alert_success', trans('proforma_converted_to_invoice_success'));
+        redirect('invoices/view/' . $invoice_id);
     }
 }

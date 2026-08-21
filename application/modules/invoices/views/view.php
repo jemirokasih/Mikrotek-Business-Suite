@@ -270,6 +270,11 @@ if ($change_user) {
     </h1>
 
     <div class="headerbar-item pull-right<?php echo ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) ? ' btn-group' : ''; ?>">
+<?php if ($invoice->is_proforma == 1 && has_permission('invoices', 'edit')) : ?>
+        <a href="<?php echo site_url('invoices/convert_proforma/' . $invoice_id); ?>" class="btn btn-sm btn-success pull-right" style="margin-left: 5px;" onclick="return confirm('Konversi Proforma Invoice ini menjadi Invoice Resmi?');">
+            <i class="fa fa-refresh"></i> <?php echo trans('convert_to_invoice'); ?>
+        </a>
+<?php endif; ?>
 <?php if (has_permission('receipts', 'create')) : ?>
         <a href="<?php echo site_url('receipts/create_from_invoice/' . $invoice_id); ?>" class="btn btn-sm btn-info pull-right" style="margin-left: 5px;">
             <i class="fa fa-print"></i> <?php _trans('create_receipt'); ?>
@@ -392,6 +397,11 @@ if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
     </div>
 
     <div class="headerbar-item invoice-labels pull-right">
+<?php if ($invoice->is_proforma == 1) : ?>
+        <span class="label label-warning" style="font-size: 13px; padding: 5px 10px;">
+            <i class="fa fa-file-text-o"></i> <?php echo trans('proforma_invoice'); ?>
+        </span>
+<?php endif; ?>
 <?php
 if ($invoice->invoice_is_recurring) {
     ?>

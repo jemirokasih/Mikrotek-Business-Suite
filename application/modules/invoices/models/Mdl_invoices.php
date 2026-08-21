@@ -451,6 +451,7 @@ class Mdl_Invoices extends Response_Model
 
         // Set default values
         $db_array['payment_method'] = (empty($db_array['payment_method']) ? 0 : $db_array['payment_method']);
+        $db_array['is_proforma']    = isset($db_array['is_proforma']) ? (int) $db_array['is_proforma'] : (int) $this->input->post('is_proforma');
 
         // Generate the unique url key
         $db_array['invoice_url_key'] = $this->get_url_key();

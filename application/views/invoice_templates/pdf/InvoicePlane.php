@@ -171,7 +171,7 @@ if ($invoice->user_fax) {
         </table>
     </div>
 
-    <h1 class="invoice-title <?php echo $text_class ?>"><?php _trans('invoice') ?> <?php _htmlsc($invoice->invoice_number) ?></h1>
+    <h1 class="invoice-title <?php echo $text_class ?>"><?php echo ($invoice->is_proforma == 1 ? trans('proforma_invoice') : trans('invoice')); ?> <?php _htmlsc($invoice->invoice_number) ?></h1>
 
     <table class="item-table">
         <thead>

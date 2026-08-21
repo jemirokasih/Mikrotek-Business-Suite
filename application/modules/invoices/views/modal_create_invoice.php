@@ -19,7 +19,8 @@
                     invoice_time_created: '<?php echo date('H:i:s') ?>',
                     invoice_password: $('#invoice_password').val(),
                     user_id: '<?php echo $this->session->userdata('user_id'); ?>',
-                    payment_method: $('#payment_method_id').val()
+                    payment_method: $('#payment_method_id').val(),
+                    is_proforma: $('#is_proforma').is(':checked') ? 1 : 0
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
@@ -104,6 +105,15 @@ foreach ($invoice_groups as $invoice_group) {
 }
         ?>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="is_proforma" id="is_proforma" value="1">
+                        <strong><?php echo trans('is_proforma_invoice'); ?></strong>
+                    </label>
+                </div>
             </div>
 
         </div>

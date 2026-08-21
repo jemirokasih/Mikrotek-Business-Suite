@@ -67,7 +67,22 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Mengupdate `Receipts.php` (`create_from_invoice`) agar secara otomatis mengambil tanggal, nominal, metode pembayaran, dan ID transaksi dari pembayaran terakhir jika Invoice sudah berstatus Lunas (Paid).
   - Menambahkan tombol utama **Terbitkan Kwitansi** secara langsung di baris header atas `invoices/views/view.php` agar selalu dapat diakses baik dalam status Draft, Sent, Paid, maupun Read-Only.
 
+### 📋 Fitur Baru: Flag Proforma Invoice pada Modul Invoice Utama (Branch `feature/proforma-flag`)
+- **Database Schema**:
+  - Menambahkan kolom `is_proforma` TINYINT(1) DEFAULT 0 pada tabel `ip_invoices`.
+  - Menambahkan file migrasi `application/modules/setup/sql/048_1.7.7.sql`.
+- **Integrasi Modal & Form Invoice (`modal_create_invoice.php` & `Mdl_invoices.php`)**:
+  - Menambahkan opsi centang **Jadikan Proforma Invoice (Faktur Sementara)** saat membuat Invoice baru.
+  - Menyimpan status flag `is_proforma` ke tabel `ip_invoices`.
+- **Tampilan, Filter, & Konversi 1-Klik (`Invoices.php` & `view.php`)**:
+  - Menambahkan tab filter **Proforma Invoices** pada halaman daftar Invoice (`invoices/status/proforma`).
+  - Menampilkan badge **PROFORMA INVOICE** pada tabel daftar & halaman detail Invoice jika `is_proforma = 1`.
+  - Menambahkan tombol **Konversi ke Invoice Resmi** (`invoices/convert_proforma/$id`) untuk mengubah status `is_proforma = 0` dan menerbitkan nomor Invoice resmi secara instan.
+- **Template PDF Dynamic Header**:
+  - Mengupdate `InvoicePlane.php` (PDF Template) agar otomatis menampilkan judul **PROFORMA INVOICE** saat `is_proforma = 1`.
+
 ---
+
 
 
 

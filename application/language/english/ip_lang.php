@@ -885,4 +885,11 @@ $lang = [
     'receipt_number'   => 'Nomor Kwitansi',
     'receipt_form'     => 'Form Kwitansi',
     'receipt_details'  => 'Rincian Kwitansi',
+
+    // Proforma Flag
+    'is_proforma_invoice'                 => 'Jadikan Proforma Invoice (Faktur Sementara)',
+    'proforma_invoice'                    => 'Proforma Invoice',
+    'proforma_invoices'                   => 'Proforma Invoices',
+    'convert_to_official_invoice'         => 'Konversi ke Invoice Resmi',
+    'proforma_converted_to_invoice_success' => 'Invoice Proforma berhasil dikonversi menjadi Invoice Resmi!',
 ];

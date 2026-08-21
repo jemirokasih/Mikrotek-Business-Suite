@@ -42,6 +42,10 @@
                class="btn <?php echo $status == 'overdue' ? 'btn-primary' : 'btn-default' ?>">
                 <?php _trans('overdue'); ?>
             </a>
+            <a href="<?php echo site_url('invoices/status/proforma'); ?>"
+               class="btn <?php echo $status == 'proforma' ? 'btn-warning' : 'btn-default' ?>">
+                <?php echo trans('proforma_invoices'); ?>
+            </a>
         </div>
     </div>
 
