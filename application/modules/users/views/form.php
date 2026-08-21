@@ -17,14 +17,18 @@ $einvoicingOpt = $einvoicing ? $einvoicingTip . trans('optional') . ')"' : '';
 
         function show_fields() {
             $('#administrator_fields').hide();
-            $('#guest_fields').hide(); // Todo this id missing (IMO: It's for old? modal user-client). (Idea* Why not a new user `type` system)
+            $('#guest_fields').hide();
+            $('#role_select_group').hide();
 
             var user_type = $('#user_type').val();
 
             if (user_type === '1') {
                 $('#administrator_fields').show();
+            } else if (user_type === '3') {
+                $('#administrator_fields').show();
+                $('#role_select_group').show();
             } else if (user_type === '2') {
-                $('#guest_fields').show(); // Todo this id missing. (Idea* For a new user type, like company? Need new module?)
+                $('#guest_fields').show();
             }
         }
 
@@ -136,6 +140,23 @@ foreach ($user_types as $key => $type) {
     ?>
                                     <option value="<?php echo $key; ?>" <?php check_select($user_type, $key); ?>>
                                         <?php echo $type; ?>
+                                    </option>
+<?php
+}
+?>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="role_select_group">
+                                <label for="user_role_id"><?php echo trans('user_role'); ?></label>
+                                <select name="user_role_id" id="user_role_id" class="form-control simple-select">
+                                    <option value=""><?php echo trans('none'); ?></option>
+<?php
+$user_role_id = $this->mdl_users->form_value('user_role_id');
+foreach ($roles as $role) {
+    ?>
+                                    <option value="<?php echo $role->role_id; ?>" <?php check_select($user_role_id, $role->role_id); ?>>
+                                        <?php echo html_escape($role->role_name); ?>
                                     </option>
 <?php
 }

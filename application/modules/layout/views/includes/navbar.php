@@ -13,6 +13,7 @@
                     <?php echo anchor('dashboard', '<i class="fa fa-dashboard"></i>', 'class="visible-md-inline-block"') ?>
                 </li>
 
+                <?php if (has_permission('clients')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -20,11 +21,15 @@
                         <i class="visible-md-inline fa fa-users"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><?php echo anchor('clients/form', trans('add_client')); ?></li>
+                        <?php if (has_permission('clients', 'create')) : ?>
+                            <li><?php echo anchor('clients/form', trans('add_client')); ?></li>
+                        <?php endif; ?>
                         <li><?php echo anchor('clients/index', trans('view_clients')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
+                <?php if (has_permission('quotes')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -32,11 +37,15 @@
                         <i class="visible-md-inline fa fa-file"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="create-quote"><?php _trans('create_quote'); ?></a></li>
+                        <?php if (has_permission('quotes', 'create')) : ?>
+                            <li><a href="#" class="create-quote"><?php _trans('create_quote'); ?></a></li>
+                        <?php endif; ?>
                         <li><?php echo anchor('quotes/index', trans('view_quotes')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
+                <?php if (has_permission('invoices')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -44,12 +53,16 @@
                         <i class="visible-md-inline fa fa-file-text"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="create-invoice"><?php _trans('create_invoice'); ?></a></li>
+                        <?php if (has_permission('invoices', 'create')) : ?>
+                            <li><a href="#" class="create-invoice"><?php _trans('create_invoice'); ?></a></li>
+                        <?php endif; ?>
                         <li><?php echo anchor('invoices/index', trans('view_invoices')); ?></li>
                         <li><?php echo anchor('invoices/recurring/index', trans('view_recurring_invoices')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
+                <?php if (has_permission('payments')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -57,12 +70,16 @@
                         <i class="visible-md-inline fa fa-credit-card"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><?php echo anchor('payments/form', trans('enter_payment')); ?></li>
+                        <?php if (has_permission('payments', 'create')) : ?>
+                            <li><?php echo anchor('payments/form', trans('enter_payment')); ?></li>
+                        <?php endif; ?>
                         <li><?php echo anchor('payments/index', trans('view_payments')); ?></li>
                         <li><?php echo anchor('payments/online_logs', trans('view_payment_logs')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
+                <?php if (has_permission('products')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -70,13 +87,17 @@
                         <i class="visible-md-inline fa fa-database"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><?php echo anchor('products/form', trans('create_product')); ?></li>
+                        <?php if (has_permission('products', 'create')) : ?>
+                            <li><?php echo anchor('products/form', trans('create_product')); ?></li>
+                        <?php endif; ?>
                         <li><?php echo anchor('products/index', trans('view_products')); ?></li>
                         <li><?php echo anchor('families/index', trans('view_product_families')); ?></li>
                         <li><?php echo anchor('units/index', trans('view_product_units')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
+                <?php if (has_permission('projects')) : ?>
                 <li class="dropdown<?php echo get_setting('projects_enabled') == 1 ? '' : ' hidden'; ?>">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -91,7 +112,9 @@
                         <li><?php echo anchor('projects/index', trans('view_projects')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
+                <?php if (has_permission('reports')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -106,6 +129,7 @@
                         <li><?php echo anchor('reports/invoices_per_client', trans('invoices_per_client')); ?></li>
                     </ul>
                 </li>
+                <?php endif; ?>
 
             </ul>
 
@@ -129,6 +153,7 @@
                     </a>
                 </li>
 
+                <?php if (has_permission('settings') || has_permission('users') || has_permission('roles')) : ?>
                 <li class="dropdown">
                     <a href="#" class="tip icon dropdown-toggle" data-toggle="dropdown"
                        title="<?php _trans('settings'); ?>"
@@ -137,21 +162,28 @@
                         <span class="visible-xs">&nbsp;<?php _trans('settings'); ?></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><?php echo anchor('custom_fields/index', trans('custom_fields')); ?></li>
-                        <li><?php echo anchor('email_templates/index', trans('email_templates')); ?></li>
-                        <li><?php echo anchor('invoice_groups/index', trans('invoice_groups')); ?></li>
-                        <li><?php echo anchor('invoices/archive', trans('invoice_archive')); ?></li>
-                        <!-- // temporarily disabled
-                        <li><?php echo anchor('item_lookups/index', trans('item_lookups')); ?></li>
-                        -->
-                        <li><?php echo anchor('payment_methods/index', trans('payment_methods')); ?></li>
-                        <li><?php echo anchor('tax_rates/index', trans('tax_rates')); ?></li>
-                        <li><?php echo anchor('users/index', trans('user_accounts')); ?></li>
-                        <li class="divider hidden-xs hidden-sm"></li>
-                        <li><?php echo anchor('settings', trans('system_settings')); ?></li>
-                        <li><?php echo anchor('import', trans('import_data')); ?></li>
+                        <?php if (has_permission('settings')) : ?>
+                            <li><?php echo anchor('custom_fields/index', trans('custom_fields')); ?></li>
+                            <li><?php echo anchor('email_templates/index', trans('email_templates')); ?></li>
+                            <li><?php echo anchor('invoice_groups/index', trans('invoice_groups')); ?></li>
+                            <li><?php echo anchor('invoices/archive', trans('invoice_archive')); ?></li>
+                            <li><?php echo anchor('payment_methods/index', trans('payment_methods')); ?></li>
+                            <li><?php echo anchor('tax_rates/index', trans('tax_rates')); ?></li>
+                        <?php endif; ?>
+                        <?php if (has_permission('users')) : ?>
+                            <li><?php echo anchor('users/index', trans('user_accounts')); ?></li>
+                        <?php endif; ?>
+                        <?php if (has_permission('roles')) : ?>
+                            <li><?php echo anchor('roles/index', trans('user_roles')); ?></li>
+                        <?php endif; ?>
+                        <?php if (has_permission('settings')) : ?>
+                            <li class="divider hidden-xs hidden-sm"></li>
+                            <li><?php echo anchor('settings', trans('system_settings')); ?></li>
+                            <li><?php echo anchor('import', trans('import_data')); ?></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
+                <?php endif; ?>
                 <li>
                     <a href="<?php echo site_url('users/form/'
                         . $this->session->userdata('user_id')); ?>"

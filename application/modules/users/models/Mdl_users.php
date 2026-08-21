@@ -39,12 +39,18 @@ class Mdl_Users extends Response_Model
         return [
             '1' => trans('administrator'),
             '2' => trans('guest_read_only'),
+            '3' => trans('staff_custom_role'),
         ];
     }
 
     public function default_select(): void
     {
-        $this->db->select('SQL_CALC_FOUND_ROWS ip_users.*', false);
+        $this->db->select('SQL_CALC_FOUND_ROWS ip_users.*, ip_roles.role_name', false);
+    }
+
+    public function default_join(): void
+    {
+        $this->db->join('ip_roles', 'ip_roles.role_id = ip_users.user_role_id', 'left');
     }
 
     public function default_order_by(): void

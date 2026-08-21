@@ -19,6 +19,22 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Memperbaiki penanganan `SESS_SAVE_PATH` kosong pada `ipconfig.php` yang menyebabkan kegagalan inisialisasi session (`Session: Configured save path '' is not a directory`).
   - Mengupdate helper `env()` pada `index.php` agar mengembalikan nilai *default* apabila variabel lingkungan bernilai string kosong `""`.
   - Memperbaiki `IP_URL` di `ipconfig.php` menjadi `http://localhost/mikrotek-invoiceplane` (tanpa *trailing slash*).
-  - **Hasil**: Form bahasa pada wizard setup (`/index.php/setup/language`) kini berhasil memproses session dan mengarah ke tahap berikutnya (`/index.php/setup/prerequisites`).
+### ✨ Fitur Baru: Role & Multi-User Access Control (RBAC) (Branch `dev`)
+- **Database Schema**:
+  - Membuat tabel `ip_roles` (`role_id`, `role_name`, `role_description`, `role_permissions`).
+  - Menambahkan kolom `user_role_id` pada tabel `ip_users`.
+  - Menambahkan file migrasi `application/modules/setup/sql/044_1.7.3.sql`.
+- **RBAC Helper & Core Controllers**:
+  - Membuat `application/helpers/permissions_helper.php` dengan fungsi `has_permission($module, $action)` & `check_permission()`.
+  - Mengupdate `User_Controller.php` & `Admin_Controller.php` untuk mendukung tipe user `3` (`Staff / Custom Role`).
+- **Modul User Roles (`application/modules/roles/`)**:
+  - `Mdl_roles.php`: Model pengelola tabel `ip_roles` dan matriks izin modul (Invoices, Quotes, Clients, Payments, Products, Projects, Reports, Settings, Users, Roles).
+  - `Roles.php`: Controller CRUD Role.
+  - `views/index.php` & `views/form.php`: UI daftar role dan form matriks centang hak akses per modul.
+- **Integrasi Modul Users & Navigasi Layout**:
+  - Mengupdate `Mdl_users.php` & `Users.php` controller untuk menyimpan pilihan role pengguna.
+  - Mengupdate `users/views/form.php` dengan grup seleksi Role otomatis jika tipe pengguna memilih Staff/Custom Role.
+  - Mengupdate `application/modules/layout/views/includes/navbar.php` agar hanya menampilkan menu navigasi sesuai izin role user yang sedang login.
 
 ---
+

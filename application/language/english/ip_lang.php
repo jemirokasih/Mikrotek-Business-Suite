@@ -861,4 +861,13 @@ $lang = [
     // Types
     'true'  => 'True',
     'false' => 'False',
+
+    // Role & RBAC
+    'user_roles'          => 'User Roles',
+    'role_name'           => 'Role Name',
+    'role_details'        => 'Role Details',
+    'permissions_matrix'  => 'Permissions Matrix',
+    'staff_custom_role'   => 'Staff / Custom Role',
+    'user_role'           => 'User Role',
+    'access_denied'       => 'Access Denied: You do not have permission to view or perform this action.',
 ];

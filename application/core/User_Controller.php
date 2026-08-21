@@ -26,7 +26,12 @@ class User_Controller extends Base_Controller
     {
         parent::__construct();
 
-        if ($this->session->userdata($required_key) !== (string) $required_val) {
+        $user_val = (string) $this->session->userdata($required_key);
+        $allowed = is_array($required_val)
+            ? array_map('strval', $required_val)
+            : [(string) $required_val];
+
+        if (!in_array($user_val, $allowed, true)) {
             session_destroy();
             redirect('sessions/login');
         }

@@ -56,9 +56,10 @@ class Users extends Admin_Controller
         if ($this->mdl_users->run_validation(($id) ? 'validation_rules_existing' : 'validation_rules')) {
             // Build the db_array, then explicitly add the admin-authorized
             // privilege field so it isn't silently mass-assigned from POST.
-            $db_array              = $this->mdl_users->db_array();
-            $db_array['user_type'] = (int) $this->input->post('user_type');
-            $id                    = $this->mdl_users->save($id, $db_array);
+            $db_array                 = $this->mdl_users->db_array();
+            $db_array['user_type']    = (int) $this->input->post('user_type');
+            $db_array['user_role_id'] = $this->input->post('user_role_id') ? (int) $this->input->post('user_role_id') : null;
+            $id                       = $this->mdl_users->save($id, $db_array);
 
             $this->load->model('custom_fields/mdl_user_custom');
             $this->mdl_user_custom->save_custom($id, $this->input->post('custom'));
@@ -148,6 +149,8 @@ class Users extends Admin_Controller
         // Need in remittance text tags selector (template-tags-invoices)
         $custom_fields['ip_invoice_custom'] = $this->mdl_custom_fields->by_table('ip_invoice_custom')->get()->result();
 
+        $this->load->model('roles/mdl_roles');
+
         $this->layout->set(
             [
                 'id'               => $id,
@@ -160,6 +163,7 @@ class Users extends Admin_Controller
                 'clients'          => $this->mdl_clients->where('client_active', 1)->get()->result(),
                 'languages'        => get_available_languages(),
                 'einvoicing'       => get_setting('einvoicing'),
+                'roles'            => $this->mdl_roles->get()->result(),
             ]
         );
 

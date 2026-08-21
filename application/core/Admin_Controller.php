@@ -20,7 +20,8 @@ class Admin_Controller extends User_Controller
 
     public function __construct()
     {
-        parent::__construct('user_type', 1);
+        parent::__construct('user_type', [1, 3]);
+        $this->load->helper('permissions');
         $this->setCacheHeaders();
         $this->check_setup_security();
 
