@@ -27,7 +27,7 @@ class Webmail extends Admin_Controller
         if ($webmail_mode === 'external' && !empty($webmail_url)) {
             $target_url = $webmail_url;
         } else {
-            $target_url = site_url('webmail/roundcube');
+            $target_url = base_url('assets/roundcube/index.php');
         }
 
         $data = [

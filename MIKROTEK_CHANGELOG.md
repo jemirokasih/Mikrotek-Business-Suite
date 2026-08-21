@@ -4,6 +4,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.32] - 2026-08-22
+
+### 🚀 Install Source Code Official Roundcube Webmail 1.6.10 Complete Package
+- **Pemasangan Source Code Resmi (`assets/roundcube/`)**: Mendownload dan mengekstrak rilis resmi **Roundcube Webmail 1.6.10 Complete Package** (beserta skin Elastic dan vendor dependencies) secara penuh ke dalam folder repository `assets/roundcube/`.
+- **Inisialisasi Database SQLite Local (`roundcube.db`)**: Menginisialisasi skema basis data SQLite bawaan Roundcube di `assets/roundcube/temp/roundcube.db`.
+- **Konfigurasi Server Config (`config.inc.php`)**: Membuat file konfigurasi server bawaan `config.inc.php` untuk mengarahkan autentikasi IMAP & pengiriman SMTP secara otomatis.
+
+---
+
 ## [v1.7.31] - 2026-08-22
 
 ### 🔀 Fitur Dual-Mode Webmail (URL External cPanel vs Built-in Internal App)
