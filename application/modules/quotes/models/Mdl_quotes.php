@@ -172,6 +172,21 @@ class Mdl_Quotes extends Response_Model
                 'label' => trans('user'),
                 'rule'  => 'required',
             ],
+            'signature_type' => [
+                'field' => 'signature_type',
+                'label' => 'Tipe Tanda Tangan',
+                'rules' => 'trim',
+            ],
+            'signature_name' => [
+                'field' => 'signature_name',
+                'label' => 'Nama Penanggung Jawab',
+                'rules' => 'trim',
+            ],
+            'signature_title' => [
+                'field' => 'signature_title',
+                'label' => 'Jabatan Penanggung Jawab',
+                'rules' => 'trim',
+            ],
         ];
     }
 
@@ -199,6 +214,21 @@ class Mdl_Quotes extends Response_Model
             'quote_password' => [
                 'field' => 'quote_password',
                 'label' => trans('quote_password'),
+            ],
+            'signature_type' => [
+                'field' => 'signature_type',
+                'label' => 'Tipe Tanda Tangan',
+                'rules' => 'trim',
+            ],
+            'signature_name' => [
+                'field' => 'signature_name',
+                'label' => 'Nama Penanggung Jawab',
+                'rules' => 'trim',
+            ],
+            'signature_title' => [
+                'field' => 'signature_title',
+                'label' => 'Jabatan Penanggung Jawab',
+                'rules' => 'trim',
             ],
         ];
     }

@@ -82,9 +82,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Membuat tabel `ip_bank_accounts` (`bank_id`, `company_id`, `payment_method_id`, `bank_name`, `account_number`, `account_name`, `bank_notes`, `bank_active`) (SQL: `050_1.7.9.sql`).
   - Membuat modul `bank_accounts` (`Mdl_bank_accounts.php`, `Bank_accounts.php`, views `index.php` & `form.php`) untuk mengelola daftar banyak rekening bank perusahaan.
   - Mengintegrasikan navigasi menu **Rekening Bank** pada navbar & matriks hak akses RBAC (`Mdl_roles.php`).
-  - Memperbaiki fungsi hapus (`delete($id)`) pada controller `Payment_methods.php` agar penghapusan metode pembayaran berjalan 100% lancar tanpa terblokir.
+- **Fitur Opsi Tanda Tangan (Digital vs Manual Signature)**:
+  - Menambahkan kolom `signature_type`, `signature_name`, `signature_title`, & `signature_image` pada tabel `ip_invoices` & `ip_quotes` (SQL: `051_1.8.0.sql`).
+  - Mengupdate modal pembuatan Invoice & Quote (`modal_create_invoice.php` & `modal_create_quote.php`) untuk memilih **Digital Signature** atau **Manual Signature (Ruang Kosong)** beserta **Nama & Jabatan Penanggung Jawab**.
+  - Mengupdate halaman detail & controller Ajax Invoice & Quote (`view.php` & `Ajax.php`) agar pengaturan tanda tangan dapat diubah dan disimpan kapan saja.
+  - Mengintegrasikan blok tanda tangan otomatis di bagian bawah cetakan PDF (`Warm Regards, [TTD Digital/Ruang Kosong], Nama & Jabatan Penanggung Jawab`) pada template PDF Mikrotek (`Mikrotek.php`).
 
 ---
+
 
 
 

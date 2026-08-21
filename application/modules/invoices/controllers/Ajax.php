@@ -152,6 +152,9 @@ class Ajax extends Admin_Controller
                 'payment_method'           => $this->security->xss_clean($this->input->post('payment_method')),
                 'invoice_discount_amount'  => standardize_amount($invoice_discount_amount),
                 'invoice_discount_percent' => standardize_amount($invoice_discount_percent),
+                'signature_type'           => $this->security->xss_clean($this->input->post('signature_type')),
+                'signature_name'           => $this->security->xss_clean($this->input->post('signature_name')),
+                'signature_title'          => $this->security->xss_clean($this->input->post('signature_title')),
             ];
 
             // check if status changed to sent, the feature is enabled and settings is set to sent

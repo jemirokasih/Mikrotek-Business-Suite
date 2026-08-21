@@ -1,0 +1,11 @@
+ALTER TABLE `ip_invoices` 
+  ADD COLUMN `signature_type` VARCHAR(20) NOT NULL DEFAULT 'manual',
+  ADD COLUMN `signature_name` VARCHAR(100) NULL DEFAULT NULL,
+  ADD COLUMN `signature_title` VARCHAR(100) NULL DEFAULT NULL,
+  ADD COLUMN `signature_image` VARCHAR(255) NULL DEFAULT NULL;
+
+ALTER TABLE `ip_quotes` 
+  ADD COLUMN `signature_type` VARCHAR(20) NOT NULL DEFAULT 'manual',
+  ADD COLUMN `signature_name` VARCHAR(100) NULL DEFAULT NULL,
+  ADD COLUMN `signature_title` VARCHAR(100) NULL DEFAULT NULL,
+  ADD COLUMN `signature_image` VARCHAR(255) NULL DEFAULT NULL;

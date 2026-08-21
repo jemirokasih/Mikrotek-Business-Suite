@@ -122,6 +122,9 @@ class Ajax extends Admin_Controller
                 'notes'                  => $this->input->post('notes'),
                 'quote_discount_amount'  => standardize_amount($quote_discount_amount),
                 'quote_discount_percent' => standardize_amount($quote_discount_percent),
+                'signature_type'           => $this->security->xss_clean($this->input->post('signature_type')),
+                'signature_name'           => $this->security->xss_clean($this->input->post('signature_name')),
+                'signature_title'          => $this->security->xss_clean($this->input->post('signature_title')),
             ];
 
             $this->mdl_quotes->save($quote_id, $db_array, $global_discount);

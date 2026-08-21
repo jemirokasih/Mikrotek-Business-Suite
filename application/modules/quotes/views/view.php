@@ -77,6 +77,9 @@ if ($quote->quote_status_id == 1) {
                     quote_discount_percent: $('#quote_discount_percent').val(),
                     notes: $('#notes').val(),
                     custom: $('input[name^=custom],select[name^=custom]').serializeArray(),
+                    signature_type: $('#signature_type').val(),
+                    signature_name: $('#signature_name').val(),
+                    signature_title: $('#signature_title').val(),
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
@@ -438,6 +441,23 @@ foreach ($quote_statuses as $key => $status) {
                                     </label>
                                     <input type="text" id="quote_password" class="form-control"
                                            value="<?php _htmlsc($quote->quote_password) ?>">
+                                </div>
+                                <div class="quote-properties">
+                                    <label>Tipe Tanda Tangan</label>
+                                    <select name="signature_type" id="signature_type" class="form-control simple-select">
+                                        <option value="manual" <?php check_select($quote->signature_type, 'manual'); ?>>Manual Signature (Ruang Kosong)</option>
+                                        <option value="digital" <?php check_select($quote->signature_type, 'digital'); ?>>Digital Signature</option>
+                                    </select>
+                                </div>
+                                <div class="quote-properties">
+                                    <label>Nama Penanggung Jawab</label>
+                                    <input type="text" id="signature_name" class="form-control"
+                                           value="<?php _htmlsc($quote->signature_name ?: $quote->user_name); ?>">
+                                </div>
+                                <div class="quote-properties">
+                                    <label>Jabatan Penanggung Jawab</label>
+                                    <input type="text" id="signature_title" class="form-control"
+                                           value="<?php _htmlsc($quote->signature_title ?: 'Finance Manager'); ?>">
                                 </div>
 
 <?php

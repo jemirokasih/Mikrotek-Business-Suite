@@ -177,6 +177,21 @@ class Mdl_Invoices extends Response_Model
                 'field' => 'payment_method',
                 'label' => trans('payment_method'),
             ],
+            'signature_type' => [
+                'field' => 'signature_type',
+                'label' => 'Tipe Tanda Tangan',
+                'rules' => 'trim',
+            ],
+            'signature_name' => [
+                'field' => 'signature_name',
+                'label' => 'Nama Penanggung Jawab',
+                'rules' => 'trim',
+            ],
+            'signature_title' => [
+                'field' => 'signature_title',
+                'label' => 'Jabatan Penanggung Jawab',
+                'rules' => 'trim',
+            ],
         ];
     }
 
@@ -207,6 +222,21 @@ class Mdl_Invoices extends Response_Model
             'invoice_password' => [
                 'field' => 'invoice_password',
                 'label' => trans('invoice_password'),
+            ],
+            'signature_type' => [
+                'field' => 'signature_type',
+                'label' => 'Tipe Tanda Tangan',
+                'rules' => 'trim',
+            ],
+            'signature_name' => [
+                'field' => 'signature_name',
+                'label' => 'Nama Penanggung Jawab',
+                'rules' => 'trim',
+            ],
+            'signature_title' => [
+                'field' => 'signature_title',
+                'label' => 'Jabatan Penanggung Jawab',
+                'rules' => 'trim',
             ],
         ];
     }

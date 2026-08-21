@@ -100,6 +100,9 @@ if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) {
                     invoice_terms: $('#invoice_terms').val(),
                     custom: $('input[name^=custom],select[name^=custom]').serializeArray(),
                     payment_method: $('#payment_method').val(),
+                    signature_type: $('#signature_type').val(),
+                    signature_name: $('#signature_name').val(),
+                    signature_title: $('#signature_title').val(),
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
@@ -598,6 +601,29 @@ foreach ($payment_methods as $payment_method) {
                                     <label><?php _trans('invoice_password'); ?></label>
                                     <input type="text" id="invoice_password" class="form-control"
                                            value="<?php _htmlsc($invoice->invoice_password); ?>"
+                                           <?php echo $invoice->is_read_only ? 'disabled="disabled"' : ''; ?>>
+                                </div>
+
+                                <div class="invoice-properties">
+                                    <label>Tipe Tanda Tangan</label>
+                                    <select name="signature_type" id="signature_type" class="form-control simple-select"
+                                            <?php echo ($invoice->is_read_only == 1 && $invoice->invoice_status_id == 4) ? 'disabled="disabled"' : ''; ?>>
+                                        <option value="manual" <?php check_select($invoice->signature_type, 'manual'); ?>>Manual Signature (Ruang Kosong)</option>
+                                        <option value="digital" <?php check_select($invoice->signature_type, 'digital'); ?>>Digital Signature</option>
+                                    </select>
+                                </div>
+
+                                <div class="invoice-properties">
+                                    <label>Nama Penanggung Jawab</label>
+                                    <input type="text" id="signature_name" class="form-control"
+                                           value="<?php _htmlsc($invoice->signature_name ?: $invoice->user_name); ?>"
+                                           <?php echo $invoice->is_read_only ? 'disabled="disabled"' : ''; ?>>
+                                </div>
+
+                                <div class="invoice-properties">
+                                    <label>Jabatan Penanggung Jawab</label>
+                                    <input type="text" id="signature_title" class="form-control"
+                                           value="<?php _htmlsc($invoice->signature_title ?: 'Finance Manager'); ?>"
                                            <?php echo $invoice->is_read_only ? 'disabled="disabled"' : ''; ?>>
                                 </div>
                             </div>
