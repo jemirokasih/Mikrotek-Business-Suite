@@ -173,6 +173,18 @@
                     <div class="col-xs-12 col-md-6">
 
                         <div class="form-group">
+                            <label for="settings[pdf_quote_header]">
+                                Header PDF Penawaran (HTML)
+                            </label>
+                            <textarea name="settings[pdf_quote_header]" id="settings[pdf_quote_header]"
+                                class="form-control no-margin"><?php echo get_setting('pdf_quote_header', '', true); ?></textarea>
+                            <p class="help-block">Header HTML yang akan berulang muncul di bagian atas setiap halaman PDF Penawaran.</p>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+
+                        <div class="form-group">
                             <label for="settings[pdf_quote_footer]">
                                 <?php _trans('pdf_quote_footer'); ?>
                             </label>

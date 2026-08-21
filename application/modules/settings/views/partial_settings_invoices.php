@@ -398,6 +398,18 @@ foreach ($email_templates_invoice as $email_template) {
                     <div class="col-xs-12 col-md-6">
 
                         <div class="form-group">
+                            <label for="settings[pdf_invoice_header]">
+                                Header PDF Faktur (HTML)
+                            </label>
+                            <textarea name="settings[pdf_invoice_header]" id="settings[pdf_invoice_header]"
+                                      class="form-control no-margin"><?php echo get_setting('pdf_invoice_header', '', true); ?></textarea>
+                            <p class="help-block">Header HTML yang akan berulang muncul di bagian atas setiap halaman PDF Faktur.</p>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+
+                        <div class="form-group">
                             <label for="settings[pdf_invoice_footer]">
                                 <?php _trans('pdf_invoice_footer'); ?>
                             </label>

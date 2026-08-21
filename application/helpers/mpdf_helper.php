@@ -80,6 +80,18 @@ function sanitize_pdf_footer_content(?string $footer): string
 }
 
 /**
+ * Sanitize PDF header content to prevent remote resource fetching (SSRF) during rendering.
+ *
+ * @param string|null $header
+ *
+ * @return string
+ */
+function sanitize_pdf_header_content(?string $header): string
+{
+    return sanitize_pdf_footer_content($header);
+}
+
+/**
  * Create a PDF.
  *
  * @param      $html
@@ -146,8 +158,31 @@ function pdf_create(
         throw new \RuntimeException(sprintf('Directory "%s" was not created', UPLOADS_ARCHIVE_FOLDER));
     }
 
+    $invoiceHeader = sanitize_pdf_header_content($CI->mdl_settings->settings['pdf_invoice_header'] ?? '');
+    $quoteHeader   = sanitize_pdf_header_content($CI->mdl_settings->settings['pdf_quote_header'] ?? '');
     $invoiceFooter = sanitize_pdf_footer_content($CI->mdl_settings->settings['pdf_invoice_footer'] ?? '');
     $quoteFooter   = sanitize_pdf_footer_content($CI->mdl_settings->settings['pdf_quote_footer'] ?? '');
+
+    // Set the default header that shall always be available for mPDF
+    $mpdf->DefHTMLHeaderByName('defaultHeader', '');
+    $mpdf->DefHTMLHeaderByName('html_header', '');
+    $mpdf->DefHTMLHeaderByName('header', '');
+
+    // Set the header if voucher is invoice and if set in settings
+    if ($isInvoice && $invoiceHeader !== '') {
+        $mpdf->setAutoTopMargin = 'stretch';
+        $mpdf->DefHTMLHeaderByName('header', '<div id="header">' . $invoiceHeader . '</div>');
+        $mpdf->DefHTMLHeaderByName('defaultHeader', '<div id="header">' . $invoiceHeader . '</div>');
+        $mpdf->DefHTMLHeaderByName('html_header', '<div id="header">' . $invoiceHeader . '</div>');
+    }
+
+    // Set the header if voucher is quote and if set in settings
+    if ( ! $isInvoice && $quoteHeader !== '') {
+        $mpdf->setAutoTopMargin = 'stretch';
+        $mpdf->DefHTMLHeaderByName('header', '<div id="header">' . $quoteHeader . '</div>');
+        $mpdf->DefHTMLHeaderByName('defaultHeader', '<div id="header">' . $quoteHeader . '</div>');
+        $mpdf->DefHTMLHeaderByName('html_header', '<div id="header">' . $quoteHeader . '</div>');
+    }
 
     //Set the default footer that shall always be available for mPDF
     $mpdf->DefHTMLFooterByName('defaultFooter', '');
@@ -181,6 +216,7 @@ function pdf_create(
         $mpdf->showWatermarkText = true;
     }
 
+    $mpdf->SetHTMLHeaderByName('defaultHeader');
     $mpdf->SetHTMLFooterByName('defaultFooter');
 
     try {
