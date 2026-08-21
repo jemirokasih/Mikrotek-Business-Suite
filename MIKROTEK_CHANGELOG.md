@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.11] - 2026-08-21
+
+### 🎨 Clean Frameless Headerbar (Menghapus Latar Card & Shadow pada Judul Halaman)
+- **Frameless Transparent Headerbar (`modern_sidebar.css`)**: Mengatur latar `#headerbar` menjadi transparan (`background: transparent`), menghapus kotak putih, border samping, dan shadow card yang tebal. `#headerbar` kini tampil bersih sebagai baris judul halaman yang langsung menyatu dengan layout utama.
+
+---
+
 ## [v1.7.10] - 2026-08-21
 
 ### 🎨 Perbaikan Layout Fluid Corner-to-Corner Headerbar (Pojok Kiri s.d. Pojok Kanan)
