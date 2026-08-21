@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.26] - 2026-08-21
+
+### 🎨 Standarisasi Tab Navigasi Pengaturan (`settings/views/index.php`)
+- **Harmonisasi Headerbar & Tab Navigasi Settings**: Mengubah navigasi tab halaman Pengaturan (*General*, *Invoices*, *Quotes*, *Taxes*, *Email*, *Online Payment*, *Projects*, *Updates*) agar berada di dalam `#headerbar` (`.index-options`) dan drawer `#submenu` untuk pengalaman pengguna yang seragam dan responsif di seluruh aplikasi.
+
+---
+
 ## [v1.7.25] - 2026-08-21
 
 ### 🎨 Standarisasi Tab Filter Halaman Karyawan (`employees/views/index.php`)

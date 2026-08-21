@@ -7,71 +7,120 @@
             placeholder: '<?php _trans('country'); ?>',
             allowClear: true
         });
-        if(window.ls) {
-            // Memorise active tab
-            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
-                localStorage.setItem(window.ls, $(e.target).attr('href'));
-            });
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr('href');
+            $('a[data-toggle="tab"]').removeClass('btn-primary').addClass('btn-default');
+            $('a[data-toggle="tab"][href="' + target + '"]').removeClass('btn-default').addClass('btn-primary');
+            if (window.ls) {
+                localStorage.setItem(window.ls, target);
+            }
+        });
+
+        if (window.ls) {
             var activeTab = localStorage.getItem(window.ls);
-            if(activeTab) {
-                $('#settings-tabs a[href="' + activeTab + '"]').tab('show');
+            if (activeTab) {
+                $('a[data-toggle="tab"][href="' + activeTab + '"]').first().tab('show');
             }
         }
     });
 
     window.ls = typeof(localStorage) != 'undefined' ? 'activeTab-settings' : '';
-    if(window.ls) {
+    if (window.ls) {
         const lsother = window.ls + '-other';
         // Become from other page, Return to general tab (Clear memory)
-        if(document.referrer != '<?php echo site_url('settings'); ?>') {
-            // Note: when become from other page & refresh it, the originaly referrer is returned but show last choosen tab
+        if (document.referrer != '<?php echo site_url('settings'); ?>') {
             localStorage.setItem(lsother, (localStorage.getItem(lsother) ? parseInt(localStorage.getItem(lsother)) : 0) + 1);
-            if(localStorage.getItem(lsother) == 1 && localStorage.getItem(window.ls)) {
+            if (localStorage.getItem(lsother) == 1 && localStorage.getItem(window.ls)) {
                 localStorage.removeItem(window.ls); // Clear tab memory
             }
         } else {
-            $(window).on('unload', function() {
+            $(window).on('unload', function () {
                 localStorage.removeItem(lsother); // Clear memory
             });
         }
     }
 </script>
 
-<div id="headerbar">
-    <h1 class="headerbar-title"><?php _trans('settings'); ?></h1>
-    <?php $this->layout->load_view('layout/header_buttons', ['hide_cancel_button' => true]); ?>
-</div>
-
-<ul id="settings-tabs" class="nav nav-tabs nav-tabs-noborder">
-    <li class="active">
-        <a data-toggle="tab" href="#settings-general"><?php _trans('general'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-invoices"><?php _trans('invoices'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-quotes"><?php _trans('quotes'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-taxes"><?php _trans('taxes'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-email"><?php _trans('email'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-online-payment"><?php echo lang('online_payment'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-projects-tasks"><?php _trans('projects'); ?></a>
-    </li>
-    <li>
-        <a data-toggle="tab" href="#settings-updates"><?php _trans('updates'); ?></a>
-    </li>
-</ul>
-
 <form method="post" id="form-settings" enctype="multipart/form-data">
 
     <?php _csrf_field(); ?>
+
+    <div id="headerbar">
+        <div class="headerbar-left">
+            <h1 class="headerbar-title"><?php _trans('settings'); ?></h1>
+
+            <div class="headerbar-item visible-lg">
+                <div class="btn-group btn-group-sm index-options" id="settings-tabs">
+                    <a data-toggle="tab" href="#settings-general" class="btn btn-primary">
+                        <?php _trans('general'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-invoices" class="btn btn-default">
+                        <?php _trans('invoices'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-quotes" class="btn btn-default">
+                        <?php _trans('quotes'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-taxes" class="btn btn-default">
+                        <?php _trans('taxes'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-email" class="btn btn-default">
+                        <?php _trans('email'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-online-payment" class="btn btn-default">
+                        <?php echo lang('online_payment'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-projects-tasks" class="btn btn-default">
+                        <?php _trans('projects'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-updates" class="btn btn-default">
+                        <?php _trans('updates'); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="headerbar-item pull-right">
+            <button type="button" class="btn btn-default btn-sm submenu-toggle hidden-lg"
+                    data-toggle="collapse" data-target="#ip-submenu-collapse">
+                <i class="fa fa-bars"></i> <?php _trans('submenu'); ?>
+            </button>
+            <?php $this->layout->load_view('layout/header_buttons', ['hide_cancel_button' => true]); ?>
+        </div>
+    </div>
+
+    <div id="submenu">
+        <div class="collapse clearfix" id="ip-submenu-collapse">
+            <div class="submenu-row">
+                <div class="btn-group btn-group-sm index-options">
+                    <a data-toggle="tab" href="#settings-general" class="btn btn-primary">
+                        <?php _trans('general'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-invoices" class="btn btn-default">
+                        <?php _trans('invoices'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-quotes" class="btn btn-default">
+                        <?php _trans('quotes'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-taxes" class="btn btn-default">
+                        <?php _trans('taxes'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-email" class="btn btn-default">
+                        <?php _trans('email'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-online-payment" class="btn btn-default">
+                        <?php echo lang('online_payment'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-projects-tasks" class="btn btn-default">
+                        <?php _trans('projects'); ?>
+                    </a>
+                    <a data-toggle="tab" href="#settings-updates" class="btn btn-default">
+                        <?php _trans('updates'); ?>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="tabbable tabs-below">
 
