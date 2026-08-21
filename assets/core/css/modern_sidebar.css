@@ -515,7 +515,12 @@ body.layout-sidebar-active #subheaderbar {
    Forms & Cards Container Polish (Card Background & Elevation)
    ========================================================================== */
 
-body.layout-sidebar-active form,
+body.layout-sidebar-active form {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
 body.layout-sidebar-active .card,
 body.layout-sidebar-active .panel,
 body.layout-sidebar-active .panel-default {

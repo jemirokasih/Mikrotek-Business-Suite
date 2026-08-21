@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.27] - 2026-08-21
+
+### 🐛 Pembersihan Background Container Form Settings (`modern_sidebar.css`)
+- **Transparent Form Wrapper**: Menghapus styling card background putih, border, dan shadow pada tag generic `form` di `modern_sidebar.css`. Pembungkus `<form>` kini transparan sehingga halaman Pengaturan tidak lagi terbungkus kotak putih besar raksasa, dan hanya panel-panel individu (*General*, *Invoices*, *Quotes*, dll.) yang tampil sebagai card terpisah yang rapi.
+
+---
+
 ## [v1.7.26] - 2026-08-21
 
 ### 🎨 Standarisasi Tab Navigasi Pengaturan (`settings/views/index.php`)
