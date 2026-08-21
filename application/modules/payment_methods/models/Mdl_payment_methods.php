@@ -41,6 +41,38 @@ class Mdl_Payment_Methods extends Response_Model
                 'label' => trans('payment_method'),
                 'rules' => 'required',
             ],
+            'payment_method_bank_name' => [
+                'field' => 'payment_method_bank_name',
+                'label' => trans('bank_name'),
+                'rules' => 'trim',
+            ],
+            'payment_method_account_number' => [
+                'field' => 'payment_method_account_number',
+                'label' => trans('account_number'),
+                'rules' => 'trim',
+            ],
+            'payment_method_account_name' => [
+                'field' => 'payment_method_account_name',
+                'label' => trans('account_name'),
+                'rules' => 'trim',
+            ],
+            'payment_method_notes' => [
+                'field' => 'payment_method_notes',
+                'label' => trans('notes'),
+                'rules' => 'trim',
+            ],
         ];
+    }
+
+    public function db_array()
+    {
+        $db_array = parent::db_array();
+
+        $db_array['payment_method_bank_name']      = $this->input->post('payment_method_bank_name');
+        $db_array['payment_method_account_number'] = $this->input->post('payment_method_account_number');
+        $db_array['payment_method_account_name']   = $this->input->post('payment_method_account_name');
+        $db_array['payment_method_notes']          = $this->input->post('payment_method_notes');
+
+        return $db_array;
     }
 }

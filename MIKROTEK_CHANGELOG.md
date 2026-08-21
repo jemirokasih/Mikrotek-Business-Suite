@@ -78,10 +78,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan tab filter **Proforma Invoices** pada halaman daftar Invoice (`invoices/status/proforma`).
   - Menampilkan badge **PROFORMA INVOICE** pada tabel daftar & halaman detail Invoice jika `is_proforma = 1`.
   - Menambahkan tombol **Konversi ke Invoice Resmi** (`invoices/convert_proforma/$id`) untuk mengubah status `is_proforma = 0` dan menerbitkan nomor Invoice resmi secara instan.
-- **Penyempurnaan Fungsi Terbilang Standar Bahasa Indonesia (KBBI)**:
-  - Mengupdate helper `in_words()` pada `number_helper.php` dengan tata bahasa terbilang Indonesia baku (Seribu, Seratus, Miliar, Triliun, pecahan Sen, & format huruf kapital ucwords).
+- **Fitur Pengaturan Rekening Bank Transfer pada Payment Methods**:
+  - Menambahkan kolom `payment_method_bank_name`, `payment_method_account_number`, `payment_method_account_name`, & `payment_method_notes` pada tabel `ip_payment_methods` (SQL: `049_1.7.8.sql`).
+  - Mengupdate form & tabel daftar pengelola `payment_methods` (`form.php` & `index.php`) untuk memasukkan Nama Bank, No. Rekening, Atas Nama, & Catatan Instruksi Transfer.
+  - Mengintegrasikan blok **Informasi Pembayaran Transfer Bank** otomatis pada cetakan PDF Invoice Mikrotek (`Mikrotek.php`).
 
 ---
+
 
 
 
