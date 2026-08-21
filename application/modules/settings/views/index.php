@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    <div id="content">
+    <div id="content" class="table-content">
 
         <?php $this->layout->load_view('layout/alerts'); ?>
 

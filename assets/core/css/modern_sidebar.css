@@ -718,9 +718,12 @@ body.layout-sidebar-active #btn-cancel:hover {
    ========================================================================== */
 
 body.layout-sidebar-active .table-content,
+body.layout-sidebar-active .tab-content,
+body.layout-sidebar-active .tab-pane,
 body.layout-sidebar-active #content {
     background: transparent;
     padding: 0;
+    margin: 0;
 }
 
 body.layout-sidebar-active .table-responsive {

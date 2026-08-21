@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.29] - 2026-08-21
+
+### 🐛 Perbaikan Indentasi & Alignment Card Settings (`modern_sidebar.css` & `settings/views/index.php`)
+- **Penyelarasan Posisi Card Halaman Pengaturan**: Reset padding dan margin bawaan Bootstrap 3 (`padding: 15px`) pada `.tab-content` dan `.tab-pane` serta menambahkan kelas `table-content` pada `#content` di halaman Settings. Perubahan ini menghilangkan kelebihan indentasi `15px` di sisi kiri sehingga batas card *Settings* (*Headerbar*) dan card *General/Panel* di bawahnya sejajar sempurna 1:1.
+
+---
+
 ## [v1.7.28] - 2026-08-21
 
 ### 🎨 Standarisasi Layout & Padding Halaman Pengaturan (`settings/views/`)
