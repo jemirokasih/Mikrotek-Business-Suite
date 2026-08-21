@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.7] - 2026-08-21
+
+### 🛠️ Fix Instant Click Response untuk Accordion Header Submenu
+- **Inline `onclick="toggleSidebarSubmenu(this); return false;"` Handler (`sidebar_menu.php` & `layout_sidebar.php`)**: Memasang handler JavaScript murni langsung di tag `<a>` menu induk. Bebas dependensi waktu muat jQuery/script-defer sehingga klik pada judul menu ("Invoices", "Quotes", "Payments", "Clients", dll) **langsung memicu buka-tutup accordion 100% tanpa delay**.
+
+---
+
 ## [v1.7.6] - 2026-08-21
 
 ### 🛠️ Penambahan Seluruh Sub-Menu Navigasi & Event Handler Foolproof Accordion

@@ -6,6 +6,17 @@
     $this->layout->load_view('layout/includes/head');
 ?>
     <link rel="stylesheet" href="<?php echo base_url('assets/core/css/modern_sidebar.css'); ?>" type="text/css">
+    
+    <script>
+    // Global Sidebar Submenu Toggle Function (Zero dependency, instant response)
+    function toggleSidebarSubmenu(el) {
+        if (!el) return;
+        var item = el.closest('.sidebar-nav-item');
+        if (item) {
+            item.classList.toggle('open');
+        }
+    }
+    </script>
 </head>
 <body class="layout-sidebar-active">
 
@@ -75,7 +86,9 @@
                 $('body').toggleClass('mobile-sidebar-open');
             } else {
                 $('body').toggleClass('sidebar-collapsed');
-                Cookies.set('sidebar_collapsed', $('body').hasClass('sidebar-collapsed') ? '1' : '0', { expires: 365 });
+                if (typeof Cookies !== 'undefined') {
+                    Cookies.set('sidebar_collapsed', $('body').hasClass('sidebar-collapsed') ? '1' : '0', { expires: 365 });
+                }
             }
         });
 
@@ -84,11 +97,11 @@
         });
 
         // Restore Collapsed State from Cookie
-        if (Cookies.get('sidebar_collapsed') === '1' && $(window).width() > 768) {
+        if (typeof Cookies !== 'undefined' && Cookies.get('sidebar_collapsed') === '1' && $(window).width() > 768) {
             $('body').addClass('sidebar-collapsed');
         }
 
-        // Submenu Accordion Toggle (Foolproof click handler for any child element)
+        // Submenu Accordion Toggle (JQuery fallback)
         $(document).on('click', '.sidebar-nav-item.has-submenu > a', function (e) {
             e.preventDefault();
             var $item = $(this).parent('.sidebar-nav-item');
