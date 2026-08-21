@@ -409,3 +409,18 @@ CREATE TABLE `ip_versions` (
 )
   ENGINE = MyISAM
   DEFAULT CHARSET = utf8;
+
+CREATE TABLE `ip_client_pics` (
+  `client_pic_id`    INT(11)      NOT NULL AUTO_INCREMENT,
+  `client_id`        INT(11)      NOT NULL,
+  `pic_name`         VARCHAR(100) NOT NULL,
+  `pic_position`     VARCHAR(100)          DEFAULT '',
+  `pic_email`        VARCHAR(100)          DEFAULT '',
+  `pic_phone`        VARCHAR(50)           DEFAULT '',
+  `pic_notes`        TEXT                  DEFAULT NULL,
+  `pic_date_created` DATETIME     NOT NULL,
+  PRIMARY KEY (`client_pic_id`),
+  KEY `client_id` (`client_id`)
+)
+  ENGINE = MyISAM
+  DEFAULT CHARSET = utf8;

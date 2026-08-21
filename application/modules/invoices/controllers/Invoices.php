@@ -197,6 +197,12 @@ class Invoices extends Admin_Controller
         $this->load->model('receipts/mdl_receipts');
         $invoice_receipts = $this->mdl_receipts->where('ip_receipts.invoice_id', $invoice_id)->get()->result();
 
+        $this->load->model('projects/mdl_projects');
+        $projects = $this->mdl_projects->where('ip_projects.client_id', $invoice->client_id)->get()->result();
+        if (empty($projects)) {
+            $projects = $this->mdl_projects->get()->result();
+        }
+
         $this->layout->set(
             [
                 'invoice'           => $invoice,
@@ -219,6 +225,7 @@ class Invoices extends Admin_Controller
                 'payment_cf_exist'   => $payment_cf_exist,
                 'legacy_calculation' => config_item('legacy_calculation'),
                 'receipts'           => $invoice_receipts,
+                'projects'           => $projects,
             ]
         );
 

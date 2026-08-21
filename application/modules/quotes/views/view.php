@@ -78,6 +78,7 @@ if ($quote->quote_status_id == 1) {
                     notes: $('#notes').val(),
                     custom: $('input[name^=custom],select[name^=custom]').serializeArray(),
                     signature_type: $('#signature_type').val(),
+                    project_id: $('#project_id').val(),
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
@@ -445,6 +446,17 @@ foreach ($quote_statuses as $key => $status) {
                                     <select name="signature_type" id="signature_type" class="form-control simple-select">
                                         <option value="manual" <?php check_select($quote->signature_type, 'manual'); ?>>Manual Signature (Ruang Kosong)</option>
                                         <option value="digital" <?php check_select($quote->signature_type, 'digital'); ?>>Digital Signature</option>
+                                    </select>
+                                </div>
+                                <div class="quote-properties">
+                                    <label for="project_id"><?php _trans('project'); ?></label>
+                                    <select name="project_id" id="project_id" class="form-control simple-select">
+                                        <option value=""><?php _trans('none'); ?></option>
+                                        <?php foreach ($projects as $project) : ?>
+                                            <option value="<?php echo $project->project_id; ?>" <?php check_select($quote->project_id ?? '', $project->project_id); ?>>
+                                                <?php echo htmlsc($project->project_name); ?>
+                                            </option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
 

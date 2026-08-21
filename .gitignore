@@ -39,3 +39,7 @@ yarn-error.log
 /stan.txt
 /todo.txt
 /yarnpack.txt
+.DS_Store
+*.DS_Store
+/db_dump/
+

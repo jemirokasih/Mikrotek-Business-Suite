@@ -238,6 +238,7 @@ class Clients extends Admin_Controller
         $this->load->model(
             [
                 'clients/mdl_client_notes',
+                'clients/mdl_client_pics',
                 'invoices/mdl_invoices',
                 'quotes/mdl_quotes',
                 'payments/mdl_payments',
@@ -291,6 +292,7 @@ class Clients extends Admin_Controller
             [
                 'client'           => $client,
                 'client_notes'     => $this->mdl_client_notes->where('client_id', $client_id)->get()->result(),
+                'client_pics'      => $this->mdl_client_pics->where('client_id', $client_id)->get()->result(),
                 'invoices'         => $this->mdl_invoices->result(),
                 'quotes'           => $this->mdl_quotes->result(),
                 'payments'         => $this->mdl_payments->result(),
@@ -319,6 +321,10 @@ class Clients extends Admin_Controller
                 [
                     'partial_notes',
                     'clients/partial_notes',
+                ],
+                [
+                    'partial_pics',
+                    'clients/partial_pics',
                 ],
                 [
                     'content',

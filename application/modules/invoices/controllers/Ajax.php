@@ -155,6 +155,8 @@ class Ajax extends Admin_Controller
                 'signature_type'           => $this->security->xss_clean($this->input->post('signature_type')),
                 'signature_name'           => $this->security->xss_clean($this->input->post('signature_name')),
                 'signature_title'          => $this->security->xss_clean($this->input->post('signature_title')),
+                'invoice_reference_number' => $this->security->xss_clean($this->input->post('invoice_reference_number')),
+                'project_id'               => $this->input->post('project_id') ? (int) $this->input->post('project_id') : null,
             ];
 
             // check if status changed to sent, the feature is enabled and settings is set to sent

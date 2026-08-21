@@ -109,6 +109,10 @@
 
 </div>
 
+<footer id="app-footer" class="text-center" style="padding: 15px 0; margin-top: 30px; font-size: 12px; color: #777; border-top: 1px solid #e7e7e7; background: #fff;">
+    Mikrotek Invoice <?php echo MIKROTEK_INVOICE_VERSION; ?> &bull; Powered by <a href="https://invoiceplane.com" target="_blank" rel="noopener" style="color: #777; text-decoration: underline;">InvoicePlane</a>
+</footer>
+
 <div id="modal-placeholder"></div>
 
 <?php echo $this->layout->load_view('layout/includes/fullpage-loader'); ?>

@@ -183,7 +183,7 @@ function generate_invoice_pdf($invoice_id, $stream = true, $invoice_template = n
         filename:         $filename,
         stream:           $stream,
         password:         $invoice->invoice_password,
-        isInvoice:        true,
+        isInvoice:        $invoice,
         is_guest:         $is_guest,
         embed_xml:        $embed_xml,
         associated_files: $associatedFiles

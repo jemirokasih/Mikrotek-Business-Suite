@@ -4,3 +4,100 @@
 
    All changes made in this file will override the default styles in PDFs.
    ========================================================================== */
+
+body {
+    font-family: "ccourier" !important; /* Dejavu */
+}
+
+.boxinfo {
+    position: absolute;
+    margin-top: -130px !important;
+    font-size: 22px;
+}
+
+.boxclient {
+    float: left;
+    width: 60%;
+    max-height: 150px;
+}
+
+.boxclient h1 {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0px;
+}
+
+.boxclient p {
+    font-size: 12px;
+    margin-top: 0px;
+}
+
+.boxdetail {
+    float: right;
+    width: 40%;
+    max-height: 150px;
+}
+
+.boxdetail table {
+    font-size: 12px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.titletable {
+    font-weight: bold;
+}
+
+.desctable {
+    text-align: right;
+}
+
+.boxrek {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f3f3f3;
+    break-inside: auto;
+    width: 100%;
+    height: 500px;
+    font-size: 12px !important;
+    font-weight: bold;
+}
+
+.boxrek table {
+    width: 100%;
+}
+
+.boxrek-item {
+    float: left;
+    width: 33.3%;
+    background-color: aqua;
+    max-height: 150px;
+    font-weight: bold;
+}
+
+.boxnotes {
+    width: 100%;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.boxnotes h1 {
+    width: 100%;
+    font-size: 14px;
+}
+
+.boxnotes p {
+    margin-top: -5px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.boxsign {
+    break-inside: auto;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.invoice-terms {
+    border-top: none !important;
+}

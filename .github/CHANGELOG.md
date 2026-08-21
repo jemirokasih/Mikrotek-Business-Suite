@@ -12,6 +12,27 @@ record *why* and *how*.
 
 ---
 
+## [1.1.1] - 2026-08-21 (Mikrotek Invoice Initial Release)
+
+Mikrotek Invoice 1.1.1 is the initial release of the Mikrotek-customized invoicing solution built on InvoicePlane.
+
+### Added
+- **Multiple Person In Charge (PIC) Management**: Complete CRUD interface and database schema (`ip_client_pics`) for client contacts, including interactive AJAX modal dialogs, phone/email listing, and direct `mailto:` actions.
+- **Invoice Reference Number**: Integrated `invoice_reference_number` field across database schema, models, AJAX controller handlers, view forms, and PDF output.
+- **Optional Project Linkage**: Enabled linking Invoices and Quotes directly to Projects via property panel dropdowns and PDF template rendering.
+- **Dynamic Proforma Invoice Support**: Automatic switching of header titles (`#PROFORMA INVOICE` vs `#INVOICE`) and detail table labels (`Proforma Invoice Number` vs `Invoice Number`) based on document proforma status (`is_proforma == 1`).
+- **Signature Options**: Support for physical Manual Signature space (with materai/stamp alignment) and Digital Signature toggles.
+- **Application Footer**: Integrated application footer displaying `Mikrotek Invoice v1.1.1 · Powered by InvoicePlane`.
+
+### Fixed
+- **AJAX Persistence**: Resolved issue where `invoice_reference_number` reset to empty upon saving.
+- **mPDF Double Replacement**: Replaced sequential `str_replace` with single-pass `strtr` to prevent `#PROFORMA PROFORMA INVOICE` label corruption in PDF headers.
+- **PDF Grid Alignment**: Fixed 5th column right-side overflow on PDF subtotal table grid in `Mikrotek.php`.
+- **Terbilang Placement & Border Divider**: Moved Terbilang ("In Words") box directly above payment terms and removed top border divider.
+- **Guest Access via QR Code**: Fixed accessibility for guest invoice and quote URLs using unique `url_key`.
+
+---
+
 ## [1.7.2] - 2026-07-17
 
 InvoicePlane 1.7.2 is a **security-focused release**. It resolves every vulnerability

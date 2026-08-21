@@ -24,6 +24,28 @@ class Mdl_Quotes extends Response_Model
 
     public $date_modified_field = 'quote_date_modified';
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->check_project_id_column();
+    }
+
+    private function check_project_id_column()
+    {
+        if ($this->db->table_exists('ip_quotes') && ! $this->db->field_exists('project_id', 'ip_quotes')) {
+            $this->load->dbforge();
+            $fields = [
+                'project_id' => [
+                    'type'       => 'INT',
+                    'constraint' => 11,
+                    'null'       => true,
+                    'default'    => null,
+                ],
+            ];
+            $this->dbforge->add_column('ip_quotes', $fields);
+        }
+    }
+
     /**
      * @return array
      */
@@ -103,6 +125,7 @@ class Mdl_Quotes extends Response_Model
             IFnull(ip_quote_amounts.quote_tax_total, '0.00') AS quote_tax_total,
             IFnull(ip_quote_amounts.quote_total, '0.00') AS quote_total,
             ip_invoices.invoice_number,
+            ip_projects.project_name,
             ip_quotes.*", false);
     }
 
@@ -140,6 +163,7 @@ class Mdl_Quotes extends Response_Model
         $this->db->join('ip_users', 'ip_users.user_id = ip_quotes.user_id');
         $this->db->join('ip_quote_amounts', 'ip_quote_amounts.quote_id = ip_quotes.quote_id', 'left');
         $this->db->join('ip_invoices', 'ip_invoices.invoice_id = ip_quotes.invoice_id', 'left');
+        $this->db->join('ip_projects', 'ip_projects.project_id = ip_quotes.project_id', 'left');
     }
 
     /**
@@ -171,6 +195,11 @@ class Mdl_Quotes extends Response_Model
                 'field' => 'user_id',
                 'label' => trans('user'),
                 'rule'  => 'required',
+            ],
+            'project_id' => [
+                'field' => 'project_id',
+                'label' => trans('project'),
+                'rules' => 'numeric',
             ],
             'signature_type' => [
                 'field' => 'signature_type',

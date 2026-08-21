@@ -57,6 +57,49 @@
             );
         });
         add_delete_client_notes_click_event();
+
+        function bind_pic_events() {
+            $('.edit_pic').off('click').on('click', function () {
+                show_loader();
+                $('#modal-placeholder').load("<?php echo site_url('clients/ajax/modal_edit_pic'); ?>", {
+                    client_pic_id: $(this).attr('data-id')
+                }, function () {
+                    close_loader();
+                });
+            });
+
+            $('.delete_pic').off('click').on('click', function () {
+                if (confirm('<?php _trans('delete_pic_warning'); ?>')) {
+                    show_loader();
+                    $.post("<?php echo site_url('clients/ajax/delete_pic'); ?>", {
+                        client_pic_id: $(this).attr('data-id')
+                    }, function () {
+                        reload_client_pics();
+                    });
+                }
+            });
+        }
+
+        window.reload_client_pics = function () {
+            show_loader();
+            $('#pics_list').load("<?php echo site_url('clients/ajax/load_client_pics'); ?>", {
+                client_id: client_id
+            }, function () {
+                bind_pic_events();
+                close_loader();
+            });
+        };
+
+        $('#add_pic').click(function () {
+            show_loader();
+            $('#modal-placeholder').load("<?php echo site_url('clients/ajax/modal_add_pic'); ?>", {
+                client_id: client_id
+            }, function () {
+                close_loader();
+            });
+        });
+
+        bind_pic_events();
     });
 </script>
 
@@ -521,6 +564,28 @@ if ($default_custom) {
 <?php
 } // fi custom_fields
 ?>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php _trans('person_in_charge'); ?>
+                            <div class="pull-right">
+                                <button type="button" id="add_pic" class="btn btn-xs btn-default">
+                                    <i class="fa fa-plus"></i> <?php _trans('add_pic'); ?>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div id="pics_list">
+                                <?php echo $partial_pics; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <hr>
 

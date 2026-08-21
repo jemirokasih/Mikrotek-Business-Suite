@@ -164,4 +164,83 @@ class Ajax extends Admin_Controller
 
         $this->layout->load_view('clients/partial_notes', $data);
     }
+
+    public function modal_add_pic()
+    {
+        $data = [
+            'client_id' => $this->input->post('client_id'),
+        ];
+
+        $this->layout->load_view('clients/modal_pic', $data);
+    }
+
+    public function modal_edit_pic()
+    {
+        $client_pic_id = $this->input->post('client_pic_id');
+        $this->load->model('clients/mdl_client_pics');
+        $pic = $this->mdl_client_pics->get_by_id($client_pic_id);
+
+        if ( ! $pic) {
+            exit;
+        }
+
+        $data = [
+            'client_id' => $pic->client_id,
+            'pic'       => $pic,
+        ];
+
+        $this->layout->load_view('clients/modal_pic', $data);
+    }
+
+    public function save_pic()
+    {
+        $this->load->model('clients/mdl_client_pics');
+
+        $client_pic_id = $this->input->post('client_pic_id');
+
+        if ($this->mdl_client_pics->run_validation()) {
+            $this->mdl_client_pics->save($client_pic_id ?: null);
+
+            $response = [
+                'success'   => 1,
+                'new_token' => $this->security->get_csrf_hash(),
+            ];
+        } else {
+            $this->load->helper('json_error');
+            $response = [
+                'success'           => 0,
+                'new_token'         => $this->security->get_csrf_hash(),
+                'validation_errors' => json_errors(),
+            ];
+        }
+
+        $this->json_encode_ajax($response);
+    }
+
+    public function delete_pic()
+    {
+        $client_pic_id = $this->input->post('client_pic_id');
+        $this->load->model('clients/mdl_client_pics');
+
+        $success = 0;
+        if ($client_pic_id && $this->mdl_client_pics->get_by_id($client_pic_id)) {
+            $this->mdl_client_pics->delete($client_pic_id);
+            $success = 1;
+        }
+
+        $this->json_encode_ajax(['success' => $success]);
+    }
+
+    public function load_client_pics()
+    {
+        $this->load->model('clients/mdl_client_pics');
+        $data = [
+            'client_pics' => $this->mdl_client_pics->where(
+                'client_id',
+                $this->input->post('client_id')
+            )->get()->result(),
+        ];
+
+        $this->layout->load_view('clients/partial_pics', $data);
+    }
 }

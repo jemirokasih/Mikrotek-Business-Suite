@@ -101,6 +101,8 @@ if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) {
                     custom: $('input[name^=custom],select[name^=custom]').serializeArray(),
                     payment_method: $('#payment_method').val(),
                     signature_type: $('#signature_type').val(),
+                    invoice_reference_number: $('#invoice_reference_number').val(),
+                    project_id: $('#project_id').val(),
                 },
                 function (data) {
                     var response = json_parse(data, <?php echo (int) IP_DEBUG; ?>);
@@ -546,6 +548,26 @@ if ($einvoice->name) {
                                                <?php echo $invoice->is_read_only ? 'disabled="disabled"' : ''; ?>>
                                         <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></span>
                                     </div>
+                                </div>
+
+                                <div class="invoice-properties">
+                                    <label for="invoice_reference_number"><?php _trans('reference_number'); ?></label>
+                                    <input type="text" name="invoice_reference_number" id="invoice_reference_number" class="form-control"
+                                           value="<?php echo htmlsc($invoice->invoice_reference_number ?? ''); ?>"
+                                           <?php echo $invoice->is_read_only ? 'disabled="disabled"' : ''; ?>>
+                                </div>
+
+                                <div class="invoice-properties">
+                                    <label for="project_id"><?php _trans('project'); ?></label>
+                                    <select name="project_id" id="project_id" class="form-control simple-select"
+                                            <?php echo $invoice->is_read_only ? 'disabled="disabled"' : ''; ?>>
+                                        <option value=""><?php _trans('none'); ?></option>
+                                        <?php foreach ($projects as $project) : ?>
+                                            <option value="<?php echo $project->project_id; ?>" <?php check_select($invoice->project_id ?? '', $project->project_id); ?>>
+                                                <?php echo htmlsc($project->project_name); ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
 

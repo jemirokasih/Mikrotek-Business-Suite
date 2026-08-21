@@ -180,6 +180,16 @@ function pdf_create(
 
     // Set the header if voucher is invoice and if set in settings
     if ($isInvoice && $invoiceHeader !== '') {
+        if (is_object($isInvoice) && !empty($isInvoice->is_proforma)) {
+            $invoiceHeader = strtr($invoiceHeader, [
+                '#INVOICE' => '#PROFORMA INVOICE',
+                '#Invoice' => '#PROFORMA INVOICE',
+                '#invoice' => '#PROFORMA INVOICE',
+                'INVOICE'  => 'PROFORMA INVOICE',
+                'Invoice'  => 'PROFORMA INVOICE',
+                'invoice'  => 'PROFORMA INVOICE',
+            ]);
+        }
         $mpdf->setAutoTopMargin = 'stretch';
         $mpdf->DefHTMLHeaderByName('header', '<div id="header">' . $invoiceHeader . '</div>');
         $mpdf->DefHTMLHeaderByName('defaultHeader', '<div id="header">' . $invoiceHeader . '</div>');

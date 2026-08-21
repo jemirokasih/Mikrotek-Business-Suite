@@ -151,6 +151,12 @@ class Quotes extends Admin_Controller
         $change_user = $this->db->from('ip_users')->where(['user_type' => 1, 'user_active' => 1])->select_sum('user_type')->get()->row();
         $change_user = $change_user->user_type > 1;
 
+        $this->load->model('projects/mdl_projects');
+        $projects = $this->mdl_projects->where('ip_projects.client_id', $quote->client_id)->get()->result();
+        if (empty($projects)) {
+            $projects = $this->mdl_projects->get()->result();
+        }
+
         $this->layout->set(
             [
                 'quote'           => $quote,
@@ -170,6 +176,7 @@ class Quotes extends Admin_Controller
                     'decimal_point'             => get_setting('decimal_point'),
                 ],
                 'legacy_calculation' => config_item('legacy_calculation'),
+                'projects'           => $projects,
             ]
         );
 

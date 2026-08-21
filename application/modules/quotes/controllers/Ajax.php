@@ -125,6 +125,7 @@ class Ajax extends Admin_Controller
                 'signature_type'           => $this->security->xss_clean($this->input->post('signature_type')),
                 'signature_name'           => $this->security->xss_clean($this->input->post('signature_name')),
                 'signature_title'          => $this->security->xss_clean($this->input->post('signature_title')),
+                'project_id'               => $this->input->post('project_id') ? (int) $this->input->post('project_id') : null,
             ];
 
             $this->mdl_quotes->save($quote_id, $db_array, $global_discount);

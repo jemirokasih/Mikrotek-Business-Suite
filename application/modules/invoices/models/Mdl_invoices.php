@@ -24,6 +24,40 @@ class Mdl_Invoices extends Response_Model
 
     public $date_modified_field = 'invoice_date_modified';
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->check_reference_number_column();
+    }
+
+    private function check_reference_number_column()
+    {
+        if ($this->db->table_exists('ip_invoices') && ! $this->db->field_exists('invoice_reference_number', 'ip_invoices')) {
+            $this->load->dbforge();
+            $fields = [
+                'invoice_reference_number' => [
+                    'type'       => 'VARCHAR',
+                    'constraint' => '100',
+                    'null'       => true,
+                    'default'    => null,
+                ],
+            ];
+            $this->dbforge->add_column('ip_invoices', $fields);
+        }
+        if ($this->db->table_exists('ip_invoices') && ! $this->db->field_exists('project_id', 'ip_invoices')) {
+            $this->load->dbforge();
+            $fields = [
+                'project_id' => [
+                    'type'       => 'INT',
+                    'constraint' => 11,
+                    'null'       => true,
+                    'default'    => null,
+                ],
+            ];
+            $this->dbforge->add_column('ip_invoices', $fields);
+        }
+    }
+
     /**
      * @return array
      */
@@ -100,6 +134,7 @@ class Mdl_Invoices extends Response_Model
             (CASE WHEN ip_invoices.invoice_status_id NOT IN (1,4) AND DATEDIFF(NOW(), invoice_date_due) > 0 THEN 1 ELSE 0 END) is_overdue,
             DATEDIFF(NOW(), invoice_date_due) AS days_overdue,
             (CASE (SELECT COUNT(*) FROM ip_invoices_recurring WHERE ip_invoices_recurring.invoice_id = ip_invoices.invoice_id and ip_invoices_recurring.recur_next_date IS NOT NULL) WHEN 0 THEN 0 ELSE 1 END) AS invoice_is_recurring,
+            ip_projects.project_name,
             ip_invoices.*", false);
     }
 
@@ -138,6 +173,7 @@ class Mdl_Invoices extends Response_Model
         $this->db->join('ip_invoice_amounts', 'ip_invoice_amounts.invoice_id = ip_invoices.invoice_id', 'left');
         $this->db->join('ip_invoice_sumex', 'sumex_invoice = ip_invoices.invoice_id', 'left');
         $this->db->join('ip_quotes', 'ip_quotes.invoice_id = ip_invoices.invoice_id', 'left');
+        $this->db->join('ip_projects', 'ip_projects.project_id = ip_invoices.project_id', 'left');
     }
 
     /**
@@ -222,6 +258,16 @@ class Mdl_Invoices extends Response_Model
             'invoice_password' => [
                 'field' => 'invoice_password',
                 'label' => trans('invoice_password'),
+            ],
+            'invoice_reference_number' => [
+                'field' => 'invoice_reference_number',
+                'label' => trans('reference_number'),
+                'rules' => 'trim|max_length[100]',
+            ],
+            'project_id' => [
+                'field' => 'project_id',
+                'label' => trans('project'),
+                'rules' => 'numeric',
             ],
             'signature_type' => [
                 'field' => 'signature_type',
