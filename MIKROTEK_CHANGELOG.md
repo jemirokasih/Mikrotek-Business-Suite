@@ -4,6 +4,20 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.5.0] - 2026-08-21
+
+### 📱 Redesain Dashboard Karyawan & Filtering Widget Berbasis Permission
+- **Pembersihan Dashboard Karyawan (`dashboard/index.php`)**:
+  - Menyembunyikan widget finansial (Ringkasan Faktur, Ringkasan Penawaran, Faktur Jatuh Tempo, dan Quick Actions) dari karyawan yang tidak memiliki hak akses finansial (`invoices`, `quotes`, `clients`, `payments`).
+- **Widget Khusus Karyawan**:
+  - **Attendance Clock-In/Out Quick Widget**: Banner interaktif absen 1-klik di bagian atas dashboard.
+  - **My Attendance Logs Table**: Menampilkan 7 riwayat absensi terbaru karyawan.
+  - **Employee Profile Summary**: Kartu ringkasan data diri karyawan (NIP, Departemen, Jabatan, Email).
+- **Controller Data Loading (`Dashboard.php`)**:
+  - Memuat data riwayat absensi karyawan (`employee_attendances`) secara efisien.
+
+---
+
 ## [v1.4.4] - 2026-08-21
 
 ### 🛠️ Fix Settings Helper Loading Order in `Base_Controller.php`
