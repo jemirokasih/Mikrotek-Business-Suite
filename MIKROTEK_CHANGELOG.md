@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.22] - 2026-08-21
+
+### 🎨 Penyesuaian Urutan Menu Sidebar (`sidebar_menu.php`)
+- **Quotes Before Invoices**: Mengubah urutan navigasi menu sidebar pada kelompok *Sales & Billing* agar menu **Quotes (Penawaran)** tampil lebih dulu sebelum menu **Invoices (Faktur)**.
+
+---
+
 ## [v1.7.21] - 2026-08-21
 
 ### 🎨 Pembersihan Tombol Rollback Navigasi (`partial_settings_general.php`)

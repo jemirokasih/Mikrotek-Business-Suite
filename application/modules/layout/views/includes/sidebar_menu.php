@@ -18,6 +18,22 @@
             <?php if (has_permission('invoices') || has_permission('quotes') || has_permission('payments') || has_permission('receipts')) : ?>
                 <li class="sidebar-group-title">Sales &amp; Billing</li>
                 
+                <?php if (has_permission('quotes')) : ?>
+                    <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'quotes') ? 'open active' : ''; ?>">
+                        <a href="<?php echo site_url('quotes/index'); ?>" class="sidebar-nav-link">
+                            <i class="fa fa-file-o nav-icon"></i>
+                            <span class="nav-text"><?php _trans('quotes'); ?></span>
+                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
+                        </a>
+                        <ul class="sidebar-submenu">
+                            <li><a href="<?php echo site_url('quotes/index'); ?>" class="sidebar-nav-link"><?php _trans('view_quotes'); ?></a></li>
+                            <?php if (has_permission('quotes', 'create')) : ?>
+                                <li><a href="javascript:void(0)" class="sidebar-nav-link create-quote"><?php _trans('create_quote'); ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+                <?php endif; ?>
+
                 <?php if (has_permission('invoices')) : ?>
                     <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['invoices', 'recurring']) ? 'open active' : ''; ?>">
                         <a href="<?php echo site_url('invoices/index'); ?>" class="sidebar-nav-link">
@@ -32,22 +48,6 @@
                             <?php endif; ?>
                             <li><a href="<?php echo site_url('invoices/recurring/index'); ?>" class="sidebar-nav-link"><?php _trans('view_recurring_invoices'); ?></a></li>
                             <li><a href="<?php echo site_url('invoices/archive'); ?>" class="sidebar-nav-link"><?php _trans('invoice_archive'); ?></a></li>
-                        </ul>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (has_permission('quotes')) : ?>
-                    <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'quotes') ? 'open active' : ''; ?>">
-                        <a href="<?php echo site_url('quotes/index'); ?>" class="sidebar-nav-link">
-                            <i class="fa fa-file-o nav-icon"></i>
-                            <span class="nav-text"><?php _trans('quotes'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="<?php echo site_url('quotes/index'); ?>" class="sidebar-nav-link"><?php _trans('view_quotes'); ?></a></li>
-                            <?php if (has_permission('quotes', 'create')) : ?>
-                                <li><a href="javascript:void(0)" class="sidebar-nav-link create-quote"><?php _trans('create_quote'); ?></a></li>
-                            <?php endif; ?>
                         </ul>
                     </li>
                 <?php endif; ?>
