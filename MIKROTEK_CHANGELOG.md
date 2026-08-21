@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.13] - 2026-08-21
+
+### 🎨 Clean Frameless Headerbar (Menghapus Background Putih Headerbar)
+- **Frameless Headerbar (`modern_sidebar.css`)**: Menghapus background putih `#ffffff`, border, dan box-shadow dari `#headerbar` dan `.subheaderbar` sehingga headerbar tampil transparan dan bersih menyatu langsung dengan background utama, menghindari penumpukan card di atas card/panel konten.
+
+---
+
 ## [v1.7.12] - 2026-08-21
 
 ### 🎨 Restorasi Padding Presisi & Card Headerbar Elegant (Corner-to-Corner)

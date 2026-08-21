@@ -297,12 +297,12 @@ body.layout-sidebar-active #headerbar {
     justify-content: space-between !important;
     width: 100% !important;
     box-sizing: border-box !important;
-    background: #ffffff !important;
-    padding: 16px 24px !important;
-    border-radius: 12px !important;
-    box-shadow: var(--card-shadow) !important;
-    margin-bottom: 24px !important;
-    border: 1px solid var(--card-border) !important;
+    background: transparent !important;
+    padding: 0 0 20px 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    margin-bottom: 12px !important;
+    border: none !important;
     position: relative !important;
     clear: both !important;
 }
@@ -349,12 +349,12 @@ body.layout-sidebar-active #headerbar .headerbar-item .btn {
 /* Submenu Bar Clean-up */
 body.layout-sidebar-active .subheaderbar,
 body.layout-sidebar-active #subheaderbar {
-    background: #ffffff;
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 14px 24px;
-    margin-bottom: 24px;
-    box-shadow: var(--card-shadow);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0 0 16px 0;
+    margin-bottom: 16px;
+    box-shadow: none;
 }
 
 /* ==========================================================================
