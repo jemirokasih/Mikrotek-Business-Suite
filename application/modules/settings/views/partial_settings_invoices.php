@@ -276,6 +276,19 @@ foreach ($pdf_invoice_templates as $invoice_template) {
                         </div>
 
                         <div class="form-group">
+                            <label for="settings[pdf_hide_paid_and_balance]">
+                                Sembunyikan Paid & Balance di PDF Invoice
+                            </label>
+                            <select name="settings[pdf_hide_paid_and_balance]" id="settings[pdf_hide_paid_and_balance]"
+                                    class="form-control simple-select" data-minimum-results-for-search="Infinity">
+                                <option value="0"><?php _trans('no'); ?></option>
+                                <option value="1" <?php check_select(get_setting('pdf_hide_paid_and_balance'), '1'); ?>>
+                                    <?php _trans('yes'); ?>
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
                             <label for="settings[public_invoice_template]">
                                 <?php _trans('default_public_template'); ?>
                             </label>

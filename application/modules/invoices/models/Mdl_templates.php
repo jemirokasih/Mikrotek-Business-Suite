@@ -32,6 +32,7 @@ class Mdl_Templates extends CI_Model
      */
     private const ALLOWED_INVOICE_TEMPLATES = [
         'pdf' => [
+            'Mikrotek',
             'InvoicePlane',
             'InvoicePlane - paid',
             'InvoicePlane - overdue',
@@ -51,6 +52,7 @@ class Mdl_Templates extends CI_Model
      */
     private const ALLOWED_QUOTE_TEMPLATES = [
         'pdf' => [
+            'Mikrotek',
             'InvoicePlane',
         ],
         'public' => [
