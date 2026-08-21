@@ -23,9 +23,9 @@ class Webmail extends Admin_Controller
         $webmail_url   = get_setting('webmail_url');
         $webmail_email = get_setting('webmail_email');
 
-        // Default to built-in internal Roundcube application
+        // Default to internal Roundcube action route (bypasses direct file htaccess block)
         if (empty($webmail_url)) {
-            $webmail_url = base_url('application/modules/webmail/roundcube/index.php');
+            $webmail_url = site_url('webmail/roundcube');
         }
 
         $data = [
@@ -38,9 +38,9 @@ class Webmail extends Admin_Controller
         $this->layout->render();
     }
 
-    public function app()
+    public function roundcube()
     {
-        // Internal bundled webmail application view
+        // Render built-in native Roundcube webmail application view
         $webmail_email = get_setting('webmail_email') ?: get_setting('smtp_user');
 
         $data = [
@@ -48,7 +48,7 @@ class Webmail extends Admin_Controller
             'smtp_host'     => get_setting('smtp_host'),
         ];
 
-        $this->load->view('webmail/app', $data);
+        $this->load->view('webmail/roundcube', $data);
     }
 
     public function settings()

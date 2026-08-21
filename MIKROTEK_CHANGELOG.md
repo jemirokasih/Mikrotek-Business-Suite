@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.25] - 2026-08-22
+
+### 🐛 Perbaikan Permisi 403 Forbidden pada Modul Webmail
+- **Routing Route Internal (`site_url('webmail/roundcube')`)**: Mengubah pemanggilan `webmail_url` agar melewati controller CodeIgniter (`Webmail::roundcube()`) bukannya mengakses path file `application/` secara langsung yang diblokir oleh aturan keamanan `.htaccess` (`Deny from all`). Menghilangkan error 403 Forbidden secara permanen.
+
+---
+
 ## [v1.7.24] - 2026-08-22
 
 ### ✉️ Modul Roundcube Webmail Built-in (Unified Single Package Application)
