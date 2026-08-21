@@ -56,8 +56,8 @@ _An enhanced, open-source invoicing and business management platform built on to
 ### 2. Setup Instructions
 1. Clone the repository:
    ```bash
-   git clone https://github.com/InvoicePlane/InvoicePlane.git mikrotek-invoice
-   cd mikrotek-invoice
+   git clone https://github.com/jemirokasih/Mikrotek-Invoice.git
+   cd Mikrotek-Invoice
    ```
 2. Copy configuration file:
    ```bash
