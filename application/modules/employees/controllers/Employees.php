@@ -207,21 +207,21 @@ class Employees extends Admin_Controller
             return;
         }
 
-        $this->load->library('cryptor');
-        $salt          = $this->cryptor->genSalt();
-        $password_hash = $this->cryptor->generate_password_hash($user_password, $salt);
+        $this->load->library('crypt');
+        $salt          = $this->crypt->salt();
+        $password_hash = $this->crypt->generate_password($user_password, $salt);
 
         $user_data = [
-            'user_type'           => $user_type,
-            'user_active'         => 1,
-            'user_date_created'   => date('Y-m-d H:i:s'),
-            'user_date_modified'  => date('Y-m-d H:i:s'),
-            'user_name'           => $user_name,
-            'user_email'          => $user_email,
-            'user_password'       => $password_hash,
-            'user_password_reset' => $salt,
-            'user_role_id'        => $user_role_id,
-            'company_id'          => $employee->company_id ?: 1,
+            'user_type'          => $user_type,
+            'user_active'        => 1,
+            'user_date_created'  => date('Y-m-d H:i:s'),
+            'user_date_modified' => date('Y-m-d H:i:s'),
+            'user_name'          => $user_name,
+            'user_email'         => $user_email,
+            'user_password'      => $password_hash,
+            'user_psalt'         => $salt,
+            'user_role_id'       => $user_role_id,
+            'company_id'         => $employee->company_id ?: 1,
         ];
 
         $this->db->insert('ip_users', $user_data);
