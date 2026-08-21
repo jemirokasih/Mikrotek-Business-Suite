@@ -1,9 +1,14 @@
-<script>
     $(function () {
         $('#btn_generate_cron_key').click(function () {
             $.post("<?php echo site_url('settings/ajax/get_cron_key'); ?>", function (data) {
                 $('#cron_key').val(data);
             });
+        });
+
+        $('#btn-restore-default-layout').click(function () {
+            if (confirm('Restore layout to Classic Top Navbar default?')) {
+                $('#settings\\[layout_mode\\]').val('top').trigger('change');
+            }
         });
     });
 </script>
@@ -18,7 +23,7 @@
             <div class="panel-body">
 
                 <div class="row">
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 col-md-4">
                         <div class="form-group">
                             <label for="settings[default_language]">
                                 <?php _trans('language'); ?>
@@ -36,7 +41,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-md-6">
+                    <div class="col-xs-12 col-md-4">
                         <div class="form-group">
                             <label for="settings[system_theme]">
                                 <?php _trans('theme'); ?>
@@ -49,6 +54,29 @@
                                     </option>
                                 <?php } ?>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-4">
+                        <div class="form-group">
+                            <label for="settings[layout_mode]">
+                                Navigation Layout Style
+                            </label>
+                            <div class="input-group">
+                                <select name="settings[layout_mode]" id="settings[layout_mode]" class="form-control simple-select">
+                                    <option value="top" <?php check_select(get_setting('layout_mode', 'top'), 'top'); ?>>
+                                        Classic Top Navbar
+                                    </option>
+                                    <option value="sidebar" <?php check_select(get_setting('layout_mode'), 'sidebar'); ?>>
+                                        Modern Sidebar
+                                    </option>
+                                </select>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" id="btn-restore-default-layout" title="Restore to Default Classic Layout">
+                                        <i class="fa fa-undo"></i>
+                                    </button>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>

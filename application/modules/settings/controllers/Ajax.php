@@ -24,4 +24,16 @@ class Ajax extends Admin_Controller
         // 8 bytes -> 16 hexadecimal characters.
         echo generate_secure_token(8);
     }
+
+    public function switch_layout()
+    {
+        $layout_mode = $this->input->post('layout_mode');
+        if (in_array($layout_mode, ['sidebar', 'top'])) {
+            $this->load->model('settings/mdl_settings');
+            $this->mdl_settings->save('layout_mode', $layout_mode);
+            echo json_encode(['success' => 1, 'layout_mode' => $layout_mode]);
+        } else {
+            echo json_encode(['success' => 0, 'message' => 'Invalid layout mode']);
+        }
+    }
 }

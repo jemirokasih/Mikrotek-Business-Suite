@@ -4,6 +4,19 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.0] - 2026-08-21
+
+### 🎨 Perombakan UI/UX & Dual Layout Switcher (Sidebar vs Top Navbar)
+- **Modern Collapsible Sidebar Layout (`layout_sidebar.php` & `modern_sidebar.css`)**:
+  - Menghadirkan layout navigasi vertikal kiri modern yang dapat dilipat (*collapsible*), dilengkapi accordion sub-menu ber-ikon, header pencarian, avatar profil, serta antarmuka yang bersih & responsif.
+- **Pengelompokan Menu Logis (`sidebar_menu.php`)**:
+  - Menu dikelompokkan secara terstruktur: *Sales & Billing*, *Clients & Accounts*, *Products & Projects*, *Human Resources*, *Reports*, dan *Administration*.
+- **Instant Layout Switcher & Restore to Default (`Settings Ajax & UI`)**:
+  - Menambahkan sakelar pemindah layout cepat (*Quick Switcher*) di header navigasi.
+  - Opsi pengaturan **Navigation Layout Style** (`sidebar` vs `top`) serta tombol **Restore to Default** di *Settings ➔ General* untuk mengembalikan tampilan ke Classic Top Navbar kapan saja.
+
+---
+
 ## [v1.6.3] - 2026-08-21
 
 ### 🛠️ Resilience Datetime String Parsing pada Helper Tanggal (`date_helper.php`)

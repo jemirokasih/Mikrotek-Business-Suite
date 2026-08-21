@@ -1,3 +1,10 @@
+<?php
+if (get_setting('layout_mode') === 'sidebar') {
+    echo $this->layout->load_view('layout/layout_sidebar', ['content' => $content]);
+
+    return;
+}
+?>
 <!DOCTYPE html>
 
 <!--[if lt IE 7]>

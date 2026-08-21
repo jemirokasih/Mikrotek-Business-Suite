@@ -241,6 +241,12 @@
                 </li>
                 <?php endif; ?>
                 <li>
+                    <a href="javascript:void(0)" class="tip icon btn-switch-layout-top" data-placement="bottom" title="Switch to Modern Sidebar Layout">
+                        <i class="fa fa-columns text-primary"></i>
+                        <span class="visible-xs">&nbsp;Modern Sidebar Layout</span>
+                    </a>
+                </li>
+                <li>
                     <a href="<?php echo site_url('users/form/'
                         . $this->session->userdata('user_id')); ?>"
                        class="tip icon" data-placement="bottom"
@@ -271,3 +277,17 @@
         </div>
     </div>
 </nav>
+
+<script>
+$(function () {
+    $('.btn-switch-layout-top').click(function (e) {
+        e.preventDefault();
+        $.post("<?php echo site_url('settings/ajax/switch_layout'); ?>", {
+            layout_mode: 'sidebar',
+            _csrf: Cookies.get('ip_csrf_cookie')
+        }, function (response) {
+            window.location.reload();
+        });
+    });
+});
+</script>
