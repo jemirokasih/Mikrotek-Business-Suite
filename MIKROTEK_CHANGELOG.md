@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.30] - 2026-08-22
+
+### 🔐 Layar Login Wajib Roundcube Webmail Karyawan (`roundcube.php`)
+- **Enforce Mandatory Login Screen**: Memasang antarmuka layar login resmi **Roundcube Webmail** saat pertama kali karyawan/user membuka menu Buka Email (`webmail/roundcube`). Karyawan wajib memasukkan **Alamat Email** & **Password Email** mereka terlebih dahulu untuk dapat mengakses kotak masuk.
+- **Manajemen Sesi & Logout**: Menyediakan tombol **Logout** (`fa-sign-out`) di bar navigasi Roundcube agar karyawan dapat keluar dari sesi email mereka kapan saja.
+
+---
+
 ## [v1.7.29] - 2026-08-22
 
 ### ✉️ Menu "Buka Email" Langsung Khusus Karyawan (`sidebar_menu.php`)

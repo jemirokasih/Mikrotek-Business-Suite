@@ -31,12 +31,92 @@
             height: 100vh;
             overflow: hidden;
         }
+
+        /* Login Screen Overlay */
+        .rc-login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #0f172a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .rc-login-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 380px;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
+            padding: 32px;
+            text-align: center;
+        }
+        .rc-login-logo {
+            font-size: 36px;
+            color: #3b82f6;
+            margin-bottom: 12px;
+        }
+        .rc-login-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 6px 0;
+        }
+        .rc-login-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 24px;
+        }
+        .rc-login-form-group {
+            text-align: left;
+            margin-bottom: 16px;
+        }
+        .rc-login-form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 6px;
+        }
+        .rc-login-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 13px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .rc-login-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+        }
+        .rc-login-btn {
+            width: 100%;
+            padding: 11px;
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.15s;
+            margin-top: 8px;
+        }
+        .rc-login-btn:hover {
+            background: #2563eb;
+        }
+
+        /* Main Mail App Layout */
         .rc-layout {
             display: flex;
             height: 100vh;
             width: 100vw;
         }
-        /* Primary Left Icon Bar */
         .rc-icon-bar {
             width: 56px;
             background: #0f172a;
@@ -75,7 +155,6 @@
             border-radius: 0 2px 2px 0;
         }
 
-        /* Folder Column */
         .rc-folder-col {
             width: 200px;
             background: #ffffff;
@@ -143,7 +222,6 @@
         }
         .rc-badge.primary { background: #dbeafe; color: #1e40af; }
 
-        /* Mail List Column */
         .rc-mail-col {
             width: 320px;
             background: #ffffff;
@@ -188,7 +266,6 @@
         .rc-mail-subject { font-weight: 600; color: #334155; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .rc-mail-preview { color: #64748b; font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        /* Mail View Column / Compose Pane */
         .rc-view-col {
             flex: 1;
             background: var(--rc-bg);
@@ -265,12 +342,40 @@
 </head>
 <body>
 
+<!-- Login Screen (Default view for employee until authenticated) -->
+<div id="login-overlay" class="rc-login-overlay">
+    <div class="rc-login-card">
+        <div class="rc-login-logo">
+            <i class="fa fa-envelope-open"></i>
+        </div>
+        <h2 class="rc-login-title">Roundcube Webmail</h2>
+        <p class="rc-login-subtitle">Masukkan akun email perusahaan Anda untuk melanjutkan</p>
+
+        <form onsubmit="doLogin(event);">
+            <div class="rc-login-form-group">
+                <label>Alamat Email / Username:</label>
+                <input type="text" id="rc-username" class="rc-login-input" placeholder="karyawan@mzi.co.id" required autofocus>
+            </div>
+            <div class="rc-login-form-group">
+                <label>Password Email:</label>
+                <input type="password" id="rc-password" class="rc-login-input" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="rc-login-btn">
+                <i class="fa fa-sign-in"></i> Login Webmail
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Main Webmail App Layout -->
 <div class="rc-layout">
     <!-- Icon Bar -->
     <div class="rc-icon-bar">
         <a href="#" class="rc-icon-btn active" title="Mail" onclick="showPane('mail'); return false;"><i class="fa fa-envelope"></i></a>
         <a href="#" class="rc-icon-btn" title="Contacts" onclick="showPane('contacts'); return false;"><i class="fa fa-address-book"></i></a>
         <a href="#" class="rc-icon-btn" title="Settings" onclick="showPane('settings'); return false;"><i class="fa fa-cog"></i></a>
+        <div style="flex:1;"></div>
+        <a href="#" class="rc-icon-btn" title="Logout" onclick="doLogout(); return false;" style="color:#ef4444;"><i class="fa fa-sign-out"></i></a>
     </div>
 
     <!-- Folder List -->
@@ -329,14 +434,14 @@
                     <h2 class="rc-mail-title" id="mail-title">Selamat Datang di Roundcube Webmail Suite</h2>
                     <div class="rc-mail-meta">
                         <strong>Dari:</strong> Mikrotek Support &lt;support@mzi.co.id&gt;<br>
-                        <strong>Kepada:</strong> Anda &lt;admin@mzi.co.id&gt;<br>
+                        <strong>Kepada:</strong> <span id="display-user-email">Anda</span><br>
                         <strong>Tanggal:</strong> 22 Agustus 2026 10:45
                     </div>
                 </div>
 
                 <div class="rc-mail-body-box" id="mail-body">
                     Halo,<br><br>
-                    Selamat! Aplikasi <strong>Roundcube Webmail Suite</strong> telah di-bundle secara internal (built-in) ke dalam Mikrotek Business Suite.<br><br>
+                    Selamat! Anda telah berhasil login ke portal <strong>Roundcube Webmail Suite</strong>.<br><br>
                     Melalui antarmuka ini, Anda dapat:<br>
                     <ul>
                         <li>Mengirim dan membaca pesan email bisnis secara terpadu.</li>
@@ -345,7 +450,7 @@
                     </ul>
                     <br>
                     Salam hangat,<br>
-                    <strong>Tim Pengembang Mikrotek Business Suite</strong>
+                    <strong>Tim Mikrotek Business Suite</strong>
                 </div>
             </div>
 
@@ -410,12 +515,12 @@
             <!-- Settings Pane -->
             <div id="settings-pane" style="display: none;">
                 <div class="rc-mail-header-box">
-                    <h2 class="rc-mail-title">Pengaturan Roundcube Webmail</h2>
-                    <p style="color: #64748b; margin: 0;">Konfigurasi server IMAP/SMTP, identitas email, dan preferensi tampilan.</p>
+                    <h2 class="rc-mail-title">Pengaturan Identitas &amp; Tampilan Email</h2>
+                    <p style="color: #64748b; margin: 0;">Konfigurasi identitas email pengirim dan tanda tangan.</p>
                 </div>
                 <div class="rc-mail-body-box">
-                    <h4 style="margin-top: 0;">Identitas Pengirim Bawaan</h4>
-                    <p style="color: #64748b;">Secara bawaan terhubung dengan server mailer sistem Mikrotek Business Suite.</p>
+                    <h4 style="margin-top: 0;">Identitas Pengirim Saat Ini</h4>
+                    <p style="color: #64748b;" id="settings-user-info">Terhubung dengan server mailer perusahaan.</p>
                 </div>
             </div>
 
@@ -424,6 +529,34 @@
 </div>
 
 <script>
+// Check if user session exists in sessionStorage
+window.onload = function() {
+    var loggedUser = sessionStorage.getItem('rc_logged_user');
+    if (loggedUser) {
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('display-user-email').innerText = loggedUser;
+        document.getElementById('settings-user-info').innerText = 'Terhubung sebagai ' + loggedUser;
+    } else {
+        document.getElementById('login-overlay').style.display = 'flex';
+    }
+};
+
+function doLogin(e) {
+    e.preventDefault();
+    var email = document.getElementById('rc-username').value;
+    if (email) {
+        sessionStorage.setItem('rc_logged_user', email);
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('display-user-email').innerText = email;
+        document.getElementById('settings-user-info').innerText = 'Terhubung sebagai ' + email;
+    }
+}
+
+function doLogout() {
+    sessionStorage.removeItem('rc_logged_user');
+    document.getElementById('login-overlay').style.display = 'flex';
+}
+
 function showCompose() {
     document.getElementById('mail-view-pane').style.display = 'none';
     document.getElementById('contacts-pane').style.display = 'none';
@@ -457,7 +590,7 @@ function readMail(id, el) {
     showInbox();
     if (id === 1) {
         document.getElementById('mail-title').innerText = 'Selamat Datang di Roundcube Webmail Suite';
-        document.getElementById('mail-body').innerHTML = 'Halo,<br><br>Selamat! Aplikasi <strong>Roundcube Webmail Suite</strong> telah di-bundle secara internal (built-in) ke dalam Mikrotek Business Suite.<br><br>Melalui antarmuka ini, Anda dapat:<br><ul><li>Mengirim dan membaca pesan email bisnis secara terpadu.</li><li>Mengelola folder Kotak Masuk, Pesan Terkirim, Draft, dan Sampah.</li><li>Mengakses Buku Alamat (Contacts) dan Pengaturan Identitas email.</li></ul><br>Salam hangat,<br><strong>Tim Pengembang Mikrotek Business Suite</strong>';
+        document.getElementById('mail-body').innerHTML = 'Halo,<br><br>Selamat! Anda telah berhasil login ke portal <strong>Roundcube Webmail Suite</strong>.<br><br>Melalui antarmuka ini, Anda dapat:<br><ul><li>Mengirim dan membaca pesan email bisnis secara terpadu.</li><li>Mengelola folder Kotak Masuk, Pesan Terkirim, Draft, dan Sampah.</li><li>Mengakses Buku Alamat (Contacts) dan Pengaturan Identitas email.</li></ul><br>Salam hangat,<br><strong>Tim Mikrotek Business Suite</strong>';
     } else if (id === 2) {
         document.getElementById('mail-title').innerText = 'Laporan Penjualan & Faktur Tagihan Klien';
         document.getElementById('mail-body').innerHTML = 'Berikut terlampir rangkuman daftar faktur dan pembayaran invoice terbaru yang telah diterbitkan untuk periode bulan ini.<br><br>Silakan periksa laporan keuangan lengkap di menu Invoices.';
