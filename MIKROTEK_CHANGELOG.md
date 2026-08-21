@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.15] - 2026-08-21
+
+### 🎨 Desain Compact Segmented Control Tab Filter Status (All, Draft, Sent, Viewed, Paid, etc.)
+- **Compact Segmented Tab Bar (`modern_sidebar.css`)**: Merapikan dan merapatkan tab filter status (`.index-options`) di headerbar (All, Draft, Sent, Viewed, Paid, Overdue, dll.) menggunakan kontainer pill `background: #f1f5f9` dengan padding internal yang presisi (`3px`), gap rapat (`3px`), dan padding tombol yang ringkas (`5px 12px`).
+- **High-Contrast Active Indicator**: Tab aktif kini memiliki kontras tinggi dengan warna latar solid (`#2563eb` atau `#d97706`) dan elevasi lembut (`box-shadow`), memisahkan tombol aktif dengan sangat jelas tanpa memakan banyak ruang secara horizontal.
+
+---
+
 ## [v1.7.14] - 2026-08-21
 
 ### 🎨 Pembaruan & Merapikan Layout Quick Actions Dashboard

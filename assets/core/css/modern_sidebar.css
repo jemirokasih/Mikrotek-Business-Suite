@@ -346,6 +346,103 @@ body.layout-sidebar-active #headerbar .headerbar-item .btn {
     margin-left: 0 !important;
 }
 
+/* ==========================================================================
+   Compact & Sleek Index Status Tabs / Options (Segmented Control)
+   ========================================================================== */
+
+body.layout-sidebar-active .index-options,
+body.layout-sidebar-active #headerbar .index-options,
+.index-options {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    background-color: #f1f5f9 !important;
+    padding: 3px !important;
+    border-radius: 8px !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+    float: none !important;
+}
+
+body.layout-sidebar-active .index-options .btn,
+body.layout-sidebar-active #headerbar .index-options .btn,
+.index-options .btn {
+    padding: 5px 12px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 6px !important;
+    border: none !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    transition: all 0.15s ease !important;
+    box-shadow: none !important;
+    transform: none !important;
+    float: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    white-space: nowrap !important;
+}
+
+body.layout-sidebar-active .index-options .btn-default,
+.index-options .btn-default {
+    background-color: transparent !important;
+    color: #64748b !important;
+    border: none !important;
+}
+
+body.layout-sidebar-active .index-options .btn-default:hover,
+.index-options .btn-default:hover {
+    background-color: rgba(255, 255, 255, 0.7) !important;
+    color: #0f172a !important;
+}
+
+body.layout-sidebar-active .index-options .btn-primary,
+.index-options .btn-primary {
+    background-color: #2563eb !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(37, 99, 235, 0.25) !important;
+}
+
+body.layout-sidebar-active .index-options .btn-warning,
+.index-options .btn-warning {
+    background-color: #d97706 !important;
+    color: #ffffff !important;
+    box-shadow: 0 1px 3px rgba(217, 119, 6, 0.25) !important;
+}
+
+/* Modern & Compact Nav Tabs & Nav Pills */
+body.layout-sidebar-active .nav-tabs {
+    border-bottom: 1px solid #e2e8f0;
+    gap: 4px;
+    display: flex;
+}
+
+body.layout-sidebar-active .nav-tabs > li > a {
+    border-radius: 8px 8px 0 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    transition: all 0.15s ease;
+}
+
+body.layout-sidebar-active .nav-tabs > li > a:hover {
+    background-color: #f8fafc;
+    color: #0f172a;
+    border-color: transparent;
+}
+
+body.layout-sidebar-active .nav-tabs > li.active > a,
+body.layout-sidebar-active .nav-tabs > li.active > a:hover,
+body.layout-sidebar-active .nav-tabs > li.active > a:focus {
+    color: var(--primary-color);
+    background-color: #ffffff;
+    border-color: #e2e8f0 #e2e8f0 #ffffff;
+    font-weight: 700;
+}
+
 /* Submenu Bar Clean-up */
 body.layout-sidebar-active .subheaderbar,
 body.layout-sidebar-active #subheaderbar {
