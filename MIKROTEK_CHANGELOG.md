@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.37] - 2026-08-22
+
+### 📐 Presisi Alignment Padding `#page-content-wrapper` (`index.php`)
+- **Penyelarasan Presisi Tata Letak**: Menghapus inline style padding/margin manual pada `#content` agar mengikuti standar padding global 28px dari `#page-content-wrapper` (`modern_sidebar.css`).
+- **Konsistensi Layout**: Container Roundcube Webmail kini 100% presisi dan sejajar sempurna dengan posisi card pada modul *Invoices*, *Quotes*, *Clients*, *Payments*, dan *Products*.
+
+---
+
 ## [v1.7.36] - 2026-08-22
 
 ### 🎨 Penyesuaian Padding Container Roundcube & Tombol Icon-Only Samping (`index.php`)

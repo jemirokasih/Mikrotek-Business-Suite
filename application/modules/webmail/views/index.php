@@ -29,9 +29,9 @@
 
 <?php echo $this->layout->load_view('layout/alerts'); ?>
 
-<div id="content" class="table-content" style="padding: 15px;">
+<div id="content" class="table-content">
     <?php if ($is_configured) : ?>
-        <div class="webmail-container" style="background: #ffffff; border-radius: 12px; border: 1px solid var(--card-border, #e2e8f0); box-shadow: var(--card-shadow, 0 1px 3px rgba(0,0,0,0.05)); overflow: hidden; height: calc(100vh - 120px); min-height: 620px; width: 100%;">
+        <div class="webmail-container" style="background: #ffffff; border-radius: 12px; border: 1px solid var(--card-border, #e2e8f0); box-shadow: var(--card-shadow, 0 1px 3px rgba(0,0,0,0.05)); overflow: hidden; height: calc(100vh - 125px); min-height: 620px; width: 100%;">
             <iframe id="webmail-iframe"
                     src="<?php echo htmlsc($webmail_url); ?>"
                     style="width: 100%; height: 100%; border: none; display: block;"
