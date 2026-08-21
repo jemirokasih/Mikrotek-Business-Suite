@@ -1,5 +1,6 @@
 <?php
-if (get_setting('layout_mode') === 'sidebar') {
+$layout_mode = get_setting('layout_mode', 'sidebar');
+if ($layout_mode === 'sidebar' || empty($layout_mode)) {
     echo $this->layout->load_view('layout/layout_sidebar', ['content' => $content]);
 
     return;

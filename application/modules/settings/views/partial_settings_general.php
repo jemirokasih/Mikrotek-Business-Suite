@@ -5,8 +5,8 @@
             });
         });
 
-        $('#btn-restore-default-layout').click(function () {
-            if (confirm('Restore layout to Classic Top Navbar default?')) {
+        $('#btn-rollback-legacy-layout').click(function () {
+            if (confirm('Rollback navigation layout to Legacy Top Navbar mode?')) {
                 $('#settings\\[layout_mode\\]').val('top').trigger('change');
             }
         });
@@ -64,16 +64,16 @@
                             </label>
                             <div class="input-group">
                                 <select name="settings[layout_mode]" id="settings[layout_mode]" class="form-control simple-select">
-                                    <option value="top" <?php check_select(get_setting('layout_mode', 'top'), 'top'); ?>>
-                                        Classic Top Navbar
+                                    <option value="sidebar" <?php check_select(get_setting('layout_mode', 'sidebar'), 'sidebar'); ?>>
+                                        Modern Sidebar Layout (Default)
                                     </option>
-                                    <option value="sidebar" <?php check_select(get_setting('layout_mode'), 'sidebar'); ?>>
-                                        Modern Sidebar
+                                    <option value="top" <?php check_select(get_setting('layout_mode', 'sidebar'), 'top'); ?>>
+                                        Legacy Top Navbar Mode (Rollback)
                                     </option>
                                 </select>
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" id="btn-restore-default-layout" title="Restore to Default Classic Layout">
-                                        <i class="fa fa-undo"></i>
+                                    <button type="button" class="btn btn-default" id="btn-rollback-legacy-layout" title="Rollback to Legacy Top Navbar Mode">
+                                        <i class="fa fa-history"></i> Rollback
                                     </button>
                                 </span>
                             </div>

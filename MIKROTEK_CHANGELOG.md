@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.1] - 2026-08-21
+
+### 🎨 Pengaturan Layout Default (Modern Sidebar) & Tombol Rollback Legacy
+- **Make Sidebar Layout Default (`layout.php`)**: Menjadikan *Modern Sidebar Layout* sebagai tampilan bawaan (*default*) aplikasi secara otomatis.
+- **Clean Layout Setting (`partial_settings_general.php`)**: Menghapus tombol sakelar cepat (*quick switch button*) di topbar/navbar dan memusatkan pengaturan layout di *Settings ➔ General* dengan tombol **Rollback to Legacy Mode**.
+
+---
+
 ## [v1.7.0] - 2026-08-21
 
 ### 🎨 Perombakan UI/UX & Dual Layout Switcher (Sidebar vs Top Navbar)

@@ -30,11 +30,6 @@
         </div>
 
         <div class="topbar-right" style="display: flex; align-items: center; gap: 15px;">
-            <!-- Quick Layout Switcher Button -->
-            <button type="button" class="btn btn-sm btn-default btn-switch-layout-quick" title="Switch to Top Navbar Layout">
-                <i class="fa fa-exchange text-primary"></i> <span class="hidden-xs">Classic Top Layout</span>
-            </button>
-
             <!-- User Account Dropdown -->
             <div class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="display: flex; align-items: center; text-decoration: none; color: #334155;">
@@ -86,17 +81,6 @@
             e.preventDefault();
             var $item = $(this).parent('.sidebar-nav-item');
             $item.toggleClass('open');
-        });
-
-        // Quick Switch Layout Handler
-        $('.btn-switch-layout-quick').click(function (e) {
-            e.preventDefault();
-            $.post("<?php echo site_url('settings/ajax/switch_layout'); ?>", {
-                layout_mode: 'top',
-                _csrf: Cookies.get('ip_csrf_cookie')
-            }, function (response) {
-                window.location.reload();
-            });
         });
     });
     </script>
