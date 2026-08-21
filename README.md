@@ -1,6 +1,6 @@
 <img align="right" alt="Mikrotek Business Suite logo" src="/assets/core/img/favicon.png">
 
-# Mikrotek Business Suite `v1.7.8`
+# Mikrotek Business Suite `v1.7.9`
 
 _An enhanced, open-source business operations, invoicing, multi-company, employee management, attendance tracking, and role-based platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
 

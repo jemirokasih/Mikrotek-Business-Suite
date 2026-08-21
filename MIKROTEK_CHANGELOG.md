@@ -4,6 +4,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.9] - 2026-08-21
+
+### 🎨 Pembaruan Desain Form Card-Style, Headerbar Fluid & Modern Button Elevation
+- **Card-Style Form Containers (`modern_sidebar.css`)**: Mengubah seluruh form, panel, dan card menjadi latar putih (`#ffffff`), sudut membulat (`12px`), border halus (`#e2e8f0`), dan soft elevation shadow (`box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05)`).
+- **High-Contrast Form Inputs & Labels**: Memperbarui styling `.form-control` (tinggi 42px, radius 8px, ring fokus biru) dan label form (gelap, bold, micro-spacing).
+- **Modern Button Elevation & Save Actions**: Memperbarui tombol aksi (`.btn-primary`, `.btn-success`, `.btn-danger`, `#btn-submit`, `#btn-cancel`) dengan elevasi shadow, mikro-animasi hover translateY(-1px), dan gap ikon yang rapi.
+- **Fluid Headerbar & Typography**: Menyelaraskan `#headerbar` dengan judul `h1` yang tegas (`22px`, font bold `#0f172a`) dan perataan tombol aksi yang responsif.
+
+---
+
 ## [v1.7.8] - 2026-08-21
 
 ### 🛠️ Fix Direct Page Navigation & Chevron Toggle pada Parent Menu Sidebar

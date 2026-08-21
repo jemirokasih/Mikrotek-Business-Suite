@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Mikrotek Business Suite - Modern Sidebar Layout & UI Enhancements
+   Mikrotek Business Suite - Modern Sidebar Layout & Premium UI Enhancements
    ========================================================================== */
 
 :root {
@@ -11,6 +11,15 @@
     --sidebar-text: #94a3b8;
     --sidebar-text-active: #ffffff;
     --topbar-height: 60px;
+    --primary-color: #2563eb;
+    --primary-hover: #1d4ed8;
+    --success-color: #10b981;
+    --success-hover: #059669;
+    --danger-color: #ef4444;
+    --danger-hover: #dc2626;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
 }
 
 body.layout-sidebar-active {
@@ -123,6 +132,7 @@ body.sidebar-collapsed .sidebar-group-title {
     font-weight: 500;
     transition: all 0.2s;
     border-left: 3px solid transparent;
+    cursor: pointer;
 }
 
 .sidebar-nav-link:hover, .sidebar-nav-link:focus {
@@ -156,7 +166,13 @@ body.sidebar-collapsed .sidebar-group-title {
 
 .sidebar-nav-link i.arrow-icon {
     font-size: 12px;
-    transition: transform 0.2s;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.sidebar-nav-link i.arrow-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .sidebar-nav-item.open > .sidebar-nav-link i.arrow-icon {
@@ -207,7 +223,7 @@ body.sidebar-collapsed .sidebar-nav-item:hover > .sidebar-submenu {
     position: absolute;
     left: var(--sidebar-collapsed-width);
     top: 0;
-    width: 200px;
+    width: 210px;
     background-color: #1e293b;
     border-radius: 0 8px 8px 0;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
@@ -262,7 +278,7 @@ body.sidebar-collapsed #main-topbar {
 #page-content-wrapper {
     margin-left: var(--sidebar-width);
     margin-top: var(--topbar-height);
-    padding: 24px;
+    padding: 28px;
     transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     min-height: calc(100vh - var(--topbar-height));
 }
@@ -272,7 +288,7 @@ body.sidebar-collapsed #page-content-wrapper {
 }
 
 /* ==========================================================================
-   Page Header & Content Component Polish
+   Headerbar, Title & Actions Fluidity
    ========================================================================== */
 
 body.layout-sidebar-active #headerbar {
@@ -280,13 +296,13 @@ body.layout-sidebar-active #headerbar {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 16px;
     background: #ffffff;
-    padding: 16px 24px;
-    border-radius: 10px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    margin-bottom: 24px;
-    border: 1px solid #e2e8f0;
+    padding: 18px 24px;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    margin-bottom: 28px;
+    border: 1px solid var(--card-border);
     position: static;
     top: auto;
     left: auto;
@@ -295,17 +311,21 @@ body.layout-sidebar-active #headerbar {
 
 body.layout-sidebar-active #headerbar h1.headerbar-title,
 body.layout-sidebar-active #headerbar h1 {
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 700;
     color: #0f172a;
+    letter-spacing: -0.5px;
     margin: 0;
     padding: 0;
-    line-height: 1.2;
+    line-height: 1.3;
     float: none;
 }
 
 body.layout-sidebar-active #headerbar .headerbar-item {
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     float: none !important;
 }
 
@@ -313,34 +333,208 @@ body.layout-sidebar-active #headerbar .headerbar-item {
 body.layout-sidebar-active .subheaderbar,
 body.layout-sidebar-active #subheaderbar {
     background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    padding: 12px 20px;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 14px 24px;
     margin-bottom: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: var(--card-shadow);
 }
 
-/* Panel & Card Modernization */
-body.layout-sidebar-active .panel {
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    background: #ffffff;
-    margin-bottom: 24px;
+/* ==========================================================================
+   Forms & Cards Container Polish (Card Background & Elevation)
+   ========================================================================== */
+
+body.layout-sidebar-active form,
+body.layout-sidebar-active .card,
+body.layout-sidebar-active .panel,
+body.layout-sidebar-active .panel-default {
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    background: var(--card-bg);
+    margin-bottom: 28px;
+    transition: box-shadow 0.2s;
 }
 
-body.layout-sidebar-active .panel-heading {
+body.layout-sidebar-active .panel-heading,
+body.layout-sidebar-active .card-header {
     background-color: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
-    padding: 14px 20px;
-    font-weight: 600;
-    color: #1e293b;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    border-bottom: 1px solid var(--card-border);
+    padding: 16px 24px;
+    font-weight: 700;
+    font-size: 15px;
+    color: #0f172a;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-body.layout-sidebar-active .panel-body {
-    padding: 20px;
+body.layout-sidebar-active .panel-body,
+body.layout-sidebar-active .card-body {
+    padding: 24px;
+}
+
+body.layout-sidebar-active .panel-footer,
+body.layout-sidebar-active .card-footer {
+    background-color: #f8fafc;
+    border-top: 1px solid var(--card-border);
+    padding: 16px 24px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* ==========================================================================
+   Form Field Labels, Controls & Input Group Polish
+   ========================================================================== */
+
+body.layout-sidebar-active label,
+body.layout-sidebar-active .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+    display: inline-block;
+    letter-spacing: 0.2px;
+}
+
+body.layout-sidebar-active .form-control {
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    box-shadow: none;
+    height: 42px;
+    padding: 9px 14px;
+    font-size: 14px;
+    color: #0f172a;
+    background-color: #ffffff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+body.layout-sidebar-active textarea.form-control {
+    height: auto;
+    min-height: 100px;
+}
+
+body.layout-sidebar-active .form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    outline: none;
+}
+
+body.layout-sidebar-active .input-group-addon,
+body.layout-sidebar-active .input-group-btn .btn {
+    border-radius: 8px;
+}
+
+body.layout-sidebar-active .input-group .form-control:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+body.layout-sidebar-active .input-group-addon:last-child,
+body.layout-sidebar-active .input-group-btn:last-child > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* ==========================================================================
+   Button Styling & Save Action Polish
+   ========================================================================== */
+
+body.layout-sidebar-active .btn {
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 9px 18px;
+    border: 1px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+body.layout-sidebar-active .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body.layout-sidebar-active .btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+body.layout-sidebar-active .btn-sm {
+    padding: 6px 14px;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+body.layout-sidebar-active .btn-xs {
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+}
+
+/* Primary Button (Save / Action) */
+body.layout-sidebar-active .btn-primary,
+body.layout-sidebar-active button[type="submit"],
+body.layout-sidebar-active #btn-submit {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+}
+
+body.layout-sidebar-active .btn-primary:hover,
+body.layout-sidebar-active button[type="submit"]:hover,
+body.layout-sidebar-active #btn-submit:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: #ffffff;
+}
+
+/* Success Button */
+body.layout-sidebar-active .btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: #ffffff;
+}
+
+body.layout-sidebar-active .btn-success:hover {
+    background-color: var(--success-hover);
+    border-color: var(--success-hover);
+    color: #ffffff;
+}
+
+/* Danger Button */
+body.layout-sidebar-active .btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+    color: #ffffff;
+}
+
+body.layout-sidebar-active .btn-danger:hover {
+    background-color: var(--danger-hover);
+    border-color: var(--danger-hover);
+    color: #ffffff;
+}
+
+/* Default / Neutral Button */
+body.layout-sidebar-active .btn-default,
+body.layout-sidebar-active #btn-cancel {
+    background-color: #ffffff;
+    border-color: #cbd5e1;
+    color: #334155;
+}
+
+body.layout-sidebar-active .btn-default:hover,
+body.layout-sidebar-active #btn-cancel:hover {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    color: #0f172a;
 }
 
 /* ==========================================================================
@@ -354,10 +548,11 @@ body.layout-sidebar-active #content {
 }
 
 body.layout-sidebar-active .table-responsive {
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
     background: #ffffff;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -374,7 +569,7 @@ body.layout-sidebar-active .table > thead > tr > th {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     border-bottom: 2px solid #cbd5e1;
-    padding: 12px 16px;
+    padding: 14px 18px;
 }
 
 /* Distinct Table Zebra Striping (Odd vs Even) */
@@ -393,80 +588,27 @@ body.layout-sidebar-active .table-hover > tbody > tr:hover {
 }
 
 body.layout-sidebar-active .table > tbody > tr > td {
-    padding: 14px 16px;
+    padding: 14px 18px;
     vertical-align: middle;
     border-top: 1px solid #e2e8f0;
     color: #334155;
 }
 
-/* Form Controls & Buttons */
-body.layout-sidebar-active .form-control {
-    border-radius: 6px;
-    border-color: #cbd5e1;
-    box-shadow: none;
-    height: 38px;
-    padding: 8px 12px;
-    font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-body.layout-sidebar-active .form-control:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-body.layout-sidebar-active .btn {
-    border-radius: 6px;
-    font-weight: 500;
-    padding: 8px 16px;
-    transition: all 0.2s;
-}
-
-body.layout-sidebar-active .btn-sm {
-    padding: 6px 12px;
-    font-size: 13px;
-}
-
-body.layout-sidebar-active .btn-xs {
-    padding: 4px 10px;
-    font-size: 12px;
-}
-
-body.layout-sidebar-active .btn-primary {
-    background-color: #2563eb;
-    border-color: #2563eb;
-    color: #ffffff;
-}
-
-body.layout-sidebar-active .btn-primary:hover {
-    background-color: #1d4ed8;
-    border-color: #1d4ed8;
-}
-
-body.layout-sidebar-active .btn-default {
-    background-color: #ffffff;
-    border-color: #cbd5e1;
-    color: #334155;
-}
-
-body.layout-sidebar-active .btn-default:hover {
-    background-color: #f8fafc;
-    border-color: #94a3b8;
-    color: #0f172a;
-}
-
 /* Alerts & Badges */
 body.layout-sidebar-active .alert {
-    border-radius: 8px;
+    border-radius: 10px;
     border: none;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 14px 20px;
+    font-size: 14px;
 }
 
 body.layout-sidebar-active .label {
-    border-radius: 4px;
-    padding: 5px 8px;
+    border-radius: 6px;
+    padding: 6px 10px;
     font-weight: 600;
     font-size: 11px;
+    letter-spacing: 0.3px;
 }
 
 /* Remove legacy floats/margins */
@@ -502,6 +644,7 @@ body.mobile-sidebar-open .sidebar-backdrop {
     body.layout-sidebar-active #headerbar .headerbar-item {
         margin-top: 10px;
         width: 100%;
+        justify-content: flex-start;
     }
 }
 
@@ -517,6 +660,6 @@ body.mobile-sidebar-open .sidebar-backdrop {
     }
     #page-content-wrapper {
         margin-left: 0 !important;
-        padding: 15px;
+        padding: 16px;
     }
 }
