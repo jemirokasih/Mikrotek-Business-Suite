@@ -21,86 +21,100 @@
     </div>
 </div>
 
-<div id="content">
+<ul id="submenu" class="nav nav-tabs nav-tabs-noborder">
+    <li<?php echo ($activeTab == 'tasks' || empty($activeTab)) ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-tasks"><?php _trans('tasks'); ?></a></li>
+    <li<?php echo $activeTab == 'quotes' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-quotes"><?php _trans('quotes'); ?></a></li>
+    <li<?php echo $activeTab == 'invoices' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-invoices"><?php _trans('invoices'); ?></a></li>
+    <li<?php echo $activeTab == 'payments' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-payments"><?php _trans('payments'); ?></a></li>
+    <li<?php echo $activeTab == 'receipts' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-receipts"><?php _trans('receipts'); ?></a></li>
+</ul>
 
-    <div class="row">
-        <div class="col-xs-12 col-md-4">
-<?php
-if ( ! empty($project->client_name)) {
-    ?>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong><?php _htmlsc(format_client($project)); ?></strong>
+<div id="content" class="tabbable tabs-below no-padding">
+    <div class="tab-content no-padding">
+
+        <div id="project-tasks" class="tab-pane tab-rich-content<?php echo ($activeTab == 'tasks' || empty($activeTab)) ? ' active' : ''; ?>">
+            <div class="row" style="margin: 15px 0;">
+                <div class="col-xs-12 col-md-4">
+                    <?php if (!empty($project->client_name)) { ?>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <strong><?php _htmlsc(format_client($project)); ?></strong>
+                            </div>
+                            <div class="panel-body">
+                                <div class="client-address">
+                                    <?php $this->layout->load_view('clients/partial_client_address', ['client' => $project]); ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } else { ?>
+                        <div class="alert alert-info"><?php _trans('alert_no_client_assigned'); ?></div>
+                    <?php } ?>
                 </div>
-                <div class="panel-body">
-                    <div class="client-address">
-                        <?php $this->layout->load_view('clients/partial_client_address', ['client' => $project]); ?>
+
+                <div class="col-xs-12 col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <?php _trans('tasks'); ?>
+                        </div>
+                        <div class="panel-body no-padding">
+                            <?php echo $task_table; ?>
+                        </div>
                     </div>
                 </div>
             </div>
-<?php
-} else {
-    ?>
-            <div class="alert alert-info"><?php _trans('alert_no_client_assigned'); ?></div>
-<?php
-}
-    ?>
         </div>
-        <div class="col-xs-12 col-md-8">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <?php _trans('tasks'); ?>
-                </div>
-                <div class="panel-body no-padding">
-
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped no-margin">
-
-                            <thead>
-                            <tr>
-                                <th><?php _trans('task_name'); ?></th>
-                                <th><?php _trans('status'); ?></th>
-                                <th><?php _trans('task_finish_date'); ?></th>
-                                <th><?php _trans('project'); ?></th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-<?php
-foreach ($tasks as $task) {
-    ?>
-                                <tr>
-                                    <td><?php echo anchor('tasks/form/' . $task->task_id, htmlsc($task->task_name)) ?></td>
-                                    <td>
-                                        <span class="label <?php echo $task_statuses[$task->task_status]['class']; ?>">
-                                            <?php echo $task_statuses[$task->task_status]['label']; ?>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span class="<?php echo $task->is_overdue ? 'text-danger' : ''; ?>">
-                                            <?php echo date_from_mysql($task->task_finish_date); ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo anchor('projects/form/' . $project->project_id, htmlsc($project->project_name)); ?></td>
-                                </tr>
-<?php
-}
-    ?>
-                            </tbody>
-                        </table>
+        <div id="project-quotes" class="tab-pane tab-rich-content<?php echo $activeTab == 'quotes' ? ' active' : ''; ?>">
+            <div style="padding: 15px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <?php _trans('quotes'); ?>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <?php echo $quote_table; ?>
                     </div>
                 </div>
-<?php
-if (empty($tasks)) {
-    ?>
-                <div class="panel-body">
-                    <div class="alert alert-info no-margin"><?php echo trans('alert_no_tasks_found') ?></div>
-                </div>
-<?php
-}
-    ?>
             </div>
         </div>
+
+        <div id="project-invoices" class="tab-pane tab-rich-content<?php echo $activeTab == 'invoices' ? ' active' : ''; ?>">
+            <div style="padding: 15px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <?php _trans('invoices'); ?>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <?php echo $invoice_table; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="project-payments" class="tab-pane tab-rich-content<?php echo $activeTab == 'payments' ? ' active' : ''; ?>">
+            <div style="padding: 15px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <?php _trans('payments'); ?>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <?php echo $payment_table; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="project-receipts" class="tab-pane tab-rich-content<?php echo $activeTab == 'receipts' ? ' active' : ''; ?>">
+            <div style="padding: 15px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <?php _trans('receipts'); ?>
+                    </div>
+                    <div class="panel-body no-padding">
+                        <?php echo $receipt_table; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

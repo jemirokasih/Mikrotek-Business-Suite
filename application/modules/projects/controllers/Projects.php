@@ -74,7 +74,7 @@ class Projects extends Admin_Controller
         $this->layout->render();
     }
 
-    public function view($project_id)
+    public function view($project_id, $activeTab = 'tasks', $page = 0)
     {
         if ($this->input->post('btn_cancel')) {
             redirect('projects');
@@ -90,14 +90,40 @@ class Projects extends Admin_Controller
             show_404();
         }
 
-        $this->load->model('tasks/mdl_tasks');
+        $this->load->model([
+            'tasks/mdl_tasks',
+            'quotes/mdl_quotes',
+            'invoices/mdl_invoices',
+            'payments/mdl_payments',
+            'receipts/mdl_receipts',
+        ]);
+
+        $quotes   = $this->mdl_projects->get_quotes($project->project_id);
+        $invoices = $this->mdl_projects->get_invoices($project->project_id);
+        $payments = $this->mdl_projects->get_payments($project->project_id);
+        $receipts = $this->mdl_projects->get_receipts($project->project_id);
 
         $this->layout->set([
-            'project'       => $project,
-            'tasks'         => $this->mdl_projects->get_tasks($project->project_id),
-            'task_statuses' => $this->mdl_tasks->statuses(),
+            'project'          => $project,
+            'tasks'            => $this->mdl_projects->get_tasks($project->project_id),
+            'quotes'           => $quotes,
+            'invoices'         => $invoices,
+            'payments'         => $payments,
+            'receipts'         => $receipts,
+            'task_statuses'    => $this->mdl_tasks->statuses(),
+            'quote_statuses'   => $this->mdl_quotes->statuses(),
+            'invoice_statuses' => $this->mdl_invoices->statuses(),
+            'activeTab'        => $activeTab,
         ]);
-        $this->layout->buffer('content', 'projects/view');
+
+        $this->layout->buffer([
+            ['task_table', 'tasks/partial_tasks_table'],
+            ['quote_table', 'quotes/partial_quote_table'],
+            ['invoice_table', 'invoices/partial_invoice_table'],
+            ['payment_table', 'payments/partial_payments_table'],
+            ['receipt_table', 'receipts/partial_receipts_table'],
+            ['content', 'projects/view'],
+        ]);
         $this->layout->render();
     }
 

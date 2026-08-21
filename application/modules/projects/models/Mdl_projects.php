@@ -78,6 +78,112 @@ class Mdl_Projects extends Response_Model
         return $result;
     }
 
+    public function get_invoices($project_id)
+    {
+        if ( ! $project_id) {
+            return [];
+        }
+
+        $this->load->model('invoices/mdl_invoices');
+
+        // Find invoice IDs linked through task items
+        $task_invoice_ids = [];
+        $task_items = $this->db->select('DISTINCT(invoice_id) as invoice_id', false)
+            ->from('ip_invoice_items')
+            ->join('ip_tasks', 'ip_tasks.task_id = ip_invoice_items.item_task_id')
+            ->where('ip_tasks.project_id', $project_id)
+            ->get()->result();
+
+        foreach ($task_items as $item) {
+            if (!empty($item->invoice_id)) {
+                $task_invoice_ids[] = $item->invoice_id;
+            }
+        }
+
+        $this->mdl_invoices->group_start()
+            ->where('ip_invoices.project_id', $project_id);
+
+        if (!empty($task_invoice_ids)) {
+            $this->mdl_invoices->or_where_in('ip_invoices.invoice_id', $task_invoice_ids);
+        }
+
+        $this->mdl_invoices->group_end();
+
+        return $this->mdl_invoices->get()->result();
+    }
+
+    public function get_quotes($project_id)
+    {
+        if ( ! $project_id) {
+            return [];
+        }
+
+        $this->load->model('quotes/mdl_quotes');
+
+        // Find quotes linked to invoices of this project
+        $invoices = $this->get_invoices($project_id);
+        $invoice_ids = array_column($invoices, 'invoice_id');
+
+        $this->mdl_quotes->group_start()
+            ->where('ip_quotes.project_id', $project_id);
+
+        if (!empty($invoice_ids)) {
+            $this->mdl_quotes->or_where_in('ip_quotes.invoice_id', $invoice_ids);
+        }
+
+        $this->mdl_quotes->group_end();
+
+        return $this->mdl_quotes->get()->result();
+    }
+
+    public function get_payments($project_id)
+    {
+        if ( ! $project_id) {
+            return [];
+        }
+
+        $invoices = $this->get_invoices($project_id);
+        $invoice_ids = array_column($invoices, 'invoice_id');
+
+        if (empty($invoice_ids)) {
+            return [];
+        }
+
+        $this->load->model('payments/mdl_payments');
+        return $this->mdl_payments
+            ->where_in('ip_payments.invoice_id', $invoice_ids)
+            ->get()->result();
+    }
+
+    public function get_receipts($project_id)
+    {
+        if ( ! $project_id) {
+            return [];
+        }
+
+        $invoices = $this->get_invoices($project_id);
+        $invoice_ids = array_column($invoices, 'invoice_id');
+
+        $payments = $this->get_payments($project_id);
+        $payment_ids = array_column($payments, 'payment_id');
+
+        if (empty($invoice_ids) && empty($payment_ids)) {
+            return [];
+        }
+
+        $this->load->model('receipts/mdl_receipts');
+        $this->mdl_receipts->group_start();
+        if (!empty($invoice_ids)) {
+            $this->mdl_receipts->where_in('ip_receipts.invoice_id', $invoice_ids);
+        }
+        if (!empty($payment_ids)) {
+            $this->mdl_receipts->or_where_in('ip_receipts.payment_id', $payment_ids);
+        }
+        $this->mdl_receipts->group_end();
+
+        return $this->mdl_receipts->get()->result();
+    }
+
     /**
      * Check if the current user has access to this project.
      *
