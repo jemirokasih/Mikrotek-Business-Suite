@@ -31,6 +31,7 @@ class Products extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('products', 'view');
         $this->mdl_products->paginate(site_url('products/index'), $page);
         $products = $this->mdl_products->result();
 
@@ -48,6 +49,12 @@ class Products extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('products', 'edit');
+        } else {
+            check_permission('products', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('products');
         }
@@ -84,6 +91,7 @@ class Products extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('products', 'delete');
         if ( ! $this->ensure_valid_post_request('products/index')) {
             return;
         }

@@ -31,6 +31,7 @@ class Email_Templates extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('settings', 'view');
         $this->mdl_email_templates->paginate(site_url('email_templates/index'), $page);
         $email_templates = $this->mdl_email_templates->result();
 
@@ -41,6 +42,12 @@ class Email_Templates extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('settings', 'edit');
+        } else {
+            check_permission('settings', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('email_templates');
         }
@@ -90,6 +97,7 @@ class Email_Templates extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('settings', 'delete');
         if ( ! $this->ensure_valid_post_request('email_templates')) {
             return;
         }

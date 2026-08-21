@@ -1,6 +1,6 @@
-# Copilot Instructions for InvoicePlane
+# Copilot Instructions for Mikrotek Business Suite
 
-InvoicePlane is a self-hosted, open-source invoicing application written in **PHP with CodeIgniter 3** (legacy v1 codebase). There is no Artisan CLI, no Laravel framework, and no Eloquent ORM. All instructions below are specific to this codebase.
+Mikrotek Business Suite is a self-hosted business management and invoicing application built on top of **InvoicePlane (PHP with CodeIgniter 3)**. There is no Artisan CLI, no Laravel framework, and no Eloquent ORM. All instructions below are specific to this codebase.
 
 ## Project overview
 

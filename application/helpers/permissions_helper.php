@@ -59,17 +59,22 @@ function has_permission(string $module, string $action = 'view'): bool
     return false;
 }
 
-/**
- * Enforce permission, redirect if user lacks permission.
- *
- * @param string $module
- * @param string $action
- * @param string $redirect_to
- */
 function check_permission(string $module, string $action = 'view', string $redirect_to = 'dashboard'): void
 {
     if (!has_permission($module, $action)) {
         $CI =& get_instance();
+
+        if ($CI->input->is_ajax_request() || (isset($CI->ajax_controller) && $CI->ajax_controller)) {
+            $CI->output->set_status_header(403);
+            echo json_encode([
+                'success'           => 0,
+                'validation_errors' => [
+                    'permission' => trans('access_denied'),
+                ],
+            ]);
+            exit;
+        }
+
         $CI->session->set_flashdata('alert_error', trans('access_denied'));
         redirect($redirect_to);
     }

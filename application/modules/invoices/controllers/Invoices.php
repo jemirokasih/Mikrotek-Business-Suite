@@ -29,6 +29,7 @@ class Invoices extends Admin_Controller
 
     public function index(): void
     {
+        check_permission('invoices', 'view');
         // Display all invoices by default
         redirect('invoices/status/all');
     }
@@ -38,6 +39,7 @@ class Invoices extends Admin_Controller
      */
     public function status(string $status = 'all', $page = 0): void
     {
+        check_permission('invoices', 'view');
         // Determine which group of invoices to load
         switch ($status) {
             case 'draft':
@@ -80,6 +82,7 @@ class Invoices extends Admin_Controller
 
     public function archive(): void
     {
+        check_permission('invoices', 'view');
         $invoice_array = $this->mdl_invoices->get_archives(0);
         $this->layout->set(
             [
@@ -95,6 +98,7 @@ class Invoices extends Admin_Controller
 
     public function download($invoice): void
     {
+        check_permission('invoices', 'view');
         // Security: Use comprehensive file security validation
         // Note: Removed urldecode() - CodeIgniter already handles this
         $validation = validate_file_access($invoice, UPLOADS_ARCHIVE_FOLDER);
@@ -122,6 +126,7 @@ class Invoices extends Admin_Controller
 
     public function view($invoice_id): void
     {
+        check_permission('invoices', 'view');
         $this->load->model(
             [
                 'invoices/mdl_items',
@@ -243,6 +248,7 @@ class Invoices extends Admin_Controller
 
     public function delete($invoice_id): void
     {
+        check_permission('invoices', 'delete');
         if ( ! $this->ensure_valid_post_request('invoices/index')) {
             return;
         }
@@ -280,6 +286,7 @@ class Invoices extends Admin_Controller
      */
     public function generate_pdf($invoice_id, $stream = true, $invoice_template = null): void
     {
+        check_permission('invoices', 'view');
         $this->load->helper(['pdf', 'template']);
 
         // Security (CSRF): "mark as sent when generating the PDF" mutates invoice
@@ -309,6 +316,7 @@ class Invoices extends Admin_Controller
 
     public function generate_xml($invoice_id): void
     {
+        check_permission('invoices', 'view');
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
         if ( ! $invoice) {
             show_404();
@@ -345,6 +353,7 @@ class Invoices extends Admin_Controller
 
     public function generate_sumex_pdf($invoice_id): void
     {
+        check_permission('invoices', 'view');
         $this->load->helper('pdf');
 
         generate_invoice_sumex($invoice_id);
@@ -352,6 +361,7 @@ class Invoices extends Admin_Controller
 
     public function generate_sumex_copy($invoice_id): void
     {
+        check_permission('invoices', 'view');
         $this->load->model('invoices/mdl_items');
         $this->load->library('Sumex', [
             'invoice' => $this->mdl_invoices->get_by_id($invoice_id),
@@ -368,6 +378,7 @@ class Invoices extends Admin_Controller
 
     public function delete_invoice_tax(string $invoice_id, $invoice_tax_rate_id): void
     {
+        check_permission('invoices', 'edit');
         if ( ! $this->ensure_valid_post_request('invoices/view/' . $invoice_id)) {
             return;
         }
@@ -385,6 +396,7 @@ class Invoices extends Admin_Controller
 
     public function recalculate_all_invoices(): void
     {
+        check_permission('invoices', 'edit');
         if ( ! $this->ensure_valid_post_request('invoices/index')) {
             return;
         }
@@ -403,6 +415,7 @@ class Invoices extends Admin_Controller
 
     public function convert_proforma(int $invoice_id): void
     {
+        check_permission('invoices', 'edit');
         $invoice = $this->mdl_invoices->get_by_id($invoice_id);
 
         if (!$invoice || (int) $invoice->is_proforma !== 1) {

@@ -213,6 +213,15 @@ class Mdl_Projects extends Response_Model
             return false;
         }
 
+        // For user_type 3 (custom role)
+        if ((int) $CI->session->userdata('user_type') === 3) {
+            if (has_permission('projects', 'view')) {
+                $this->load->model('clients/mdl_clients');
+                return $this->mdl_clients->can_user_access((int) $project->client_id);
+            }
+            return false;
+        }
+
         // Check if user has access to the project's client
         $this->load->model('clients/mdl_clients');
 

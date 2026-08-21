@@ -30,6 +30,7 @@ class Clients extends Admin_Controller
 
     public function index(): void
     {
+        check_permission('clients', 'view');
         // Display active clients by default
         redirect('clients/status/active');
     }
@@ -39,6 +40,7 @@ class Clients extends Admin_Controller
      */
     public function status(string $status = 'active', $page = 0): void
     {
+        check_permission('clients', 'view');
         if (is_numeric(array_search($status, ['active', 'inactive'], true))) {
             $function = 'is_' . $status;
             $this->mdl_clients->{$function}();
@@ -76,6 +78,15 @@ class Clients extends Admin_Controller
 
     public function form($id = null): void
     {
+        if ($id) {
+            check_permission('clients', 'edit');
+            if ( ! $this->mdl_clients->can_user_access($id)) {
+                show_error(trans('access_denied'), 403);
+            }
+        } else {
+            check_permission('clients', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('clients');
         }
@@ -220,6 +231,7 @@ class Clients extends Admin_Controller
      */
     public function view($client_id, $activeTab = 'detail', $page = 0): void
     {
+        check_permission('clients', 'view');
         if ( ! $this->mdl_clients->can_user_access($client_id)) {
             show_error(trans('access_denied'), 403);
         }
@@ -341,6 +353,7 @@ class Clients extends Admin_Controller
      */
     public function delete($client_id): void
     {
+        check_permission('clients', 'delete');
         if ( ! $this->ensure_valid_post_request('clients/index')) {
             return;
         }

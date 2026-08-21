@@ -21,6 +21,7 @@ class Ajax extends Admin_Controller
      */
     public function modal_task_lookups($invoice_id = null)
     {
+        check_permission('projects', 'view');
         $default_item_tax_rate = get_setting('default_item_tax_rate');
         $data                  = [
             'default_item_tax_rate' => $default_item_tax_rate !== '' ?: 0,
@@ -37,6 +38,7 @@ class Ajax extends Admin_Controller
 
     public function process_task_selections()
     {
+        check_permission('projects', 'view');
         $this->load->model('mdl_tasks');
 
         $tasks = $this->mdl_tasks->where_in('task_id', $this->input->post('task_ids'))->get()->result();

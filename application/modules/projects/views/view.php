@@ -23,10 +23,18 @@
 
 <ul id="submenu" class="nav nav-tabs nav-tabs-noborder">
     <li<?php echo ($activeTab == 'tasks' || empty($activeTab)) ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-tasks"><?php _trans('tasks'); ?></a></li>
+    <?php if (has_permission('quotes', 'view')) : ?>
     <li<?php echo $activeTab == 'quotes' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-quotes"><?php _trans('quotes'); ?></a></li>
+    <?php endif; ?>
+    <?php if (has_permission('invoices', 'view')) : ?>
     <li<?php echo $activeTab == 'invoices' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-invoices"><?php _trans('invoices'); ?></a></li>
+    <?php endif; ?>
+    <?php if (has_permission('payments', 'view')) : ?>
     <li<?php echo $activeTab == 'payments' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-payments"><?php _trans('payments'); ?></a></li>
+    <?php endif; ?>
+    <?php if (has_permission('receipts', 'view')) : ?>
     <li<?php echo $activeTab == 'receipts' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#project-receipts"><?php _trans('receipts'); ?></a></li>
+    <?php endif; ?>
 </ul>
 
 <div id="content" class="tabbable tabs-below no-padding">

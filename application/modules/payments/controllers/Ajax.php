@@ -20,6 +20,7 @@ class Ajax extends Admin_Controller
 
     public function add()
     {
+        check_permission('payments', 'create');
         $this->load->model('payments/mdl_payments');
 
         if ($this->mdl_payments->run_validation()) {
@@ -42,6 +43,7 @@ class Ajax extends Admin_Controller
 
     public function modal_add_payment()
     {
+        check_permission('payments', 'create');
         $this->load->module('layout');
         $this->load->model('payments/mdl_payments');
         $this->load->model('payment_methods/mdl_payment_methods');

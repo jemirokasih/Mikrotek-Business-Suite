@@ -850,7 +850,22 @@ class Mdl_Invoices extends Response_Model
             return in_array((int) $invoice->client_id, $client_ids, true);
         }
 
-        // Regular users - check if they created the invoice
+        // Custom role / staff users (type 3)
+        if ($user_type === 3) {
+            if (has_permission('invoices', 'view')) {
+                $CI->load->model('user_clients/mdl_user_clients');
+                $user_clients = $CI->mdl_user_clients->assigned_to($user_id)->get()->result();
+
+                if (!empty($user_clients)) {
+                    $client_ids = array_map('intval', array_column($user_clients, 'client_id'));
+                    return in_array((int) $invoice->client_id, $client_ids, true);
+                }
+
+                return true;
+            }
+        }
+
+        // Check if they created the invoice
         return (int) $invoice->user_id === $user_id;
     }
 }

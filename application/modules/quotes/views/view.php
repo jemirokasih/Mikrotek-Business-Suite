@@ -262,6 +262,7 @@ if ($legacy_calculation) {
                         <?php _trans('send_email'); ?>
                     </a>
                 </li>
+                <?php if (has_permission('invoices', 'create')) : ?>
                 <li>
                     <a href="#" id="btn_quote_to_invoice"
                        data-quote-id="<?php echo $quote_id; ?>">
@@ -269,6 +270,7 @@ if ($legacy_calculation) {
                         <?php _trans('quote_to_invoice'); ?>
                     </a>
                 </li>
+                <?php endif; ?>
                 <li>
                     <a href="#" id="btn_copy_quote"
                        data-quote-id="<?php echo $quote_id; ?>"

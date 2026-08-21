@@ -1,48 +1,51 @@
-<img align="right" alt="Mikrotek Invoice logo" src="/assets/core/img/favicon.png">
+<img align="right" alt="Mikrotek Business Suite logo" src="/assets/core/img/favicon.png">
 
-# Mikrotek Invoice `v1.1.1`
+# Mikrotek Business Suite `v1.2.0`
 
-_An enhanced, open-source invoicing and business management platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
+_An enhanced, open-source business operations, invoicing, multi-company, and role-based management platform built on top of [InvoicePlane](https://www.invoiceplane.com/)._
 
 ---
 
-## 📌 About Mikrotek Invoice
+## 📌 About Mikrotek Business Suite
 
-**Mikrotek Invoice** is a customized distribution of [InvoicePlane](https://invoiceplane.com/), tailored for business operations needing dynamic proforma invoicing, multiple client contacts (PIC), reference numbers, project integrations, and custom PDF outputs with Indonesian localized formatting (Terbilang, manual/digital signatures, etc.).
+**Mikrotek Business Suite** is a customized distribution of [InvoicePlane](https://invoiceplane.com/), tailored for comprehensive business operations. It expands standard invoicing capabilities with custom Role-Based Access Control (RBAC), multi-company management, Indonesian receipt/kwitansi generation with auto-terbilang, dynamic proforma invoicing, multiple client contacts (PIC), bank account management, project integrations, and custom PDF outputs (signatures, headers, and localized formatting).
 
 > **Credit & Attribution:** This application is powered by **InvoicePlane** (licensed under the MIT License). We extend our deepest gratitude to the original InvoicePlane team and open-source contributors.
 
 ---
 
-## ✨ Features & Extensions in v1.1.1
+## ✨ Features & Extensions in v1.2.0
+
+- 🔐 **Role & Multi-User Access Control (RBAC)**:
+  - Custom roles with modular permissions matrix (Invoices, Quotes, Clients, Payments, Products, Projects, Receipts, Reports, Settings, Users, Roles).
+  - Staff / Custom Role dashboard & navigation routing.
+
+- 🏢 **Multi-Company Management**:
+  - Centralized master company records (`ip_companies`).
+  - Company-scoped user assignments and default company auto-seeding.
+
+- 🧾 **Indonesian Kwitansi / Receipt Module**:
+  - Integrated kwitansi generation directly from Invoices & Payments.
+  - Automatic **Terbilang** conversion (e.g. *Satu Juta Lima Ratus Ribu Rupiah*).
+  - Indonesian standardized PDF receipt layout with company letterhead, signature space, and verification QR code.
 
 - 📄 **Dynamic Proforma & Invoice Switching**:
   - Automatically switches labels between `#PROFORMA INVOICE` / `Proforma Invoice Number` and `#INVOICE` / `Invoice Number` in UI & PDF depending on the `is_proforma` flag.
-  - Smooth mPDF header replacement without label collision (`strtr`).
+  - Smooth 1-click conversion from Proforma to Official Invoice.
 
 - 👥 **Multiple PIC (Person In Charge) Management**:
   - Full CRUD functionality for managing multiple contact persons per client (`ip_client_pics`).
-  - Interactive AJAX modal dialog for adding/editing PIC info (name, position, email, phone, notes).
-  - Direct mailto links and contact overview embedded in client view.
+  - Interactive AJAX modal dialog for adding/editing PIC info.
 
-- 🔢 **Invoice Reference Number**:
-  - Dedicated `invoice_reference_number` field in database, models, AJAX save payload, and UI.
-  - Automatically rendered under Due Date on both web UI and PDF output.
+- 🏦 **Multi-Bank Account Management**:
+  - Manage company bank accounts (`ip_bank_accounts`) linked to payment methods.
 
-- 📁 **Project Linkage (Optional)**:
-  - Link Invoices and Quotes directly to Projects via optional dropdown selector.
-  - Renders linked Project name on both Invoice and Quote PDF documents.
+- 📁 **Project Linkage & Custom PDF Templates**:
+  - Link Invoices and Quotes directly to Projects.
+  - Custom PDF templates (`Mikrotek.php`) with Terbilang box, digital/manual signatures, and sanitized HTML headers.
 
-- 🎨 **Mikrotek PDF Template & Layout Polish**:
-  - Custom PDF template (`Mikrotek.php`) with dynamic Terbilang ("In Words") box placed cleanly above payment terms.
-  - Manual signature space (with materai/stamp area) and Digital signature toggle.
-  - Subtotal grid alignment adjustments ensuring clean 4-column output without right-side overflow.
-
-- 🔗 **QR Code & Public Link Accessibility**:
-  - Direct access to guest views via unique `url_key` for quick QR code verification.
-
-- 🏷️ **Application Version Footer**:
-  - Integrated footer: `Mikrotek Invoice v1.1.1 · Powered by InvoicePlane`.
+- 🏷️ **Application Footer**:
+  - Integrated footer: `Mikrotek Business Suite v1.2.0 · Powered by InvoicePlane`.
 
 ---
 
@@ -70,12 +73,12 @@ _An enhanced, open-source invoicing and business management platform built on to
 
 ## 📜 Changelog
 
-All notable changes and release notes are recorded in [CHANGELOG.md](.github/CHANGELOG.md).
+All notable changes and release notes are recorded in [MIKROTEK_CHANGELOG.md](MIKROTEK_CHANGELOG.md) and [.github/CHANGELOG.md](.github/CHANGELOG.md).
 
 ---
 
 ## ⚖️ License & Credits
 
-- **Mikrotek Invoice** is licensed under the [MIT License](LICENSE.txt).
+- **Mikrotek Business Suite** is licensed under the [MIT License](LICENSE.txt).
 - **Powered by InvoicePlane**: Copyright (c) InvoicePlane Developers & Contributors.
 - For original InvoicePlane documentation and community support, visit [invoiceplane.com](https://invoiceplane.com).

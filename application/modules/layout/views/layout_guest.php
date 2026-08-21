@@ -10,7 +10,7 @@
 <html class="no-js" lang="<?php _trans('cldr'); ?>"> <!--<![endif]-->
 
 <head>
-    <title><?php echo get_setting('custom_title', 'InvoicePlane', true); ?></title>
+    <title><?php echo get_setting('custom_title', MIKROTEK_APP_NAME, true); ?></title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -110,7 +110,7 @@
 </div>
 
 <footer id="app-footer" class="text-center" style="padding: 15px 0; margin-top: 30px; font-size: 12px; color: #777; border-top: 1px solid #e7e7e7; background: #fff;">
-    Mikrotek Invoice <?php echo MIKROTEK_INVOICE_VERSION; ?> &bull; Powered by <a href="https://invoiceplane.com" target="_blank" rel="noopener" style="color: #777; text-decoration: underline;">InvoicePlane</a>
+    <?php echo MIKROTEK_APP_NAME; ?> <?php echo MIKROTEK_INVOICE_VERSION; ?>
 </footer>
 
 <div id="modal-placeholder"></div>

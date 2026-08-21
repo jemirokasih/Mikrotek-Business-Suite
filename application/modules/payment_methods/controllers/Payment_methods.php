@@ -31,6 +31,7 @@ class Payment_Methods extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('settings', 'view');
         $this->mdl_payment_methods->paginate(site_url('payment_methods/index'), $page);
         $payment_methods = $this->mdl_payment_methods->result();
 
@@ -41,6 +42,12 @@ class Payment_Methods extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('settings', 'edit');
+        } else {
+            check_permission('settings', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('payment_methods');
         }
@@ -75,6 +82,7 @@ class Payment_Methods extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('settings', 'delete');
         $this->mdl_payment_methods->delete($id);
         redirect('payment_methods');
     }

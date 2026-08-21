@@ -90,5 +90,6 @@ defined('EXIT__AUTO_MAX') || define('EXIT__AUTO_MAX', 125); // highest automatic
 | Application Version Definition
 |--------------------------------------------------------------------------
 */
-defined('MIKROTEK_INVOICE_VERSION') || define('MIKROTEK_INVOICE_VERSION', 'v1.1.1');
+defined('MIKROTEK_APP_NAME') || define('MIKROTEK_APP_NAME', 'Mikrotek Business Suite');
+defined('MIKROTEK_INVOICE_VERSION') || define('MIKROTEK_INVOICE_VERSION', 'v1.2.0');
 

@@ -20,14 +20,15 @@ class Ajax extends Admin_Controller
 
     public function save()
     {
+        $invoice_id = $this->security->xss_clean($this->input->post('invoice_id', true));
+        check_permission('invoices', $invoice_id ? 'edit' : 'create');
+
         $this->load->model([
             'invoices/mdl_items',
             'invoices/mdl_invoices',
             'units/mdl_units',
             'invoices/mdl_invoice_sumex',
         ]);
-
-        $invoice_id = $this->security->xss_clean($this->input->post('invoice_id', true));
 
         $this->mdl_invoices->set_id($invoice_id);
 
@@ -239,6 +240,7 @@ class Ajax extends Admin_Controller
 
     public function save_invoice_tax_rate()
     {
+        check_permission('invoices', 'edit');
         $this->load->model('invoices/mdl_invoice_tax_rates');
 
         if ($this->mdl_invoice_tax_rates->run_validation()) {
@@ -263,6 +265,7 @@ class Ajax extends Admin_Controller
      */
     public function delete_item($invoice_id)
     {
+        check_permission('invoices', 'edit');
         $success = 0;
         $item_id = $this->security->xss_clean($this->input->post('item_id'));
         $this->load->model('mdl_invoices');
@@ -290,6 +293,7 @@ class Ajax extends Admin_Controller
 
     public function get_item()
     {
+        check_permission('invoices', 'view');
         $this->load->model('invoices/mdl_items');
 
         $item = $this->mdl_items->get_by_id($this->security->xss_clean($this->input->post('item_id', true)));
@@ -299,6 +303,7 @@ class Ajax extends Admin_Controller
 
     public function modal_copy_invoice()
     {
+        check_permission('invoices', 'create');
         $this->load->module('layout');
 
         $this->load->model([
@@ -321,6 +326,7 @@ class Ajax extends Admin_Controller
 
     public function copy_invoice()
     {
+        check_permission('invoices', 'create');
         $this->load->model([
             'invoices/mdl_invoices',
             'invoices/mdl_items',
@@ -356,6 +362,7 @@ class Ajax extends Admin_Controller
 
     public function modal_change_user()
     {
+        check_permission('invoices', 'edit');
         $this->load->module('layout');
         $this->load->model('users/mdl_users');
 
@@ -370,6 +377,7 @@ class Ajax extends Admin_Controller
 
     public function change_user()
     {
+        check_permission('invoices', 'edit');
         $this->load->model([
             'invoices/mdl_invoices',
             'users/mdl_users',
@@ -405,6 +413,7 @@ class Ajax extends Admin_Controller
 
     public function modal_change_client()
     {
+        check_permission('invoices', 'edit');
         $this->load->module('layout');
         $this->load->model('clients/mdl_clients');
 
@@ -419,6 +428,7 @@ class Ajax extends Admin_Controller
 
     public function change_client()
     {
+        check_permission('invoices', 'edit');
         $this->load->model([
             'invoices/mdl_invoices',
             'clients/mdl_clients',
@@ -454,6 +464,7 @@ class Ajax extends Admin_Controller
 
     public function modal_create_invoice()
     {
+        check_permission('invoices', 'create');
         $this->load->module('layout');
         $this->load->model([
             'invoice_groups/mdl_invoice_groups',
@@ -473,6 +484,7 @@ class Ajax extends Admin_Controller
 
     public function create()
     {
+        check_permission('invoices', 'create');
         $this->load->model('invoices/mdl_invoices');
 
         if ($this->mdl_invoices->run_validation()) {
@@ -495,6 +507,7 @@ class Ajax extends Admin_Controller
 
     public function create_recurring()
     {
+        check_permission('invoices', 'edit');
         $this->load->model('invoices/mdl_invoices_recurring');
 
         if ($this->mdl_invoices_recurring->run_validation()) {
@@ -516,6 +529,7 @@ class Ajax extends Admin_Controller
 
     public function modal_create_recurring()
     {
+        check_permission('invoices', 'edit');
         $this->load->module('layout');
 
         $this->load->model('mdl_invoices_recurring');
@@ -538,6 +552,7 @@ class Ajax extends Admin_Controller
 
     public function modal_create_credit()
     {
+        check_permission('invoices', 'create');
         $this->load->module('layout');
         $this->load->model([
             'invoices/mdl_invoices',
@@ -557,6 +572,7 @@ class Ajax extends Admin_Controller
 
     public function create_credit()
     {
+        check_permission('invoices', 'create');
         $this->load->model([
             'invoices/mdl_invoices',
             'invoices/mdl_items',

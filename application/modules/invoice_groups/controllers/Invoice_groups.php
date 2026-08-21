@@ -31,6 +31,7 @@ class Invoice_Groups extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('settings', 'view');
         $this->mdl_invoice_groups->paginate(site_url('invoice_groups/index'), $page);
         $invoice_groups = $this->mdl_invoice_groups->result();
 
@@ -41,6 +42,12 @@ class Invoice_Groups extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('settings', 'edit');
+        } else {
+            check_permission('settings', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('invoice_groups');
         }
@@ -68,6 +75,7 @@ class Invoice_Groups extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('settings', 'delete');
         if ( ! $this->ensure_valid_post_request('invoice_groups/index')) {
             return;
         }

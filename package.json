@@ -1,15 +1,15 @@
 {
-    "name": "invoiceplane",
-    "version": "1.7.2-rc-1",
-    "description": "InvoicePlane is a self-hosted open source application for managing your invoices, clients and payments",
+    "name": "mikrotek-business-suite",
+    "version": "1.2.0",
+    "description": "Mikrotek Business Suite is a self-hosted business management and invoicing application built on top of InvoicePlane",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/InvoicePlane/InvoicePlane.git"
+        "url": "git+https://github.com/jemirokasih/Mikrotek-Invoice.git"
     },
-    "author": "InvoicePlane Developers & Contributors",
+    "author": "Mikrotek Zemiro Indonesia & InvoicePlane Contributors",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/InvoicePlane/InvoicePlane/issues"
+        "url": "https://github.com/jemirokasih/Mikrotek-Invoice/issues"
     },
     "homepage": "https://www.invoiceplane.com",
     "scripts": {

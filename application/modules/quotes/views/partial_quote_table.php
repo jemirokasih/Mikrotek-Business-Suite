@@ -73,6 +73,7 @@ $quote_idx                    = 1;
                                     <i class="fa fa-send fa-margin"></i> <?php _trans('send_email'); ?>
                                 </a>
                             </li>
+<?php if (has_permission('quotes', 'delete')) : ?>
                             <li>
                                 <form action="<?php echo site_url('quotes/delete/' . $quote->quote_id); ?>"
                                       method="POST">
@@ -83,6 +84,7 @@ $quote_idx                    = 1;
                                     </button>
                                 </form>
                             </li>
+<?php endif; ?>
                         </ul>
                     </div>
                 </td>

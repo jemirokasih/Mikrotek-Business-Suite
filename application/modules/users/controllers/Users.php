@@ -31,6 +31,7 @@ class Users extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('users', 'view');
         $this->mdl_users->paginate(site_url('users/index'), $page);
         $users = $this->mdl_users->result();
 
@@ -49,6 +50,12 @@ class Users extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('users', 'edit');
+        } else {
+            check_permission('users', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('users');
         }
@@ -214,6 +221,7 @@ class Users extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('users', 'delete');
         if ( ! $this->ensure_valid_post_request('users/index')) {
             return;
         }
@@ -231,6 +239,7 @@ class Users extends Admin_Controller
      */
     public function delete_user_client(string $user_id, $user_client_id)
     {
+        check_permission('users', 'edit');
         if ( ! $this->ensure_valid_post_request('users/form/' . $user_id)) {
             return;
         }

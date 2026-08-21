@@ -31,6 +31,7 @@ class Recurring extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('invoices', 'view');
         $this->mdl_invoices_recurring->paginate(site_url('invoices/recurring'), $page);
         $recurring_invoices = $this->mdl_invoices_recurring->result();
 
@@ -50,6 +51,7 @@ class Recurring extends Admin_Controller
      */
     public function stop($invoice_recurring_id)
     {
+        check_permission('invoices', 'edit');
         if ( ! $this->ensure_valid_post_request('invoices/recurring/index')) {
             return;
         }
@@ -63,6 +65,7 @@ class Recurring extends Admin_Controller
      */
     public function delete($invoice_recurring_id)
     {
+        check_permission('invoices', 'delete');
         if ( ! $this->ensure_valid_post_request('invoices/recurring/index')) {
             return;
         }

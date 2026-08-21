@@ -1,6 +1,6 @@
 {
-    "name": "invoiceplane/invoiceplane",
-    "description": "InvoicePlane is a self-hosted open source application for managing your invoices, clients and payments",
+    "name": "mikrotek/business-suite",
+    "description": "Mikrotek Business Suite is a self-hosted business management and invoicing application built on top of InvoicePlane",
     "homepage": "https://invoiceplane.com",
     "license": "MIT",
     "type": "project",

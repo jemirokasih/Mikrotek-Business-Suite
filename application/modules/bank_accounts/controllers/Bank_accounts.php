@@ -15,6 +15,7 @@ class Bank_Accounts extends Admin_Controller
 
     public function index($page = 0): void
     {
+        check_permission('bank_accounts', 'view');
         $this->mdl_bank_accounts->paginate(site_url('bank_accounts/index'), $page);
         $bank_accounts = $this->mdl_bank_accounts->result();
 
@@ -27,6 +28,12 @@ class Bank_Accounts extends Admin_Controller
 
     public function form($id = null): void
     {
+        if ($id) {
+            check_permission('bank_accounts', 'edit');
+        } else {
+            check_permission('bank_accounts', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('bank_accounts');
         }
@@ -56,6 +63,7 @@ class Bank_Accounts extends Admin_Controller
 
     public function delete($id): void
     {
+        check_permission('bank_accounts', 'delete');
         $this->mdl_bank_accounts->delete($id);
         redirect('bank_accounts');
     }

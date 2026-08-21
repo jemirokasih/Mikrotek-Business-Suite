@@ -28,6 +28,7 @@ class Reports extends Admin_Controller
 
     public function sales_by_client()
     {
+        check_permission('reports', 'view');
         if ($this->input->post('btn_submit')) {
             $posted_from_date = $this->input->post('from_date');
             $posted_to_date   = $this->input->post('to_date');
@@ -52,6 +53,7 @@ class Reports extends Admin_Controller
 
     public function invoices_per_client()
     {
+        check_permission('reports', 'view');
         if ($this->input->post('btn_submit')) {
             $posted_from_date = $this->input->post('from_date');
             $posted_to_date   = $this->input->post('to_date');
@@ -76,6 +78,7 @@ class Reports extends Admin_Controller
 
     public function payment_history()
     {
+        check_permission('reports', 'view');
         if ($this->input->post('btn_submit')) {
             $posted_from_date = $this->input->post('from_date');
             $posted_to_date   = $this->input->post('to_date');
@@ -100,6 +103,7 @@ class Reports extends Admin_Controller
 
     public function invoice_aging()
     {
+        check_permission('reports', 'view');
         if ($this->input->post('btn_submit')) {
             $data = [
                 'results' => $this->mdl_reports->invoice_aging(),
@@ -117,6 +121,7 @@ class Reports extends Admin_Controller
 
     public function sales_by_year()
     {
+        check_permission('reports', 'view');
         if ($this->input->post('btn_submit')) {
             $posted_from_date = $this->input->post('from_date');
             $posted_to_date   = $this->input->post('to_date');

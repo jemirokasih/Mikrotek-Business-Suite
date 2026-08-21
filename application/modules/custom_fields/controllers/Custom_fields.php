@@ -28,6 +28,7 @@ class Custom_Fields extends Admin_Controller
 
     public function index(): void
     {
+        check_permission('settings', 'view');
         // Display all custom_fields tables by default
         redirect('custom_fields/table/all');
     }
@@ -38,6 +39,7 @@ class Custom_Fields extends Admin_Controller
      */
     public function table(string $name = 'all', $page = 0): void
     {
+        check_permission('settings', 'view');
         // Determine which name of table custom field to load
         $custom_tables = $this->mdl_custom_fields->custom_tables();
         if ($name != 'all' && in_array($name, $custom_tables)) {
@@ -67,6 +69,12 @@ class Custom_Fields extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('settings', 'edit');
+        } else {
+            check_permission('settings', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('custom_fields');
         }
@@ -116,6 +124,7 @@ class Custom_Fields extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('settings', 'delete');
         if ( ! $this->ensure_valid_post_request('custom_fields/index')) {
             return;
         }

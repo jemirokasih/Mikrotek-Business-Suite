@@ -1,6 +1,6 @@
-# Contributing to InvoicePlane
+# Contributing to Mikrotek Business Suite
 
-Thank you for considering contributing to InvoicePlane! Your support is invaluable in improving and maintaining this project. Whether you're reporting bugs, suggesting features, writing code, or helping others, your contributions are welcome.
+Thank you for considering contributing to Mikrotek Business Suite! Your support is invaluable in improving and maintaining this project. Whether you're reporting bugs, suggesting features, writing code, or helping others, your contributions are welcome.
 
 ## Table of Contents
 

@@ -20,6 +20,8 @@ class Ajax extends Admin_Controller
 
     public function save()
     {
+        $quote_id = $this->security->xss_clean($this->input->post('quote_id', true));
+        check_permission('quotes', $quote_id ? 'edit' : 'create');
         $this->load->model([
             'quotes/mdl_quote_items',
             'quotes/mdl_quotes',
@@ -186,6 +188,7 @@ class Ajax extends Admin_Controller
 
     public function save_quote_tax_rate()
     {
+        check_permission('quotes', 'edit');
         $this->load->model('quotes/mdl_quote_tax_rates');
 
         if ($this->mdl_quote_tax_rates->run_validation()) {
@@ -210,6 +213,7 @@ class Ajax extends Admin_Controller
      */
     public function delete_item($quote_id)
     {
+        check_permission('quotes', 'edit');
         $success = 0;
         $item_id = $this->input->post('item_id');
         $this->load->model('mdl_quotes');
@@ -232,6 +236,7 @@ class Ajax extends Admin_Controller
 
     public function get_item()
     {
+        check_permission('quotes', 'view');
         $this->load->model('quotes/mdl_quote_items');
 
         $item = $this->mdl_quote_items->get_by_id($this->input->post('item_id'));
@@ -241,6 +246,7 @@ class Ajax extends Admin_Controller
 
     public function modal_copy_quote()
     {
+        check_permission('quotes', 'create');
         $this->load->module('layout');
         $this->load->model([
             'quotes/mdl_quotes',
@@ -262,6 +268,7 @@ class Ajax extends Admin_Controller
 
     public function copy_quote()
     {
+        check_permission('quotes', 'create');
         $this->load->model([
             'quotes/mdl_quotes',
             'quotes/mdl_quote_items',
@@ -297,6 +304,7 @@ class Ajax extends Admin_Controller
 
     public function modal_change_user()
     {
+        check_permission('quotes', 'edit');
         $this->load->module('layout');
         $this->load->model('users/mdl_users');
 
@@ -311,6 +319,7 @@ class Ajax extends Admin_Controller
 
     public function change_user()
     {
+        check_permission('quotes', 'edit');
         $this->load->model([
             'quotes/mdl_quotes',
             'users/mdl_users',
@@ -346,6 +355,7 @@ class Ajax extends Admin_Controller
 
     public function modal_change_client()
     {
+        check_permission('quotes', 'edit');
         $this->load->module('layout');
         $this->load->model('clients/mdl_clients');
 
@@ -360,6 +370,7 @@ class Ajax extends Admin_Controller
 
     public function change_client()
     {
+        check_permission('quotes', 'edit');
         $this->load->model([
             'quotes/mdl_quotes',
             'clients/mdl_clients',
@@ -395,6 +406,7 @@ class Ajax extends Admin_Controller
 
     public function modal_create_quote()
     {
+        check_permission('quotes', 'create');
         $this->load->module('layout');
         $this->load->model([
             'invoice_groups/mdl_invoice_groups',
@@ -414,6 +426,7 @@ class Ajax extends Admin_Controller
 
     public function create()
     {
+        check_permission('quotes', 'create');
         $this->load->model('quotes/mdl_quotes');
 
         if ($this->mdl_quotes->run_validation()) {
@@ -436,6 +449,7 @@ class Ajax extends Admin_Controller
 
     public function modal_quote_to_invoice($quote_id)
     {
+        check_permission('invoices', 'create');
         $this->load->model([
             'invoice_groups/mdl_invoice_groups',
             'quotes/mdl_quotes',
@@ -452,6 +466,7 @@ class Ajax extends Admin_Controller
 
     public function quote_to_invoice()
     {
+        check_permission('invoices', 'create');
         $this->load->model([
             'invoices/mdl_invoices',
             'invoices/mdl_items',

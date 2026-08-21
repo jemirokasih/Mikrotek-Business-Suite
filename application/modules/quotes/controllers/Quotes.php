@@ -28,6 +28,7 @@ class Quotes extends Admin_Controller
 
     public function index()
     {
+        check_permission('quotes', 'view');
         // Display all quotes by default
         redirect('quotes/status/all');
     }
@@ -37,6 +38,7 @@ class Quotes extends Admin_Controller
      */
     public function status(string $status = 'all', $page = 0)
     {
+        check_permission('quotes', 'view');
         // Determine which group of quotes to load
         switch ($status) {
             case 'draft':
@@ -82,6 +84,7 @@ class Quotes extends Admin_Controller
      */
     public function view($quote_id)
     {
+        check_permission('quotes', 'view');
         $this->load->model(
             [
                 'quotes/mdl_quote_items',
@@ -196,6 +199,7 @@ class Quotes extends Admin_Controller
      */
     public function delete($quote_id)
     {
+        check_permission('quotes', 'delete');
         if ( ! $this->ensure_valid_post_request('quotes/index')) {
             return;
         }
@@ -221,6 +225,7 @@ class Quotes extends Admin_Controller
      */
     public function generate_pdf($quote_id, $stream = true, $quote_template = null)
     {
+        check_permission('quotes', 'view');
         $this->load->helper(['pdf', 'template']);
 
         // Security (CSRF): "mark as sent when generating the PDF" mutates quote
@@ -254,6 +259,7 @@ class Quotes extends Admin_Controller
      */
     public function delete_quote_tax(string $quote_id, $quote_tax_rate_id)
     {
+        check_permission('quotes', 'edit');
         if ( ! $this->ensure_valid_post_request('quotes/view/' . $quote_id)) {
             return;
         }
@@ -271,6 +277,7 @@ class Quotes extends Admin_Controller
 
     public function recalculate_all_quotes()
     {
+        check_permission('quotes', 'edit');
         if ( ! $this->ensure_valid_post_request('quotes/index')) {
             return;
         }

@@ -39,6 +39,7 @@ class Settings extends Admin_Controller
 
     public function index()
     {
+        check_permission('settings', $this->input->post('settings') ? 'edit' : 'view');
         // Get the payment gateway configurations
         $this->config->load('payment_gateways');
         $gateways = $this->config->item('payment_gateways');
@@ -223,6 +224,7 @@ class Settings extends Admin_Controller
      */
     public function remove_logo(string $type)
     {
+        check_permission('settings', 'edit');
         if ( ! $this->ensure_valid_post_request('settings')) {
             return;
         }

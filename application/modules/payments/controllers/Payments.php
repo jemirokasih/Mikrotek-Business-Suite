@@ -31,6 +31,7 @@ class Payments extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('payments', 'view');
         $this->mdl_payments->paginate(site_url('payments/index'), $page);
         $payments = $this->mdl_payments->result();
 
@@ -49,6 +50,12 @@ class Payments extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('payments', 'edit');
+        } else {
+            check_permission('payments', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('payments');
         }
@@ -153,6 +160,7 @@ class Payments extends Admin_Controller
      */
     public function online_logs($page = 0)
     {
+        check_permission('payments', 'view');
         $this->load->model('payments/mdl_payment_logs');
 
         $this->mdl_payment_logs->paginate(site_url('payments/online_logs'), $page);
@@ -176,6 +184,7 @@ class Payments extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('payments', 'delete');
         if ( ! $this->ensure_valid_post_request('payments')) {
             return;
         }

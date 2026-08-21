@@ -119,17 +119,24 @@ foreach ($custom_fields as $custom_field) {
 
     <div class="headerbar-item pull-right">
         <div class="btn-group btn-group-sm">
+            <?php if (has_permission('quotes', 'create')) : ?>
             <a href="#" class="btn btn-default client-create-quote"
                data-client-id="<?php echo $client->client_id; ?>">
                 <i class="fa fa-file"></i> <?php _trans('create_quote'); ?>
             </a>
+            <?php endif; ?>
+            <?php if (has_permission('invoices', 'create')) : ?>
             <a href="#" class="btn btn-default client-create-invoice"
                data-client-id="<?php echo $client->client_id; ?>">
                 <i class="fa fa-file-text"></i> <?php _trans('create_invoice'); ?></a>
+            <?php endif; ?>
+            <?php if (has_permission('clients', 'edit')) : ?>
             <a href="<?php echo site_url('clients/form/' . $client->client_id); ?>"
                class="btn btn-default">
                 <i class="fa fa-edit"></i> <?php _trans('edit'); ?>
             </a>
+            <?php endif; ?>
+            <?php if (has_permission('clients', 'delete')) : ?>
             <form action="<?php echo site_url('clients/delete/' . $client->client_id); ?>"
                   method="POST" class="btn-group btn-group-sm">
                 <?php _csrf_field(); ?>
@@ -138,6 +145,7 @@ foreach ($custom_fields as $custom_field) {
                     <i class="fa fa-trash-o"></i> <?php _trans('delete'); ?>
                 </button>
             </form>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -145,9 +153,15 @@ foreach ($custom_fields as $custom_field) {
 
 <ul id="submenu" class="nav nav-tabs nav-tabs-noborder">
     <li<?php echo $activeTab == 'detail' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#client-details"><?php _trans('details'); ?></a></li>
+    <?php if (has_permission('quotes', 'view')) : ?>
     <li<?php echo $activeTab == 'quotes' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#client-quotes"><?php _trans('quotes'); ?></a></li>
+    <?php endif; ?>
+    <?php if (has_permission('invoices', 'view')) : ?>
     <li<?php echo $activeTab == 'invoices' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#client-invoices"><?php _trans('invoices'); ?></a></li>
+    <?php endif; ?>
+    <?php if (has_permission('payments', 'view')) : ?>
     <li<?php echo $activeTab == 'payments' ? ' class="active"' : ''; ?>><a data-toggle="tab" href="#client-payments"><?php _trans('payments'); ?></a></li>
+    <?php endif; ?>
 </ul>
 
 <div id="content" class="tabbable tabs-below no-padding">

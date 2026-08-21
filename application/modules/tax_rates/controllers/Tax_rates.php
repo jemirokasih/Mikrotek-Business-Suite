@@ -31,6 +31,7 @@ class Tax_Rates extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('settings', 'view');
         $this->mdl_tax_rates->paginate(site_url('tax_rates/index'), $page);
         $tax_rates = $this->mdl_tax_rates->result();
 
@@ -41,6 +42,12 @@ class Tax_Rates extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('settings', 'edit');
+        } else {
+            check_permission('settings', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('tax_rates');
         }
@@ -70,6 +77,7 @@ class Tax_Rates extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('settings', 'delete');
         if ( ! $this->ensure_valid_post_request('tax_rates/index')) {
             return;
         }

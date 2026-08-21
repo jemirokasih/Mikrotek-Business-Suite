@@ -31,6 +31,7 @@ class Projects extends Admin_Controller
      */
     public function index($page = 0)
     {
+        check_permission('projects', 'view');
         $this->mdl_projects->paginate(site_url('projects/index'), $page);
         $projects = $this->mdl_projects->result();
 
@@ -48,6 +49,12 @@ class Projects extends Admin_Controller
 
     public function form($id = null)
     {
+        if ($id) {
+            check_permission('projects', 'edit');
+        } else {
+            check_permission('projects', 'create');
+        }
+
         if ($this->input->post('btn_cancel')) {
             redirect('projects');
         }
@@ -76,6 +83,7 @@ class Projects extends Admin_Controller
 
     public function view($project_id, $activeTab = 'tasks', $page = 0)
     {
+        check_permission('projects', 'view');
         if ($this->input->post('btn_cancel')) {
             redirect('projects');
         }
@@ -132,6 +140,7 @@ class Projects extends Admin_Controller
      */
     public function delete($id)
     {
+        check_permission('projects', 'delete');
         if ( ! $this->ensure_valid_post_request('projects/index')) {
             return;
         }

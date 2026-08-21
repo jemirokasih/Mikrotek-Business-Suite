@@ -40,4 +40,4 @@ Attach relevant screenshots that demonstrate your changes.
 
 ---
 
-*Thank you for your contribution to InvoicePlane! We appreciate your time and effort.*
+*Thank you for your contribution to Mikrotek Business Suite! We appreciate your time and effort.*

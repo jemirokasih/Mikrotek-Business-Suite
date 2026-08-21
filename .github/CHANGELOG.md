@@ -10,6 +10,20 @@ Full write-ups for individual vulnerabilities live in the published
 and in [`.github/security/`](security/). This changelog records *what* changed; the advisories
 record *why* and *how*.
 
+## [1.2.0] - 2026-08-21 (Mikrotek Invoice v1.2.0 Release)
+
+Mikrotek Invoice 1.2.0 includes major project module enhancements and complete RBAC security hardening.
+
+### Added
+- **Projects Navigation & Tabbed Details**: Updated navbar item from Tasks to **Projects**, added dedicated tabs for Tasks, Quotes, Invoices, Payments, and Receipts in Project View.
+- **Strict Project Transaction Filtering**: Transaction tabs in Project details strictly filter records linked to that specific project.
+- **AJAX 403 Permission Error Handling**: `check_permission()` helper updated to return JSON 403 `Access Denied` on unauthorized AJAX requests.
+
+### Fixed
+- **Role-Based Access Control (RBAC) Hardening**: Added `check_permission()` checks across all module controllers and AJAX endpoints to prevent unauthorized URL access and cross-role action executions.
+- **Custom Role Client Access (IDOR)**: Fixed `Mdl_clients->can_user_access()` hardcoded `return false` for custom roles (`user_type` = 3), enabling staff users with `clients.view` permission to view client details.
+- **Quote-to-Invoice Role Guard**: Enforced `invoices.create` permission check on Quote-to-Invoice conversion actions in both UI views and AJAX endpoints.
+
 ---
 
 ## [1.1.1] - 2026-08-21 (Mikrotek Invoice Initial Release)

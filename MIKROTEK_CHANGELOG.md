@@ -89,6 +89,17 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Menambahkan pengaturan **Header PDF Faktur** (`pdf_invoice_header`) & **Header PDF Penawaran** (`pdf_quote_header`) pada System Settings (`partial_settings_invoices.php` & `partial_settings_quotes.php`).
   - Memperbarui `sanitize_pdf_header_content()` & `sanitize_pdf_footer_content()` agar tidak menghapus atribut `style`, `class`, `src`, `width`, `height`, `align` serta tag `table`, `tr`, `td`, `img`, `hr` sehingga desain Kop / Header HTML muncul sempurna 100% pada cetakan PDF.
 
+### 🌐 Pembaruan Lingkungan GitHub & Metadata Repositori (`Mikrotek Business Suite`)
+- **Package Manifests**:
+  - Mengupdate `package.json`: `"name": "mikrotek-business-suite"`, `"version": "1.2.0"`, `"description"`, dan `"repository"` URL.
+  - Mengupdate `composer.json`: `"name": "mikrotek/business-suite"` dan `"description"`.
+- **GitHub Actions Workflows**:
+  - Mengupdate `.github/workflows/setup.yml`: `Setup Mikrotek Business Suite`.
+  - Mengupdate `.github/workflows/release-tag.yml`: Nama rilis dan checkout step `Mikrotek Business Suite`.
+- **Dokumentasi & GitHub Templates**:
+  - Mengupdate `README.md` dengan judul utama `# Mikrotek Business Suite v1.2.0` serta gambaran fitur lengkap (RBAC, Multi-Company, Kwitansi, Proforma, Restriksi Bank).
+  - Mengupdate `.github/copilot-instructions.md`, `.github/CONTRIBUTING.md`, dan `.github/PULL_REQUEST_TEMPLATE.md` sesuai penamaan resmi **Mikrotek Business Suite**.
+
 ---
 
 
