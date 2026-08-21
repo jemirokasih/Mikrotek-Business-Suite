@@ -5,12 +5,6 @@
                 $('#cron_key').val(data);
             });
         });
-
-        $('#btn-rollback-legacy-layout').click(function () {
-            if (confirm('Rollback navigation layout to Legacy Top Navbar mode?')) {
-                $('#settings\\[layout_mode\\]').val('top').trigger('change');
-            }
-        });
     });
 </script>
 
@@ -63,21 +57,15 @@
                             <label for="settings[layout_mode]">
                                 Navigation Layout Style
                             </label>
-                            <div class="input-group">
-                                <select name="settings[layout_mode]" id="settings[layout_mode]" class="form-control simple-select">
-                                    <option value="sidebar" <?php check_select(get_setting('layout_mode', 'sidebar'), 'sidebar'); ?>>
-                                        Modern Sidebar Layout (Default)
-                                    </option>
-                                    <option value="top" <?php check_select(get_setting('layout_mode', 'sidebar'), 'top'); ?>>
-                                        Legacy Top Navbar Mode (Rollback)
-                                    </option>
-                                </select>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" id="btn-rollback-legacy-layout" title="Rollback to Legacy Top Navbar Mode">
-                                        <i class="fa fa-history"></i> Rollback
-                                    </button>
-                                </span>
-                            </div>
+                            <select name="settings[layout_mode]" id="settings[layout_mode]"
+                                class="form-control simple-select" data-minimum-results-for-search="Infinity">
+                                <option value="sidebar" <?php check_select(get_setting('layout_mode', 'sidebar'), 'sidebar'); ?>>
+                                    Modern Sidebar Layout (Default)
+                                </option>
+                                <option value="top" <?php check_select(get_setting('layout_mode', 'sidebar'), 'top'); ?>>
+                                    Legacy Top Navbar Mode
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>

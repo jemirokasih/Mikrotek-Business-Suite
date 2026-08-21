@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.21] - 2026-08-21
+
+### 🎨 Pembersihan Tombol Rollback Navigasi (`partial_settings_general.php`)
+- **Penghapusan Tombol Rollback Redundan**: Menghapus tombol `Rollback` legacy layout di *Settings ➔ General* karena pilihan mode navigasi ("Modern Sidebar Layout" & "Legacy Top Navbar Mode") sudah tersedia secara langsung melalui dropdown selection menu `layout_mode`.
+
+---
+
 ## [v1.7.20] - 2026-08-21
 
 ### 🐛 Perbaikan Format Teks Header & Grid Template Mikrotek PDF
