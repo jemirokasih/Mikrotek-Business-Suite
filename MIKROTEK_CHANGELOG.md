@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.6.1] - 2026-08-21
+
+### 🛠️ Perbaikan Schema Field `job_title` pada Modul Cuti & Dashboard
+- **Fix Unknown Column `position` Error**: Mengubah query JOIN `ip_employees.position` menjadi `ip_employees.job_title` pada `Mdl_leaves.php` dan view dashboard karyawan untuk mengatasi kesalahan PHP Fatal Exception (*HTTP 500*).
+
+---
+
 ## [v1.6.0] - 2026-08-21
 
 ### 🏖️ Modul Pengajuan Cuti (Leave Request Module)

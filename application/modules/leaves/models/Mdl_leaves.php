@@ -22,7 +22,7 @@ class Mdl_leaves extends MY_Model
             ip_employees.last_name, 
             ip_employees.employee_number, 
             ip_employees.department, 
-            ip_employees.position,
+            ip_employees.job_title,
             ip_employees.user_id AS employee_user_id,
             approver.user_name AS approver_name');
     }

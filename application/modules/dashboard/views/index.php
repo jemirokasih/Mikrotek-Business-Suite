@@ -361,7 +361,7 @@
                         </p>
                         <p style="margin-bottom: 8px;">
                             <span class="text-muted"><?php _trans('position'); ?>:</span><br>
-                            <strong><?php echo html_escape($employee->position ?: '-'); ?></strong>
+                            <strong><?php echo html_escape($employee->job_title ?: '-'); ?></strong>
                         </p>
                         <p style="margin-bottom: 0;">
                             <span class="text-muted"><?php _trans('email'); ?>:</span><br>
