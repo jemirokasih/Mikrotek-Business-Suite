@@ -53,16 +53,16 @@ class Base_Controller extends MX_Controller
 
             $this->load->helper(['trans', 'number', 'pager', 'invoice', 'date', 'form', 'echo', 'user', 'client', 'country']);
 
+            $this->load->helper('settings');
+
             // Load setting model and load settings
             $this->load->model('settings/mdl_settings');
             if ($this->mdl_settings != null) {
                 $this->mdl_settings->load_settings();
 
-                $tz = get_setting('time_zone') ?: 'Asia/Jakarta';
+                $tz = $this->mdl_settings->setting('time_zone') ?: 'Asia/Jakarta';
                 date_default_timezone_set($tz);
             }
-
-            $this->load->helper('settings');
 
             // Load the language based on user config, fall back to system if needed
             $user_lang = $this->session->userdata('user_language');

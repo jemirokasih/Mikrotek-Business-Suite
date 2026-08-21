@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.4.4] - 2026-08-21
+
+### 🛠️ Fix Settings Helper Loading Order in `Base_Controller.php`
+- **Fix Undefined Function `get_setting()` Error**: Mengubah urutan muat helper `settings` agar dimuat sebelum pemanggilan `$this->mdl_settings->setting('time_zone')` pada `Base_Controller.php` untuk mencegah PHP Fatal Error (*HTTP 500*).
+
+---
+
 ## [v1.4.3] - 2026-08-21
 
 ### 🌐 Fitur Pengaturan Timezone Sistem (`time_zone`)
