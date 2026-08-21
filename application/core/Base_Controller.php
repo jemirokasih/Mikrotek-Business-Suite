@@ -57,6 +57,9 @@ class Base_Controller extends MX_Controller
             $this->load->model('settings/mdl_settings');
             if ($this->mdl_settings != null) {
                 $this->mdl_settings->load_settings();
+
+                $tz = get_setting('time_zone') ?: 'Asia/Jakarta';
+                date_default_timezone_set($tz);
             }
 
             $this->load->helper('settings');

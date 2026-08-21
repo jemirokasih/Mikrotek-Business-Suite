@@ -72,4 +72,5 @@ $lang = [
     'daily_attendance'                  => 'Daily Attendance',
     'location_access_denied'            => 'Location Access Denied',
     'ip_address'                        => 'IP Address',
+    'timezone'                          => 'Time Zone / Timezone',
 ];

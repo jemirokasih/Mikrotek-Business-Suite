@@ -4,6 +4,22 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.4.3] - 2026-08-21
+
+### 🌐 Fitur Pengaturan Timezone Sistem (`time_zone`)
+- **System Settings Dropdown (`partial_settings_general.php`)**:
+  - Menambahkan opsi pengaturan Zona Waktu (**Time Zone**) pada System Settings (General).
+  - Pilihan teratas mencakup zona waktu utama Indonesia & internasional:
+    - `[GMT+7] Asia/Jakarta (WIB) - Indonesia Barat`
+    - `[GMT+8] Asia/Makassar (WITA) - Indonesia Tengah`
+    - `[GMT+9] Asia/Jayapura (WIT) - Indonesia Timur`
+    - `[GMT+0] UTC (Coordinated Universal Time)`
+    - Serta seluruh zona waktu standar PHP (`DateTimeZone::listIdentifiers()`).
+- **Global Timezone Application (`Base_Controller.php` & `SetTimezoneClass.php`)**:
+  - Menerapkan fungsi `date_default_timezone_set()` secara otomatis berdasarkan pilihan setting `time_zone` aplikasi dengan fallback ke `Asia/Jakarta`.
+
+---
+
 ## [v1.4.2] - 2026-08-21
 
 ### 🛠️ Perbaikan HTTP 500 pada Dashboard Utama (`Dashboard.php`)

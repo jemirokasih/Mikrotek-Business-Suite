@@ -110,12 +110,36 @@
 
                     <div class="col-xs-12 col-md-6">
                         <div class="form-group">
-                            <label for="default_list_limit">
-                                <?php _trans('default_list_limit'); ?>
+                            <label for="settings[time_zone]">
+                                <?php _trans('timezone'); ?>
                             </label>
-                            <input type="number" name="settings[default_list_limit]" id="default_list_limit"
-                                class="form-control" minlength="1" min="1" required
-                                value="<?php echo get_setting('default_list_limit', 15, true) ?>">
+                            <select name="settings[time_zone]" id="settings[time_zone]" class="form-control simple-select">
+                                <option value="Asia/Jakarta" <?php check_select(get_setting('time_zone', 'Asia/Jakarta'), 'Asia/Jakarta'); ?>>
+                                    [GMT+7] Asia/Jakarta (WIB) - Indonesia Barat
+                                </option>
+                                <option value="Asia/Makassar" <?php check_select(get_setting('time_zone'), 'Asia/Makassar'); ?>>
+                                    [GMT+8] Asia/Makassar (WITA) - Indonesia Tengah
+                                </option>
+                                <option value="Asia/Jayapura" <?php check_select(get_setting('time_zone'), 'Asia/Jayapura'); ?>>
+                                    [GMT+9] Asia/Jayapura (WIT) - Indonesia Timur
+                                </option>
+                                <option value="UTC" <?php check_select(get_setting('time_zone'), 'UTC'); ?>>
+                                    [GMT+0] UTC (Coordinated Universal Time)
+                                </option>
+                                <optgroup label="All Timezones">
+                                    <?php
+                                    $all_timezones = DateTimeZone::listIdentifiers();
+            foreach ($all_timezones as $tz) {
+                if (in_array($tz, ['Asia/Jakarta', 'Asia/Makassar', 'Asia/Jayapura', 'UTC'])) {
+                    continue;
+                }
+                ?>
+                                        <option value="<?php echo $tz; ?>" <?php check_select(get_setting('time_zone'), $tz); ?>>
+                                            <?php echo $tz; ?>
+                                        </option>
+                                    <?php } ?>
+                                </optgroup>
+                            </select>
                         </div>
                     </div>
                 </div>
