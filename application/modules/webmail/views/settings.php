@@ -18,30 +18,44 @@
                 <?php _csrf_field(); ?>
                 <div class="panel panel-default" style="border-radius: 12px; border: 1px solid var(--card-border, #e2e8f0); box-shadow: var(--card-shadow, 0 1px 3px rgba(0,0,0,0.05)); margin-top: 10px;">
                     <div class="panel-heading" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; font-weight: 700; font-size: 15px; border-top-left-radius: 12px; border-top-right-radius: 12px; padding: 14px 20px;">
-                        <i class="fa fa-lock" style="color: #3b82f6; margin-right: 6px;"></i> Kredensial &amp; URL Roundcube Webmail
+                        <i class="fa fa-server" style="color: #3b82f6; margin-right: 6px;"></i> Konfigurasi Server Webmail &amp; Roundcube (Administrator Only)
                     </div>
                     <div class="panel-body" style="padding: 24px;">
                         <div class="form-group">
-                            <label for="webmail_url">URL Roundcube Webmail <span class="text-danger">*</span></label>
+                            <label for="webmail_url">URL Portal Roundcube Webmail <span class="text-danger">*</span></label>
                             <input type="url" name="webmail_url" id="webmail_url" class="form-control"
                                    value="<?php echo html_escape($webmail_url); ?>"
                                    placeholder="Contoh: https://webmail.mzi.co.id atau https://mail.domain.com" required>
-                            <p class="help-block">Masukkan URL domain portal Roundcube Webmail Anda.</p>
+                            <p class="help-block">URL portal tempat aplikasi Roundcube Webmail di-host oleh sistem/administrator.</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="webmail_imap_host">Server IMAP (Incoming Host &amp; Port)</label>
+                                    <input type="text" name="webmail_imap_host" id="webmail_imap_host" class="form-control"
+                                           value="<?php echo html_escape($webmail_imap_host ?? 'ssl://mail.mzi.co.id:993'); ?>"
+                                           placeholder="Contoh: ssl://mail.domain.com:993">
+                                    <p class="help-block">Alamat server IMAP untuk penerimaan email karyawan.</p>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="webmail_smtp_host">Server SMTP (Outgoing Host &amp; Port)</label>
+                                    <input type="text" name="webmail_smtp_host" id="webmail_smtp_host" class="form-control"
+                                           value="<?php echo html_escape($webmail_smtp_host ?? 'ssl://mail.mzi.co.id:465'); ?>"
+                                           placeholder="Contoh: ssl://mail.domain.com:465">
+                                    <p class="help-block">Alamat server SMTP untuk pengiriman email karyawan.</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="webmail_email">Alamat Email Default</label>
-                            <input type="email" name="webmail_email" id="webmail_email" class="form-control"
-                                   value="<?php echo html_escape($webmail_email); ?>"
-                                   placeholder="Contoh: info@mzi.co.id">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="webmail_password">Password Email</label>
-                            <input type="password" name="webmail_password" id="webmail_password" class="form-control"
-                                   value="<?php echo html_escape($webmail_password); ?>"
-                                   placeholder="Tulis ulang password jika ingin memperbarui">
-                            <p class="help-block">Password Anda tersimpan dengan enkripsi aman AES-256 (Cryptor).</p>
+                            <label for="webmail_default_domain">Domain Email Perusahaan Default</label>
+                            <input type="text" name="webmail_default_domain" id="webmail_default_domain" class="form-control"
+                                   value="<?php echo html_escape($webmail_default_domain ?? 'mzi.co.id'); ?>"
+                                   placeholder="Contoh: mzi.co.id">
+                            <p class="help-block">Domain email resmi perusahaan yang digunakan oleh karyawan saat login.</p>
                         </div>
 
                         <hr style="margin: 24px 0; border-color: #f1f5f9;">
@@ -51,7 +65,7 @@
                                 <?php _trans('cancel'); ?>
                             </a>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-save"></i> <?php _trans('save'); ?>
+                                <i class="fa fa-save"></i> Simpan Konfigurasi Server
                             </button>
                         </div>
                     </div>

@@ -58,24 +58,16 @@ class Webmail extends Admin_Controller
             redirect('webmail');
         }
 
-        $webmail_url    = get_setting('webmail_url');
-        $webmail_email  = get_setting('webmail_email');
-        $encrypted_pass = get_setting('webmail_password');
-        $webmail_password = '';
-
-        if (!empty($encrypted_pass)) {
-            try {
-                $encryption_key   = config_item('encryption_key') ?: 'MikrotekWebmailKey';
-                $webmail_password = Cryptor::Decrypt($encrypted_pass, $encryption_key);
-            } catch (Exception $e) {
-                $webmail_password = '';
-            }
-        }
+        $webmail_url            = get_setting('webmail_url');
+        $webmail_imap_host      = get_setting('webmail_imap_host') ?: 'ssl://mail.mzi.co.id:993';
+        $webmail_smtp_host      = get_setting('webmail_smtp_host') ?: 'ssl://mail.mzi.co.id:465';
+        $webmail_default_domain = get_setting('webmail_default_domain') ?: 'mzi.co.id';
 
         $data = [
-            'webmail_url'      => $webmail_url,
-            'webmail_email'    => $webmail_email,
-            'webmail_password' => $webmail_password,
+            'webmail_url'            => $webmail_url,
+            'webmail_imap_host'      => $webmail_imap_host,
+            'webmail_smtp_host'      => $webmail_smtp_host,
+            'webmail_default_domain' => $webmail_default_domain,
         ];
 
         $this->layout->buffer('content', 'webmail/settings', $data);
@@ -87,24 +79,21 @@ class Webmail extends Admin_Controller
         if (!has_permission('settings')) {
             redirect('webmail');
         }
-        $webmail_url      = trim((string) $this->input->post('webmail_url', true));
-        $webmail_email    = trim((string) $this->input->post('webmail_email', true));
-        $webmail_password = (string) $this->input->post('webmail_password');
+        $webmail_url            = trim((string) $this->input->post('webmail_url', true));
+        $webmail_imap_host      = trim((string) $this->input->post('webmail_imap_host', true));
+        $webmail_smtp_host      = trim((string) $this->input->post('webmail_smtp_host', true));
+        $webmail_default_domain = trim((string) $this->input->post('webmail_default_domain', true));
 
         if (!empty($webmail_url) && !preg_match('#^https?://#i', $webmail_url) && strpos($webmail_url, '/') !== 0) {
             $webmail_url = 'https://' . $webmail_url;
         }
 
         $this->mdl_settings->save('webmail_url', $webmail_url);
-        $this->mdl_settings->save('webmail_email', $webmail_email);
+        $this->mdl_settings->save('webmail_imap_host', $webmail_imap_host);
+        $this->mdl_settings->save('webmail_smtp_host', $webmail_smtp_host);
+        $this->mdl_settings->save('webmail_default_domain', $webmail_default_domain);
 
-        if ($webmail_password !== '') {
-            $encryption_key = config_item('encryption_key') ?: 'MikrotekWebmailKey';
-            $encrypted_pass = Cryptor::Encrypt($webmail_password, $encryption_key);
-            $this->mdl_settings->save('webmail_password', $encrypted_pass);
-        }
-
-        $this->session->set_flashdata('alert_success', 'Pengaturan Webmail berhasil disimpan.');
+        $this->session->set_flashdata('alert_success', 'Konfigurasi Server Roundcube Webmail berhasil disimpan.');
         redirect('webmail');
     }
 

@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.27] - 2026-08-22
+
+### ⚙️ Pemisahan Pengaturan Server Admin & Login Karyawan Webmail
+- **Panel Konfigurasi Server Admin (`settings.php` & `Webmail.php`)**: Memindahkan seluruh konfigurasi infrastruktur webmail (URL Roundcube Portal, Server IMAP Host & Port, Server SMTP Host & Port, serta Domain Email Perusahaan Default) khusus ke dalam halaman Administrator.
+- **Pengalaman Karyawan / Employee**: Karyawan tidak lagi dibebani oleh konfigurasi teknis server. Karyawan cukup memasukkan **Alamat Email** & **Password** mereka untuk langsung masuk dan mengoperasikan Roundcube Webmail.
+
+---
+
 ## [v1.7.26] - 2026-08-22
 
 ### 🔐 Hak Akses Pengaturan Webmail Khusus Administrator
