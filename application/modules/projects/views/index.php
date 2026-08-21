@@ -7,10 +7,6 @@
         </a>
     </div>
 
-    <div class="headerbar-item pull-right">
-        <?php echo pager(site_url('projects/index'), 'mdl_projects'); ?>
-    </div>
-
 </div>
 
 <div id="content" class="table-content">

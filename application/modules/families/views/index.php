@@ -7,10 +7,6 @@
         </a>
     </div>
 
-    <div class="headerbar-item pull-right">
-        <?php echo pager(site_url('families/index'), 'mdl_families'); ?>
-    </div>
-
 </div>
 
 <div id="content" class="table-content">
@@ -19,6 +15,10 @@
 
     <div id="filter_results">
         <?php $this->layout->load_view('families/partial_families_table'); ?>
+    </div>
+
+    <div class="table-pagination-footer text-right clearfix" style="margin-top: 15px; display: flex; justify-content: flex-end; align-items: center;">
+        <?php echo pager(site_url('families/index'), 'mdl_families'); ?>
     </div>
 
 </div>

@@ -13,10 +13,6 @@
     </div>
 
     <div class="headerbar-item pull-right visible-lg">
-        <?php echo pager(site_url('invoices/status/' . $this->uri->segment(3)), 'mdl_invoices'); ?>
-    </div>
-
-    <div class="headerbar-item pull-right visible-lg">
         <div class="btn-group btn-group-sm index-options">
             <a href="<?php echo site_url('invoices/status/all'); ?>"
                class="btn <?php echo $status == 'all' ? 'btn-primary' : 'btn-default' ?>">
@@ -53,10 +49,6 @@
 
 <div id="submenu">
     <div class="collapse clearfix" id="ip-submenu-collapse">
-
-        <div class="submenu-row">
-            <?php echo pager(site_url('invoices/status/' . $this->uri->segment(3)), 'mdl_invoices'); ?>
-        </div>
 
         <div class="submenu-row">
             <div class="btn-group btn-group-sm index-options">

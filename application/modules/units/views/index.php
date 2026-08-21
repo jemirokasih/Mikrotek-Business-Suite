@@ -7,10 +7,6 @@
         </a>
     </div>
 
-    <div class="headerbar-item pull-right">
-        <?php echo pager(site_url('units/index'), 'mdl_units'); ?>
-    </div>
-
 </div>
 
 <div id="content" class="table-content">
@@ -64,6 +60,10 @@
 
         </table>
 
+    </div>
+
+    <div class="table-pagination-footer text-right clearfix" style="margin-top: 15px; display: flex; justify-content: flex-end; align-items: center;">
+        <?php echo pager(site_url('units/index'), 'mdl_units'); ?>
     </div>
 
 </div>

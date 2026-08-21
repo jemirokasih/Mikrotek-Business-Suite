@@ -7,10 +7,6 @@
         </a>
     </div>
 
-    <div class="headerbar-item pull-right">
-        <?php echo pager(site_url('payments/index'), 'mdl_payments'); ?>
-    </div>
-
 </div>
 
 <div id="content" class="table-content">

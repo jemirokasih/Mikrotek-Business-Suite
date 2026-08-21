@@ -49,3 +49,7 @@ foreach ($projects as $project) {
 
         </table>
     </div>
+
+<div class="table-pagination-footer text-right clearfix" style="margin-top: 15px; display: flex; justify-content: flex-end; align-items: center;">
+    <?php echo pager(site_url('projects/index'), 'mdl_projects'); ?>
+</div>

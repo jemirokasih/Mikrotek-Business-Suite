@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.17] - 2026-08-21
+
+### 🎨 Pemindahan Paginasi ke Bawah Tabel (Bottom Table Pagination)
+- **Table Pagination Relocation**: Memindahkan navigasi paginasi halaman (`pager`) dari bagian atas `#headerbar` ke bagian bawah tabel (`.table-pagination-footer`).
+- **Clean Headerbar & Enhanced Usability**: Headerbar kini tampil sangat bersih dan leluasa, serta navigasi halaman berada di posisi alami di mana pengguna selesai membaca daftar tabel (Invoices, Quotes, Clients, Payments, Products, Projects, Families, Tax Rates, Payment Methods, Units).
+
+---
+
 ## [v1.7.16] - 2026-08-21
 
 ### 🎨 Standarisasi Skala Ukuran & Konsistensi UI Elements

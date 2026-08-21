@@ -97,3 +97,7 @@ $quote_idx                    = 1;
 
     </table>
 </div>
+
+<div class="table-pagination-footer text-right clearfix" style="margin-top: 15px; display: flex; justify-content: flex-end; align-items: center;">
+    <?php echo pager(site_url('quotes/status/' . $this->uri->segment(3)), 'mdl_quotes'); ?>
+</div>

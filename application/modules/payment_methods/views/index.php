@@ -7,10 +7,6 @@
         </a>
     </div>
 
-    <div class="headerbar-item pull-right">
-        <?php echo pager(site_url('payment_methods/index'), 'mdl_payment_methods'); ?>
-    </div>
-
 </div>
 
 <div id="content" class="table-content">
@@ -63,6 +59,10 @@
             </tbody>
 
         </table>
+    </div>
+
+    <div class="table-pagination-footer text-right clearfix" style="margin-top: 15px; display: flex; justify-content: flex-end; align-items: center;">
+        <?php echo pager(site_url('payment_methods/index'), 'mdl_payment_methods'); ?>
     </div>
 
 </div>
