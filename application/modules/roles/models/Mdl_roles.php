@@ -1,12 +1,13 @@
 <?php
 
-if (!defined('BASEPATH')) {
+if ( ! defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
 class Mdl_Roles extends Response_Model
 {
     public $table = 'ip_roles';
+
     public $primary_key = 'ip_roles.role_id';
 
     public function default_select(): void
@@ -36,9 +37,10 @@ class Mdl_Roles extends Response_Model
 
     public function db_array(): array
     {
-        $db_array = parent::db_array();
-        $permissions = $this->input->post('permissions');
+        $db_array                     = parent::db_array();
+        $permissions                  = $this->input->post('permissions');
         $db_array['role_permissions'] = json_encode($permissions ?: []);
+
         return $db_array;
     }
 
@@ -46,59 +48,63 @@ class Mdl_Roles extends Response_Model
     {
         return [
             'invoices' => [
-                'label' => trans('invoices'),
+                'label'   => trans('invoices'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'quotes' => [
-                'label' => trans('quotes'),
+                'label'   => trans('quotes'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'clients' => [
-                'label' => trans('clients'),
+                'label'   => trans('clients'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'payments' => [
-                'label' => trans('payments'),
+                'label'   => trans('payments'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'products' => [
-                'label' => trans('products'),
+                'label'   => trans('products'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'projects' => [
-                'label' => trans('projects'),
+                'label'   => trans('projects'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'reports' => [
-                'label' => trans('reports'),
+                'label'   => trans('reports'),
                 'actions' => ['view'],
             ],
             'settings' => [
-                'label' => trans('settings'),
+                'label'   => trans('settings'),
                 'actions' => ['view', 'edit'],
             ],
             'users' => [
-                'label' => trans('users'),
+                'label'   => trans('users'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'receipts' => [
-                'label' => trans('receipts'),
+                'label'   => trans('receipts'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'roles' => [
-                'label' => trans('user_roles'),
+                'label'   => trans('user_roles'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'bank_accounts' => [
-                'label' => 'Rekening Bank',
+                'label'   => 'Rekening Bank',
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'employees' => [
-                'label' => trans('employees'),
+                'label'   => trans('employees'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
             'attendance' => [
-                'label' => trans('attendance'),
+                'label'   => trans('attendance'),
+                'actions' => ['view', 'create', 'edit', 'delete'],
+            ],
+            'leaves' => [
+                'label'   => trans('leave_requests'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
         ];

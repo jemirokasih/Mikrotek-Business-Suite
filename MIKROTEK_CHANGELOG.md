@@ -4,6 +4,21 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.6.0] - 2026-08-21
+
+### 🏖️ Modul Pengajuan Cuti (Leave Request Module)
+- **Database Migration (`055_1.8.4.sql`)**:
+  - Membuat tabel `ip_leave_requests` untuk menyimpan pengajuan cuti, jenis cuti (`annual`, `sick`, `emergency`, `maternity`, `unpaid`), tanggal mulai/selesai, total hari, alasan, status (`pending`, `approved`, `rejected`, `cancelled`), serta catatan admin.
+- **Backend Controller & Model (`Leaves.php` & `Mdl_leaves.php`)**:
+  - Implementasi CRUD pengajuan cuti, perhitungan otomatis total hari kerja, serta workflow persetujuan/penolakan oleh Admin/Manager.
+- **Employee Portal & Admin Approval Views (`leaves/my_leaves.php` & `leaves/index.php`)**:
+  - Portal pengajuan mandiri karyawan (`my_leaves`) dengan modal dialog form pengajuan cuti (`modal_form.php`) dan tombol pembatalan mandiri.
+  - Dashboard manajemen persetujuan Admin (`index.php`) dengan modal review & decision (`modal_approve_reject.php`).
+- **RBAC & Navigation Integration**:
+  - Menambahkan permission `leaves` ke matriks hak akses `Mdl_roles.php` dan link navigasi pada `navbar.php`.
+
+---
+
 ## [v1.5.0] - 2026-08-21
 
 ### 📱 Redesain Dashboard Karyawan & Filtering Widget Berbasis Permission

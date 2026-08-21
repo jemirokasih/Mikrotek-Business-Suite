@@ -1,0 +1,22 @@
+CREATE TABLE IF NOT EXISTS `ip_leave_requests` (
+  `leave_request_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `company_id` INT(11) NOT NULL DEFAULT 1,
+  `employee_id` INT(11) NOT NULL,
+  `leave_type` VARCHAR(50) NOT NULL DEFAULT 'annual',
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
+  `total_days` INT(11) NOT NULL DEFAULT 1,
+  `reason` TEXT DEFAULT NULL,
+  `status` VARCHAR(25) NOT NULL DEFAULT 'pending',
+  `approved_by_user_id` INT(11) DEFAULT NULL,
+  `approved_at` DATETIME DEFAULT NULL,
+  `admin_notes` TEXT DEFAULT NULL,
+  `date_created` DATETIME NOT NULL,
+  `date_modified` DATETIME NOT NULL,
+  PRIMARY KEY (`leave_request_id`),
+  KEY `company_id` (`company_id`),
+  KEY `employee_id` (`employee_id`),
+  KEY `status` (`status`),
+  KEY `start_date` (`start_date`),
+  KEY `end_date` (`end_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

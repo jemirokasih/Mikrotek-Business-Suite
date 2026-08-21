@@ -49,14 +49,19 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
-                        <span class="hidden-md"><?php _trans('attendance'); ?></span>
+                        <span class="hidden-md"><?php _trans('attendance'); ?> & <?php _trans('leave'); ?></span>
                         <i class="visible-md-inline fa fa-clock-o"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><?php echo anchor('attendance/clock', trans('attendance_portal')); ?></li>
+                        <li><?php echo anchor('leaves/my_leaves', trans('my_leave_requests')); ?></li>
                         <?php if (has_permission('attendance')) : ?>
+                            <li class="divider"></li>
                             <li><?php echo anchor('attendance/index', trans('daily_attendance')); ?></li>
                             <li><?php echo anchor('attendance/report', trans('attendance_report')); ?></li>
+                        <?php endif; ?>
+                        <?php if (has_permission('leaves')) : ?>
+                            <li><?php echo anchor('leaves/index', trans('leave_requests_admin')); ?></li>
                         <?php endif; ?>
                     </ul>
                 </li>
