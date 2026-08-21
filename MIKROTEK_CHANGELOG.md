@@ -82,9 +82,10 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
   - Membuat tabel `ip_bank_accounts` (`bank_id`, `company_id`, `payment_method_id`, `bank_name`, `account_number`, `account_name`, `bank_notes`, `bank_active`) (SQL: `050_1.7.9.sql`).
   - Membuat modul `bank_accounts` (`Mdl_bank_accounts.php`, `Bank_accounts.php`, views `index.php` & `form.php`) untuk mengelola daftar banyak rekening bank perusahaan.
   - Mengintegrasikan navigasi menu **Rekening Bank** pada navbar & matriks hak akses RBAC (`Mdl_roles.php`).
-  - Mengupdate cetakan PDF Invoice Mikrotek (`Mikrotek.php`) agar dapat menampilkan **Multiple Rekening Bank Transfer** sekaligus dalam tabel rincian bank yang rapi.
+  - Membersihkan form & tabel `payment_methods` dari field bank tunggal agar terpusat penuh pada modul Master Rekening Bank (`bank_accounts`).
 
 ---
+
 
 
 

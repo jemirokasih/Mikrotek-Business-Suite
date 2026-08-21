@@ -23,9 +23,6 @@
             <thead>
             <tr>
                 <th><?php _trans('payment_method'); ?></th>
-                <th>Nama Bank</th>
-                <th>No. Rekening</th>
-                <th>Atas Nama</th>
                 <th><?php _trans('options'); ?></th>
             </tr>
             </thead>
@@ -33,10 +30,7 @@
             <tbody>
             <?php foreach ($payment_methods as $payment_method) { ?>
                 <tr>
-                    <td><strong><?php _htmlsc($payment_method->payment_method_name); ?></strong></td>
-                    <td><?php echo html_escape($payment_method->payment_method_bank_name ?: '-'); ?></td>
-                    <td><code><?php echo html_escape($payment_method->payment_method_account_number ?: '-'); ?></code></td>
-                    <td><?php echo html_escape($payment_method->payment_method_account_name ?: '-'); ?></td>
+                    <td><?php _htmlsc($payment_method->payment_method_name); ?></td>
                     <td>
                         <div class="options btn-group">
                             <a class="btn btn-default btn-sm dropdown-toggle"
