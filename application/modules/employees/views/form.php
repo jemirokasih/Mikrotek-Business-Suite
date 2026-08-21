@@ -12,42 +12,22 @@
 
         <?php $this->layout->load_view('layout/alerts'); ?>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active">
-                        <a href="#tab-personal" aria-controls="tab-personal" role="tab" data-toggle="tab">
-                            <i class="fa fa-user"></i> <?php _trans('personal_information'); ?>
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#tab-contact" aria-controls="tab-contact" role="tab" data-toggle="tab">
-                            <i class="fa fa-envelope"></i> <?php _trans('contact_details'); ?>
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#tab-employment" aria-controls="tab-employment" role="tab" data-toggle="tab">
-                            <i class="fa fa-briefcase"></i> <?php _trans('employment_information'); ?>
-                        </a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#tab-bank" aria-controls="tab-bank" role="tab" data-toggle="tab">
-                            <i class="fa fa-bank"></i> <?php _trans('bank_payroll_details'); ?>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="panel-body">
-                <div class="tab-content">
+        <div class="row">
+            <!-- Left Column: Personal & Contact Information -->
+            <div class="col-xs-12 col-md-6">
 
-                    <!-- TAB 1: Personal Information -->
-                    <div role="tabpanel" class="tab-pane active" id="tab-personal">
+                <!-- PANEL 1: Personal Information -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-user"></i> <?php _trans('personal_information'); ?>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="employee_number"><?php _trans('employee_number'); ?> *</label>
                                     <input type="text" name="employee_number" id="employee_number" class="form-control"
-                                           value="<?php echo $this->mdl_employees->form_value('employee_number', true); ?>">
+                                           value="<?php echo $this->mdl_employees->form_value('employee_number', true); ?>" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
@@ -64,7 +44,7 @@
                                 <div class="form-group">
                                     <label for="first_name"><?php _trans('first_name'); ?> *</label>
                                     <input type="text" name="first_name" id="first_name" class="form-control"
-                                           value="<?php echo $this->mdl_employees->form_value('first_name', true); ?>">
+                                           value="<?php echo $this->mdl_employees->form_value('first_name', true); ?>" required>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
@@ -103,25 +83,30 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- TAB 2: Contact Details -->
-                    <div role="tabpanel" class="tab-pane" id="tab-contact">
+                <!-- PANEL 2: Contact Details -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-envelope"></i> <?php _trans('contact_details'); ?>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
-                            <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
                                     <label for="email"><?php _trans('email'); ?> *</label>
                                     <input type="email" name="email" id="email" class="form-control"
-                                           value="<?php echo $this->mdl_employees->form_value('email', true); ?>">
+                                           value="<?php echo $this->mdl_employees->form_value('email', true); ?>" required>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12 col-sm-3">
                                 <div class="form-group">
                                     <label for="mobile"><?php _trans('mobile'); ?></label>
                                     <input type="text" name="mobile" id="mobile" class="form-control"
                                            value="<?php echo $this->mdl_employees->form_value('mobile', true); ?>">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-4">
+                            <div class="col-xs-12 col-sm-3">
                                 <div class="form-group">
                                     <label for="phone"><?php _trans('phone'); ?></label>
                                     <input type="text" name="phone" id="phone" class="form-control"
@@ -178,9 +163,26 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- TAB 3: Employment Information -->
-                    <div role="tabpanel" class="tab-pane" id="tab-employment">
+            </div>
+
+            <!-- Right Column: Employment & Bank/Payroll Information -->
+            <div class="col-xs-12 col-md-6">
+
+                <!-- PANEL 3: Employment Information -->
+                <div class="panel panel-default">
+                    <div class="panel-heading clearfix">
+                        <i class="fa fa-briefcase"></i> <?php _trans('employment_information'); ?>
+                        <div class="pull-right">
+                            <label for="active" class="control-label" style="font-weight: normal; margin-bottom: 0;">
+                                <input type="checkbox" name="active" id="active" value="1"
+                                    <?php echo $this->mdl_employees->form_value('active') ? 'checked' : ''; ?>>
+                                <strong><?php _trans('active'); ?></strong>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
@@ -234,22 +236,15 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="active" value="1"
-                                            <?php echo $this->mdl_employees->form_value('active') ? 'checked' : ''; ?>>
-                                        <strong><?php _trans('active'); ?></strong>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                </div>
 
-                    <!-- TAB 4: Bank & Payroll Details -->
-                    <div role="tabpanel" class="tab-pane" id="tab-bank">
+                <!-- PANEL 4: Bank & Payroll Details -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bank"></i> <?php _trans('bank_payroll_details'); ?>
+                    </div>
+                    <div class="panel-body">
                         <div class="row">
                             <div class="col-xs-12 col-sm-4">
                                 <div class="form-group">
@@ -289,13 +284,13 @@
                             <div class="col-xs-12">
                                 <div class="form-group">
                                     <label for="notes"><?php _trans('notes'); ?></label>
-                                    <textarea name="notes" id="notes" class="form-control" rows="4"><?php echo $this->mdl_employees->form_value('notes', true); ?></textarea>
+                                    <textarea name="notes" id="notes" class="form-control" rows="3"><?php echo $this->mdl_employees->form_value('notes', true); ?></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
 
