@@ -4,6 +4,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.21] - 2026-08-22
+
+### ✉️ Fitur Baru: Integrasi Roundcube Webmail (Embedded Iframe & Secure Credentials)
+- **Module Baru (`application/modules/webmail/`)**: Menambahkan modul `webmail` lengkap dengan Controller `Webmail.php` dan Views `index.php` & `settings.php`.
+- **Form Kredensial & Enkripsi AES-256 (`Cryptor`)**: Menyediakan form konfigurasi URL Roundcube Webmail, Email Default, dan Password yang tersimpan aman menggunakan enkripsi AES-256.
+- **Embedded Iframe Container**: Menampilkan portal Roundcube Webmail langsung secara penuh di dalam layout Mikrotek Suite, dilengkapi tombol Refresh, Buka di Tab Baru, dan Pengaturan.
+- **Menu Sidebar Navigasi (`sidebar_menu.php`)**: Menambahkan grup navigasi **Communication** & menu **Webmail / Email** (`fa-envelope`).
+
+---
+
 ## [v1.7.32] - 2026-08-21
 
 ### ✨ Penambahan Input Pencarian / Filter Real-time di Topbar Header (`layout_sidebar.php`)
