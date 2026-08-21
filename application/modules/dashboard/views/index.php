@@ -1,6 +1,48 @@
 <div id="content">
     <?php echo $this->layout->load_view('layout/alerts'); ?>
 
+    <?php if (isset($employee) && $employee) : ?>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default" style="border-left: 4px solid #337ab7;">
+                    <div class="panel-body clearfix" style="padding: 15px 20px;">
+                        <div class="pull-left">
+                            <h4 style="margin: 0 0 5px 0; font-weight: bold;">
+                                <i class="fa fa-clock-o text-primary"></i> <?php _trans('attendance_portal'); ?>
+                            </h4>
+                            <p class="text-muted" style="margin: 0;">
+                                <?php _trans('employee'); ?>: <strong><?php echo html_escape($employee->first_name . ' ' . $employee->last_name); ?></strong>
+                                (<code><?php echo html_escape($employee->employee_number); ?></code>)
+                                &nbsp;|&nbsp; Today: <strong><?php echo date('d F Y'); ?></strong>
+                            </p>
+                        </div>
+                        <div class="pull-right" style="margin-top: 5px;">
+                            <?php if ( ! $today_attendance || ! $today_attendance->clock_in) : ?>
+                                <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-success">
+                                    <i class="fa fa-sign-in"></i> <?php _trans('clock_in'); ?> Now
+                                </a>
+                            <?php elseif ( ! $today_attendance->clock_out) : ?>
+                                <span class="label label-info" style="font-size: 13px; padding: 6px 10px; margin-right: 10px; display: inline-block;">
+                                    In: <?php echo date('H:i:s', strtotime($today_attendance->clock_in)); ?> (<?php _trans($today_attendance->status); ?>)
+                                </span>
+                                <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-danger">
+                                    <i class="fa fa-sign-out"></i> <?php _trans('clock_out'); ?> Now
+                                </a>
+                            <?php else : ?>
+                                <span class="label label-success" style="font-size: 13px; padding: 6px 10px; margin-right: 10px; display: inline-block;">
+                                    <i class="fa fa-check"></i> In: <?php echo date('H:i:s', strtotime($today_attendance->clock_in)); ?> | Out: <?php echo date('H:i:s', strtotime($today_attendance->clock_out)); ?>
+                                </span>
+                                <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-default">
+                                    <i class="fa fa-history"></i> <?php _trans('attendance_portal'); ?>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class="row<?php echo (get_setting('disable_quickactions') == 1) ? ' hidden' : ''; ?>">
         <div class="col-xs-12">
 

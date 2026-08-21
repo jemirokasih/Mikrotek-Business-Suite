@@ -4,6 +4,19 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.4.1] - 2026-08-21
+
+### ⏱️ Akses Portal Absensi & Quick Widget Dashboard Karyawan
+- **Akses Navigasi Karyawan (`navbar.php`)**:
+  - Mengizinkan seluruh akun pengguna karyawan (`$this->session->userdata('user_id')`) untuk mengakses menu **Attendance Portal** (`attendance/clock`) di navbar tanpa terhalang oleh pengecekan izin admin.
+- **Widget Quick Attendance di Dashboard Utama (`dashboard/index`)**:
+  - Menambahkan widget kehadiran interaktif di bagian atas Dashboard utama untuk setiap pengguna login yang memiliki profil karyawan terhubung.
+  - Menampilkan nama karyawan, jam digital real-time, status absensi hari ini, serta tombol **Clock In / Clock Out** langsung dari Dashboard.
+- **Handler Controller (`Dashboard.php`)**:
+  - Memuat profil karyawan dan data absensi hari ini untuk dilewatkan ke halaman dashboard utama.
+
+---
+
 ## [v1.4.0] - 2026-08-21
 
 ### ⏱️ Modul Absensi (Attendance Module) & Employee Portal Clock-In/Out

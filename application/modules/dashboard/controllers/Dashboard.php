@@ -23,13 +23,17 @@ class Dashboard extends Admin_Controller
         $this->load->model('invoices/mdl_invoices');
         $this->load->model('quotes/mdl_quotes');
         $this->load->model('projects/mdl_projects');
-        $this->load->model('tasks/mdl_tasks');
+        $this->load->model('attendance/mdl_attendance');
+        $this->load->model('employees/mdl_employees');
 
-        $quote_overview_period   = get_setting('quote_overview_period');
-        $invoice_overview_period = get_setting('invoice_overview_period');
+        $user_id          = $this->session->userdata('user_id');
+        $employee         = $this->db->where('user_id', $user_id)->get('ip_employees')->row();
+        $today_attendance = $employee ? $this->mdl_attendance->get_today_attendance($employee->employee_id) : null;
 
         $this->layout->set(
             [
+                'employee'              => $employee,
+                'today_attendance'      => $today_attendance,
                 'invoice_status_totals' => $this->mdl_invoice_amounts->get_status_totals($invoice_overview_period),
                 'quote_status_totals'   => $this->mdl_quote_amounts->get_status_totals($quote_overview_period),
                 'invoice_status_period' => str_replace('-', '_', $invoice_overview_period),

@@ -45,7 +45,7 @@
                 </li>
                 <?php endif; ?>
 
-                <?php if (has_permission('attendance')) : ?>
+                <?php if (has_permission('attendance') || $this->session->userdata('user_id')) : ?>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
@@ -54,8 +54,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li><?php echo anchor('attendance/clock', trans('attendance_portal')); ?></li>
-                        <li><?php echo anchor('attendance/index', trans('daily_attendance')); ?></li>
-                        <li><?php echo anchor('attendance/report', trans('attendance_report')); ?></li>
+                        <?php if (has_permission('attendance')) : ?>
+                            <li><?php echo anchor('attendance/index', trans('daily_attendance')); ?></li>
+                            <li><?php echo anchor('attendance/report', trans('attendance_report')); ?></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
                 <?php endif; ?>
