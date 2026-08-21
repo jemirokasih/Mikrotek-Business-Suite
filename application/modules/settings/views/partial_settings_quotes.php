@@ -1,7 +1,4 @@
-<div class="row">
-    <div class="col-xs-12">
-
-        <div class="panel panel-default">
+<div class="panel panel-default">
             <div class="panel-heading">
                 <?php _trans('quote'); ?>
             </div>
@@ -198,6 +195,3 @@
 
             </div>
         </div>
-
-    </div>
-</div>

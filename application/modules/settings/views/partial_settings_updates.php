@@ -9,9 +9,7 @@
     });
 </script>
 
-<div class="col-xs-12">
-
-    <div class="panel panel-default">
+<div class="panel panel-default">
         <div class="panel-heading">
             <i class="fa fa-refresh fa-margin"></i> <?php echo MIKROTEK_APP_NAME; ?> - Update & Status Center
         </div>
@@ -115,5 +113,3 @@
 
         </div>
     </div>
-
-</div>

@@ -4,6 +4,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.28] - 2026-08-21
+
+### 🎨 Standarisasi Layout & Padding Halaman Pengaturan (`settings/views/`)
+- **Pembersihan Container Wrapper & Presisi Padding**:
+  - Mengonversi pembungkus tab-content halaman Pengaturan ke dalam `<div id="content">` standar dan menghapus kelas legacy `.tabbable.tabs-below`.
+  - Menghapus pembungkus ganda `.row > .col-xs-12` pada seluruh partial settings views (*General*, *Invoices*, *Quotes*, *Taxes*, *Email*, *Online Payment*, *Projects*, *Updates*) agar seluruh panel/card terhubung langsung dengan container utama.
+  - Memastikan batas tepi (left/right border), padding, dan elevation card sejajar secara presisi dengan `#headerbar`.
+
+---
+
 ## [v1.7.27] - 2026-08-21
 
 ### 🐛 Pembersihan Background Container Form Settings (`modern_sidebar.css`)

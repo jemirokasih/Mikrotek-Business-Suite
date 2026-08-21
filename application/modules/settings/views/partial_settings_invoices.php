@@ -1,6 +1,4 @@
-<div class="row">
-    <div class="col-xs-12">
-        <div class="panel panel-default">
+<div class="panel panel-default">
             <div class="panel-heading">
                 <?php _trans('invoices'); ?>
             </div>
@@ -724,6 +722,3 @@ foreach ($email_templates_invoice as $email_template) {
 <?php
                 } // End If Sumex
                 ?>
-
-    </div>
-</div>
