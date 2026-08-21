@@ -4,6 +4,18 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.30] - 2026-08-21
+
+### 🎨 Peningkatan Kontras UI & Keterbacaan Teks (`modern_sidebar.css`)
+- **Visual Contrast Polish Across UI**:
+  - Mengubah warna utama teks aplikasi (`body`) menjadi `#0f172a` (Slate 900) untuk tingkat keterbacaan (*readability*) yang sangat tinggi dan tajam.
+  - Meningkatkan warna label formulir (`label`) menjadi `#0f172a` dengan ketebalan `font-weight: 700`.
+  - Mempertegas batas input formulir (`border: 1px solid #94a3b8`) serta meningkatkan kontras teks hint/bantuan (`.help-block`, `.text-muted`) menjadi `#334155`.
+  - Memperjelas header tabel (`#e2e8f0`, teks `#0f172a`, border `#94a3b8`) dan data sel tabel (`color: #0f172a`, border `#cbd5e1`).
+  - Meningkatkan kontras teks menu sidebar (`#cbd5e1`), judul grup sidebar (`#94a3b8`), serta tombol-tombol tab navigasi (`#1e293b`).
+
+---
+
 ## [v1.7.29] - 2026-08-21
 
 ### 🐛 Perbaikan Indentasi & Alignment Card Settings (`modern_sidebar.css` & `settings/views/index.php`)
