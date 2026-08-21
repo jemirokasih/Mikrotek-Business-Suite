@@ -87,33 +87,22 @@
             <?php endif; ?>
 
             <!-- Clients & Directory Group -->
-            <?php if (has_permission('clients') || has_permission('bank_accounts')) : ?>
+            <?php if (has_permission('clients')) : ?>
                 <li class="sidebar-group-title">Clients &amp; Directory</li>
 
-                <?php if (has_permission('clients')) : ?>
-                    <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'clients') ? 'open active' : ''; ?>">
-                        <a href="<?php echo site_url('clients/index'); ?>" class="sidebar-nav-link">
-                            <i class="fa fa-users nav-icon"></i>
-                            <span class="nav-text"><?php _trans('clients'); ?></span>
-                            <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
-                        </a>
-                        <ul class="sidebar-submenu">
-                            <li><a href="<?php echo site_url('clients/index'); ?>" class="sidebar-nav-link"><?php _trans('view_clients'); ?></a></li>
-                            <?php if (has_permission('clients', 'create')) : ?>
-                                <li><a href="<?php echo site_url('clients/form'); ?>" class="sidebar-nav-link"><?php _trans('add_client'); ?></a></li>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (has_permission('bank_accounts')) : ?>
-                    <li class="sidebar-nav-item <?php echo ($this->router->fetch_class() == 'bank_accounts') ? 'active' : ''; ?>">
-                        <a href="<?php echo site_url('bank_accounts/index'); ?>" class="sidebar-nav-link">
-                            <i class="fa fa-university nav-icon"></i>
-                            <span class="nav-text">Rekening Bank</span>
-                        </a>
-                    </li>
-                <?php endif; ?>
+                <li class="sidebar-nav-item has-submenu <?php echo ($this->router->fetch_class() == 'clients') ? 'open active' : ''; ?>">
+                    <a href="<?php echo site_url('clients/index'); ?>" class="sidebar-nav-link">
+                        <i class="fa fa-users nav-icon"></i>
+                        <span class="nav-text"><?php _trans('clients'); ?></span>
+                        <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li><a href="<?php echo site_url('clients/index'); ?>" class="sidebar-nav-link"><?php _trans('view_clients'); ?></a></li>
+                        <?php if (has_permission('clients', 'create')) : ?>
+                            <li><a href="<?php echo site_url('clients/form'); ?>" class="sidebar-nav-link"><?php _trans('add_client'); ?></a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
             <?php endif; ?>
 
             <!-- Products & Projects Group -->
@@ -219,25 +208,32 @@
             <?php endif; ?>
 
             <!-- Administration Group -->
-            <?php if (has_permission('settings') || has_permission('users') || has_permission('roles')) : ?>
+            <?php if (has_permission('settings') || has_permission('users') || has_permission('roles') || has_permission('bank_accounts')) : ?>
                 <li class="sidebar-group-title">Administration</li>
 
-                <?php if (has_permission('settings')) : ?>
-                    <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['settings', 'companies', 'custom_fields', 'email_templates', 'invoice_groups', 'payment_methods', 'tax_rates', 'import']) ? 'open active' : ''; ?>">
+                <?php if (has_permission('settings') || has_permission('bank_accounts')) : ?>
+                    <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['settings', 'companies', 'bank_accounts', 'custom_fields', 'email_templates', 'invoice_groups', 'payment_methods', 'tax_rates', 'import']) ? 'open active' : ''; ?>">
                         <a href="<?php echo site_url('settings'); ?>" class="sidebar-nav-link">
                             <i class="fa fa-cogs nav-icon"></i>
                             <span class="nav-text"><?php _trans('settings'); ?></span>
                             <i class="fa fa-chevron-right arrow-icon" onclick="event.preventDefault(); event.stopPropagation(); toggleSidebarSubmenu(this); return false;"></i>
                         </a>
                         <ul class="sidebar-submenu">
-                            <li><a href="<?php echo site_url('settings'); ?>" class="sidebar-nav-link"><?php _trans('system_settings'); ?></a></li>
-                            <li><a href="<?php echo site_url('companies/index'); ?>" class="sidebar-nav-link"><?php _trans('companies'); ?></a></li>
-                            <li><a href="<?php echo site_url('custom_fields/index'); ?>" class="sidebar-nav-link"><?php _trans('custom_fields'); ?></a></li>
-                            <li><a href="<?php echo site_url('email_templates/index'); ?>" class="sidebar-nav-link"><?php _trans('email_templates'); ?></a></li>
-                            <li><a href="<?php echo site_url('invoice_groups/index'); ?>" class="sidebar-nav-link"><?php _trans('invoice_groups'); ?></a></li>
-                            <li><a href="<?php echo site_url('payment_methods/index'); ?>" class="sidebar-nav-link"><?php _trans('payment_methods'); ?></a></li>
-                            <li><a href="<?php echo site_url('tax_rates/index'); ?>" class="sidebar-nav-link"><?php _trans('tax_rates'); ?></a></li>
-                            <li><a href="<?php echo site_url('import'); ?>" class="sidebar-nav-link"><?php _trans('import_data'); ?></a></li>
+                            <?php if (has_permission('settings')) : ?>
+                                <li><a href="<?php echo site_url('settings'); ?>" class="sidebar-nav-link"><?php _trans('system_settings'); ?></a></li>
+                                <li><a href="<?php echo site_url('companies/index'); ?>" class="sidebar-nav-link"><?php _trans('companies'); ?></a></li>
+                                <li><a href="<?php echo site_url('custom_fields/index'); ?>" class="sidebar-nav-link"><?php _trans('custom_fields'); ?></a></li>
+                                <li><a href="<?php echo site_url('email_templates/index'); ?>" class="sidebar-nav-link"><?php _trans('email_templates'); ?></a></li>
+                                <li><a href="<?php echo site_url('invoice_groups/index'); ?>" class="sidebar-nav-link"><?php _trans('invoice_groups'); ?></a></li>
+                                <li><a href="<?php echo site_url('payment_methods/index'); ?>" class="sidebar-nav-link"><?php _trans('payment_methods'); ?></a></li>
+                            <?php endif; ?>
+                            <?php if (has_permission('bank_accounts')) : ?>
+                                <li><a href="<?php echo site_url('bank_accounts/index'); ?>" class="sidebar-nav-link">Rekening Bank</a></li>
+                            <?php endif; ?>
+                            <?php if (has_permission('settings')) : ?>
+                                <li><a href="<?php echo site_url('tax_rates/index'); ?>" class="sidebar-nav-link"><?php _trans('tax_rates'); ?></a></li>
+                                <li><a href="<?php echo site_url('import'); ?>" class="sidebar-nav-link"><?php _trans('import_data'); ?></a></li>
+                            <?php endif; ?>
                         </ul>
                     </li>
                 <?php endif; ?>

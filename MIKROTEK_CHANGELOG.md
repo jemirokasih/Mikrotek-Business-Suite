@@ -4,6 +4,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.23] - 2026-08-21
+
+### 🚚 Pemindahan Menu Rekening Bank ke Settings Submenu (`sidebar_menu.php`)
+- **Relokasi Menu Rekening Bank**: Memindahkan item menu **Rekening Bank** dari kelompok *Clients & Directory* ke dalam submenu **Settings (Pengaturan)** di kelompok *Administration*, sejajar dengan *Cara Pembayaran (Payment Methods)*.
+
+---
+
 ## [v1.7.22] - 2026-08-21
 
 ### 🎨 Penyesuaian Urutan Menu Sidebar (`sidebar_menu.php`)
