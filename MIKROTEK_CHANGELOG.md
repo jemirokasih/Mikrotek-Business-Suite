@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.12] - 2026-08-21
+
+### 🎨 Restorasi Padding Presisi & Card Headerbar Elegant (Corner-to-Corner)
+- **Precise 16px 24px Card Padding (`modern_sidebar.css`)**: Mengembalikan kotak card putih `#headerbar` dengan padding internal yang presisi (`16px` atas/bawah, `24px` kiri/kanan), sudut `12px`, dan shadow lembut agar selaras sempurna dengan padding card/panel di bawahnya.
+- **Flush Left/Right Alignment**: Judul ("Invoice #6") menempel rapi di sudut kiri card, dan grup tombol aksi ("Terbitkan Kwitansi", "Options", "Save") menempel rapi di sudut kanan card.
+
+---
+
 ## [v1.7.11] - 2026-08-21
 
 ### 🎨 Clean Frameless Headerbar (Menghapus Latar Card & Shadow pada Judul Halaman)
