@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.35] - 2026-08-22
+
+### 💄 Reposisi Tombol Melayang Opsi Webmail (`index.php`)
+- **Penyesuaian Posisi Melayang Di Bawah Topbar (`top: 130px; right: 0px;`)**: Memindahkan posisi tombol opsi melayang ke pinggir kanan layar di bawah topbar header (`top: 130px`). Perubahan ini menjamin 100% tombol opsi tidak menutupi topbar header, nama profil user, atau menu navigasi atas.
+- **Desain Tab Samping**: Memakai gaya tab melayang (`border-radius: 20px 0 0 20px`) yang menempel di pinggir kanan layar secara rapi.
+
+---
+
 ## [v1.7.34] - 2026-08-22
 
 ### 🖥️ Full-screen Webmail Container & Floating Right Options Button (`index.php`)

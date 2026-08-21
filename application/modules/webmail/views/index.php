@@ -1,10 +1,10 @@
 <?php if ($is_configured) : ?>
-    <!-- Floating Options Button on top-right edge -->
-    <div class="btn-group" style="position: fixed; top: 18px; right: 25px; z-index: 99999;">
-        <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; padding: 6px 14px; background: rgba(255,255,255,0.95); backdrop-filter: blur(8px); border: 1px solid #cbd5e1; box-shadow: 0 4px 10px rgba(0,0,0,0.12); font-weight: 600; color: #334155;">
-            <i class="fa fa-cog" style="color: #3b82f6;"></i> Opsi Webmail <span class="caret"></span>
+    <!-- Floating Options Button Attached to Right Screen Edge (Below Topbar) -->
+    <div class="btn-group" style="position: fixed; top: 130px; right: 0px; z-index: 99999;">
+        <button type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px 0 0 20px; padding: 8px 14px; background: #3b82f6; color: #ffffff; border: none; box-shadow: -2px 4px 12px rgba(0,0,0,0.18); font-weight: 600;">
+            <i class="fa fa-cog"></i> Opsi Webmail <span class="caret"></span>
         </button>
-        <ul class="dropdown-menu dropdown-menu-right" style="border-radius: 10px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.15); border: 1px solid #e2e8f0; font-size: 13px; padding: 6px 0; min-width: 180px;">
+        <ul class="dropdown-menu dropdown-menu-right" style="border-radius: 10px 0 10px 10px; box-shadow: -4px 10px 25px rgba(0,0,0,0.18); border: 1px solid #e2e8f0; font-size: 13px; padding: 6px 0; min-width: 185px; margin-right: 2px;">
             <li>
                 <a href="#" onclick="var f = document.getElementById('webmail-iframe'); if (f) f.src = f.src; return false;">
                     <i class="fa fa-refresh" style="color: #3b82f6; width: 18px;"></i> Refresh Webmail
