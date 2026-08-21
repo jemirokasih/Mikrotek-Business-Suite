@@ -27,6 +27,11 @@ function sanitize_pdf_footer_content(?string $footer): string
         return '';
     }
 
+    // Convert raw line breaks to <br> if no explicit line breaks or block tags exist
+    if (strpos($footer, '<br') === false && strpos($footer, '<p') === false && strpos($footer, '<div') === false) {
+        $footer = nl2br($footer);
+    }
+
     $normalized = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $footer);
     $allowedTags = ['b', 'strong', 'i', 'em', 'u', 'p', 'br', 'small', 'span', 'div', 'img', 'table', 'tr', 'td', 'th', 'tbody', 'thead', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr'];
     $allowedAttributes = ['style', 'class', 'src', 'width', 'height', 'align', 'valign', 'border', 'cellpadding', 'cellspacing', 'colspan', 'rowspan'];

@@ -4,6 +4,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.20] - 2026-08-21
+
+### 🐛 Perbaikan Format Teks Header & Grid Template Mikrotek PDF
+- **Auto Line-Break Conversion (`mpdf_helper.php`)**: Mengubah baris baru (`\n`) pada string `pdf_invoice_header` & `pdf_invoice_footer` menjadi `<br>` secara otomatis jika teks tidak memiliki tag HTML block. Menghentikan penumpukan teks alamat/kontak menjadi 1 baris bersambung.
+- **Table Grid Alignment (`Mikrotek.php` PDF Templates)**: Mengubah box Klien (`To:`) dan Detail Faktur/Penawaran pada template `Mikrotek.php` menjadi grid tabel 2 kolom yang rapi, seimbang, dan tidak lagi mengandalkan float CSS mPDF.
+
+---
+
 ## [v1.7.19] - 2026-08-21
 
 ### 🐛 Perbaikan Header PDF Download (Fix Broken PDF Header Layout)
