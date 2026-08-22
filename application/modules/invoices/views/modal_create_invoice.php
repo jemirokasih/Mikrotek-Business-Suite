@@ -111,8 +111,9 @@ foreach ($invoice_groups as $invoice_group) {
             <div class="form-group">
                 <label for="signature_type">Tipe Tanda Tangan</label>
                 <select name="signature_type" id="signature_type" class="form-control">
-                    <option value="manual">Manual Signature (Ruang Kosong)</option>
-                    <option value="digital">Digital Signature</option>
+                    <option value="digital" <?php check_select(get_setting('signature_type'), 'digital'); ?>>Digital Signature (QR Code)</option>
+                    <option value="image" <?php check_select(get_setting('signature_type'), 'image'); ?>>Digital Signature Image</option>
+                    <option value="manual" <?php check_select(get_setting('signature_type', 'text'), 'text'); ?><?php check_select(get_setting('signature_type'), 'manual'); ?>>Manual Signature</option>
                 </select>
             </div>
 

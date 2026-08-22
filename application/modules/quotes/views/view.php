@@ -446,8 +446,9 @@ foreach ($quote_statuses as $key => $status) {
                                 <div class="quote-properties">
                                     <label>Tipe Tanda Tangan</label>
                                     <select name="signature_type" id="signature_type" class="form-control simple-select">
-                                        <option value="manual" <?php check_select($quote->signature_type, 'manual'); ?>>Manual Signature (Ruang Kosong)</option>
-                                        <option value="digital" <?php check_select($quote->signature_type, 'digital'); ?>>Digital Signature</option>
+                                        <option value="digital" <?php check_select($quote->signature_type, 'digital'); ?>>Digital Signature (QR Code)</option>
+                                        <option value="image" <?php check_select($quote->signature_type, 'image'); ?>>Digital Signature Image</option>
+                                        <option value="manual" <?php check_select($quote->signature_type, 'manual'); ?><?php check_select($quote->signature_type, 'text'); ?>>Manual Signature</option>
                                     </select>
                                 </div>
                                 <div class="quote-properties">

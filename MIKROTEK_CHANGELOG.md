@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.41] - 2026-08-22
+
+### ✍️ Penambahan Opsi Digital Signature Image di Form Invoice & Quote (`invoices` & `quotes`)
+- **Penambahan Pilihan "Digital Signature Image" di Form View & Modal**: Memperbarui form view per-invoice (`invoices/view.php`), modal buat invoice (`modal_create_invoice.php`), view quote (`quotes/view.php`), serta modal buat quote (`modal_create_quote.php`) agar menyertakan opsi **`Digital Signature Image`** (`value="image"`).
+- **Auto-Select Default Setting**: Opsi secara otomatis memilih tipe tanda tangan default yang disetting di menu Pengaturan.
+
+---
+
 ## [v1.7.40] - 2026-08-22
 
 ### ✍️ Pembaruan Opsi & Label Tipe Tanda Tangan (`settings`)
