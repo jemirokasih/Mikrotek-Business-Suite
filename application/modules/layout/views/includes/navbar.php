@@ -49,7 +49,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
-                        <span class="hidden-md"><?php _trans('attendance'); ?> & <?php _trans('leave'); ?></span>
+                        <span class="hidden-md"><?php _trans('attendance'); ?> &amp; <?php _trans('leave'); ?></span>
                         <i class="visible-md-inline fa fa-clock-o"></i>
                     </a>
                     <ul class="dropdown-menu">

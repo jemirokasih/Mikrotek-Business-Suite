@@ -122,10 +122,27 @@ function date_from_timestamp($timestamp): string
  */
 function date_to_mysql($date)
 {
+    if (empty($date)) {
+        return '';
+    }
+
+    if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date)) {
+        return $date;
+    }
+
     $CI = &get_instance();
     $d  = DateTime::createFromFormat($CI->mdl_settings->setting('date_format'), $date);
 
-    return $d ? $d->format('Y-m-d') : '';
+    if ($d) {
+        return $d->format('Y-m-d');
+    }
+
+    $d2 = DateTime::createFromFormat('Y-m-d', $date)
+        ?: DateTime::createFromFormat('d/m/Y', $date)
+        ?: DateTime::createFromFormat('d-m-Y', $date)
+        ?: DateTime::createFromFormat('m/d/Y', $date);
+
+    return $d2 ? $d2->format('Y-m-d') : '';
 }
 
 /**

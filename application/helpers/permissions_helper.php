@@ -15,6 +15,13 @@ function has_permission(string $module, string $action = 'view'): bool
 {
     $CI =& get_instance();
 
+    $user_id = $CI->session->userdata('user_id');
+    if (!$user_id) {
+        return false;
+    }
+
+
+
     $user_type = $CI->session->userdata('user_type');
 
     // Super Admin (user_type 1) has unrestricted access

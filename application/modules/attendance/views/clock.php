@@ -1,8 +1,8 @@
 <div id="headerbar">
     <h1 class="headerbar-title"><?php _trans('attendance_portal'); ?></h1>
-    <div class="headerbar-item pull-right">
-        <a class="btn btn-sm btn-default" href="<?php echo site_url('attendance/index'); ?>">
-            <i class="fa fa-arrow-left"></i> <?php _trans('back'); ?>
+    <div class="headerbar-item pull-right" style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <a class="btn btn-sm btn-default" href="<?php echo site_url('leaves/my_leaves'); ?>" style="border-radius: 6px;">
+            <i class="fa fa-calendar"></i> <?php _trans('my_leave_requests'); ?>
         </a>
     </div>
 </div>

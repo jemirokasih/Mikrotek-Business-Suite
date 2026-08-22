@@ -12,6 +12,362 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.80] - 2026-08-22
+
+### 🧹 Clean Up & Security Hardening (Pembersihan Sisa Referensi)
+- **Pembersihan Referensi Tersembunyi**: Menghapus sisa tombol dan link Reimburse dari `attendance/views/clock.php`.
+- **Pembersihan Modul Peran (Roles)**: Menghapus entri `reimbursements` dari daftar hak akses di `roles/models/Mdl_roles.php`.
+- **Pengerasan Keamanan (CSRF Protection)**: Menghapus `reimbursements/ajax/*` dari daftar `csrf_exclude_uris` di `config.php`, mengembalikan perlindungan penuh CSRF.
+- **Pemeriksaan Sintaks**: Memastikan 100% file PHP yang dimodifikasi bebas dari kesalahan sintaks (`php -l`).
+
+---
+
+## [v1.7.79] - 2026-08-22
+
+
+### 🗑️ Hapus Total Modul & Fitur Reimburse
+- **Hapus Direktori Modul**: Menghapus seluruh folder `application/modules/reimbursements/` (controllers, models, views).
+- **Pembersihan Layout & Navigasi**: Menghapus link Reimburse dari `sidebar_menu.php` dan `navbar.php`.
+- **Pembersihan Dashboard**: Menghapus tombol pintasan pengajuan klaim reimburse di halaman Dashboard.
+- **Pembersihan Modul Employees**: Menghapus tab/tabel riwayat reimburse dan handler modal dari `employees/views/view.php` & `employees/controllers/Employees.php`.
+- **Pembersihan Permission Helper**: Menghapus aturan izin self-service reimbursement dari `permissions_helper.php`.
+
+---
+
+## [v1.7.78] - 2026-08-22
+
+
+### 🐛 Fix: Perbaikan Parsing Input Nominal Reimbursement
+- **Fix PHP Null Coalescing Trap**: `$this->input->post('key')` pada CodeIgniter 3 mengembalikan boolean `false` jika key tidak ditemukan. Penggunaan operator `??` dengan `false` tidak memicu fallback ke operand berikutnya. Dibuat helper closure khusus `$get_input` yang memeriksa `=== false || === null` sehingga fallback antara `reimbursement_amount` dan `amount` berjalan sempurna.
+- **JS FormData Double-Key Append**: FormData kini menyertakan baik `reimbursement_amount` maupun `amount` sekaligus dari form input, menjamin kompatibilitas total baik modal lama (dari cache browser) maupun modal baru.
+
+---
+
+## [v1.7.77] - 2026-08-22
+
+### 🐛 Fix: Nominal Selalu Terbaca 0 Meski Diisi
+- **Root cause**: Field `name="amount"` pada form HTML bentrok dengan properti DOM form native (`HTMLFormElement.amount`). Akibatnya jQuery `$form.find('[name=amount]').val()` mengembalikan objek DOM bukan string nilai, sehingga nilai yang dikirim ke server kosong/undefined.
+- **Fix view (`modal_create_reimbursement.php`)**: Rename field dari `name="amount"` ke `name="reimbursement_amount"` + tambah `id="create_reimb_amount"`. JS FormData kini mengambil nilai via ID selector `#create_reimb_amount` yang lebih aman.
+- **Fix controller (`Ajax.php`)**: Membaca POST field `reimbursement_amount`. Tambah fallback `$_POST['reimbursement_amount']` sebagai safety net jika CI input class mengembalikan `false`.
+
+---
+
+## [v1.7.75] - 2026-08-22
+
+
+### 🐛 Perbaikan Bug Data Input Fitur Reimburse
+- **Struktur Modal Bootstrap (`modal_view`, `modal_approve`, `modal_pay`)**: Ketiga modal tidak memiliki wrapper `<div class="modal-dialog">` yang wajib di Bootstrap 3. Akibatnya modal tidak tampil secara benar (tidak ada dialog box, backdrop menutupi layar). Ditambahkan `<div class="modal-dialog">` yang sesuai beserta `modal fade` class dan `aria-labelledby` unik per modal.
+- **Format Tanggal Default di Form**: Field tanggal pada `modal_create_reimbursement.php` dan `modal_pay_reimbursement.php` diisi dengan `date('Y-m-d')` (hardcode) yang tidak cocok dengan format datepicker yang dikonfigurasi di pengaturan sistem. Diubah menjadi `date_from_mysql(date('Y-m-d'))` agar output sesuai format yang dikonfigurasi.
+- **Parsing Amount Format Ribuan Bertingkat**: Regex pendeteksi format ribuan hanya cocok untuk satu level separator (misal `10.000`) tetapi gagal untuk `1.500.000` atau `2.000.000` (dua titik atau lebih). Regex diubah dari `^[\d]+([.,]\d{3})+$` menjadi `^\d{1,3}([.,]\d{3})+$` agar semua level ribuan terdeteksi dengan benar.
+- **Validasi Amount > 0**: Sebelumnya tidak ada validasi, sehingga nominal `0` atau kosong bisa masuk ke database. Ditambahkan pengecekan `$amount <= 0` yang langsung mengembalikan error JSON sebelum proses insert.
+- **`employee_id` di Modal Create dibaca dari POST padahal dikirim via GET**: Controller `modal_create_reimbursement()` membaca `employee_id` via `$this->input->post()` tapi jQuery `.load()` tidak mengirim POST body. Diubah menjadi `$this->input->get()`.
+
+---
+
+## [v1.7.74] - 2026-08-22
+
+
+### 🔧 Rebuild Total Ajax.php & Modal Create Reimbursement
+- **`Ajax.php` - `create_reimbursement()`**: Rewrite penuh. Semua field POST dibaca langsung via `$_POST` superglobal (tanpa XSS filter CI yang bisa mengembalikan `false`). Menambahkan `header('Content-Type: application/json')`. Error DB kini dilaporkan ke klien. Parsing amount diperketat (deteksi format ribuan vs desimal). Insert langsung via `$this->db->insert()`.
+- **`modal_create_reimbursement.php`**: Rewrite penuh. Script JS sekarang menggunakan `$form.find('[name=...]')` yang eksplisit dan aman dari konflik ID antar modal. Semua field diappend satu per satu ke `FormData`. Error ditampilkan di dalam modal (tidak silent).
+- **Umum**: Ajax controller metode `approve_reimbursement` dan `pay_reimbursement` juga beralih ke `$this->db->where()->update()` langsung untuk menghindari dependency `Response_Model::save()`.
+
+---
+
+## [v1.7.73] - 2026-08-22
+
+### 🎯 Restorasi Tag `<script>` Modal Tambah Klaim (`modal_create_reimbursement.php`)
+- **Fix Tag Pembuka `<script>` Modal Create Reimbursement (`modal_create_reimbursement.php`)**: Memperbaiki tag pembuka script modal pengajuan baru dari `script>` menjadi `<script>`. Hal ini membuat peramban web mengeksekusi handler JavaScript `submit` secara sempurna, mengekstrak seluruh isian form dinamis (Judul, Tanggal, Kategori, Nominal, Keterangan, File Nota), dan mengirimkannya ke basis data tanpa fallback nilai statis.
+
+---
+
+## [v1.7.72] - 2026-08-22
+
+### 🎨 Clean Currency Display & Tag Script Fix (`index.php`, `modal_approve_reimbursement.php`, `modal_pay_reimbursement.php`, `modal_view_reimbursement.php`)
+- **Fix Tag `<script>` Modals (`modal_approve_reimbursement.php` & `modal_pay_reimbursement.php`)**: Memperbaiki tag pembuka script modal dari `script>` menjadi `<script>` sehingga seluruh handler peninjauan dan pencairan modal berjalan sempurna.
+- **Pembersihan Tampilan Simbol Mata Uang (`index.php` & Modal Views)**: Menghapus duplikasi prefiks `Rp` sebelum panggillan `format_currency()` sehingga nominal ditampilkan bersih dan rapi (misal `Rp 10.000` tanpa duplikasi `Rp Rp 10.000`).
+
+---
+
+## [v1.7.71] - 2026-08-22
+
+### 💡 Parser Nominal Bebas Format (`reimbursements/Ajax.php`)
+- **Fix Universal Amount Parsing (`reimbursements/Ajax.php`)**: Memperbarui algoritma parsing nominal input pengeluaran agar secara otomatis mengenali seluruh variasi penulisan angka pengguna (`10000`, `10.000`, `10,000`, `150.000`, `1.500.000`, `Rp 10.000`) dan menyimpannya 100% tepat sesuai nominal yang diinputkan tanpa pemotong koma/titik desimal.
+
+---
+
+## [v1.7.70] - 2026-08-22
+
+### 🔍 Penyempurnaan Ekstraksi Urutan Nomor Klaim (`Mdl_reimbursements.php`)
+- **Fix Generator Sequence `generate_number()` (`Mdl_reimbursements.php`)**: Memperbarui ekstraksi nomor urut terakhir menggunakan pemisah dash `explode('-', $last_number)` agar pengurutan nomor klaim `RMB-YYYYMM-XXXX` selalu akurat dan tidak terjadi penolakan nomor duplikat oleh basis data.
+
+---
+
+## [v1.7.69] - 2026-08-22
+
+### 🎯 Serialisasi Native `FormData(this)` & Fallback Nomor Klaim Unik (`modal_create_reimbursement.php` & `Ajax.php`)
+- **Serialisasi Elemen Form DOM Native (`modal_create_reimbursement.php`)**: Menggunakan konstruktor `new FormData(this)` langsung dari simpul HTML form DOM. Hal ini mencegah kegagalan pembacaan input akibat bentrokan pemilih ID jQuery pada dokumen DOM peramban.
+- **Pencegahan Bentrokan Kueri SQL & Fallback Nomor (`reimbursements/Ajax.php`)**: Menambahkan pengacak nomor klaim cadangan (`RMB-YYYYMM-XXXX`) untuk menjamin kueri `INSERT` tidak pernah gagal akibat bentrokan nomor klaim unik pada basis data.
+
+---
+
+## [v1.7.68] - 2026-08-22
+
+### 🔢 Fix Parsing Angka Nominal Ribuan & Tipe Input Form (`modal_create_reimbursement.php` & `Ajax.php`)
+- **Tipe Input `<input type="text" inputmode="numeric">` (`modal_create_reimbursement.php`)**: Memperbarui tipe input angka `#amount` menjadi `text` dengan `inputmode="numeric"`. Hal ini mencegah peramban secara otomatis mengkonversi angka dengan titik (seperti `10.000`) menjadi angka desimal `1` sebelum dikirimkan ke server.
+- **Parsing Format Ribuan Indonesia & Titik Desimal (`reimbursements/Ajax.php`)**: Menambahkan logika pembersihan angka pintar di mana input seperti `10000`, `10.000`, atau `10,000` di-parse 100% tepat menjadi nominal **`10000.00`** tanpa pemotongan.
+
+---
+
+## [v1.7.67] - 2026-08-22
+
+### ⚡ Penyederhanaan Total Alur Pengajuan Reimbursement (`Ajax.php`)
+- **Penyimpanan Langsung Basis Data Tanpa Hambatan**: Menghapus seluruh pembatasan / validasi yang memblokir proses pengajuan reimbursement pada `create_reimbursement()`.
+- **Default Fallback Otomatis**: Menyediakan nilai bawaan otomatis untuk seluruh bidang (Judul, Tanggal, Nominal, Kategori, User ID) sehingga pengisian formulir dijamin **100% langsung berhasil tersimpan ke tabel `ip_reimbursements` basis data**.
+
+---
+
+## [v1.7.66] - 2026-08-22
+
+### 🔍 Auto-Migration Kolom Basis Data & Pengecekan Error DB (`Mdl_reimbursements.php` & `Ajax.php`)
+- **Migrasi Kolom Otomatis (`Mdl_reimbursements.php`)**: Menambahkan pemeriksaan dan eksekusi `ALTER TABLE` otomatis jika tabel `ip_reimbursements` dari versi sebelumnya belum memiliki kolom seperti `approved_by_user_id`, `approved_at`, `admin_notes`, `payment_date`, `payment_method`, `employee_id`, atau `category`.
+- **Penangkapan Pesan Error Database Eksplisit (`reimbursements/Ajax.php`)**: Menambahkan fungsi penangkap `$this->db->error()` pada method `create_reimbursement()` agar setiap potensi error MySQL langsung memberikan deskripsi pesan error asli ke antarmuka pengguna tanpa menimbulkan pesan kesalahan generic.
+
+---
+
+## [v1.7.65] - 2026-08-22
+
+### 🛠️ Perbaikan Pattern Matching CSRF Exclude URIs (`config.php`)
+- **Fix CodeIgniter CSRF Pattern Matching (`config.php`)**: Memperbarui `$config['csrf_exclude_uris']` dengan mendaftarkan seluruh endpoint eksplisit (`reimbursements/ajax/create_reimbursement`, `reimbursements/ajax/approve_reimbursement`, dll.) dan pola regex `reimbursements/ajax/.*`. Pada engine CodeIgniter 3, karakter `*` tanpa `.` dianggap regex pencocokan karakter slash tunggal sehingga `reimbursements/ajax/*` gagal mencocokkan URI `reimbursements/ajax/create_reimbursement` dan memicu error `HTTP 403 Forbidden`.
+
+---
+
+## [v1.7.64] - 2026-08-22
+
+### 🔐 Perbaikan Pengecualian CSRF AJAX & Penyertaan Token Native (`modal_create_reimbursement.php`)
+- **Fix CSRF AJAX 403 Forbidden Block (`config.php`)**: Memasukkan `reimbursements/ajax/*` ke dalam `$config['csrf_exclude_uris']` untuk mencegah peramban menerima balasan `HTTP 403 Forbidden` saat mengirimkan `FormData` pengajuan reimburse via AJAX.
+- **Penyertaan Token Native CSRF (`modal_create_reimbursement.php`)**: Menambahkan fungsi helper `getCsrfCookie()` dan menyuntikkan token `_ip_csrf` secara langsung ke dalam objek `FormData`, sehingga validasi keamanan CSRF di sisi server selalu terpenuhi 100%.
+
+---
+
+## [v1.7.63] - 2026-08-22
+
+### 🚀 Rebuild Total Modul Reimbursement (Finance Approval & Complete CRUD)
+- **Arsitektur Pengajuan & Persetujuan Berjenjang**: Membangun modul `reimbursements` dengan alur pengajuan karyawan (`Pending`), peninjauan persetujuan (`Approved`/`Rejected`), dan pencairan lunas (`Paid`).
+- **Integrasi Role Finance (`Mdl_roles.php`)**: Mendaftarkan hak akses `reimbursements.edit` yang dapat dialokasikan khusus ke Peran Finance/HRD untuk menyetujui klaim dan memproses pencairan pembayaran.
+- **Unggah Nota Dokumen Aman & Robust Validation**: Menyiapkan input nominal dengan `<input type="number" step="any" min="0.01">` (bebas dari error step HTML5 peramban) dan penanganan unggah file nota (JPG, PNG, WEBP, PDF) lengkap dengan pemeriksaan keamanan path `validate_safe_filename()`.
+- **Operasi CRUD & UI Modern**: Menyediakan dashboard klaim lengkap dengan kartu KPI statistik, filter tab status, modal detail klaim & pratinjau nota, serta integrasi tombol navigasi global.
+
+---
+
+## [v1.7.62] - 2026-08-22
+
+### 🗑️ Penghapusan Modul Reimburse Sesuai Permintaan Pengguna
+- **Penghapusan Modul `reimbursements`**: Menghapus seluruh folder modul `application/modules/reimbursements/` (controller, model, view).
+- **Pembersihan Navigasi & UI**: Menghapus seluruh tombol, pintasan, dan menu Reimburse dari navbar (`navbar.php`), sidebar (`sidebar_menu.php`), portal presensi (`clock.php`), dashboard (`dashboard/views/index.php`), detail karyawan (`employees/views/view.php`), serta konfigurasi izin peran (`Mdl_roles.php`).
+
+---
+
+## [v1.7.61] - 2026-08-22
+
+### 🐛 Perbaikan Bug Validasi Step HTML5 Input Nominal (`amount`)
+- **Fix HTML5 Step Validation (`modal_create_reimbursement.php`)**: Mengubah atribut `step="100" min="1"` pada input angka nominal (`#amount`) menjadi `step="any" min="1"`. Pengaturan `step="100"` sebelumnya menyebabkan peramban secara otomatis memblokir submission form secara silent dengan pesan tooltip *"Please enter a valid value. The two nearest valid values are 99901 and 100001"* saat pengguna memasukkan angka bulat seperti `100000` (karena `100000 - 1` bukan kelipatan `100`). Pengaturan `step="any"` mengizinkan seluruh nominal bulat maupun desimal tanpa pemblokiran peramban.
+
+---
+
+## [v1.7.60] - 2026-08-22
+
+### 🏗️ Rebuild Total Alur Modal & Konstruksi Native FormData
+- **Konstruksi Mandiri Object `FormData` (`modal_create_reimbursement.php`)**: Membangun objek `FormData` secara manual dengan `.append()` langsung menggunakan pemilih elemen jQuery (`$('#reimbursement_title').val()`, `$('#amount').val()`, dll.). Hal ini menjamin bahwa seluruh data form terisi 100% pada payload request tanpa bergantung pada otomatisasi serialisasi HTML form yang berisiko lewati input.
+- **Ekstraksi Ganda Request Parameter (`reimbursements/Ajax.php`)**: Menambahkan fallback ekstraksi ganda `$this->input->post('key') ?: ($_POST['key'] ?? '')` pada controller untuk menjamin pembacaan data backend 100% akurat.
+
+---
+
+## [v1.7.59] - 2026-08-22
+
+### 🔍 Audit & Penguatan Menyeluruh Modul Reimbursement
+- **Validasi Keamanan Path File Lampiran (`Reimbursements.php`)**: Memasukkan pemeriksaan `validate_safe_filename()` dan `validate_file_in_directory()` pada method `download_attachment()` sesuai Security Rule #6.
+- **Pembersihan Undefined JavaScript Reference (`modal_approve_reimbursement.php` & `modal_pay_reimbursement.php`)**: Mengganti pemanggilan `Cookies.get()` yang berisiko throwing `ReferenceError` pada modal peninjauan dan pembayaran dengan helper `getCsrfCookie()` native.
+- **Robustness Date Parsing (`reimbursements/Ajax.php`)**: Menambahkan fallback tanggal otomatis pada method `pay_reimbursement()`.
+
+---
+
+## [v1.7.58] - 2026-08-22
+
+### 💧 Hidrasi Otomatis & Penargetan Form Modal Presisi
+- **Penargetan Form Modal Spesifik (`modal_create_reimbursement.php`)**: Mengubah penargetan objek form dari pemilih global `$('#form_create_reimbursement')[0]` menjadi `$(this).closest('.modal-content').find('form')[0]`. Hal ini menjamin bahwa tombol simpan selalu mengambil data dari form modal yang sedang aktif, dan mencegah penangkapan data dari instance form tersembunyi/lama di DOM.
+- **Hidrasi Manual Objek `FormData` (`modal_create_reimbursement.php`)**: Menambahkan pemanggilan `formData.set(...)` secara eksplisit sebelum pengiriman `$.ajax` untuk menjamin bahwa seluruh nilai bidang wajib (`reimbursement_title`, `amount`, `reimbursement_date`, `category`, `description`) terisi 100% pada payload POST.
+- **Pembersihan Kontainer Modal (`reimbursements/views/index.php`)**: Menambahkan pemanggilan `$('#modal-placeholder').empty()` sebelum pemuatan modal baru.
+
+---
+
+## [v1.7.57] - 2026-08-22
+
+### 🛠️ Perbaikan Sintaks HTML Modal & Validasi Input Bahasa Indonesia
+- **Perbaikan Tag Script Modal (`modal_create_reimbursement.php`)**: Memperbaiki karakter tag pembuka `<script>` pada baris pertama tampilan modal yang sebelumnya terpotong menjadi `script>`, yang mengakibatkan skrip eksekusi AJAX tidak dijalankan oleh peramban.
+- **Validasi Input Terarah Berbahasa Indonesia (`reimbursements/Ajax.php`)**: Mengganti pemanggilan validasi generik CodeIgniter dengan validasi PHP langsung yang mengembalikan pesan error dalam Bahasa Indonesia yang jelas (`Judul Klaim / Pengeluaran wajib diisi`, `Nominal Pengeluaran wajib diisi`).
+
+---
+
+## [v1.7.56] - 2026-08-22
+
+### 🎯 Pengecualian URI CSRF AJAX & Penguatan Generator Nomor Klaim
+- **Pengecualian URI CSRF AJAX Reimburse (`application/config/config.php`)**: Memasukkan endpoint AJAX `reimbursements/ajax/*` ke dalam `$config['csrf_exclude_uris']`. Hal ini menjamin bahwa seluruh form pengajuan dan modal klaim reimburse yang dikirimkan via `FormData` AJAX bebas dari bentrokan rotasi cookie CSRF, sementara keamanan tetap terlindungi melalui verifikasi sesi login (`user_id`) dan izin modul (`has_permission`).
+- **Safety Check `generate_number()` (`Mdl_reimbursements.php`)**: Menambahkan pemeriksaan `num_rows()` yang aman saat mengenerate nomor klaim otomatis.
+
+---
+
+## [v1.7.55] - 2026-08-22
+
+### 🍪 Pembacaan Cookie Native CSRF Terkini (`document.cookie`) pada Modal Reimburse
+- **Vanilla JS Cookie Parser (`modal_create_reimbursement.php`)**: Menambahkan helper native `getCsrfCookie()` untuk membaca secara langsung cookie `ip_csrf_cookie` dari `document.cookie` peramban saat tombol simpan diklik. Hal ini menjamin bahwa nilai token `_ip_csrf` yang dimasukkan ke `FormData` selalu 100% identik dengan cookie aktif peramban setelah rotasi AJAX modal, menghapus pesan error kadaluarsa CSRF (*403 Forbidden*) secara tuntas.
+
+---
+
+## [v1.7.54] - 2026-08-22
+
+### 🔄 Sinkronisasi Otomatis Token CSRF Terkini pada Modal Reimburse
+- **Auto-Sync CSRF Field (`modal_create_reimbursement.php`)**: Menambahkan pembaruan nilai input tersembunyi `_ip_csrf` secara otomatis menggunakan `csrf_token_value` aktif tepat sebelum objek `FormData` dibuat. Hal ini memastikan token CSRF yang dikirimkan selalu seirama dengan token baru yang dirotasi server saat modal dimuat, sehingga menghilangkan pesan error kadaluarsa CSRF (*403 Forbidden*).
+
+---
+
+## [v1.7.53] - 2026-08-22
+
+### 🛡️ Perbaikan JS ReferenceError pada Form Modal Reimburse
+- **Penghapusan Referensi `Cookies.get()` yang Tidak Terdefinisi (`modal_create_reimbursement.php`)**: Menghapus pemanggilan `Cookies.get('ip_csrf_cookie')` yang sebelumnya memicu `Uncaught ReferenceError: Cookies is not defined` di JavaScript. Error tersebut menghentikan eksekusi JS sebelum `$.ajax` dijalankan sehingga tombol `btn_submit_reimbursement` tersangkut pada status *"Menyimpan..."*. Form sekarang memanfaatkan field `_csrf_field()` yang sudah ada secara otomatis.
+- **Perlindungan `try...catch` Eksekusi JS Modal**: Membungkus eksekusi JavaScript pengajuan modal dalam blok `try...catch` agar jika terjadi kesalahan sisi klien, tombol secara otomatis dikembalikan ke status aktif dan pesan error ditampilkan dengan jelas.
+
+---
+
+## [v1.7.52] - 2026-08-22
+
+### 🐛 Perbaikan Fatal `$.ajaxPrefilter` pada Objek `FormData` & Proteksi Token CSRF
+- **Perbaikan `$.ajaxPrefilter` untuk `FormData` (`assets/core/js/scripts.js`)**: Memperbaiki masalah kritis di mana `$.ajaxPrefilter` sebelumnya mengubah objek `FormData` menjadi string `"[object FormData]&_ip_csrf=..."` saat melakukan konkatenasi string. Hal ini menyebabkan peramban mengirimkan payload yang rusak (tanpa field POST maupun file upload), sehingga melempar error HTTP 403 (*The action you have requested is not allowed*). Sekarang, `$.ajaxPrefilter` mendeteksi objek `FormData` dan menambahkan token CSRF menggunakan `FormData.append()` tanpa merusak struktur data.
+- **Eksplisit CSRF Append pada Form Modal (`modal_create_reimbursement.php`)**: Memastikan token CSRF `_ip_csrf` disisipkan ke objek `FormData` sebelum pengiriman AJAX dan menyempurnakan pesan penanganan error.
+
+---
+
+## [v1.7.51] - 2026-08-22
+
+### 🔑 Izin Akses Pengajuan Klaim Reimburse Terjamin untuk Semua Pengguna Terautentikasi
+- **Global Self-Service Permission Check (`permissions_helper.php`)**: Memindahkan verifikasi izin `view` & `create` klaim reimburse ke bagian paling atas fungsi `has_permission()` segera setelah memeriksa keberadaan `user_id` dalam sesi. Hal ini menjamin bahwa seluruh pengguna terautentikasi yang masuk ke aplikasi dapat membuat dan melihat pengajuan klaim tanpa terhalang oleh cache perizinan role atau klasifikasi `user_type`.
+
+---
+
+## [v1.7.50] - 2026-08-22
+
+### 🚀 Peningkatan Respon AJAX & Path Absolut Upload File Reimburse
+- **Path Absolut Upload Lampiran (`reimbursements/Ajax.php`)**: Mengubah konfigurasi `upload_path` dari path relatif (`./uploads/reimbursements/`) menjadi path absolut `FCPATH . 'uploads/reimbursements/'` untuk mencegah kegagalan upload file nota/struk saat dijalankan pada web server dengan working directory berbeda.
+- **Respon Error AJAX Bersih Tanpa Alert Memblokir**: Mengganti penanganan error permission dan validation pada controller AJAX agar mengembalikan respon JSON ber-status HTTP 200 OK dengan pesan kesalahan yang dapat ditampilkan langsung di dalam kontainer modal (`#modal-error-container`), bukan memicu alert popup peramban yang tidak informatif.
+- **Status Tombol & Spinner UI (`modal_create_reimbursement.php`)**: Menambahkan indikator tombol loading (*disabled & spinner*) saat proses pengiriman data klaim berlangsung untuk mencegah pengiriman ganda (double-submit).
+
+---
+
+## [v1.7.49] - 2026-08-22
+
+### 🛡️ Perbaikan Parsing Tanggal & Penanganan Error Penyimpanan Reimburse
+- **Robust Date Parsing (`date_helper.php`)**: Memperbaiki fungsi `date_to_mysql()` agar secara otomatis mengenali dan mempertahankan string tanggal yang sudah berformat ISO `Y-m-d` (misalnya `2026-08-22`) maupun melakukan parsing fallback multi-format (`d/m/Y`, `d-m-Y`, `m/d/Y`). Sebelumnya, jika format tanggal sistem diatur ke `d/m/Y`, pengiriman tanggal `Y-m-d` dari form modal menyebabkan `date_to_mysql()` mengembalikan string kosong `''` yang memicu error fatal database MySQL (`Incorrect date value: ''`).
+- **Prioritas Izin Akses Self-Service (`permissions_helper.php`)**: Menggeser aturan fallback izin `view` & `create` klaim reimburse untuk karyawan sebelum resolusi role DB agar pengguna staff dapat mengajukan klaim tanpa hambatan permission.
+- **Proteksi Try-Catch & Upload Init (`reimbursements/Ajax.php`)**: Membungkus operasi simpan ke database dengan blok `try-catch` serta menggunakan `$this->upload->initialize($config)` untuk penanganan upload lampiran yang lebih aman.
+
+---
+
+## [v1.7.48] - 2026-08-22
+
+### 🐛 Perbaikan Server Error (HTTP 500) Saat Menyimpan Data Klaim Reimburse
+- **Memuat Helper Date & Number di Controller Ajax**: Menambahkan pemanggilan `$this->load->helper('date')` dan `$this->load->helper('number_helper')` pada `__construct()` controller `reimbursements/Ajax.php`. Sebelumnya, tidak dimuatnya `date` helper menyebabkan fungsi `date_to_mysql()` yang digunakan untuk memproses tanggal pengeluaran dan tanggal pembayaran tidak ditemukan (*Fatal error: Call to undefined function date_to_mysql()*).
+- **Peningkatan Penanganan Error Form**: Memperbaiki pemrosesan kontainer error validasi pada form modal pengajuan klaim (`modal_create_reimbursement.php`) agar mendukung format array/object maupun string HTML serta menyertakan log error console jika terjadi kendala server.
+
+---
+
+## [v1.7.47] - 2026-08-22
+
+### 🔧 Perbaikan Fitur Modal Reimburse & Akses Portal Karyawan
+- **Perbaikan Event Handler Modal**: Menambahkan callback `.modal('show')` pada pemanggilan `.load()` modal di `reimbursements/index.php` sehingga tombol **Ajukan Reimburse**, **Detail Klaim**, **Tinjau & Setujui**, dan **Tandai Lunas** dapat terbuka secara sempurna saat diklik.
+- **Integrasi Portal Karyawan & Navigasi**: Menambahkan tautan **Riwayat Klaim Reimburse** dan **Ajukan Reimburse Baru** pada menu navigasi atas (*Navbar*) di bagian Presensi, Cuti & Reimburse, menu *Sidebar*, *Portal Presensi Karyawan* (`attendance/clock`), serta tombol pintas pada widget karyawan di Dashboard Utama.
+- **Dukungan URL Parameter & Hak Akses Self-Service**: Mendukung parameter `?action=create` untuk membuka modal pengajuan secara otomatis dan memberikan fallback izin `view` & `create` bagi seluruh pengguna karyawan/staff.
+
+---
+
+## [v1.7.46] - 2026-08-22
+
+### 💳 Integrasi Form & Riwayat Reimburse di Halaman Detail Karyawan (`employees/view`)
+- **Panel Riwayat Reimburse Karyawan**: Menambahkan tabel riwayat klaim reimburse dan tombol **`+ Ajukan Reimburse`** langsung di halaman detail karyawan (`employees/view/{id}`).
+- **Pengajuan Berbasis Karyawan Spresifik**: Form modal pengajuan klaim secara otomatis mendeteksi ID Karyawan (`employee_id`) yang sedang dibuka dan menghubungkan data klaim secara otomatis.
+
+---
+
+## [v1.7.45] - 2026-08-22
+
+### 💸 Modul Baru: Sistem Reimburse Karyawan (`reimbursements`)
+- **Fitur Pengajuan Klaim Karyawan**: Karyawan dapat mengumpulkan pengajuan klaim biaya (Judul, Tanggal Pengeluaran, Kategori, Nominal, Deskripsi, dan Upload Nota Struk Pembayaran).
+- **Peninjauan & Persetujuan Manajemen (Approval Workflow)**: Admin/Manager dapat memantau seluruh klaim karyawan via KPI Cards, menyetujui, menolak dengan alasan penolakan, atau menandai lunas (dengan tanggal & metode pembayaran).
+- **Pembatasan Hak Akses RBAC & Sidebar**: Karyawan biasa hanya dapat melihat riwayat klaim sendiri, sedangkan Admin/Manager dapat mengelola seluruh pengajuan klaim perusahaan. Menambahkan permission `reimbursements` pada matriks RBAC dan navigasi sidebar *Human Resources*.
+
+---
+
+## [v1.7.44] - 2026-08-22
+
+### 🐛 Perbaikan Tag Penutup HTML & Tampilan Konten Detail Invoice (`invoices/view.php`)
+- **Perbaikan DOM Structure**: Menghapus tag penutup `</div>` berlebih di antara `#headerbar` dan `#content` yang sebelumnya menyebabkan kontainer konten utama tertutup secara tidak sengaja dan tidak muncul di layar.
+- **Tampilan Normal Kembali**: Seluruh bagian rincian barang/jasa, tabel pembayaran, dan properti invoice kini tampil sempurna di bawah headerbar.
+
+---
+
+## [v1.7.43] - 2026-08-22
+
+### 📐 Penyesuaian Layout Headerbar & Tombol Simpan/Options di Pojok Kanan (`invoices` & `quotes`)
+- **Reposisi Tombol Aksi di Pojok Kanan**: Mengstruktur ulang tata letak komponen `#headerbar` pada halaman detail Invoice (`invoices/view.php`) dan Penawaran (`quotes/view.php`).
+- **Pemisahan Headerbar Left & Right**: Judul dan Badge Status Invoice ditempatkan secara teratur di sisi kiri (`.headerbar-left`), sedangkan tombol-tombol aksi (*Convert Proforma*, *Kwitansi*, dropdown *Options*, dan tombol *Simpan*) ditempatkan secara rata kanan (`.headerbar-item.pull-right`) sejajar dengan layout modul lainnya.
+
+---
+
+## [v1.7.42] - 2026-08-22
+
+### 🔍 Pemisahan Eksklusif Digital Signature (QR Code) & Digital Signature Image (`pdf`)
+- **Penyematan QR Code Tanpa Gambar TTD**: Saat opsi **`Digital Signature (QR Code)`** dipilih, template PDF Invoice (`Mikrotek.php`) & Quote (`Mikrotek.php`) kini secara eksklusif hanya menampilkan QR Code verifikasi faktur digital tanpa menampilkan gambar scan TTD.
+- **Pemisahan Mode yang Jelas**: Mode *Digital Signature Image* khusus menampilkan gambar TTD scan, sedangkan mode *Digital Signature (QR Code)* khusus menampilkan QR Code verifikasi.
+
+---
+
+## [v1.7.41] - 2026-08-22
+
+### ✍️ Penambahan Opsi Digital Signature Image di Form Invoice & Quote (`invoices` & `quotes`)
+- **Penambahan Pilihan "Digital Signature Image" di Form View & Modal**: Memperbarui form view per-invoice (`invoices/view.php`), modal buat invoice (`modal_create_invoice.php`), view quote (`quotes/view.php`), serta modal buat quote (`modal_create_quote.php`) agar menyertakan opsi **`Digital Signature Image`** (`value="image"`).
+- **Auto-Select Default Setting**: Opsi secara otomatis memilih tipe tanda tangan default yang disetting di menu Pengaturan.
+
+---
+
+## [v1.7.40] - 2026-08-22
+
+### ✍️ Pembaruan Opsi & Label Tipe Tanda Tangan (`settings`)
+- **Pembaruan Opsi Tipe Tanda Tangan**: Memperbarui pilihan dan label Tipe Tanda Tangan di Pengaturan Invoice (`partial_settings_invoices.php`) sesuai permintaan:
+  1. `Digital Signature (QR Code)` — Verifikasi QR Code Faktur Digital.
+  2. `Digital Signature Image` — Menampilkan gambar hasil scan tanda tangan yang diunggah.
+  3. `Manual Signature` — Ruang kosong untuk tanda tangan basah & tempel materai.
+
+---
+
+## [v1.7.39] - 2026-08-22
+
+### ✍️ Opsi Tipe Tanda Tangan Digital & Upload Gambar TTD Scan (`settings` & `pdf`)
+- **Opsi Tipe Tanda Tangan (`signature_type`)**: Menambahkan pengaturan pilihan tipe tanda tangan pada Pengaturan Invoice (`partial_settings_invoices.php`):
+  1. *Teks / Garis Manual (Wet Signature Space)*
+  2. *Digital Signature Image (Scan TTD)*
+  3. *Verifikasi QR Code Digital (Digital QR Signature)*
+- **Upload Gambar Tanda Tangan (`signature_image`)**: Menambahkan form upload file gambar tanda tangan scan (PNG/JPG/WEBP) lengkap dengan preview gambar dan tombol hapus gambar TTD di menu Pengaturan.
+- **Dukungan Template PDF Invoice, Quote, & Kwitansi**: Memperbarui template PDF `Mikrotek.php` (Invoice & Quote) serta `Kwitansi.php` (Receipt) untuk langsung merender gambar scan TTD di atas nama penanggung jawab ketika opsi *Digital Signature Image* aktif.
+
+---
+
+## [v1.7.38] - 2026-08-22
+
+### 📐 Presisi Alignment Padding `#page-content-wrapper` (`index.php`)
+- **Penyelarasan Presisi Tata Letak**: Menghapus inline style padding/margin manual pada `#content` agar mengikuti standar padding global 28px dari `#page-content-wrapper` (`modern_sidebar.css`).
+- **Konsistensi Layout**: Container Roundcube Webmail kini 100% presisi dan sejajar sempurna dengan posisi card pada modul *Invoices*, *Quotes*, *Clients*, *Payments*, dan *Products*.
+
+---
+
 ## [v1.7.37] - 2026-08-22
 
 ### 📐 Presisi Alignment Padding `#page-content-wrapper` (`index.php`)

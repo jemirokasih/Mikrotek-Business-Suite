@@ -204,38 +204,40 @@ echo $modal_delete_quote;
 echo $legacy_calculation ? $modal_add_quote_tax : ''; // Legacy calculation have global taxes - since v1.6.3
 ?>
 <div id="headerbar">
-    <h1 class="headerbar-title">
-        <span data-toggle="tooltip" data-placement="bottom" title="<?php _trans('invoicing'); ?>: <?php _htmlsc(PHP_EOL . format_user($quote->user_id)); ?>">
-            <?php echo trans('quote') . ' ' . ($quote->quote_number ? '#' . htmlsc($quote->quote_number) : trans('id') . ': ' . $quote->quote_id); ?>
-        </span>
+    <div class="headerbar-left" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <h1 class="headerbar-title" style="margin: 0;">
+            <span data-toggle="tooltip" data-placement="bottom" title="<?php _trans('invoicing'); ?>: <?php _htmlsc(PHP_EOL . format_user($quote->user_id)); ?>">
+                <?php echo trans('quote') . ' ' . ($quote->quote_number ? '#' . htmlsc($quote->quote_number) : trans('id') . ': ' . $quote->quote_id); ?>
+            </span>
 <?php
 // Nb Admins > 1 only
 if ($change_user) {
     ?>
-        <a data-toggle="tooltip" data-placement="bottom"
-           title="<?php echo $edit_user_title; ?>"
-           href="<?php echo site_url('users/form/' . $quote->user_id); ?>">
-            <i class="fa fa-xs fa-user text-<?php echo $my_class; ?>"></i>
+            <a data-toggle="tooltip" data-placement="bottom"
+               title="<?php echo $edit_user_title; ?>"
+               href="<?php echo site_url('users/form/' . $quote->user_id); ?>">
+                <i class="fa fa-xs fa-user text-<?php echo $my_class; ?>"></i>
                 <span class="hidden-xs"><?php _htmlsc($quote->user_name); ?></span>
-        </a>
+            </a>
 <?php
         if ($quote->quote_status_id == 1) {
             ?>
-        <span id="quote_change_user" class="fa fa-fw fa-edit text-<?php echo $its_mine ? 'muted' : 'danger'; ?> cursor-pointer"
-              data-toggle="tooltip" data-placement="bottom"
-              title="<?php _trans('change_user'); ?>"></span>
+            <span id="quote_change_user" class="fa fa-fw fa-edit text-<?php echo $its_mine ? 'muted' : 'danger'; ?> cursor-pointer"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="<?php _trans('change_user'); ?>"></span>
 <?php
         } // End if draft
 } // End if change_user
 ?>
-    </h1>
+        </h1>
+    </div>
 
-    <div class="headerbar-item pull-right btn-group">
+    <div class="headerbar-item pull-right" style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
         <div class="options btn-group btn-group-sm">
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-caret-down no-margin"></i> <?php _trans('options'); ?>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-right">
 <?php
 // Legacy calculation have global taxes - since v1.6.3
 if ($legacy_calculation) {
@@ -288,11 +290,9 @@ if ($legacy_calculation) {
         </div>
 
         <a href="#" class="btn btn-success btn-sm ajax-loader" id="btn_save_quote">
-            <i class="fa fa-check"></i>
-            <?php _trans('save'); ?>
+            <i class="fa fa-check"></i> <?php _trans('save'); ?>
         </a>
     </div>
-
 </div>
 
 <div id="content">
@@ -446,8 +446,9 @@ foreach ($quote_statuses as $key => $status) {
                                 <div class="quote-properties">
                                     <label>Tipe Tanda Tangan</label>
                                     <select name="signature_type" id="signature_type" class="form-control simple-select">
-                                        <option value="manual" <?php check_select($quote->signature_type, 'manual'); ?>>Manual Signature (Ruang Kosong)</option>
-                                        <option value="digital" <?php check_select($quote->signature_type, 'digital'); ?>>Digital Signature</option>
+                                        <option value="digital" <?php check_select($quote->signature_type, 'digital'); ?>>Digital Signature (QR Code)</option>
+                                        <option value="image" <?php check_select($quote->signature_type, 'image'); ?>>Digital Signature Image</option>
+                                        <option value="manual" <?php check_select($quote->signature_type, 'manual'); ?><?php check_select($quote->signature_type, 'text'); ?>>Manual Signature</option>
                                     </select>
                                 </div>
                                 <div class="quote-properties">

@@ -16,20 +16,20 @@
                                 &nbsp;|&nbsp; Today: <strong><?php echo date('d F Y'); ?></strong>
                             </p>
                         </div>
-                        <div class="pull-right" style="margin-top: 5px;">
+                        <div class="pull-right" style="margin-top: 5px; display: flex; gap: 8px; align-items: center;">
                             <?php if ( ! $today_attendance || ! $today_attendance->clock_in) : ?>
                                 <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-success">
                                     <i class="fa fa-sign-in"></i> <?php _trans('clock_in'); ?> Now
                                 </a>
                             <?php elseif ( ! $today_attendance->clock_out) : ?>
-                                <span class="label label-info" style="font-size: 13px; padding: 6px 10px; margin-right: 10px; display: inline-block;">
+                                <span class="label label-info" style="font-size: 13px; padding: 6px 10px; display: inline-block;">
                                     In: <?php echo date('H:i:s', strtotime($today_attendance->clock_in)); ?> (<?php _trans($today_attendance->status); ?>)
                                 </span>
                                 <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-danger">
                                     <i class="fa fa-sign-out"></i> <?php _trans('clock_out'); ?> Now
                                 </a>
                             <?php else : ?>
-                                <span class="label label-success" style="font-size: 13px; padding: 6px 10px; margin-right: 10px; display: inline-block;">
+                                <span class="label label-success" style="font-size: 13px; padding: 6px 10px; display: inline-block;">
                                     <i class="fa fa-check"></i> In: <?php echo date('H:i:s', strtotime($today_attendance->clock_in)); ?> | Out: <?php echo date('H:i:s', strtotime($today_attendance->clock_out)); ?>
                                 </span>
                                 <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-default">
