@@ -245,41 +245,66 @@ echo $modal_delete_invoice;
 echo $legacy_calculation ? $modal_add_invoice_tax : ''; // Legacy calculation have global taxes - since v1.6.3
 ?>
 <div id="headerbar">
-    <h1 class="headerbar-title">
-        <span data-toggle="tooltip" data-placement="bottom" title="<?php _trans('invoicing'); ?>: <?php _htmlsc(PHP_EOL . format_user($invoice->user_id)); ?>">
-            <?php echo trans('invoice') . ' ' . ($invoice->invoice_number ? '#' . htmlsc($invoice->invoice_number) : trans('id') . ': ' . $invoice->invoice_id); ?>
-        </span>
+    <div class="headerbar-left" style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <h1 class="headerbar-title" style="margin: 0;">
+            <span data-toggle="tooltip" data-placement="bottom" title="<?php _trans('invoicing'); ?>: <?php _htmlsc(PHP_EOL . format_user($invoice->user_id)); ?>">
+                <?php echo trans('invoice') . ' ' . ($invoice->invoice_number ? '#' . htmlsc($invoice->invoice_number) : trans('id') . ': ' . $invoice->invoice_id); ?>
+            </span>
 <?php
 // Nb Admins > 1 only
 if ($change_user) {
     ?>
-        <a data-toggle="tooltip" data-placement="bottom"
-           title="<?php echo $edit_user_title; ?>"
-           href="<?php echo site_url('users/form/' . $invoice->user_id); ?>">
-            <i class="fa fa-xs fa-user text-<?php echo $my_class; ?>"></i>
+            <a data-toggle="tooltip" data-placement="bottom"
+               title="<?php echo $edit_user_title; ?>"
+               href="<?php echo site_url('users/form/' . $invoice->user_id); ?>">
+                <i class="fa fa-xs fa-user text-<?php echo $my_class; ?>"></i>
                 <span class="hidden-xs"><?php _htmlsc($invoice->user_name); ?></span>
-        </a>
+            </a>
 <?php
-        if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) {
-            ?>
-
-        <span id="invoice_change_user" class="fa fa-fw fa-edit text-<?php echo $its_mine ? 'muted' : 'danger'; ?> cursor-pointer"
-              data-toggle="tooltip" data-placement="bottom"
-              title="<?php _trans('change_user'); ?>"></span>
+    if ($invoice->invoice_status_id == 1 && ! $invoice->creditinvoice_parent_id) {
+        ?>
+            <span id="invoice_change_user" class="fa fa-fw fa-edit text-<?php echo $its_mine ? 'muted' : 'danger'; ?> cursor-pointer"
+                  data-toggle="tooltip" data-placement="bottom"
+                  title="<?php _trans('change_user'); ?>"></span>
 <?php
-        } // End if draft
+    } // End if draft
 } // End if change_user
 ?>
-    </h1>
+        </h1>
 
-    <div class="headerbar-item pull-right<?php echo ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) ? ' btn-group' : ''; ?>">
+        <div class="invoice-labels" style="display: inline-flex; align-items: center; gap: 6px;">
+<?php if ($invoice->is_proforma == 1) : ?>
+            <span class="label label-warning" style="font-size: 11px; padding: 4px 8px;">
+                <i class="fa fa-file-text-o"></i> <?php echo trans('proforma_invoice'); ?>
+            </span>
+<?php endif; ?>
+<?php
+if ($invoice->invoice_is_recurring) {
+    ?>
+            <span class="label label-info">
+                <i class="fa fa-refresh"></i> <?php _trans('recurring'); ?>
+            </span>
+<?php
+}
+if ($invoice->is_read_only == 1) {
+    ?>
+            <span class="label label-danger">
+                <i class="fa fa-read-only"></i> <?php _trans('read_only'); ?>
+            </span>
+<?php
+}
+?>
+        </div>
+    </div>
+
+    <div class="headerbar-item pull-right" style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
 <?php if ($invoice->is_proforma == 1 && has_permission('invoices', 'edit')) : ?>
-        <a href="<?php echo site_url('invoices/convert_proforma/' . $invoice_id); ?>" class="btn btn-sm btn-success pull-right" style="margin-left: 5px;" onclick="return confirm('Konversi Proforma Invoice ini menjadi Invoice Resmi?');">
+        <a href="<?php echo site_url('invoices/convert_proforma/' . $invoice_id); ?>" class="btn btn-sm btn-success" onclick="return confirm('Konversi Proforma Invoice ini menjadi Invoice Resmi?');">
             <i class="fa fa-refresh"></i> <?php echo trans('convert_to_invoice'); ?>
         </a>
 <?php endif; ?>
 <?php if (has_permission('receipts', 'create')) : ?>
-        <a href="<?php echo site_url('receipts/create_from_invoice/' . $invoice_id); ?>" class="btn btn-sm btn-info pull-right" style="margin-left: 5px;">
+        <a href="<?php echo site_url('receipts/create_from_invoice/' . $invoice_id); ?>" class="btn btn-sm btn-info">
             <i class="fa fa-print"></i> <?php _trans('create_receipt'); ?>
         </a>
 <?php endif; ?>
@@ -288,7 +313,7 @@ if ($change_user) {
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="fa fa-caret-down no-margin"></i> <?php _trans('options'); ?>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-right">
 <?php
 if ($legacy_calculation && $invoice->is_read_only != 1) { // Legacy calculation have global taxes - since v1.6.3
     ?>
@@ -398,30 +423,7 @@ if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
 } //End if
 ?>
     </div>
-
-    <div class="headerbar-item invoice-labels pull-right">
-<?php if ($invoice->is_proforma == 1) : ?>
-        <span class="label label-warning" style="font-size: 13px; padding: 5px 10px;">
-            <i class="fa fa-file-text-o"></i> <?php echo trans('proforma_invoice'); ?>
-        </span>
-<?php endif; ?>
-<?php
-if ($invoice->invoice_is_recurring) {
-    ?>
-        <span class="label label-info">
-            <i class="fa fa-refresh"></i> <?php _trans('recurring'); ?>
-        </span>
-<?php
-}
-if ($invoice->is_read_only == 1) {
-    ?>
-        <span class="label label-danger">
-            <i class="fa fa-read-only"></i> <?php _trans('read_only'); ?>
-        </span>
-<?php
-}
-?>
-    </div>
+</div>
 
 </div>
 

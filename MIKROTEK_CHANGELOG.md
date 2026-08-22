@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.43] - 2026-08-22
+
+### 📐 Penyesuaian Layout Headerbar & Tombol Simpan/Options di Pojok Kanan (`invoices` & `quotes`)
+- **Reposisi Tombol Aksi di Pojok Kanan**: Mengstruktur ulang tata letak komponen `#headerbar` pada halaman detail Invoice (`invoices/view.php`) dan Penawaran (`quotes/view.php`).
+- **Pemisahan Headerbar Left & Right**: Judul dan Badge Status Invoice ditempatkan secara teratur di sisi kiri (`.headerbar-left`), sedangkan tombol-tombol aksi (*Convert Proforma*, *Kwitansi*, dropdown *Options*, dan tombol *Simpan*) ditempatkan secara rata kanan (`.headerbar-item.pull-right`) sejajar dengan layout modul lainnya.
+
+---
+
 ## [v1.7.42] - 2026-08-22
 
 ### 🔍 Pemisahan Eksklusif Digital Signature (QR Code) & Digital Signature Image (`pdf`)
