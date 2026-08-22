@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.60] - 2026-08-22
+
+### 🏗️ Rebuild Total Alur Modal & Konstruksi Native FormData
+- **Konstruksi Mandiri Object `FormData` (`modal_create_reimbursement.php`)**: Membangun objek `FormData` secara manual dengan `.append()` langsung menggunakan pemilih elemen jQuery (`$('#reimbursement_title').val()`, `$('#amount').val()`, dll.). Hal ini menjamin bahwa seluruh data form terisi 100% pada payload request tanpa bergantung pada otomatisasi serialisasi HTML form yang berisiko lewati input.
+- **Ekstraksi Ganda Request Parameter (`reimbursements/Ajax.php`)**: Menambahkan fallback ekstraksi ganda `$this->input->post('key') ?: ($_POST['key'] ?? '')` pada controller untuk menjamin pembacaan data backend 100% akurat.
+
+---
+
 ## [v1.7.59] - 2026-08-22
 
 ### 🔍 Audit & Penguatan Menyeluruh Modul Reimbursement

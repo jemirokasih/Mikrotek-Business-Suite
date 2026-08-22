@@ -48,9 +48,11 @@ class Ajax extends Admin_Controller
             return;
         }
 
-        $title = trim((string) $this->input->post('reimbursement_title', true));
-        $amount_raw = trim((string) $this->input->post('amount', true));
-        $category = trim((string) $this->input->post('category', true)) ?: 'Lain-lain';
+        $title = trim((string) ($this->input->post('reimbursement_title', true) ?: ($_POST['reimbursement_title'] ?? '')));
+        $amount_raw = trim((string) ($this->input->post('amount', true) ?: ($_POST['amount'] ?? '')));
+        $category = trim((string) ($this->input->post('category', true) ?: ($_POST['category'] ?? ''))) ?: 'Lain-lain';
+        $date_input = trim((string) ($this->input->post('reimbursement_date', true) ?: ($_POST['reimbursement_date'] ?? '')));
+        $description = trim((string) ($this->input->post('description', true) ?: ($_POST['description'] ?? '')));
 
         $val_errors = [];
         if (empty($title)) {
@@ -68,7 +70,7 @@ class Ajax extends Admin_Controller
             return;
         }
 
-        $post_emp_id = $this->input->post('employee_id');
+        $post_emp_id = $this->input->post('employee_id') ?: ($_POST['employee_id'] ?? null);
         $this->load->model('employees/mdl_employees');
 
         if ($post_emp_id) {
@@ -115,10 +117,9 @@ class Ajax extends Admin_Controller
             $attachment_name = $upload_data['file_name'];
         }
 
-        $amount_raw = $this->input->post('amount');
         $amount = (float) str_replace(['.', ','], ['', '.'], $amount_raw);
 
-        $reimbursement_date = date_to_mysql($this->input->post('reimbursement_date'));
+        $reimbursement_date = date_to_mysql($date_input);
         if (empty($reimbursement_date)) {
             $reimbursement_date = date('Y-m-d');
         }
@@ -128,11 +129,11 @@ class Ajax extends Admin_Controller
             'company_id' => $company_id,
             'user_id' => $user_id,
             'employee_id' => $employee_id,
-            'reimbursement_title' => $this->input->post('reimbursement_title', true),
+            'reimbursement_title' => $title,
             'reimbursement_date' => $reimbursement_date,
-            'category' => $this->input->post('category', true),
+            'category' => $category,
             'amount' => $amount,
-            'description' => $this->input->post('description', true),
+            'description' => $description,
             'attachment' => $attachment_name,
             'status' => 'pending',
             'date_created' => date('Y-m-d H:i:s'),

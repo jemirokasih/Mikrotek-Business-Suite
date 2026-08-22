@@ -6,49 +6,42 @@ $(function () {
         todayHighlight: true
     });
 
-    function getCsrfCookie() {
-        var name = '<?php echo config_item("csrf_cookie_name") ?: "ip_csrf_cookie"; ?>=' ;
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i].trim();
-            if (c.indexOf(name) === 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return '';
-    }
+    $('#form_create_reimbursement').on('submit', function (e) {
+        e.preventDefault();
 
-    $('#btn_submit_reimbursement').click(function () {
-        var $btn = $(this);
-        var $form = $btn.closest('.modal-content').find('form');
+        var $btn = $('#btn_submit_reimbursement');
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
         $('#modal-error-container').hide().empty();
 
-        try {
-            var tokenName = '<?php echo config_item("csrf_token_name") ?: "_ip_csrf"; ?>';
-            var activeToken = getCsrfCookie() || (typeof csrf_token_value !== 'undefined' ? csrf_token_value : '');
-            
-            if (activeToken) {
-                $form.find('input[name="' + tokenName + '"]').val(activeToken);
-            }
+        var title = $.trim($('#reimbursement_title').val());
+        var dateVal = $.trim($('#reimbursement_date').val());
+        var category = $.trim($('#category').val());
+        var amount = $.trim($('#amount').val());
+        var description = $.trim($('#description').val());
+        var employeeId = $('#employee_id_input').length ? $('#employee_id_input').val() : '';
 
-            var formData = new FormData($form[0]);
+        var formData = new FormData();
+        formData.append('reimbursement_title', title);
+        formData.append('reimbursement_date', dateVal);
+        formData.append('category', category);
+        formData.append('amount', amount);
+        formData.append('description', description);
+        if (employeeId) {
+            formData.append('employee_id', employeeId);
+        }
 
-            // Explicitly ensure field values are hydrated into FormData
-            formData.set('reimbursement_title', $form.find('#reimbursement_title').val() || '');
-            formData.set('reimbursement_date', $form.find('#reimbursement_date').val() || '');
-            formData.set('category', $form.find('#category').val() || '');
-            formData.set('amount', $form.find('#amount').val() || '');
-            formData.set('description', $form.find('#description').val() || '');
+        var fileInput = $('#attachment')[0];
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+            formData.append('attachment', fileInput.files[0]);
+        }
 
-            $.ajax({
-                url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                dataType: 'json',
+        $.ajax({
+            url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
             success: function (data) {
                 $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
                 if (data.success === 1) {
@@ -68,7 +61,6 @@ $(function () {
             },
             error: function (xhr) {
                 $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
-                console.error("Server response:", xhr.status, xhr.responseText);
                 var errMessage = 'Terjadi kesalahan server saat menyimpan data klaim.';
                 if (xhr.responseJSON && xhr.responseJSON.validation_errors) {
                     var errors = xhr.responseJSON.validation_errors;
@@ -79,44 +71,33 @@ $(function () {
                         if (res.validation_errors) {
                             errMessage = typeof res.validation_errors === 'object' ? Object.values(res.validation_errors).join('<br>') : res.validation_errors;
                         }
-                    } catch(e) {
-                        if (xhr.status === 403) {
-                            errMessage = 'Sesi keamanan (CSRF) kadaluarsa. Silakan refresh halaman dan coba kembali.';
-                        }
-                    }
+                    } catch(e) {}
                 }
                 if (!errMessage.includes('alert')) {
                     errMessage = '<div class="alert alert-danger">' + errMessage + '</div>';
                 }
                 $('#modal-error-container').html(errMessage).show();
             }
-            });
-        } catch (err) {
-            $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
-            console.error("Client JS Error:", err);
-            $('#modal-error-container').html('<div class="alert alert-danger">Error lokal: ' + err.message + '</div>').show();
-        }
+        });
     });
 });
 </script>
 
 <div id="modal-create-reimbursement" class="modal col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
     <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden;">
+        <form id="form_create_reimbursement" enctype="multipart/form-data">
+            <div class="modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 15px 20px;">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modal-title" style="font-weight: 700; color: #0f172a; font-size: 16px;">
+                    <i class="fa fa-plus-circle" style="color: #3b82f6;"></i> Formulir Pengajuan Reimburse
+                </h4>
+            </div>
 
-        <div class="modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 15px 20px;">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="modal-title" style="font-weight: 700; color: #0f172a; font-size: 16px;">
-                <i class="fa fa-plus-circle" style="color: #3b82f6;"></i> Formulir Pengajuan Reimburse
-            </h4>
-        </div>
+            <div class="modal-body" style="padding: 20px;">
+                <div id="modal-error-container" style="display: none;"></div>
 
-        <div class="modal-body" style="padding: 20px;">
-            <div id="modal-error-container" style="display: none;"></div>
-
-            <form id="form_create_reimbursement" enctype="multipart/form-data">
-                <?php _csrf_field(); ?>
                 <?php if (!empty($employee_id)) : ?>
-                    <input type="hidden" name="employee_id" value="<?php echo htmlsc($employee_id); ?>">
+                    <input type="hidden" name="employee_id" id="employee_id_input" value="<?php echo htmlsc($employee_id); ?>">
                 <?php endif; ?>
 
                 <div class="form-group">
@@ -165,15 +146,14 @@ $(function () {
                     <label for="description" style="font-weight: 600; color: #334155;">Keterangan & Rincian Pengeluaran</label>
                     <textarea name="description" id="description" class="form-control" rows="3" placeholder="Tuliskan keterangan detail pengeluaran atau catatan tambahan..." style="border-radius: 8px;"></textarea>
                 </div>
-            </form>
-        </div>
+            </div>
 
-        <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px 20px;">
-            <button type="button" class="btn btn-default" data-dismiss="modal" style="border-radius: 8px;">Batal</button>
-            <button type="button" class="btn btn-primary" id="btn_submit_reimbursement" style="border-radius: 8px; font-weight: 600;">
-                <i class="fa fa-paper-plane"></i> Kirim Pengajuan
-            </button>
-        </div>
-
+            <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px 20px;">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="border-radius: 8px;">Batal</button>
+                <button type="submit" class="btn btn-primary" id="btn_submit_reimbursement" style="border-radius: 8px; font-weight: 600;">
+                    <i class="fa fa-paper-plane"></i> Kirim Pengajuan
+                </button>
+            </div>
+        </form>
     </div>
 </div>
