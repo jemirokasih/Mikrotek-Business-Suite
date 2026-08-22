@@ -12,7 +12,18 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.80] - 2026-08-22
+
+### 🧹 Clean Up & Security Hardening (Pembersihan Sisa Referensi)
+- **Pembersihan Referensi Tersembunyi**: Menghapus sisa tombol dan link Reimburse dari `attendance/views/clock.php`.
+- **Pembersihan Modul Peran (Roles)**: Menghapus entri `reimbursements` dari daftar hak akses di `roles/models/Mdl_roles.php`.
+- **Pengerasan Keamanan (CSRF Protection)**: Menghapus `reimbursements/ajax/*` dari daftar `csrf_exclude_uris` di `config.php`, mengembalikan perlindungan penuh CSRF.
+- **Pemeriksaan Sintaks**: Memastikan 100% file PHP yang dimodifikasi bebas dari kesalahan sintaks (`php -l`).
+
+---
+
 ## [v1.7.79] - 2026-08-22
+
 
 ### 🗑️ Hapus Total Modul & Fitur Reimburse
 - **Hapus Direktori Modul**: Menghapus seluruh folder `application/modules/reimbursements/` (controllers, models, views).
