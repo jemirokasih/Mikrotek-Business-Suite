@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.44] - 2026-08-22
+
+### 🐛 Perbaikan Tag Penutup HTML & Tampilan Konten Detail Invoice (`invoices/view.php`)
+- **Perbaikan DOM Structure**: Menghapus tag penutup `</div>` berlebih di antara `#headerbar` dan `#content` yang sebelumnya menyebabkan kontainer konten utama tertutup secara tidak sengaja dan tidak muncul di layar.
+- **Tampilan Normal Kembali**: Seluruh bagian rincian barang/jasa, tabel pembayaran, dan properti invoice kini tampil sempurna di bawah headerbar.
+
+---
+
 ## [v1.7.43] - 2026-08-22
 
 ### 📐 Penyesuaian Layout Headerbar & Tombol Simpan/Options di Pojok Kanan (`invoices` & `quotes`)

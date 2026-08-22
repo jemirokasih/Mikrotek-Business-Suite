@@ -425,8 +425,6 @@ if ($invoice->is_read_only != 1 || $invoice->invoice_status_id != 4) {
     </div>
 </div>
 
-</div>
-
 <div id="content">
 
     <?php echo $this->layout->load_view('layout/alerts'); ?>
