@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.53] - 2026-08-22
+
+### 🛡️ Perbaikan JS ReferenceError pada Form Modal Reimburse
+- **Penghapusan Referensi `Cookies.get()` yang Tidak Terdefinisi (`modal_create_reimbursement.php`)**: Menghapus pemanggilan `Cookies.get('ip_csrf_cookie')` yang sebelumnya memicu `Uncaught ReferenceError: Cookies is not defined` di JavaScript. Error tersebut menghentikan eksekusi JS sebelum `$.ajax` dijalankan sehingga tombol `btn_submit_reimbursement` tersangkut pada status *"Menyimpan..."*. Form sekarang memanfaatkan field `_csrf_field()` yang sudah ada secara otomatis.
+- **Perlindungan `try...catch` Eksekusi JS Modal**: Membungkus eksekusi JavaScript pengajuan modal dalam blok `try...catch` agar jika terjadi kesalahan sisi klien, tombol secara otomatis dikembalikan ke status aktif dan pesan error ditampilkan dengan jelas.
+
+---
+
 ## [v1.7.52] - 2026-08-22
 
 ### 🐛 Perbaikan Fatal `$.ajaxPrefilter` pada Objek `FormData` & Proteksi Token CSRF

@@ -11,20 +11,16 @@ $(function () {
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
         $('#modal-error-container').hide().empty();
 
-        var formData = new FormData($('#form_create_reimbursement')[0]);
-        var csrfName = '<?php echo config_item('csrf_token_name'); ?>';
-        var csrfHash = Cookies.get('ip_csrf_cookie') || '<?php echo $this->security->get_csrf_hash(); ?>';
-        if (!formData.has(csrfName) && csrfHash) {
-            formData.append(csrfName, csrfHash);
-        }
+        try {
+            var formData = new FormData($('#form_create_reimbursement')[0]);
 
-        $.ajax({
-            url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: 'json',
+            $.ajax({
+                url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
             success: function (data) {
                 $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
                 if (data.success === 1) {
@@ -66,7 +62,12 @@ $(function () {
                 }
                 $('#modal-error-container').html(errMessage).show();
             }
-        });
+            });
+        } catch (err) {
+            $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
+            console.error("Client JS Error:", err);
+            $('#modal-error-container').html('<div class="alert alert-danger">Error lokal: ' + err.message + '</div>').show();
+        }
     });
 });
 </script>

@@ -399,10 +399,9 @@ $(function () {
     $.ajaxPrefilter(function (options) {
         if (options.type === 'post' || options.type === 'POST' || options.type === 'Post') {
             if (window.FormData && options.data instanceof FormData) {
-                if (!options.data.has(csrf_token_name) && csrf_token_value) {
-                    options.data.append(csrf_token_name, csrf_token_value);
-                }
-            } else if (typeof options.data === 'string') {
+                return;
+            }
+            if (typeof options.data === 'string') {
                 if (options.data === '') {
                     options.data += '?' + csrf_token_name + '=' + csrf_token_value;
                 } else {
