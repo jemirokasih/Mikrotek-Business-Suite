@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.65] - 2026-08-22
+
+### 🛠️ Perbaikan Pattern Matching CSRF Exclude URIs (`config.php`)
+- **Fix CodeIgniter CSRF Pattern Matching (`config.php`)**: Memperbarui `$config['csrf_exclude_uris']` dengan mendaftarkan seluruh endpoint eksplisit (`reimbursements/ajax/create_reimbursement`, `reimbursements/ajax/approve_reimbursement`, dll.) dan pola regex `reimbursements/ajax/.*`. Pada engine CodeIgniter 3, karakter `*` tanpa `.` dianggap regex pencocokan karakter slash tunggal sehingga `reimbursements/ajax/*` gagal mencocokkan URI `reimbursements/ajax/create_reimbursement` dan memicu error `HTTP 403 Forbidden`.
+
+---
+
 ## [v1.7.64] - 2026-08-22
 
 ### 🔐 Perbaikan Pengecualian CSRF AJAX & Penyertaan Token Native (`modal_create_reimbursement.php`)
