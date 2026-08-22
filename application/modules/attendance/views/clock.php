@@ -1,6 +1,12 @@
 <div id="headerbar">
     <h1 class="headerbar-title"><?php _trans('attendance_portal'); ?></h1>
     <div class="headerbar-item pull-right" style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <a class="btn btn-sm btn-primary" href="<?php echo site_url('reimbursements/index?action=create'); ?>" style="border-radius: 6px; font-weight: 600;">
+            <i class="fa fa-plus"></i> Ajukan Reimburse
+        </a>
+        <a class="btn btn-sm btn-default" href="<?php echo site_url('reimbursements/index'); ?>" style="border-radius: 6px;">
+            <i class="fa fa-money"></i> Riwayat Reimburse
+        </a>
         <a class="btn btn-sm btn-default" href="<?php echo site_url('leaves/my_leaves'); ?>" style="border-radius: 6px;">
             <i class="fa fa-calendar"></i> <?php _trans('my_leave_requests'); ?>
         </a>

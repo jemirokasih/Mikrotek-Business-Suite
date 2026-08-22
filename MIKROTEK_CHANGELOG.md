@@ -12,6 +12,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.63] - 2026-08-22
+
+### 🚀 Rebuild Total Modul Reimbursement (Finance Approval & Complete CRUD)
+- **Arsitektur Pengajuan & Persetujuan Berjenjang**: Membangun modul `reimbursements` dengan alur pengajuan karyawan (`Pending`), peninjauan persetujuan (`Approved`/`Rejected`), dan pencairan lunas (`Paid`).
+- **Integrasi Role Finance (`Mdl_roles.php`)**: Mendaftarkan hak akses `reimbursements.edit` yang dapat dialokasikan khusus ke Peran Finance/HRD untuk menyetujui klaim dan memproses pencairan pembayaran.
+- **Unggah Nota Dokumen Aman & Robust Validation**: Menyiapkan input nominal dengan `<input type="number" step="any" min="0.01">` (bebas dari error step HTML5 peramban) dan penanganan unggah file nota (JPG, PNG, WEBP, PDF) lengkap dengan pemeriksaan keamanan path `validate_safe_filename()`.
+- **Operasi CRUD & UI Modern**: Menyediakan dashboard klaim lengkap dengan kartu KPI statistik, filter tab status, modal detail klaim & pratinjau nota, serta integrasi tombol navigasi global.
+
+---
+
 ## [v1.7.62] - 2026-08-22
 
 ### 🗑️ Penghapusan Modul Reimburse Sesuai Permintaan Pengguna

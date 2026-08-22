@@ -20,6 +20,11 @@ function has_permission(string $module, string $action = 'view'): bool
         return false;
     }
 
+    // Default self-service permission for reimbursements view & create for all logged-in users
+    if ($module === 'reimbursements' && in_array($action, ['view', 'create'], true)) {
+        return true;
+    }
+
     $user_type = $CI->session->userdata('user_type');
 
     // Super Admin (user_type 1) has unrestricted access

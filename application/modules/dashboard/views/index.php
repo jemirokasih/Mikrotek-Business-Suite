@@ -17,6 +17,9 @@
                             </p>
                         </div>
                         <div class="pull-right" style="margin-top: 5px; display: flex; gap: 8px; align-items: center;">
+                            <a href="<?php echo site_url('reimbursements/index?action=create'); ?>" class="btn btn-primary">
+                                <i class="fa fa-money"></i> Klaim Reimburse
+                            </a>
                             <?php if ( ! $today_attendance || ! $today_attendance->clock_in) : ?>
                                 <a href="<?php echo site_url('attendance/clock'); ?>" class="btn btn-success">
                                     <i class="fa fa-sign-in"></i> <?php _trans('clock_in'); ?> Now
