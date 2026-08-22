@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.74] - 2026-08-22
+
+### 🔧 Rebuild Total Ajax.php & Modal Create Reimbursement
+- **`Ajax.php` - `create_reimbursement()`**: Rewrite penuh. Semua field POST dibaca langsung via `$_POST` superglobal (tanpa XSS filter CI yang bisa mengembalikan `false`). Menambahkan `header('Content-Type: application/json')`. Error DB kini dilaporkan ke klien. Parsing amount diperketat (deteksi format ribuan vs desimal). Insert langsung via `$this->db->insert()`.
+- **`modal_create_reimbursement.php`**: Rewrite penuh. Script JS sekarang menggunakan `$form.find('[name=...]')` yang eksplisit dan aman dari konflik ID antar modal. Semua field diappend satu per satu ke `FormData`. Error ditampilkan di dalam modal (tidak silent).
+- **Umum**: Ajax controller metode `approve_reimbursement` dan `pay_reimbursement` juga beralih ke `$this->db->where()->update()` langsung untuk menghindari dependency `Response_Model::save()`.
+
+---
+
 ## [v1.7.73] - 2026-08-22
 
 ### 🎯 Restorasi Tag `<script>` Modal Tambah Klaim (`modal_create_reimbursement.php`)
