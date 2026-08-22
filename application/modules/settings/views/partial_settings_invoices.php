@@ -292,14 +292,14 @@ foreach ($pdf_invoice_templates as $invoice_template) {
                             </label>
                             <select name="settings[signature_type]" id="settings[signature_type]"
                                     class="form-control simple-select" data-minimum-results-for-search="Infinity">
-                                <option value="text" <?php check_select(get_setting('signature_type'), 'text'); ?>>
-                                    Teks / Garis Manual (Wet Signature Space)
+                                <option value="digital" <?php check_select(get_setting('signature_type'), 'digital'); ?>>
+                                    Digital Signature (QR Code)
                                 </option>
                                 <option value="image" <?php check_select(get_setting('signature_type'), 'image'); ?>>
-                                    Digital Signature Image (Scan TTD)
+                                    Digital Signature Image
                                 </option>
-                                <option value="digital" <?php check_select(get_setting('signature_type'), 'digital'); ?>>
-                                    Verifikasi QR Code Digital (Digital QR Signature)
+                                <option value="text" <?php check_select(get_setting('signature_type', 'text'), 'text'); ?>>
+                                    Manual Signature
                                 </option>
                             </select>
                         </div>

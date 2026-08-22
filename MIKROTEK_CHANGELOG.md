@@ -12,6 +12,16 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.40] - 2026-08-22
+
+### ✍️ Pembaruan Opsi & Label Tipe Tanda Tangan (`settings`)
+- **Pembaruan Opsi Tipe Tanda Tangan**: Memperbarui pilihan dan label Tipe Tanda Tangan di Pengaturan Invoice (`partial_settings_invoices.php`) sesuai permintaan:
+  1. `Digital Signature (QR Code)` — Verifikasi QR Code Faktur Digital.
+  2. `Digital Signature Image` — Menampilkan gambar hasil scan tanda tangan yang diunggah.
+  3. `Manual Signature` — Ruang kosong untuk tanda tangan basah & tempel materai.
+
+---
+
 ## [v1.7.39] - 2026-08-22
 
 ### ✍️ Opsi Tipe Tanda Tangan Digital & Upload Gambar TTD Scan (`settings` & `pdf`)
