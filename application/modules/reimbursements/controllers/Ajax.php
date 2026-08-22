@@ -73,7 +73,8 @@ class Ajax extends Admin_Controller
                 'encrypt_name' => TRUE,
             ];
 
-            $this->load->library('upload', $config);
+            $this->load->library('upload');
+            $this->upload->initialize($config);
 
             if (!$this->upload->do_upload('attachment')) {
                 $response = [
@@ -107,9 +108,16 @@ class Ajax extends Admin_Controller
             'date_modified' => date('Y-m-d H:i:s'),
         ];
 
-        $this->mdl_reimbursements->save(null, $db_array);
-
-        echo json_encode(['success' => 1]);
+        try {
+            $this->mdl_reimbursements->save(null, $db_array);
+            echo json_encode(['success' => 1]);
+        } catch (\Throwable $e) {
+            log_message('error', 'Error saving reimbursement claim: ' . $e->getMessage());
+            echo json_encode([
+                'success' => 0,
+                'validation_errors' => '<div class="alert alert-danger">Gagal menyimpan data klaim: ' . htmlsc($e->getMessage()) . '</div>',
+            ]);
+        }
     }
 
     public function modal_view_reimbursement()

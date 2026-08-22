@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.49] - 2026-08-22
+
+### 🛡️ Perbaikan Parsing Tanggal & Penanganan Error Penyimpanan Reimburse
+- **Robust Date Parsing (`date_helper.php`)**: Memperbaiki fungsi `date_to_mysql()` agar secara otomatis mengenali dan mempertahankan string tanggal yang sudah berformat ISO `Y-m-d` (misalnya `2026-08-22`) maupun melakukan parsing fallback multi-format (`d/m/Y`, `d-m-Y`, `m/d/Y`). Sebelumnya, jika format tanggal sistem diatur ke `d/m/Y`, pengiriman tanggal `Y-m-d` dari form modal menyebabkan `date_to_mysql()` mengembalikan string kosong `''` yang memicu error fatal database MySQL (`Incorrect date value: ''`).
+- **Prioritas Izin Akses Self-Service (`permissions_helper.php`)**: Menggeser aturan fallback izin `view` & `create` klaim reimburse untuk karyawan sebelum resolusi role DB agar pengguna staff dapat mengajukan klaim tanpa hambatan permission.
+- **Proteksi Try-Catch & Upload Init (`reimbursements/Ajax.php`)**: Membungkus operasi simpan ke database dengan blok `try-catch` serta menggunakan `$this->upload->initialize($config)` untuk penanganan upload lampiran yang lebih aman.
+
+---
+
 ## [v1.7.48] - 2026-08-22
 
 ### 🐛 Perbaikan Server Error (HTTP 500) Saat Menyimpan Data Klaim Reimburse

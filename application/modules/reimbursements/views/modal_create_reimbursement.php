@@ -1,7 +1,7 @@
 <script>
 $(function () {
     $('.datepicker').datepicker({
-        format: 'yyyy-mm-dd',
+        format: '<?php echo date_format_datepicker(); ?>',
         autoclose: true,
         todayHighlight: true
     });

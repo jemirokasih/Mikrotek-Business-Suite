@@ -27,6 +27,11 @@ function has_permission(string $module, string $action = 'view'): bool
         return false;
     }
 
+    // Default self-service permission fallback for staff (reimbursements view & create)
+    if ($module === 'reimbursements' && in_array($action, ['view', 'create'], true)) {
+        return true;
+    }
+
     // Custom Role / Staff (user_type 3)
     $role_permissions = $CI->session->userdata('user_role_permissions');
 
@@ -54,11 +59,6 @@ function has_permission(string $module, string $action = 'view'): bool
 
     if (isset($role_permissions[$module][$action])) {
         return (bool) $role_permissions[$module][$action];
-    }
-
-    // Default self-service permission fallback for staff (reimbursements view & create)
-    if ($module === 'reimbursements' && in_array($action, ['view', 'create'], true)) {
-        return true;
     }
 
     return false;
