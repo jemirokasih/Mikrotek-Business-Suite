@@ -12,7 +12,19 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.79] - 2026-08-22
+
+### 🗑️ Hapus Total Modul & Fitur Reimburse
+- **Hapus Direktori Modul**: Menghapus seluruh folder `application/modules/reimbursements/` (controllers, models, views).
+- **Pembersihan Layout & Navigasi**: Menghapus link Reimburse dari `sidebar_menu.php` dan `navbar.php`.
+- **Pembersihan Dashboard**: Menghapus tombol pintasan pengajuan klaim reimburse di halaman Dashboard.
+- **Pembersihan Modul Employees**: Menghapus tab/tabel riwayat reimburse dan handler modal dari `employees/views/view.php` & `employees/controllers/Employees.php`.
+- **Pembersihan Permission Helper**: Menghapus aturan izin self-service reimbursement dari `permissions_helper.php`.
+
+---
+
 ## [v1.7.78] - 2026-08-22
+
 
 ### 🐛 Fix: Perbaikan Parsing Input Nominal Reimbursement
 - **Fix PHP Null Coalescing Trap**: `$this->input->post('key')` pada CodeIgniter 3 mengembalikan boolean `false` jika key tidak ditemukan. Penggunaan operator `??` dengan `false` tidak memicu fallback ke operand berikutnya. Dibuat helper closure khusus `$get_input` yang memeriksa `=== false || === null` sehingga fallback antara `reimbursement_amount` dan `amount` berjalan sempurna.

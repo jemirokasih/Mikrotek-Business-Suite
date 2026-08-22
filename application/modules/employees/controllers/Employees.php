@@ -97,17 +97,8 @@ class Employees extends Admin_Controller
             show_404();
         }
 
-        $this->load->model('reimbursements/mdl_reimbursements');
-        $reimbursements = [];
-        if ($employee->user_id) {
-            $reimbursements = $this->mdl_reimbursements->where('ip_reimbursements.user_id', $employee->user_id)->get()->result();
-        } else {
-            $reimbursements = $this->mdl_reimbursements->where('ip_reimbursements.employee_id', $employee->employee_id)->get()->result();
-        }
-
         $this->layout->set([
-            'employee'       => $employee,
-            'reimbursements' => $reimbursements,
+            'employee' => $employee,
         ]);
 
         $this->layout->buffer('content', 'employees/view');
