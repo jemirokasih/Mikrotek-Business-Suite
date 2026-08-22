@@ -242,7 +242,7 @@ class Ajax extends Admin_Controller
         check_permission('reimbursements', 'edit');
 
         $reimbursement_id = (int) $this->input->post('reimbursement_id');
-        $payment_date = date_to_mysql($this->input->post('payment_date'));
+        $payment_date = date_to_mysql($this->input->post('payment_date')) ?: date('Y-m-d');
         $payment_method = $this->input->post('payment_method', true);
 
         $db_array = [

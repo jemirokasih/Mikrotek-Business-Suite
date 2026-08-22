@@ -6,14 +6,29 @@ $(function () {
         todayHighlight: true
     });
 
+    function getCsrfCookie() {
+        var name = '<?php echo config_item("csrf_cookie_name") ?: "ip_csrf_cookie"; ?>=' ;
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
     $('#btn_confirm_pay').click(function () {
+        var activeToken = getCsrfCookie() || (typeof csrf_token_value !== 'undefined' ? csrf_token_value : '');
+
         $.post("<?php echo site_url('reimbursements/ajax/pay_reimbursement'); ?>", {
             reimbursement_id: "<?php echo $reimbursement->reimbursement_id; ?>",
             payment_date: $('#payment_date').val(),
             payment_method: $('#payment_method').val(),
-            _ip_csrf: Cookies.get('ip_csrf_cookie')
+            _ip_csrf: activeToken
         }, function (data) {
-            var response = JSON.parse(data);
+            var response = typeof data === 'object' ? data : JSON.parse(data);
             if (response.success === 1) {
                 window.location.reload();
             } else {

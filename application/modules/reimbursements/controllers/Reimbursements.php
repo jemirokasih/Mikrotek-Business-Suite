@@ -66,9 +66,11 @@ class Reimbursements extends Admin_Controller
             redirect('reimbursements');
         }
 
-        $file_path = FCPATH . 'uploads/reimbursements/' . $reimbursement->attachment;
-        if (!file_exists($file_path)) {
-            $this->session->set_flashdata('alert_error', 'File lampiran tidak ada di server.');
+        $upload_dir = FCPATH . 'uploads/reimbursements/';
+        $file_path = $upload_dir . $reimbursement->attachment;
+
+        if (!validate_safe_filename($reimbursement->attachment) || !validate_file_in_directory($upload_dir, $file_path) || !file_exists($file_path)) {
+            $this->session->set_flashdata('alert_error', 'File lampiran tidak valid atau tidak ada di server.');
             redirect('reimbursements');
         }
 

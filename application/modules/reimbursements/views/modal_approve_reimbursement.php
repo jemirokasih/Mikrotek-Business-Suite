@@ -1,5 +1,18 @@
 <script>
 $(function () {
+    function getCsrfCookie() {
+        var name = '<?php echo config_item("csrf_cookie_name") ?: "ip_csrf_cookie"; ?>=' ;
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
     $('.btn-action-decision').click(function () {
         var decision = $(this).data('decision');
         var notes = $('#admin_notes').val();
@@ -10,13 +23,15 @@ $(function () {
             return false;
         }
 
+        var activeToken = getCsrfCookie() || (typeof csrf_token_value !== 'undefined' ? csrf_token_value : '');
+
         $.post("<?php echo site_url('reimbursements/ajax/approve_reimbursement'); ?>", {
             reimbursement_id: "<?php echo $reimbursement->reimbursement_id; ?>",
             status: decision,
             admin_notes: notes,
-            _ip_csrf: Cookies.get('ip_csrf_cookie')
+            _ip_csrf: activeToken
         }, function (data) {
-            var response = JSON.parse(data);
+            var response = typeof data === 'object' ? data : JSON.parse(data);
             if (response.success === 1) {
                 window.location.reload();
             } else {

@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.59] - 2026-08-22
+
+### 🔍 Audit & Penguatan Menyeluruh Modul Reimbursement
+- **Validasi Keamanan Path File Lampiran (`Reimbursements.php`)**: Memasukkan pemeriksaan `validate_safe_filename()` dan `validate_file_in_directory()` pada method `download_attachment()` sesuai Security Rule #6.
+- **Pembersihan Undefined JavaScript Reference (`modal_approve_reimbursement.php` & `modal_pay_reimbursement.php`)**: Mengganti pemanggilan `Cookies.get()` yang berisiko throwing `ReferenceError` pada modal peninjauan dan pembayaran dengan helper `getCsrfCookie()` native.
+- **Robustness Date Parsing (`reimbursements/Ajax.php`)**: Menambahkan fallback tanggal otomatis pada method `pay_reimbursement()`.
+
+---
+
 ## [v1.7.58] - 2026-08-22
 
 ### 💧 Hidrasi Otomatis & Penargetan Form Modal Presisi
