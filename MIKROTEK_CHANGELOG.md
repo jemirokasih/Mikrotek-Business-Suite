@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.45] - 2026-08-22
+
+### 💸 Modul Baru: Sistem Reimburse Karyawan (`reimbursements`)
+- **Fitur Pengajuan Klaim Karyawan**: Karyawan dapat mengumpulkan pengajuan klaim biaya (Judul, Tanggal Pengeluaran, Kategori, Nominal, Deskripsi, dan Upload Nota Struk Pembayaran).
+- **Peninjauan & Persetujuan Manajemen (Approval Workflow)**: Admin/Manager dapat memantau seluruh klaim karyawan via KPI Cards, menyetujui, menolak dengan alasan penolakan, atau menandai lunas (dengan tanggal & metode pembayaran).
+- **Pembatasan Hak Akses RBAC & Sidebar**: Karyawan biasa hanya dapat melihat riwayat klaim sendiri, sedangkan Admin/Manager dapat mengelola seluruh pengajuan klaim perusahaan. Menambahkan permission `reimbursements` pada matriks RBAC dan navigasi sidebar *Human Resources*.
+
+---
+
 ## [v1.7.44] - 2026-08-22
 
 ### 🐛 Perbaikan Tag Penutup HTML & Tampilan Konten Detail Invoice (`invoices/view.php`)

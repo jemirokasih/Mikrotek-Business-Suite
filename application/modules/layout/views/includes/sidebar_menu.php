@@ -211,6 +211,15 @@
                 </ul>
             </li>
 
+            <?php if (has_permission('reimbursements')) : ?>
+                <li class="sidebar-nav-item <?php echo ($this->router->fetch_class() == 'reimbursements') ? 'active' : ''; ?>">
+                    <a href="<?php echo site_url('reimbursements/index'); ?>" class="sidebar-nav-link">
+                        <i class="fa fa-money nav-icon"></i>
+                        <span class="nav-text">Reimburse / Klaim</span>
+                    </a>
+                </li>
+            <?php endif; ?>
+
             <!-- Reports Group -->
             <?php if (has_permission('reports')) : ?>
                 <li class="sidebar-group-title">Reports</li>
