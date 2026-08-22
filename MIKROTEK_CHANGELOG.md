@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.48] - 2026-08-22
+
+### 🐛 Perbaikan Server Error (HTTP 500) Saat Menyimpan Data Klaim Reimburse
+- **Memuat Helper Date & Number di Controller Ajax**: Menambahkan pemanggilan `$this->load->helper('date')` dan `$this->load->helper('number_helper')` pada `__construct()` controller `reimbursements/Ajax.php`. Sebelumnya, tidak dimuatnya `date` helper menyebabkan fungsi `date_to_mysql()` yang digunakan untuk memproses tanggal pengeluaran dan tanggal pembayaran tidak ditemukan (*Fatal error: Call to undefined function date_to_mysql()*).
+- **Peningkatan Penanganan Error Form**: Memperbaiki pemrosesan kontainer error validasi pada form modal pengajuan klaim (`modal_create_reimbursement.php`) agar mendukung format array/object maupun string HTML serta menyertakan log error console jika terjadi kendala server.
+
+---
+
 ## [v1.7.47] - 2026-08-22
 
 ### 🔧 Perbaikan Fitur Modal Reimburse & Akses Portal Karyawan

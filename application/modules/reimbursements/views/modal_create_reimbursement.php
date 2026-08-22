@@ -20,10 +20,20 @@ $(function () {
                 if (data.success === 1) {
                     window.location.reload();
                 } else {
-                    $('#modal-error-container').html(data.validation_errors).show();
+                    var errors = data.validation_errors;
+                    if (typeof errors === 'object') {
+                        var errHtml = '<div class="alert alert-danger"><ul style="margin:0; padding-left: 20px;">';
+                        $.each(errors, function(k, v) { errHtml += '<li>' + v + '</li>'; });
+                        errHtml += '</ul></div>';
+                        errors = errHtml;
+                    } else if (errors && !errors.includes('alert')) {
+                        errors = '<div class="alert alert-danger">' + errors + '</div>';
+                    }
+                    $('#modal-error-container').html(errors).show();
                 }
             },
-            error: function () {
+            error: function (xhr) {
+                console.error("Server error:", xhr.responseText);
                 alert('Terjadi kesalahan server saat menyimpan data klaim.');
             }
         });

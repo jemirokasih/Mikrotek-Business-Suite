@@ -11,6 +11,8 @@ class Ajax extends Admin_Controller
         parent::__construct();
         $this->load->model('mdl_reimbursements');
         $this->load->helper('file_security');
+        $this->load->helper('date');
+        $this->load->helper('number_helper');
     }
 
     public function modal_create_reimbursement()
