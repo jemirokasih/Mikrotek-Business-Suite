@@ -1,6 +1,6 @@
 {
     "name": "mikrotek-business-suite",
-    "version": "1.7.45",
+    "version": "1.7.46",
     "description": "Mikrotek Business Suite is a self-hosted business management and invoicing application built on top of InvoicePlane",
     "repository": {
         "type": "git",

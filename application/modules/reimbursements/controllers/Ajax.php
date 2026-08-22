@@ -17,8 +17,11 @@ class Ajax extends Admin_Controller
     {
         check_permission('reimbursements', 'create');
 
+        $employee_id = $this->input->post('employee_id');
+
         $data = [
-            'categories' => $this->mdl_reimbursements->get_categories(),
+            'categories'  => $this->mdl_reimbursements->get_categories(),
+            'employee_id' => $employee_id,
         ];
 
         $this->load->view('reimbursements/modal_create_reimbursement', $data);
@@ -37,13 +40,20 @@ class Ajax extends Admin_Controller
             return;
         }
 
-        $user_id = (int) $this->session->userdata('user_id');
-        
-        // Find linked employee ID if available
+        $post_emp_id = $this->input->post('employee_id');
         $this->load->model('employees/mdl_employees');
-        $employee = $this->db->get_where('ip_employees', ['user_id' => $user_id])->row();
-        $employee_id = $employee ? $employee->employee_id : null;
-        $company_id = $employee ? $employee->company_id : 1;
+
+        if ($post_emp_id) {
+            $employee = $this->db->get_where('ip_employees', ['employee_id' => (int) $post_emp_id])->row();
+            $employee_id = $employee ? $employee->employee_id : (int) $post_emp_id;
+            $user_id = ($employee && $employee->user_id) ? $employee->user_id : (int) $this->session->userdata('user_id');
+            $company_id = ($employee && $employee->company_id) ? $employee->company_id : 1;
+        } else {
+            $user_id = (int) $this->session->userdata('user_id');
+            $employee = $this->db->get_where('ip_employees', ['user_id' => $user_id])->row();
+            $employee_id = $employee ? $employee->employee_id : null;
+            $company_id = $employee ? $employee->company_id : 1;
+        }
 
         $attachment_name = null;
 

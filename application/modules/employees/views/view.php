@@ -252,6 +252,91 @@
         </div>
     </div>
 
+    <!-- Reimbursement History Section -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-default" style="border-radius: 10px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); background: #ffffff;">
+                <div class="panel-heading" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between;">
+                    <h3 class="panel-title" style="font-weight: 700; font-size: 15px; color: #0f172a; margin: 0;">
+                        <i class="fa fa-money text-primary" style="margin-right: 5px;"></i> Riwayat Reimburse / Klaim Pengeluaran
+                    </h3>
+                    <button type="button" class="btn btn-xs btn-primary btn-create-reimbursement-for-emp" data-employee-id="<?php echo $employee->employee_id; ?>" style="border-radius: 6px; font-weight: 600;">
+                        <i class="fa fa-plus"></i> Ajukan Reimburse
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped" style="margin-bottom: 0;">
+                        <thead>
+                            <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; color: #475569; font-weight: 700; font-size: 12px;">
+                                <th style="padding: 10px 15px;">No. Klaim</th>
+                                <th style="padding: 10px 15px;">Judul Klaim & Kategori</th>
+                                <th style="padding: 10px 15px;">Tgl Transaksi</th>
+                                <th style="padding: 10px 15px; text-align: right;">Nominal</th>
+                                <th style="padding: 10px 15px; text-align: center;">Nota</th>
+                                <th style="padding: 10px 15px; text-align: center;">Status</th>
+                                <th style="padding: 10px 15px; text-align: right;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($reimbursements)) : ?>
+                                <?php foreach ($reimbursements as $item) : ?>
+                                    <tr style="vertical-align: middle;">
+                                        <td style="padding: 10px 15px; font-weight: 700;">
+                                            <code><?php echo html_escape($item->reimbursement_number); ?></code>
+                                        </td>
+                                        <td style="padding: 10px 15px;">
+                                            <strong style="color: #1e293b;"><?php echo html_escape($item->reimbursement_title); ?></strong><br/>
+                                            <span class="label label-default" style="font-size: 10px; background: #e2e8f0; color: #334155; border-radius: 4px;">
+                                                <?php echo html_escape($item->category); ?>
+                                            </span>
+                                        </td>
+                                        <td style="padding: 10px 15px; color: #475569;">
+                                            <?php echo date_from_mysql($item->reimbursement_date); ?>
+                                        </td>
+                                        <td style="padding: 10px 15px; text-align: right; font-weight: 700; color: #0f172a;">
+                                            Rp <?php echo format_currency($item->amount); ?>
+                                        </td>
+                                        <td style="padding: 10px 15px; text-align: center;">
+                                            <?php if (!empty($item->attachment)) : ?>
+                                                <a href="<?php echo site_url('reimbursements/download_attachment/' . $item->reimbursement_id); ?>" class="btn btn-xs btn-default" style="border-radius: 6px;">
+                                                    <i class="fa fa-paperclip text-primary"></i> Struk
+                                                </a>
+                                            <?php else : ?>
+                                                <span style="color: #94a3b8;">-</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td style="padding: 10px 15px; text-align: center;">
+                                            <?php if ($item->status === 'pending') : ?>
+                                                <span class="label label-warning" style="font-size: 10px; padding: 3px 6px;">Pending</span>
+                                            <?php elseif ($item->status === 'approved') : ?>
+                                                <span class="label label-info" style="font-size: 10px; padding: 3px 6px; background: #3b82f6;">Disetujui</span>
+                                            <?php elseif ($item->status === 'paid') : ?>
+                                                <span class="label label-success" style="font-size: 10px; padding: 3px 6px;">Lunas</span>
+                                            <?php elseif ($item->status === 'rejected') : ?>
+                                                <span class="label label-danger" style="font-size: 10px; padding: 3px 6px;">Ditolak</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td style="padding: 10px 15px; text-align: right;">
+                                            <button type="button" class="btn btn-xs btn-default btn-view-reimbursement" data-id="<?php echo $item->reimbursement_id; ?>" style="border-radius: 4px;">
+                                                <i class="fa fa-eye"></i> Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <tr>
+                                    <td colspan="7" class="text-center" style="padding: 25px; color: #64748b;">
+                                        Belum ada riwayat pengajuan reimburse untuk karyawan ini.
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <div id="modal-placeholder"></div>
@@ -263,6 +348,22 @@ $(function () {
         var employeeId = $(this).data('employee-id');
         $('#modal-placeholder').load('<?php echo site_url('employees/modal_create_user_account'); ?>', { employee_id: employeeId }, function () {
             $('#modal-create-user-account').modal('show');
+        });
+    });
+
+    $('.btn-create-reimbursement-for-emp').click(function (e) {
+        e.preventDefault();
+        var empId = $(this).data('employee-id');
+        $('#modal-placeholder').load('<?php echo site_url('reimbursements/ajax/modal_create_reimbursement'); ?>', { employee_id: empId }, function () {
+            $('#modal-create-reimbursement').modal('show');
+        });
+    });
+
+    $(document).on('click', '.btn-view-reimbursement', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        $('#modal-placeholder').load('<?php echo site_url('reimbursements/ajax/modal_view_reimbursement'); ?>', { reimbursement_id: id }, function () {
+            $('#modal-view-reimbursement').modal('show');
         });
     });
 });

@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.46] - 2026-08-22
+
+### 💳 Integrasi Form & Riwayat Reimburse di Halaman Detail Karyawan (`employees/view`)
+- **Panel Riwayat Reimburse Karyawan**: Menambahkan tabel riwayat klaim reimburse dan tombol **`+ Ajukan Reimburse`** langsung di halaman detail karyawan (`employees/view/{id}`).
+- **Pengajuan Berbasis Karyawan Spresifik**: Form modal pengajuan klaim secara otomatis mendeteksi ID Karyawan (`employee_id`) yang sedang dibuka dan menghubungkan data klaim secara otomatis.
+
+---
+
 ## [v1.7.45] - 2026-08-22
 
 ### 💸 Modul Baru: Sistem Reimburse Karyawan (`reimbursements`)

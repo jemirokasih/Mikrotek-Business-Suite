@@ -46,6 +46,9 @@ $(function () {
 
             <form id="form_create_reimbursement" enctype="multipart/form-data">
                 <?php _csrf_field(); ?>
+                <?php if (!empty($employee_id)) : ?>
+                    <input type="hidden" name="employee_id" value="<?php echo htmlsc($employee_id); ?>">
+                <?php endif; ?>
 
                 <div class="form-group">
                     <label for="reimbursement_title" style="font-weight: 600; color: #334155;">Judul Klaim / Pengeluaran <span class="text-danger">*</span></label>
