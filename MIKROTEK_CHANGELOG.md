@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.55] - 2026-08-22
+
+### 🍪 Pembacaan Cookie Native CSRF Terkini (`document.cookie`) pada Modal Reimburse
+- **Vanilla JS Cookie Parser (`modal_create_reimbursement.php`)**: Menambahkan helper native `getCsrfCookie()` untuk membaca secara langsung cookie `ip_csrf_cookie` dari `document.cookie` peramban saat tombol simpan diklik. Hal ini menjamin bahwa nilai token `_ip_csrf` yang dimasukkan ke `FormData` selalu 100% identik dengan cookie aktif peramban setelah rotasi AJAX modal, menghapus pesan error kadaluarsa CSRF (*403 Forbidden*) secara tuntas.
+
+---
+
 ## [v1.7.54] - 2026-08-22
 
 ### 🔄 Sinkronisasi Otomatis Token CSRF Terkini pada Modal Reimburse

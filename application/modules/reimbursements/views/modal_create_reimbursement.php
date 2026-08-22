@@ -6,14 +6,30 @@ $(function () {
         todayHighlight: true
     });
 
+    function getCsrfCookie() {
+        var name = '<?php echo config_item("csrf_cookie_name") ?: "ip_csrf_cookie"; ?>=' ;
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
     $('#btn_submit_reimbursement').click(function () {
         var $btn = $(this);
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
         $('#modal-error-container').hide().empty();
 
         try {
-            if (typeof csrf_token_name !== 'undefined' && typeof csrf_token_value !== 'undefined' && csrf_token_value) {
-                $('#form_create_reimbursement input[name="' + csrf_token_name + '"]').val(csrf_token_value);
+            var tokenName = '<?php echo config_item("csrf_token_name") ?: "_ip_csrf"; ?>';
+            var activeToken = getCsrfCookie() || (typeof csrf_token_value !== 'undefined' ? csrf_token_value : '');
+            
+            if (activeToken) {
+                $('#form_create_reimbursement input[name="' + tokenName + '"]').val(activeToken);
             }
 
             var formData = new FormData($('#form_create_reimbursement')[0]);
