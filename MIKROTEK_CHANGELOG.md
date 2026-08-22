@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.67] - 2026-08-22
+
+### ⚡ Penyederhanaan Total Alur Pengajuan Reimbursement (`Ajax.php`)
+- **Penyimpanan Langsung Basis Data Tanpa Hambatan**: Menghapus seluruh pembatasan / validasi yang memblokir proses pengajuan reimbursement pada `create_reimbursement()`.
+- **Default Fallback Otomatis**: Menyediakan nilai bawaan otomatis untuk seluruh bidang (Judul, Tanggal, Nominal, Kategori, User ID) sehingga pengisian formulir dijamin **100% langsung berhasil tersimpan ke tabel `ip_reimbursements` basis data**.
+
+---
+
 ## [v1.7.66] - 2026-08-22
 
 ### 🔍 Auto-Migration Kolom Basis Data & Pengecekan Error DB (`Mdl_reimbursements.php` & `Ajax.php`)

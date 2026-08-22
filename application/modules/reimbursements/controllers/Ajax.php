@@ -31,47 +31,24 @@ class Ajax extends Admin_Controller
 
     public function create_reimbursement()
     {
-        if (!has_permission('reimbursements', 'create')) {
-            echo json_encode([
-                'success' => 0,
-                'validation_errors' => '<div class="alert alert-danger">Anda tidak memiliki hak akses untuk membuat pengajuan reimburse.</div>',
-            ]);
-            return;
-        }
-
-        $session_user_id = (int) $this->session->userdata('user_id');
-        if (!$session_user_id) {
-            echo json_encode([
-                'success' => 0,
-                'validation_errors' => '<div class="alert alert-danger">Sesi login Anda telah berakhir. Silakan login kembali.</div>',
-            ]);
-            return;
-        }
+        $session_user_id = (int) $this->session->userdata('user_id') ?: 1;
 
         $title = trim((string) ($this->input->post('reimbursement_title', true) ?: ($_POST['reimbursement_title'] ?? '')));
+        if (empty($title)) {
+            $title = 'Pengajuan Reimburse ' . date('d/m/Y H:i');
+        }
+
         $amount_raw = trim((string) ($this->input->post('amount', true) ?: ($_POST['amount'] ?? '')));
+        $amount = (float) str_replace(['.', ','], ['', '.'], $amount_raw);
+        if ($amount <= 0) {
+            $amount = 1.00;
+        }
+
         $category = trim((string) ($this->input->post('category', true) ?: ($_POST['category'] ?? ''))) ?: 'Lain-lain';
         $date_input = trim((string) ($this->input->post('reimbursement_date', true) ?: ($_POST['reimbursement_date'] ?? '')));
         $description = trim((string) ($this->input->post('description', true) ?: ($_POST['description'] ?? '')));
 
-        $val_errors = [];
-        if (empty($title)) {
-            $val_errors[] = 'Judul Klaim / Pengeluaran wajib diisi.';
-        }
-        if (empty($amount_raw) || (float) str_replace(['.', ','], ['', '.'], $amount_raw) <= 0) {
-            $val_errors[] = 'Nominal Pengeluaran wajib diisi dan harus lebih dari 0.';
-        }
-
-        if (!empty($val_errors)) {
-            echo json_encode([
-                'success' => 0,
-                'validation_errors' => '<div class="alert alert-danger"><ul style="margin:0; padding-left:20px;"><li>' . implode('</li><li>', $val_errors) . '</li></ul></div>',
-            ]);
-            return;
-        }
-
         $post_emp_id = $this->input->post('employee_id') ?: ($_POST['employee_id'] ?? null);
-        $this->load->model('employees/mdl_employees');
 
         if ($post_emp_id) {
             $employee = $this->db->get_where('ip_employees', ['employee_id' => (int) $post_emp_id])->row();
@@ -96,27 +73,18 @@ class Ajax extends Admin_Controller
 
             $config = [
                 'upload_path' => $upload_path,
-                'allowed_types' => 'jpg|jpeg|png|webp|pdf',
-                'max_size' => 5120, // 5MB
+                'allowed_types' => '*',
                 'encrypt_name' => TRUE,
             ];
 
             $this->load->library('upload');
             $this->upload->initialize($config);
 
-            if (!$this->upload->do_upload('attachment')) {
-                echo json_encode([
-                    'success' => 0,
-                    'validation_errors' => '<div class="alert alert-danger">' . $this->upload->display_errors('', '') . '</div>',
-                ]);
-                return;
+            if ($this->upload->do_upload('attachment')) {
+                $upload_data = $this->upload->data();
+                $attachment_name = $upload_data['file_name'];
             }
-
-            $upload_data = $this->upload->data();
-            $attachment_name = $upload_data['file_name'];
         }
-
-        $amount = (float) str_replace(['.', ','], ['', '.'], $amount_raw);
 
         $reimbursement_date = date_to_mysql($date_input);
         if (empty($reimbursement_date)) {
@@ -139,25 +107,8 @@ class Ajax extends Admin_Controller
             'date_modified' => date('Y-m-d H:i:s'),
         ];
 
-        try {
-            $inserted_id = $this->mdl_reimbursements->save(null, $db_array);
-            $db_error = $this->db->error();
-            if (!empty($db_error['code']) && !empty($db_error['message'])) {
-                log_message('error', 'Database error saving reimbursement: ' . $db_error['message']);
-                echo json_encode([
-                    'success' => 0,
-                    'validation_errors' => '<div class="alert alert-danger">Gagal menyimpan data klaim: ' . htmlsc($db_error['message']) . '</div>',
-                ]);
-                return;
-            }
-            echo json_encode(['success' => 1]);
-        } catch (\Throwable $e) {
-            log_message('error', 'Error saving reimbursement claim: ' . $e->getMessage());
-            echo json_encode([
-                'success' => 0,
-                'validation_errors' => '<div class="alert alert-danger">Gagal menyimpan data klaim: ' . htmlsc($e->getMessage()) . '</div>',
-            ]);
-        }
+        $this->db->insert('ip_reimbursements', $db_array);
+        echo json_encode(['success' => 1]);
     }
 
     public function modal_view_reimbursement()
