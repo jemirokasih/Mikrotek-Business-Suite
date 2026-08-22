@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.54] - 2026-08-22
+
+### 🔄 Sinkronisasi Otomatis Token CSRF Terkini pada Modal Reimburse
+- **Auto-Sync CSRF Field (`modal_create_reimbursement.php`)**: Menambahkan pembaruan nilai input tersembunyi `_ip_csrf` secara otomatis menggunakan `csrf_token_value` aktif tepat sebelum objek `FormData` dibuat. Hal ini memastikan token CSRF yang dikirimkan selalu seirama dengan token baru yang dirotasi server saat modal dimuat, sehingga menghilangkan pesan error kadaluarsa CSRF (*403 Forbidden*).
+
+---
+
 ## [v1.7.53] - 2026-08-22
 
 ### 🛡️ Perbaikan JS ReferenceError pada Form Modal Reimburse

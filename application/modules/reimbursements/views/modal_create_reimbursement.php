@@ -12,6 +12,10 @@ $(function () {
         $('#modal-error-container').hide().empty();
 
         try {
+            if (typeof csrf_token_name !== 'undefined' && typeof csrf_token_value !== 'undefined' && csrf_token_value) {
+                $('#form_create_reimbursement input[name="' + csrf_token_name + '"]').val(csrf_token_value);
+            }
+
             var formData = new FormData($('#form_create_reimbursement')[0]);
 
             $.ajax({
