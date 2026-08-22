@@ -140,7 +140,16 @@ class Ajax extends Admin_Controller
         ];
 
         try {
-            $this->mdl_reimbursements->save(null, $db_array);
+            $inserted_id = $this->mdl_reimbursements->save(null, $db_array);
+            $db_error = $this->db->error();
+            if (!empty($db_error['code']) && !empty($db_error['message'])) {
+                log_message('error', 'Database error saving reimbursement: ' . $db_error['message']);
+                echo json_encode([
+                    'success' => 0,
+                    'validation_errors' => '<div class="alert alert-danger">Gagal menyimpan data klaim: ' . htmlsc($db_error['message']) . '</div>',
+                ]);
+                return;
+            }
             echo json_encode(['success' => 1]);
         } catch (\Throwable $e) {
             log_message('error', 'Error saving reimbursement claim: ' . $e->getMessage());

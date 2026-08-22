@@ -47,6 +47,33 @@ class Mdl_Reimbursements extends Response_Model
               KEY `reimbursement_date` (`reimbursement_date`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
             $this->db->query($sql);
+        } else {
+            // Check for missing columns and alter table if needed
+            $columns = $this->db->list_fields('ip_reimbursements');
+            if (!in_array('company_id', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `company_id` INT(11) DEFAULT 1 AFTER `reimbursement_number`");
+            }
+            if (!in_array('employee_id', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `employee_id` INT(11) DEFAULT NULL AFTER `user_id`");
+            }
+            if (!in_array('category', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `category` VARCHAR(100) NOT NULL DEFAULT 'Lain-lain' AFTER `reimbursement_date`");
+            }
+            if (!in_array('approved_by_user_id', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `approved_by_user_id` INT(11) DEFAULT NULL AFTER `status`");
+            }
+            if (!in_array('approved_at', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `approved_at` DATETIME DEFAULT NULL AFTER `approved_by_user_id`");
+            }
+            if (!in_array('admin_notes', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `admin_notes` TEXT DEFAULT NULL AFTER `approved_at`");
+            }
+            if (!in_array('payment_date', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `payment_date` DATE DEFAULT NULL AFTER `admin_notes`");
+            }
+            if (!in_array('payment_method', $columns, true)) {
+                $this->db->query("ALTER TABLE `ip_reimbursements` ADD COLUMN `payment_method` VARCHAR(100) DEFAULT NULL AFTER `payment_date`");
+            }
         }
     }
 

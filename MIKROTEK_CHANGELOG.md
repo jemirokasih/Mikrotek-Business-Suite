@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.66] - 2026-08-22
+
+### 🔍 Auto-Migration Kolom Basis Data & Pengecekan Error DB (`Mdl_reimbursements.php` & `Ajax.php`)
+- **Migrasi Kolom Otomatis (`Mdl_reimbursements.php`)**: Menambahkan pemeriksaan dan eksekusi `ALTER TABLE` otomatis jika tabel `ip_reimbursements` dari versi sebelumnya belum memiliki kolom seperti `approved_by_user_id`, `approved_at`, `admin_notes`, `payment_date`, `payment_method`, `employee_id`, atau `category`.
+- **Penangkapan Pesan Error Database Eksplisit (`reimbursements/Ajax.php`)**: Menambahkan fungsi penangkap `$this->db->error()` pada method `create_reimbursement()` agar setiap potensi error MySQL langsung memberikan deskripsi pesan error asli ke antarmuka pengguna tanpa menimbulkan pesan kesalahan generic.
+
+---
+
 ## [v1.7.65] - 2026-08-22
 
 ### 🛠️ Perbaikan Pattern Matching CSRF Exclude URIs (`config.php`)
