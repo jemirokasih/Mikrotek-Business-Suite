@@ -208,33 +208,54 @@
         </div>
     </div>
 </div>
+<div id="modal-placeholder"></div>
 
 <script>
 $(function () {
-    // Open Create Modal
-    $('.btn-create-reimbursement').click(function () {
-        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_create_reimbursement'); ?>");
+    // Function to open create modal
+    function openCreateModal() {
+        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_create_reimbursement'); ?>", function () {
+            $('#modal-create-reimbursement').modal('show');
+        });
+    }
+
+    // Open Create Modal on button click
+    $(document).on('click', '.btn-create-reimbursement', function (e) {
+        e.preventDefault();
+        openCreateModal();
     });
+
+    // Check URL parameter action=create
+    var urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('action') === 'create') {
+        openCreateModal();
+    }
 
     // Open View Modal
     $(document).on('click', '.btn-view-reimbursement', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
-        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_view_reimbursement'); ?>", { reimbursement_id: id });
+        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_view_reimbursement'); ?>", { reimbursement_id: id }, function () {
+            $('#modal-view-reimbursement').modal('show');
+        });
     });
 
     // Open Approve Modal
     $(document).on('click', '.btn-approve-reimbursement', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
-        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_approve_reimbursement'); ?>", { reimbursement_id: id });
+        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_approve_reimbursement'); ?>", { reimbursement_id: id }, function () {
+            $('#modal-approve-reimbursement').modal('show');
+        });
     });
 
     // Open Pay Modal
     $(document).on('click', '.btn-pay-reimbursement', function (e) {
         e.preventDefault();
         var id = $(this).data('id');
-        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_pay_reimbursement'); ?>", { reimbursement_id: id });
+        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_pay_reimbursement'); ?>", { reimbursement_id: id }, function () {
+            $('#modal-pay-reimbursement').modal('show');
+        });
     });
 });
 </script>

@@ -14,7 +14,7 @@ $(function () {
             reimbursement_id: "<?php echo $reimbursement->reimbursement_id; ?>",
             status: decision,
             admin_notes: notes,
-            _mm_csrf: $('#_mm_csrf').val()
+            _ip_csrf: Cookies.get('ip_csrf_cookie')
         }, function (data) {
             var response = JSON.parse(data);
             if (response.success === 1) {

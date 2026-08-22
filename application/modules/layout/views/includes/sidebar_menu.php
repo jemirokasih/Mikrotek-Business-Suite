@@ -192,7 +192,7 @@
                 </li>
             <?php endif; ?>
 
-            <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['attendance', 'leaves']) ? 'open active' : ''; ?>">
+            <li class="sidebar-nav-item has-submenu <?php echo in_array($this->router->fetch_class(), ['attendance', 'leaves', 'reimbursements']) ? 'open active' : ''; ?>">
                 <a href="<?php echo site_url('attendance/clock'); ?>" class="sidebar-nav-link">
                     <i class="fa fa-clock-o nav-icon"></i>
                     <span class="nav-text"><?php _trans('attendance'); ?> &amp; <?php _trans('leave'); ?></span>
@@ -201,6 +201,7 @@
                 <ul class="sidebar-submenu">
                     <li><a href="<?php echo site_url('attendance/clock'); ?>" class="sidebar-nav-link"><?php _trans('attendance_portal'); ?></a></li>
                     <li><a href="<?php echo site_url('leaves/my_leaves'); ?>" class="sidebar-nav-link"><?php _trans('my_leave_requests'); ?></a></li>
+                    <li><a href="<?php echo site_url('reimbursements/index'); ?>" class="sidebar-nav-link">Ajukan / Riwayat Reimburse</a></li>
                     <?php if (has_permission('attendance')) : ?>
                         <li><a href="<?php echo site_url('attendance/index'); ?>" class="sidebar-nav-link"><?php _trans('daily_attendance'); ?></a></li>
                         <li><a href="<?php echo site_url('attendance/report'); ?>" class="sidebar-nav-link"><?php _trans('attendance_report'); ?></a></li>

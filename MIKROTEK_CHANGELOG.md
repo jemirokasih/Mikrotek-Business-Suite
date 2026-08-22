@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.47] - 2026-08-22
+
+### 🔧 Perbaikan Fitur Modal Reimburse & Akses Portal Karyawan
+- **Perbaikan Event Handler Modal**: Menambahkan callback `.modal('show')` pada pemanggilan `.load()` modal di `reimbursements/index.php` sehingga tombol **Ajukan Reimburse**, **Detail Klaim**, **Tinjau & Setujui**, dan **Tandai Lunas** dapat terbuka secara sempurna saat diklik.
+- **Integrasi Portal Karyawan & Navigasi**: Menambahkan tautan **Riwayat Klaim Reimburse** dan **Ajukan Reimburse Baru** pada menu navigasi atas (*Navbar*) di bagian Presensi, Cuti & Reimburse, menu *Sidebar*, *Portal Presensi Karyawan* (`attendance/clock`), serta tombol pintas pada widget karyawan di Dashboard Utama.
+- **Dukungan URL Parameter & Hak Akses Self-Service**: Mendukung parameter `?action=create` untuk membuka modal pengajuan secara otomatis dan memberikan fallback izin `view` & `create` bagi seluruh pengguna karyawan/staff.
+
+---
+
 ## [v1.7.46] - 2026-08-22
 
 ### 💳 Integrasi Form & Riwayat Reimburse di Halaman Detail Karyawan (`employees/view`)
