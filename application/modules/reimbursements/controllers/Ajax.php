@@ -39,18 +39,16 @@ class Ajax extends Admin_Controller
         }
 
         $amount_raw = trim((string) ($this->input->post('amount', true) ?: ($_POST['amount'] ?? '')));
-        $cleaned_amount = preg_replace('/[^0-9\.,]/', '', $amount_raw);
-        if (strpos($cleaned_amount, '.') !== false && strpos($cleaned_amount, ',') === false) {
-            $parts = explode('.', $cleaned_amount);
-            if (count($parts) == 2 && strlen($parts[1]) == 3) {
-                $cleaned_amount = implode('', $parts);
-            } else if (count($parts) > 2) {
-                $cleaned_amount = implode('', $parts);
+        $amount = 0.0;
+        if (!empty($amount_raw)) {
+            $clean_str = trim(preg_replace('/[^0-9\.,]/', '', $amount_raw));
+            if (ctype_digit($clean_str)) {
+                $amount = (float) $clean_str;
+            } elseif (preg_match('/^\d+[\.,]\d{1,2}$/', $clean_str)) {
+                $amount = (float) str_replace(',', '.', $clean_str);
+            } else {
+                $amount = (float) preg_replace('/[^0-9]/', '', $clean_str);
             }
-        }
-        $amount = (float) (is_numeric($cleaned_amount) ? $cleaned_amount : standardize_amount($cleaned_amount));
-        if ($amount <= 0 && !empty($cleaned_amount)) {
-            $amount = (float) $cleaned_amount;
         }
 
         $category = trim((string) ($this->input->post('category', true) ?: ($_POST['category'] ?? ''))) ?: 'Lain-lain';

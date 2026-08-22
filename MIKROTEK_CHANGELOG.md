@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.71] - 2026-08-22
+
+### 💡 Parser Nominal Bebas Format (`reimbursements/Ajax.php`)
+- **Fix Universal Amount Parsing (`reimbursements/Ajax.php`)**: Memperbarui algoritma parsing nominal input pengeluaran agar secara otomatis mengenali seluruh variasi penulisan angka pengguna (`10000`, `10.000`, `10,000`, `150.000`, `1.500.000`, `Rp 10.000`) dan menyimpannya 100% tepat sesuai nominal yang diinputkan tanpa pemotong koma/titik desimal.
+
+---
+
 ## [v1.7.70] - 2026-08-22
 
 ### 🔍 Penyempurnaan Ekstraksi Urutan Nomor Klaim (`Mdl_reimbursements.php`)
