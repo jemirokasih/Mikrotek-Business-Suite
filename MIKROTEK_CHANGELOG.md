@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.61] - 2026-08-22
+
+### 🐛 Perbaikan Bug Validasi Step HTML5 Input Nominal (`amount`)
+- **Fix HTML5 Step Validation (`modal_create_reimbursement.php`)**: Mengubah atribut `step="100" min="1"` pada input angka nominal (`#amount`) menjadi `step="any" min="1"`. Pengaturan `step="100"` sebelumnya menyebabkan peramban secara otomatis memblokir submission form secara silent dengan pesan tooltip *"Please enter a valid value. The two nearest valid values are 99901 and 100001"* saat pengguna memasukkan angka bulat seperti `100000` (karena `100000 - 1` bukan kelipatan `100`). Pengaturan `step="any"` mengizinkan seluruh nominal bulat maupun desimal tanpa pemblokiran peramban.
+
+---
+
 ## [v1.7.60] - 2026-08-22
 
 ### 🏗️ Rebuild Total Alur Modal & Konstruksi Native FormData

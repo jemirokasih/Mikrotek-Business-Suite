@@ -129,7 +129,7 @@ $(function () {
                     <div class="col-xs-12 col-sm-6">
                         <div class="form-group">
                             <label for="amount" style="font-weight: 600; color: #334155;">Nominal Pengeluaran (Rp) <span class="text-danger">*</span></label>
-                            <input type="number" name="amount" id="amount" class="form-control" placeholder="Contoh: 150000" step="100" min="1" required style="border-radius: 8px; font-weight: 700; font-size: 15px;">
+                            <input type="number" name="amount" id="amount" class="form-control" placeholder="Contoh: 150000" step="any" min="1" required style="border-radius: 8px; font-weight: 700; font-size: 15px;">
                         </div>
                     </div>
 
