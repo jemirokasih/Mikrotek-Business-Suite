@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.62] - 2026-08-22
+
+### 🗑️ Penghapusan Modul Reimburse Sesuai Permintaan Pengguna
+- **Penghapusan Modul `reimbursements`**: Menghapus seluruh folder modul `application/modules/reimbursements/` (controller, model, view).
+- **Pembersihan Navigasi & UI**: Menghapus seluruh tombol, pintasan, dan menu Reimburse dari navbar (`navbar.php`), sidebar (`sidebar_menu.php`), portal presensi (`clock.php`), dashboard (`dashboard/views/index.php`), detail karyawan (`employees/views/view.php`), serta konfigurasi izin peran (`Mdl_roles.php`).
+
+---
+
 ## [v1.7.61] - 2026-08-22
 
 ### 🐛 Perbaikan Bug Validasi Step HTML5 Input Nominal (`amount`)

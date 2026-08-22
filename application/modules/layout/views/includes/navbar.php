@@ -49,14 +49,12 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-caret-down"></i> &nbsp;
-                        <span class="hidden-md"><?php _trans('attendance'); ?>, <?php _trans('leave'); ?> & Reimburse</span>
+                        <span class="hidden-md"><?php _trans('attendance'); ?> & <?php _trans('leave'); ?></span>
                         <i class="visible-md-inline fa fa-clock-o"></i>
                     </a>
                     <ul class="dropdown-menu">
                         <li><?php echo anchor('attendance/clock', trans('attendance_portal')); ?></li>
                         <li><?php echo anchor('leaves/my_leaves', trans('my_leave_requests')); ?></li>
-                        <li><?php echo anchor('reimbursements/index', 'Riwayat Klaim Reimburse'); ?></li>
-                        <li><?php echo anchor('reimbursements/index?action=create', 'Ajukan Reimburse Baru'); ?></li>
                         <?php if (has_permission('attendance')) : ?>
                             <li class="divider"></li>
                             <li><?php echo anchor('attendance/index', trans('daily_attendance')); ?></li>
@@ -64,9 +62,6 @@
                         <?php endif; ?>
                         <?php if (has_permission('leaves')) : ?>
                             <li><?php echo anchor('leaves/index', trans('leave_requests_admin')); ?></li>
-                        <?php endif; ?>
-                        <?php if (has_permission('reimbursements', 'edit')) : ?>
-                            <li><?php echo anchor('reimbursements/index', 'Kelola Reimburse (Admin)'); ?></li>
                         <?php endif; ?>
                     </ul>
                 </li>

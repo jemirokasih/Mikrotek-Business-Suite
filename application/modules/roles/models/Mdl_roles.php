@@ -107,10 +107,6 @@ class Mdl_Roles extends Response_Model
                 'label'   => trans('leave_requests'),
                 'actions' => ['view', 'create', 'edit', 'delete'],
             ],
-            'reimbursements' => [
-                'label'   => 'Klaim Reimburse',
-                'actions' => ['view', 'create', 'edit', 'delete'],
-            ],
         ];
     }
 }
