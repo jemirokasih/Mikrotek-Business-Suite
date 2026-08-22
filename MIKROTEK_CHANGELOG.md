@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.42] - 2026-08-22
+
+### 🔍 Pemisahan Eksklusif Digital Signature (QR Code) & Digital Signature Image (`pdf`)
+- **Penyematan QR Code Tanpa Gambar TTD**: Saat opsi **`Digital Signature (QR Code)`** dipilih, template PDF Invoice (`Mikrotek.php`) & Quote (`Mikrotek.php`) kini secara eksklusif hanya menampilkan QR Code verifikasi faktur digital tanpa menampilkan gambar scan TTD.
+- **Pemisahan Mode yang Jelas**: Mode *Digital Signature Image* khusus menampilkan gambar TTD scan, sedangkan mode *Digital Signature (QR Code)* khusus menampilkan QR Code verifikasi.
+
+---
+
 ## [v1.7.41] - 2026-08-22
 
 ### ✍️ Penambahan Opsi Digital Signature Image di Form Invoice & Quote (`invoices` & `quotes`)
