@@ -44,14 +44,15 @@ $(function () {
 });
 </script>
 
-<div id="modal-approve-reimbursement" class="modal col-xs-12 col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+<div id="modal-approve-reimbursement" class="modal fade" role="dialog" aria-labelledby="modal-approve-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
     <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden;">
         <form id="form_approve_reimbursement">
             <input type="hidden" name="reimbursement_id" id="approve_reimbursement_id" value="<?php echo htmlsc($reimbursement->reimbursement_id); ?>">
 
             <div class="modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 15px 20px;">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="modal-title" style="font-weight: 700; color: #0f172a; font-size: 16px;">
+                <h4 class="modal-title" id="modal-approve-title" style="font-weight: 700; color: #0f172a; font-size: 16px;">
                     <i class="fa fa-gavel text-primary"></i> Peninjauan Klaim Reimburse (Finance / Admin)
                 </h4>
             </div>
@@ -86,5 +87,6 @@ $(function () {
                 </button>
             </div>
         </form>
+    </div>
     </div>
 </div>

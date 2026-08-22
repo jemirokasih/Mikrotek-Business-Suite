@@ -116,7 +116,7 @@ $(function () {
                                 <label style="font-weight: 600; color: #334155;">Tanggal Pengeluaran <span class="text-danger">*</span></label>
                                 <input type="text" name="reimbursement_date" id="create_reimb_date"
                                        class="form-control datepicker"
-                                       value="<?php echo date('Y-m-d'); ?>"
+                                       value="<?php echo date_from_mysql(date('Y-m-d')); ?>"
                                        style="border-radius: 8px;" autocomplete="off">
                             </div>
                         </div>

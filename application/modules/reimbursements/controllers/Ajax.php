@@ -12,14 +12,13 @@ class Ajax extends Admin_Controller
         $this->load->model('mdl_reimbursements');
         $this->load->helper('file_security');
         $this->load->helper('date');
-        $this->load->helper('number_helper');
     }
 
     public function modal_create_reimbursement()
     {
         check_permission('reimbursements', 'create');
 
-        $employee_id = $this->input->post('employee_id');
+        $employee_id = $this->input->get('employee_id');
 
         $data = [
             'categories'  => $this->mdl_reimbursements->get_categories(),
@@ -39,13 +38,12 @@ class Ajax extends Admin_Controller
             return;
         }
 
-        // Read all POST fields directly — no XSS filter so we don't lose values
-        $title       = isset($_POST['reimbursement_title']) ? trim($_POST['reimbursement_title']) : '';
-        $amount_raw  = isset($_POST['amount']) ? trim($_POST['amount']) : '';
-        $category    = isset($_POST['category']) ? trim($_POST['category']) : 'Lain-lain';
-        $date_input  = isset($_POST['reimbursement_date']) ? trim($_POST['reimbursement_date']) : '';
-        $description = isset($_POST['description']) ? trim($_POST['description']) : '';
-        $post_emp_id = isset($_POST['employee_id']) ? trim($_POST['employee_id']) : '';
+        $title       = trim((string) $this->input->post('reimbursement_title'));
+        $amount_raw  = trim((string) $this->input->post('amount'));
+        $category    = trim((string) $this->input->post('category'));
+        $date_input  = trim((string) $this->input->post('reimbursement_date'));
+        $description = trim((string) $this->input->post('description'));
+        $post_emp_id = trim((string) $this->input->post('employee_id'));
 
         // Defaults for empty fields
         if (empty($title)) {
@@ -55,22 +53,28 @@ class Ajax extends Admin_Controller
             $category = 'Lain-lain';
         }
 
-        // Parse amount — strip everything except digits
+        // Parse amount — strip everything except digits, dots, commas
         $amount = 0.0;
         if (!empty($amount_raw)) {
             // Remove all non-numeric except comma and dot
             $clean = preg_replace('/[^0-9.,]/', '', $amount_raw);
-            // If it looks like a thousands format (has dot/comma but last group is 3 digits), treat all as integer
-            if (preg_match('/^[\d]+([.,]\d{3})+$/', $clean)) {
-                // e.g. 10.000 or 10,000 → 10000
+            // Detect thousands separator format: all dots (or commas) are thousands separators
+            // e.g. 1.500.000 or 1,500,000 → strip all separators
+            if (preg_match('/^\d{1,3}([.,]\d{3})+$/', $clean)) {
+                // e.g. 10.000 or 1.500.000 or 10,000 → strip separators entirely
                 $amount = (float) preg_replace('/[.,]/', '', $clean);
-            } elseif (preg_match('/^[\d]+[.,]\d{1,2}$/', $clean)) {
+            } elseif (preg_match('/^\d+[.,]\d{1,2}$/', $clean)) {
                 // e.g. 10000,50 or 10000.50 → decimal
                 $amount = (float) str_replace(',', '.', $clean);
             } else {
-                // Plain number: just strip non-digits
+                // Plain number or mixed: strip all non-digits
                 $amount = (float) preg_replace('/[^0-9]/', '', $clean);
             }
+        }
+
+        if ($amount <= 0) {
+            echo json_encode(['success' => 0, 'error' => 'Nominal harus lebih dari 0.']);
+            return;
         }
 
         // Resolve employee / user / company
@@ -96,7 +100,7 @@ class Ajax extends Admin_Controller
             $this->load->library('upload');
             $this->upload->initialize([
                 'upload_path'   => $upload_path,
-                'allowed_types' => '*',
+                'allowed_types' => 'jpg|jpeg|png|gif|webp|pdf',
                 'encrypt_name'  => true,
             ]);
             if ($this->upload->do_upload('attachment')) {
@@ -188,9 +192,9 @@ class Ajax extends Admin_Controller
         header('Content-Type: application/json');
         check_permission('reimbursements', 'edit');
 
-        $reimbursement_id = (int) ($this->input->post('reimbursement_id') ?: ($_POST['reimbursement_id'] ?? 0));
-        $status           = $this->input->post('status') ?: ($_POST['status'] ?? '');
-        $admin_notes      = $this->input->post('admin_notes') ?: ($_POST['admin_notes'] ?? '');
+        $reimbursement_id = (int) $this->input->post('reimbursement_id');
+        $status           = (string) $this->input->post('status');
+        $admin_notes      = (string) $this->input->post('admin_notes');
 
         if (!in_array($status, ['approved', 'rejected'], true)) {
             echo json_encode(['success' => 0, 'error' => 'Status tidak valid']);
@@ -229,9 +233,9 @@ class Ajax extends Admin_Controller
         header('Content-Type: application/json');
         check_permission('reimbursements', 'edit');
 
-        $reimbursement_id = (int) ($this->input->post('reimbursement_id') ?: ($_POST['reimbursement_id'] ?? 0));
-        $payment_date     = date_to_mysql($this->input->post('payment_date') ?: ($_POST['payment_date'] ?? '')) ?: date('Y-m-d');
-        $payment_method   = $this->input->post('payment_method') ?: ($_POST['payment_method'] ?? 'Transfer Bank');
+        $reimbursement_id = (int) $this->input->post('reimbursement_id');
+        $payment_date     = date_to_mysql((string) $this->input->post('payment_date')) ?: date('Y-m-d');
+        $payment_method   = (string) $this->input->post('payment_method') ?: 'Transfer Bank';
 
         $db_array = [
             'status'         => 'paid',

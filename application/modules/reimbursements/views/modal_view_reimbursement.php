@@ -1,8 +1,9 @@
-<div id="modal-view-reimbursement" class="modal col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+<div id="modal-view-reimbursement" class="modal fade" role="dialog" aria-labelledby="modal-view-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); overflow: hidden;">
         <div class="modal-header" style="background: #f8fafc; border-bottom: 1px solid #e2e8f0; padding: 15px 20px;">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="modal-title" style="font-weight: 700; color: #0f172a; font-size: 16px;">
+            <h4 class="modal-title" id="modal-view-title" style="font-weight: 700; color: #0f172a; font-size: 16px;">
                 <i class="fa fa-file-text-o" style="color: #3b82f6;"></i> Detail Klaim Reimburse: <code><?php echo htmlsc($reimbursement->reimbursement_number); ?></code>
             </h4>
         </div>
@@ -113,5 +114,6 @@
         <div class="modal-footer" style="background: #f8fafc; border-top: 1px solid #e2e8f0; padding: 12px 20px;">
             <button type="button" class="btn btn-default" data-dismiss="modal" style="border-radius: 8px;">Tutup</button>
         </div>
+    </div>
     </div>
 </div>

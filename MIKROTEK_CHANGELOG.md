@@ -12,7 +12,19 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.75] - 2026-08-22
+
+### 🐛 Perbaikan Bug Data Input Fitur Reimburse
+- **Struktur Modal Bootstrap (`modal_view`, `modal_approve`, `modal_pay`)**: Ketiga modal tidak memiliki wrapper `<div class="modal-dialog">` yang wajib di Bootstrap 3. Akibatnya modal tidak tampil secara benar (tidak ada dialog box, backdrop menutupi layar). Ditambahkan `<div class="modal-dialog">` yang sesuai beserta `modal fade` class dan `aria-labelledby` unik per modal.
+- **Format Tanggal Default di Form**: Field tanggal pada `modal_create_reimbursement.php` dan `modal_pay_reimbursement.php` diisi dengan `date('Y-m-d')` (hardcode) yang tidak cocok dengan format datepicker yang dikonfigurasi di pengaturan sistem. Diubah menjadi `date_from_mysql(date('Y-m-d'))` agar output sesuai format yang dikonfigurasi.
+- **Parsing Amount Format Ribuan Bertingkat**: Regex pendeteksi format ribuan hanya cocok untuk satu level separator (misal `10.000`) tetapi gagal untuk `1.500.000` atau `2.000.000` (dua titik atau lebih). Regex diubah dari `^[\d]+([.,]\d{3})+$` menjadi `^\d{1,3}([.,]\d{3})+$` agar semua level ribuan terdeteksi dengan benar.
+- **Validasi Amount > 0**: Sebelumnya tidak ada validasi, sehingga nominal `0` atau kosong bisa masuk ke database. Ditambahkan pengecekan `$amount <= 0` yang langsung mengembalikan error JSON sebelum proses insert.
+- **`employee_id` di Modal Create dibaca dari POST padahal dikirim via GET**: Controller `modal_create_reimbursement()` membaca `employee_id` via `$this->input->post()` tapi jQuery `.load()` tidak mengirim POST body. Diubah menjadi `$this->input->get()`.
+
+---
+
 ## [v1.7.74] - 2026-08-22
+
 
 ### 🔧 Rebuild Total Ajax.php & Modal Create Reimbursement
 - **`Ajax.php` - `create_reimbursement()`**: Rewrite penuh. Semua field POST dibaca langsung via `$_POST` superglobal (tanpa XSS filter CI yang bisa mengembalikan `false`). Menambahkan `header('Content-Type: application/json')`. Error DB kini dilaporkan ke klien. Parsing amount diperketat (deteksi format ribuan vs desimal). Insert langsung via `$this->db->insert()`.
