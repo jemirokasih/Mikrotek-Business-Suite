@@ -15,6 +15,16 @@ function has_permission(string $module, string $action = 'view'): bool
 {
     $CI =& get_instance();
 
+    $user_id = $CI->session->userdata('user_id');
+    if (!$user_id) {
+        return false;
+    }
+
+    // Default self-service permission for reimbursements view & create for all logged-in users
+    if ($module === 'reimbursements' && in_array($action, ['view', 'create'], true)) {
+        return true;
+    }
+
     $user_type = $CI->session->userdata('user_type');
 
     // Super Admin (user_type 1) has unrestricted access
@@ -25,11 +35,6 @@ function has_permission(string $module, string $action = 'view'): bool
     // Guest users (user_type 2) have restricted portal access
     if ((string) $user_type === '2') {
         return false;
-    }
-
-    // Default self-service permission fallback for staff (reimbursements view & create)
-    if ($module === 'reimbursements' && in_array($action, ['view', 'create'], true)) {
-        return true;
     }
 
     // Custom Role / Staff (user_type 3)

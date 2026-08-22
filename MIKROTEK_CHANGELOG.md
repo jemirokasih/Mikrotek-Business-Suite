@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.51] - 2026-08-22
+
+### 🔑 Izin Akses Pengajuan Klaim Reimburse Terjamin untuk Semua Pengguna Terautentikasi
+- **Global Self-Service Permission Check (`permissions_helper.php`)**: Memindahkan verifikasi izin `view` & `create` klaim reimburse ke bagian paling atas fungsi `has_permission()` segera setelah memeriksa keberadaan `user_id` dalam sesi. Hal ini menjamin bahwa seluruh pengguna terautentikasi yang masuk ke aplikasi dapat membuat dan melihat pengajuan klaim tanpa terhalang oleh cache perizinan role atau klasifikasi `user_type`.
+
+---
+
 ## [v1.7.50] - 2026-08-22
 
 ### 🚀 Peningkatan Respon AJAX & Path Absolut Upload File Reimburse
