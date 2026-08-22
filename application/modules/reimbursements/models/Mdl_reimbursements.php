@@ -101,7 +101,7 @@ class Mdl_Reimbursements extends Response_Model
         $this->db->limit(1);
         $query = $this->db->get('ip_reimbursements');
         
-        if ($query->num_rows() > 0) {
+        if ($query && $query->num_rows() > 0) {
             $last_number = $query->row()->reimbursement_number;
             $seq = (int) substr($last_number, -4) + 1;
         } else {

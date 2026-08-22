@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.56] - 2026-08-22
+
+### 🎯 Pengecualian URI CSRF AJAX & Penguatan Generator Nomor Klaim
+- **Pengecualian URI CSRF AJAX Reimburse (`application/config/config.php`)**: Memasukkan endpoint AJAX `reimbursements/ajax/*` ke dalam `$config['csrf_exclude_uris']`. Hal ini menjamin bahwa seluruh form pengajuan dan modal klaim reimburse yang dikirimkan via `FormData` AJAX bebas dari bentrokan rotasi cookie CSRF, sementara keamanan tetap terlindungi melalui verifikasi sesi login (`user_id`) dan izin modul (`has_permission`).
+- **Safety Check `generate_number()` (`Mdl_reimbursements.php`)**: Menambahkan pemeriksaan `num_rows()` yang aman saat mengenerate nomor klaim otomatis.
+
+---
+
 ## [v1.7.55] - 2026-08-22
 
 ### 🍪 Pembacaan Cookie Native CSRF Terkini (`document.cookie`) pada Modal Reimburse

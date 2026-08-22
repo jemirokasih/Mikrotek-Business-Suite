@@ -107,13 +107,18 @@ class Ajax extends Admin_Controller
         $amount_raw = $this->input->post('amount');
         $amount = (float) str_replace(['.', ','], ['', '.'], $amount_raw);
 
+        $reimbursement_date = date_to_mysql($this->input->post('reimbursement_date'));
+        if (empty($reimbursement_date)) {
+            $reimbursement_date = date('Y-m-d');
+        }
+
         $db_array = [
             'reimbursement_number' => $this->mdl_reimbursements->generate_number(),
             'company_id' => $company_id,
             'user_id' => $user_id,
             'employee_id' => $employee_id,
             'reimbursement_title' => $this->input->post('reimbursement_title', true),
-            'reimbursement_date' => date_to_mysql($this->input->post('reimbursement_date')),
+            'reimbursement_date' => $reimbursement_date,
             'category' => $this->input->post('category', true),
             'amount' => $amount,
             'description' => $this->input->post('description', true),
