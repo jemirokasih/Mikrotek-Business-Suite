@@ -36,7 +36,8 @@ $(function () {
         fd.append('reimbursement_title',  $form.find('[name=reimbursement_title]').val());
         fd.append('reimbursement_date',   $form.find('[name=reimbursement_date]').val());
         fd.append('category',             $form.find('[name=category]').val());
-        fd.append('reimbursement_amount',   $form.find('#create_reimb_amount').val());
+        var amountEl = document.getElementById('create_reimb_amount');
+        fd.append('reimbursement_amount',   amountEl ? amountEl.value : '');
         fd.append('description',          $form.find('[name=description]').val());
 
         var emp = $form.find('[name=employee_id]');
