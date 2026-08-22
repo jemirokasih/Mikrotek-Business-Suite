@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.68] - 2026-08-22
+
+### 🔢 Fix Parsing Angka Nominal Ribuan & Tipe Input Form (`modal_create_reimbursement.php` & `Ajax.php`)
+- **Tipe Input `<input type="text" inputmode="numeric">` (`modal_create_reimbursement.php`)**: Memperbarui tipe input angka `#amount` menjadi `text` dengan `inputmode="numeric"`. Hal ini mencegah peramban secara otomatis mengkonversi angka dengan titik (seperti `10.000`) menjadi angka desimal `1` sebelum dikirimkan ke server.
+- **Parsing Format Ribuan Indonesia & Titik Desimal (`reimbursements/Ajax.php`)**: Menambahkan logika pembersihan angka pintar di mana input seperti `10000`, `10.000`, atau `10,000` di-parse 100% tepat menjadi nominal **`10000.00`** tanpa pemotongan.
+
+---
+
 ## [v1.7.67] - 2026-08-22
 
 ### ⚡ Penyederhanaan Total Alur Pengajuan Reimbursement (`Ajax.php`)

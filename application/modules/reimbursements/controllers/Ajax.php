@@ -39,9 +39,18 @@ class Ajax extends Admin_Controller
         }
 
         $amount_raw = trim((string) ($this->input->post('amount', true) ?: ($_POST['amount'] ?? '')));
-        $amount = (float) str_replace(['.', ','], ['', '.'], $amount_raw);
-        if ($amount <= 0) {
-            $amount = 1.00;
+        $cleaned_amount = preg_replace('/[^0-9\.,]/', '', $amount_raw);
+        if (strpos($cleaned_amount, '.') !== false && strpos($cleaned_amount, ',') === false) {
+            $parts = explode('.', $cleaned_amount);
+            if (count($parts) == 2 && strlen($parts[1]) == 3) {
+                $cleaned_amount = implode('', $parts);
+            } else if (count($parts) > 2) {
+                $cleaned_amount = implode('', $parts);
+            }
+        }
+        $amount = (float) (is_numeric($cleaned_amount) ? $cleaned_amount : standardize_amount($cleaned_amount));
+        if ($amount <= 0 && !empty($cleaned_amount)) {
+            $amount = (float) $cleaned_amount;
         }
 
         $category = trim((string) ($this->input->post('category', true) ?: ($_POST['category'] ?? ''))) ?: 'Lain-lain';
