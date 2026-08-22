@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.69] - 2026-08-22
+
+### 🎯 Serialisasi Native `FormData(this)` & Fallback Nomor Klaim Unik (`modal_create_reimbursement.php` & `Ajax.php`)
+- **Serialisasi Elemen Form DOM Native (`modal_create_reimbursement.php`)**: Menggunakan konstruktor `new FormData(this)` langsung dari simpul HTML form DOM. Hal ini mencegah kegagalan pembacaan input akibat bentrokan pemilih ID jQuery pada dokumen DOM peramban.
+- **Pencegahan Bentrokan Kueri SQL & Fallback Nomor (`reimbursements/Ajax.php`)**: Menambahkan pengacak nomor klaim cadangan (`RMB-YYYYMM-XXXX`) untuk menjamin kueri `INSERT` tidak pernah gagal akibat bentrokan nomor klaim unik pada basis data.
+
+---
+
 ## [v1.7.68] - 2026-08-22
 
 ### 🔢 Fix Parsing Angka Nominal Ribuan & Tipe Input Form (`modal_create_reimbursement.php` & `Ajax.php`)

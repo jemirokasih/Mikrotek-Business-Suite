@@ -100,8 +100,13 @@ class Ajax extends Admin_Controller
             $reimbursement_date = date('Y-m-d');
         }
 
+        $reimb_number = $this->mdl_reimbursements->generate_number();
+        if (empty($reimb_number)) {
+            $reimb_number = 'RMB-' . date('Ym') . '-' . sprintf('%04d', rand(1, 9999));
+        }
+
         $db_array = [
-            'reimbursement_number' => $this->mdl_reimbursements->generate_number(),
+            'reimbursement_number' => $reimb_number,
             'company_id' => $company_id,
             'user_id' => $user_id,
             'employee_id' => $employee_id,

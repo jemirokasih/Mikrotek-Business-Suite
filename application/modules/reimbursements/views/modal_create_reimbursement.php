@@ -24,28 +24,8 @@ $(function () {
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
         $('#modal-error-container').hide().empty();
 
-        var title = $.trim($('#reimbursement_title').val());
-        var dateVal = $.trim($('#reimbursement_date').val());
-        var category = $.trim($('#category').val());
-        var amount = $.trim($('#amount').val());
-        var description = $.trim($('#description').val());
-        var employeeId = $('#employee_id_input').length ? $('#employee_id_input').val() : '';
-
-        var formData = new FormData();
-        formData.append('reimbursement_title', title);
-        formData.append('reimbursement_date', dateVal);
-        formData.append('category', category);
-        formData.append('amount', amount);
-        formData.append('description', description);
+        var formData = new FormData(this);
         formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', getCsrfCookie());
-        if (employeeId) {
-            formData.append('employee_id', employeeId);
-        }
-
-        var fileInput = $('#attachment')[0];
-        if (fileInput && fileInput.files && fileInput.files.length > 0) {
-            formData.append('attachment', fileInput.files[0]);
-        }
 
         $.ajax({
             url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
