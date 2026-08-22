@@ -12,7 +12,17 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.76] - 2026-08-22
+
+### 🐛 Fix: Nominal Selalu Terbaca 0 Meski Diisi
+- **Root cause**: Field `name="amount"` pada form HTML bentrok dengan properti DOM form native (`HTMLFormElement.amount`). Akibatnya jQuery `$form.find('[name=amount]').val()` mengembalikan objek DOM bukan string nilai, sehingga nilai yang dikirim ke server kosong/undefined.
+- **Fix view (`modal_create_reimbursement.php`)**: Rename field dari `name="amount"` ke `name="reimbursement_amount"` + tambah `id="create_reimb_amount"`. JS FormData kini mengambil nilai via ID selector `#create_reimb_amount` yang lebih aman.
+- **Fix controller (`Ajax.php`)**: Membaca POST field `reimbursement_amount`. Tambah fallback `$_POST['reimbursement_amount']` sebagai safety net jika CI input class mengembalikan `false`.
+
+---
+
 ## [v1.7.75] - 2026-08-22
+
 
 ### 🐛 Perbaikan Bug Data Input Fitur Reimburse
 - **Struktur Modal Bootstrap (`modal_view`, `modal_approve`, `modal_pay`)**: Ketiga modal tidak memiliki wrapper `<div class="modal-dialog">` yang wajib di Bootstrap 3. Akibatnya modal tidak tampil secara benar (tidak ada dialog box, backdrop menutupi layar). Ditambahkan `<div class="modal-dialog">` yang sesuai beserta `modal fade` class dan `aria-labelledby` unik per modal.

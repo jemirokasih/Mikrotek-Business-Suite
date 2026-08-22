@@ -39,7 +39,7 @@ class Ajax extends Admin_Controller
         }
 
         $title       = trim((string) $this->input->post('reimbursement_title'));
-        $amount_raw  = trim((string) $this->input->post('amount'));
+        $amount_raw  = trim((string) ($this->input->post('reimbursement_amount') ?: ($_POST['reimbursement_amount'] ?? '')));
         $category    = trim((string) $this->input->post('category'));
         $date_input  = trim((string) $this->input->post('reimbursement_date'));
         $description = trim((string) $this->input->post('description'));

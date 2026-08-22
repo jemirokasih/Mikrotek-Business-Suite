@@ -36,7 +36,7 @@ $(function () {
         fd.append('reimbursement_title',  $form.find('[name=reimbursement_title]').val());
         fd.append('reimbursement_date',   $form.find('[name=reimbursement_date]').val());
         fd.append('category',             $form.find('[name=category]').val());
-        fd.append('amount',               $form.find('[name=amount]').val());
+        fd.append('reimbursement_amount',   $form.find('#create_reimb_amount').val());
         fd.append('description',          $form.find('[name=description]').val());
 
         var emp = $form.find('[name=employee_id]');
@@ -138,7 +138,7 @@ $(function () {
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
                                 <label style="font-weight: 600; color: #334155;">Nominal (Rp) <span class="text-danger">*</span></label>
-                                <input type="text" inputmode="numeric" name="amount" class="form-control"
+                                <input type="text" inputmode="numeric" name="reimbursement_amount" id="create_reimb_amount" class="form-control"
                                        placeholder="Contoh: 50000"
                                        style="border-radius: 8px; font-weight: 700; font-size: 15px;">
                             </div>
