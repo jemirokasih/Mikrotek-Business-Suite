@@ -214,7 +214,7 @@
 $(function () {
     // Function to open create modal
     function openCreateModal() {
-        $('#modal-placeholder').load("<?php echo site_url('reimbursements/ajax/modal_create_reimbursement'); ?>", function () {
+        $('#modal-placeholder').empty().load("<?php echo site_url('reimbursements/ajax/modal_create_reimbursement'); ?>", function () {
             $('#modal-create-reimbursement').modal('show');
         });
     }

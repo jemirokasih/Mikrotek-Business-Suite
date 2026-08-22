@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.58] - 2026-08-22
+
+### 💧 Hidrasi Otomatis & Penargetan Form Modal Presisi
+- **Penargetan Form Modal Spesifik (`modal_create_reimbursement.php`)**: Mengubah penargetan objek form dari pemilih global `$('#form_create_reimbursement')[0]` menjadi `$(this).closest('.modal-content').find('form')[0]`. Hal ini menjamin bahwa tombol simpan selalu mengambil data dari form modal yang sedang aktif, dan mencegah penangkapan data dari instance form tersembunyi/lama di DOM.
+- **Hidrasi Manual Objek `FormData` (`modal_create_reimbursement.php`)**: Menambahkan pemanggilan `formData.set(...)` secara eksplisit sebelum pengiriman `$.ajax` untuk menjamin bahwa seluruh nilai bidang wajib (`reimbursement_title`, `amount`, `reimbursement_date`, `category`, `description`) terisi 100% pada payload POST.
+- **Pembersihan Kontainer Modal (`reimbursements/views/index.php`)**: Menambahkan pemanggilan `$('#modal-placeholder').empty()` sebelum pemuatan modal baru.
+
+---
+
 ## [v1.7.57] - 2026-08-22
 
 ### 🛠️ Perbaikan Sintaks HTML Modal & Validasi Input Bahasa Indonesia

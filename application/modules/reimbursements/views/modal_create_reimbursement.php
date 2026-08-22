@@ -21,6 +21,7 @@ $(function () {
 
     $('#btn_submit_reimbursement').click(function () {
         var $btn = $(this);
+        var $form = $btn.closest('.modal-content').find('form');
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
         $('#modal-error-container').hide().empty();
 
@@ -29,10 +30,17 @@ $(function () {
             var activeToken = getCsrfCookie() || (typeof csrf_token_value !== 'undefined' ? csrf_token_value : '');
             
             if (activeToken) {
-                $('#form_create_reimbursement input[name="' + tokenName + '"]').val(activeToken);
+                $form.find('input[name="' + tokenName + '"]').val(activeToken);
             }
 
-            var formData = new FormData($('#form_create_reimbursement')[0]);
+            var formData = new FormData($form[0]);
+
+            // Explicitly ensure field values are hydrated into FormData
+            formData.set('reimbursement_title', $form.find('#reimbursement_title').val() || '');
+            formData.set('reimbursement_date', $form.find('#reimbursement_date').val() || '');
+            formData.set('category', $form.find('#category').val() || '');
+            formData.set('amount', $form.find('#amount').val() || '');
+            formData.set('description', $form.find('#description').val() || '');
 
             $.ajax({
                 url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
