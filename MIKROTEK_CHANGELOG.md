@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.64] - 2026-08-22
+
+### 🔐 Perbaikan Pengecualian CSRF AJAX & Penyertaan Token Native (`modal_create_reimbursement.php`)
+- **Fix CSRF AJAX 403 Forbidden Block (`config.php`)**: Memasukkan `reimbursements/ajax/*` ke dalam `$config['csrf_exclude_uris']` untuk mencegah peramban menerima balasan `HTTP 403 Forbidden` saat mengirimkan `FormData` pengajuan reimburse via AJAX.
+- **Penyertaan Token Native CSRF (`modal_create_reimbursement.php`)**: Menambahkan fungsi helper `getCsrfCookie()` dan menyuntikkan token `_ip_csrf` secara langsung ke dalam objek `FormData`, sehingga validasi keamanan CSRF di sisi server selalu terpenuhi 100%.
+
+---
+
 ## [v1.7.63] - 2026-08-22
 
 ### 🚀 Rebuild Total Modul Reimbursement (Finance Approval & Complete CRUD)

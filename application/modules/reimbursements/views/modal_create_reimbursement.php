@@ -1,5 +1,16 @@
 <script>
 $(function () {
+    function getCsrfCookie() {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            if (cookie.indexOf('ip_csrf_cookie=') === 0) {
+                return decodeURIComponent(cookie.substring('ip_csrf_cookie='.length));
+            }
+        }
+        return '';
+    }
+
     $('.datepicker').datepicker({
         format: '<?php echo date_format_datepicker(); ?>',
         autoclose: true,
@@ -26,6 +37,7 @@ $(function () {
         formData.append('category', category);
         formData.append('amount', amount);
         formData.append('description', description);
+        formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', getCsrfCookie());
         if (employeeId) {
             formData.append('employee_id', employeeId);
         }

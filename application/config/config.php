@@ -512,7 +512,9 @@ $config['csrf_token_name']   = '_ip_csrf';
 $config['csrf_cookie_name']  = 'ip_csrf_cookie';
 $config['csrf_expire']       = env('SESS_EXPIRATION', 3600);
 $config['csrf_regenerate']   = env_bool('CSRF_REGENERATE', 'false');
-$config['csrf_exclude_uris'] = [];
+$config['csrf_exclude_uris'] = [
+    'reimbursements/ajax/*',
+];
 
 /*
 |--------------------------------------------------------------------------
