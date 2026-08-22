@@ -31,7 +31,22 @@ class Ajax extends Admin_Controller
 
     public function create_reimbursement()
     {
-        check_permission('reimbursements', 'create');
+        if (!has_permission('reimbursements', 'create')) {
+            echo json_encode([
+                'success' => 0,
+                'validation_errors' => '<div class="alert alert-danger">Anda tidak memiliki hak akses untuk membuat pengajuan reimburse.</div>',
+            ]);
+            return;
+        }
+
+        $session_user_id = (int) $this->session->userdata('user_id');
+        if (!$session_user_id) {
+            echo json_encode([
+                'success' => 0,
+                'validation_errors' => '<div class="alert alert-danger">Sesi login Anda telah berakhir. Silakan login kembali.</div>',
+            ]);
+            return;
+        }
 
         if (!$this->mdl_reimbursements->run_validation()) {
             $response = [
@@ -48,10 +63,10 @@ class Ajax extends Admin_Controller
         if ($post_emp_id) {
             $employee = $this->db->get_where('ip_employees', ['employee_id' => (int) $post_emp_id])->row();
             $employee_id = $employee ? $employee->employee_id : (int) $post_emp_id;
-            $user_id = ($employee && $employee->user_id) ? $employee->user_id : (int) $this->session->userdata('user_id');
+            $user_id = ($employee && $employee->user_id) ? $employee->user_id : $session_user_id;
             $company_id = ($employee && $employee->company_id) ? $employee->company_id : 1;
         } else {
-            $user_id = (int) $this->session->userdata('user_id');
+            $user_id = $session_user_id;
             $employee = $this->db->get_where('ip_employees', ['user_id' => $user_id])->row();
             $employee_id = $employee ? $employee->employee_id : null;
             $company_id = $employee ? $employee->company_id : 1;
@@ -61,9 +76,9 @@ class Ajax extends Admin_Controller
 
         // Handle attachment file upload if provided
         if (isset($_FILES['attachment']) && !empty($_FILES['attachment']['name'])) {
-            $upload_path = './uploads/reimbursements/';
+            $upload_path = FCPATH . 'uploads/reimbursements/';
             if (!is_dir($upload_path)) {
-                mkdir($upload_path, 0777, true);
+                @mkdir($upload_path, 0777, true);
             }
 
             $config = [

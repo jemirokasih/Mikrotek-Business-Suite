@@ -12,6 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.50] - 2026-08-22
+
+### 🚀 Peningkatan Respon AJAX & Path Absolut Upload File Reimburse
+- **Path Absolut Upload Lampiran (`reimbursements/Ajax.php`)**: Mengubah konfigurasi `upload_path` dari path relatif (`./uploads/reimbursements/`) menjadi path absolut `FCPATH . 'uploads/reimbursements/'` untuk mencegah kegagalan upload file nota/struk saat dijalankan pada web server dengan working directory berbeda.
+- **Respon Error AJAX Bersih Tanpa Alert Memblokir**: Mengganti penanganan error permission dan validation pada controller AJAX agar mengembalikan respon JSON ber-status HTTP 200 OK dengan pesan kesalahan yang dapat ditampilkan langsung di dalam kontainer modal (`#modal-error-container`), bukan memicu alert popup peramban yang tidak informatif.
+- **Status Tombol & Spinner UI (`modal_create_reimbursement.php`)**: Menambahkan indikator tombol loading (*disabled & spinner*) saat proses pengiriman data klaim berlangsung untuk mencegah pengiriman ganda (double-submit).
+
+---
+
 ## [v1.7.49] - 2026-08-22
 
 ### 🛡️ Perbaikan Parsing Tanggal & Penanganan Error Penyimpanan Reimburse

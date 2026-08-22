@@ -7,6 +7,10 @@ $(function () {
     });
 
     $('#btn_submit_reimbursement').click(function () {
+        var $btn = $(this);
+        $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
+        $('#modal-error-container').hide().empty();
+
         var formData = new FormData($('#form_create_reimbursement')[0]);
 
         $.ajax({
@@ -17,6 +21,7 @@ $(function () {
             processData: false,
             dataType: 'json',
             success: function (data) {
+                $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
                 if (data.success === 1) {
                     window.location.reload();
                 } else {
@@ -33,8 +38,28 @@ $(function () {
                 }
             },
             error: function (xhr) {
-                console.error("Server error:", xhr.responseText);
-                alert('Terjadi kesalahan server saat menyimpan data klaim.');
+                $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
+                console.error("Server response:", xhr.status, xhr.responseText);
+                var errMessage = 'Terjadi kesalahan server saat menyimpan data klaim.';
+                if (xhr.responseJSON && xhr.responseJSON.validation_errors) {
+                    var errors = xhr.responseJSON.validation_errors;
+                    errMessage = typeof errors === 'object' ? Object.values(errors).join('<br>') : errors;
+                } else if (xhr.responseText) {
+                    try {
+                        var res = JSON.parse(xhr.responseText);
+                        if (res.validation_errors) {
+                            errMessage = typeof res.validation_errors === 'object' ? Object.values(res.validation_errors).join('<br>') : res.validation_errors;
+                        }
+                    } catch(e) {
+                        if (xhr.status === 403) {
+                            errMessage = 'Akses ditolak (403). Anda tidak memiliki izin untuk mengajukan reimburse.';
+                        }
+                    }
+                }
+                if (!errMessage.includes('alert')) {
+                    errMessage = '<div class="alert alert-danger">' + errMessage + '</div>';
+                }
+                $('#modal-error-container').html(errMessage).show();
             }
         });
     });
