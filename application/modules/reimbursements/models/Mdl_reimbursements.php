@@ -130,7 +130,9 @@ class Mdl_Reimbursements extends Response_Model
         
         if ($query && $query->num_rows() > 0) {
             $last_number = $query->row()->reimbursement_number;
-            $seq = (int) substr($last_number, -4) + 1;
+            $parts = explode('-', $last_number);
+            $last_seq = (int) end($parts);
+            $seq = $last_seq + 1;
         } else {
             $seq = 1;
         }

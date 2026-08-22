@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.70] - 2026-08-22
+
+### 🔍 Penyempurnaan Ekstraksi Urutan Nomor Klaim (`Mdl_reimbursements.php`)
+- **Fix Generator Sequence `generate_number()` (`Mdl_reimbursements.php`)**: Memperbarui ekstraksi nomor urut terakhir menggunakan pemisah dash `explode('-', $last_number)` agar pengurutan nomor klaim `RMB-YYYYMM-XXXX` selalu akurat dan tidak terjadi penolakan nomor duplikat oleh basis data.
+
+---
+
 ## [v1.7.69] - 2026-08-22
 
 ### 🎯 Serialisasi Native `FormData(this)` & Fallback Nomor Klaim Unik (`modal_create_reimbursement.php` & `Ajax.php`)
