@@ -121,12 +121,22 @@
                 </div>
             </td>
             <td style="width: 50%;">
+                <?php
+                $effective_sig_type = get_setting('signature_type', 'text');
+                $effective_sig_img  = get_setting('signature_image');
+                ?>
                 <div class="signature-box">
                     <p style="margin: 0;"><?php echo html_escape($receipt->company_city ?: 'Jakarta'); ?>, <?php echo date_from_mysql($receipt->receipt_date); ?></p>
                     <p style="margin: 2px 0 0 0; font-weight: bold;"><?php echo html_escape($receipt->company_name ?: get_setting('custom_title')); ?></p>
-                    <div class="signature-space"></div>
+                    <?php if ($effective_sig_type === 'image' && !empty($effective_sig_img) && file_exists(FCPATH . 'uploads/' . $effective_sig_img)) : ?>
+                        <div style="height: 60px; text-align: center; margin: 4px 0;">
+                            <img src="<?php echo base_url('uploads/' . $effective_sig_img); ?>" style="max-height: 55px; max-width: 160px;" />
+                        </div>
+                    <?php else : ?>
+                        <div class="signature-space"></div>
+                    <?php endif; ?>
                     <p style="margin: 0; text-decoration: underline; font-weight: bold;">
-                        ( <?php echo html_escape($receipt->user_name ?: 'Kasir / Manager'); ?> )
+                        ( <?php echo html_escape(get_setting('default_signature_name') ?: ($receipt->user_name ?: 'Kasir / Manager')); ?> )
                     </p>
                 </div>
             </td>

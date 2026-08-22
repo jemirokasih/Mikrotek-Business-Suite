@@ -76,7 +76,7 @@ class Settings extends Admin_Controller
                     $batch_settings[$key] = standardize_amount($value);
                 } else {
                     // Security: Validate logo filename settings to prevent path traversal
-                    if ($key === 'invoice_logo' || $key === 'login_logo') {
+                    if ($key === 'invoice_logo' || $key === 'login_logo' || $key === 'signature_image') {
                         if ( ! empty($value)) {
                             $validation = validate_safe_filename($value);
                             if ( ! $validation['valid']) {
@@ -101,7 +101,7 @@ class Settings extends Admin_Controller
 
             $upload_config = [
                 'upload_path'   => './uploads/',
-                'allowed_types' => 'gif|jpg|jpeg|png', // Invoice quote logo image - SVG removed for security
+                'allowed_types' => 'gif|jpg|jpeg|png|webp', // Invoice quote logo image & signature image
                 'max_size'      => '9999',
                 'max_width'     => '9999',
                 'max_height'    => '9999',
@@ -155,6 +155,31 @@ class Settings extends Admin_Controller
                 $this->strip_logo_metadata($upload_data['full_path'], 'login_logo');
 
                 $this->mdl_settings->save('login_logo', $upload_data['file_name']);
+            }
+
+            // Check for digital signature image upload
+            if (isset($_FILES['signature_image']) && $_FILES['signature_image']['name']) {
+                // Security: Check for SVG files before attempting upload
+                $file_extension = mb_strtolower(pathinfo($_FILES['signature_image']['name'], PATHINFO_EXTENSION));
+                if ($file_extension === 'svg') {
+                    log_message('warning', 'SVG upload attempt blocked for signature_image by user ' . $this->session->userdata('user_id') . ': ' . sanitize_for_logging(basename($_FILES['signature_image']['name'])));
+                    $this->session->set_flashdata('alert_error', trans('svg_upload_blocked_security'));
+                    redirect('settings');
+                }
+
+                $this->load->library('upload', $upload_config);
+
+                if ( ! $this->upload->do_upload('signature_image')) {
+                    $this->session->set_flashdata('alert_error', $this->upload->display_errors());
+                    redirect('settings');
+                }
+
+                $upload_data = $this->upload->data();
+
+                // Security: Strip EXIF metadata from uploaded signature image
+                $this->strip_logo_metadata($upload_data['full_path'], 'signature_image');
+
+                $this->mdl_settings->save('signature_image', $upload_data['file_name']);
             }
 
             $this->session->set_flashdata('alert_success', trans('settings_successfully_saved'));
@@ -230,7 +255,7 @@ class Settings extends Admin_Controller
         }
 
         // Security: Validate type parameter against allowed values
-        $allowed_types = ['invoice', 'login'];
+        $allowed_types = ['invoice', 'login', 'signature'];
         if ( ! in_array($type, $allowed_types, true)) {
             log_message('error', sprintf(
                 'Invalid logo type specified: %s by user %s',
@@ -241,12 +266,14 @@ class Settings extends Admin_Controller
             redirect('settings');
         }
 
+        $setting_key = ($type === 'signature') ? 'signature_image' : $type . '_logo';
+
         // Get the logo filename from settings
-        $logo_filename = get_setting($type . '_logo');
+        $logo_filename = get_setting($setting_key);
 
         // If no logo is configured, nothing to delete
         if (empty($logo_filename)) {
-            $this->session->set_flashdata('alert_success', trans($type . '_logo_removed'));
+            $this->session->set_flashdata('alert_success', trans('settings_successfully_saved'));
             redirect('settings');
         }
 
@@ -264,8 +291,8 @@ class Settings extends Admin_Controller
                     sanitize_for_logging($type),
                     sanitize_for_logging((string) $this->session->userdata('user_id'))
                 ));
-                $this->mdl_settings->save($type . '_logo', '');
-                $this->session->set_flashdata('alert_success', trans($type . '_logo_removed'));
+                $this->mdl_settings->save($setting_key, '');
+                $this->session->set_flashdata('alert_success', trans('settings_successfully_saved'));
                 redirect('settings');
             }
 
@@ -288,9 +315,6 @@ class Settings extends Admin_Controller
 
         // Security: Use the validated path from validation result
         // Attempt to delete the file and verify success
-        // Note: file_exists() check serves dual purpose:
-        //   1. TOCTOU protection - file could be deleted between validation and unlink
-        //   2. Graceful handling - allows DB cleanup if file already removed
         if (file_exists($validation['path'])) {
             $deleted = unlink($validation['path']);
             if ( ! $deleted) {
@@ -308,9 +332,9 @@ class Settings extends Admin_Controller
         }
 
         // Only clear DB setting after successful file deletion (or if file doesn't exist)
-        $this->mdl_settings->save($type . '_logo', '');
+        $this->mdl_settings->save($setting_key, '');
 
-        $this->session->set_flashdata('alert_success', trans($type . '_logo_removed'));
+        $this->session->set_flashdata('alert_success', trans('settings_successfully_saved'));
 
         redirect('settings');
     }

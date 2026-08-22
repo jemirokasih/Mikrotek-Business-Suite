@@ -12,6 +12,26 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.39] - 2026-08-22
+
+### ✍️ Opsi Tipe Tanda Tangan Digital & Upload Gambar TTD Scan (`settings` & `pdf`)
+- **Opsi Tipe Tanda Tangan (`signature_type`)**: Menambahkan pengaturan pilihan tipe tanda tangan pada Pengaturan Invoice (`partial_settings_invoices.php`):
+  1. *Teks / Garis Manual (Wet Signature Space)*
+  2. *Digital Signature Image (Scan TTD)*
+  3. *Verifikasi QR Code Digital (Digital QR Signature)*
+- **Upload Gambar Tanda Tangan (`signature_image`)**: Menambahkan form upload file gambar tanda tangan scan (PNG/JPG/WEBP) lengkap dengan preview gambar dan tombol hapus gambar TTD di menu Pengaturan.
+- **Dukungan Template PDF Invoice, Quote, & Kwitansi**: Memperbarui template PDF `Mikrotek.php` (Invoice & Quote) serta `Kwitansi.php` (Receipt) untuk langsung merender gambar scan TTD di atas nama penanggung jawab ketika opsi *Digital Signature Image* aktif.
+
+---
+
+## [v1.7.38] - 2026-08-22
+
+### 📐 Presisi Alignment Padding `#page-content-wrapper` (`index.php`)
+- **Penyelarasan Presisi Tata Letak**: Menghapus inline style padding/margin manual pada `#content` agar mengikuti standar padding global 28px dari `#page-content-wrapper` (`modern_sidebar.css`).
+- **Konsistensi Layout**: Container Roundcube Webmail kini 100% presisi dan sejajar sempurna dengan posisi card pada modul *Invoices*, *Quotes*, *Clients*, *Payments*, dan *Products*.
+
+---
+
 ## [v1.7.37] - 2026-08-22
 
 ### 📐 Presisi Alignment Padding `#page-content-wrapper` (`index.php`)

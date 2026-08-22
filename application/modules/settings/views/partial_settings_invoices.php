@@ -287,6 +287,42 @@ foreach ($pdf_invoice_templates as $invoice_template) {
                         </div>
 
                         <div class="form-group">
+                            <label for="settings[signature_type]">
+                                Tipe Tanda Tangan (Signature Type)
+                            </label>
+                            <select name="settings[signature_type]" id="settings[signature_type]"
+                                    class="form-control simple-select" data-minimum-results-for-search="Infinity">
+                                <option value="text" <?php check_select(get_setting('signature_type'), 'text'); ?>>
+                                    Teks / Garis Manual (Wet Signature Space)
+                                </option>
+                                <option value="image" <?php check_select(get_setting('signature_type'), 'image'); ?>>
+                                    Digital Signature Image (Scan TTD)
+                                </option>
+                                <option value="digital" <?php check_select(get_setting('signature_type'), 'digital'); ?>>
+                                    Verifikasi QR Code Digital (Digital QR Signature)
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="signature_image">
+                                Upload Gambar Tanda Tangan (Scan TTD)
+                            </label>
+                            <?php if (get_setting('signature_image')) : ?>
+                                <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                    <img src="<?php echo base_url('uploads/' . get_setting('signature_image')); ?>" style="max-height: 60px; max-width: 160px; border: 1px solid #cbd5e1; padding: 3px; border-radius: 4px; background: #fff;">
+                                    <div>
+                                        <a href="<?php echo site_url('settings/remove_logo/signature'); ?>" class="btn btn-xs btn-danger" onclick="return confirm('Hapus gambar tanda tangan ini?');">
+                                            <i class="fa fa-trash"></i> Hapus Gambar TTD
+                                        </a>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <input type="file" name="signature_image" id="signature_image" class="form-control" accept="image/png, image/jpeg, image/jpg, image/webp">
+                            <p class="help-block" style="font-size: 11px; color: #64748b; margin-top: 4px;">Format: PNG (disarankan transparan), JPG, WEBP.</p>
+                        </div>
+
+                        <div class="form-group">
                             <label for="settings[default_signature_name]">
                                 Nama Penanggung Jawab Default (TTD)
                             </label>
