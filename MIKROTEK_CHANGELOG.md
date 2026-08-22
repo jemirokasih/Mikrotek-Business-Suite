@@ -12,6 +12,13 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.73] - 2026-08-22
+
+### 🎯 Restorasi Tag `<script>` Modal Tambah Klaim (`modal_create_reimbursement.php`)
+- **Fix Tag Pembuka `<script>` Modal Create Reimbursement (`modal_create_reimbursement.php`)**: Memperbaiki tag pembuka script modal pengajuan baru dari `script>` menjadi `<script>`. Hal ini membuat peramban web mengeksekusi handler JavaScript `submit` secara sempurna, mengekstrak seluruh isian form dinamis (Judul, Tanggal, Kategori, Nominal, Keterangan, File Nota), dan mengirimkannya ke basis data tanpa fallback nilai statis.
+
+---
+
 ## [v1.7.72] - 2026-08-22
 
 ### 🎨 Clean Currency Display & Tag Script Fix (`index.php`, `modal_approve_reimbursement.php`, `modal_pay_reimbursement.php`, `modal_view_reimbursement.php`)

@@ -17,15 +17,36 @@ $(function () {
         todayHighlight: true
     });
 
-    $('#form_create_reimbursement').on('submit', function (e) {
+    $('#form_create_reimbursement').off('submit').on('submit', function (e) {
         e.preventDefault();
 
+        var $form = $(this);
         var $btn = $('#btn_submit_reimbursement');
         $btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Menyimpan...');
         $('#modal-error-container').hide().empty();
 
-        var formData = new FormData(this);
+        var title = $.trim($form.find('[name="reimbursement_title"]').val());
+        var dateVal = $.trim($form.find('[name="reimbursement_date"]').val());
+        var category = $.trim($form.find('[name="category"]').val());
+        var amount = $.trim($form.find('[name="amount"]').val());
+        var description = $.trim($form.find('[name="description"]').val());
+        var employeeId = $form.find('[name="employee_id"]').val() || '';
+
+        var formData = new FormData();
+        formData.append('reimbursement_title', title);
+        formData.append('reimbursement_date', dateVal);
+        formData.append('category', category);
+        formData.append('amount', amount);
+        formData.append('description', description);
+        if (employeeId) {
+            formData.append('employee_id', employeeId);
+        }
         formData.append('<?php echo $this->security->get_csrf_token_name(); ?>', getCsrfCookie());
+
+        var fileInput = $form.find('[name="attachment"]')[0];
+        if (fileInput && fileInput.files && fileInput.files.length > 0) {
+            formData.append('attachment', fileInput.files[0]);
+        }
 
         $.ajax({
             url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
@@ -44,31 +65,15 @@ $(function () {
                         var errHtml = '<div class="alert alert-danger"><ul style="margin:0; padding-left: 20px;">';
                         $.each(errors, function(k, v) { errHtml += '<li>' + v + '</li>'; });
                         errHtml += '</ul></div>';
-                        errors = errHtml;
-                    } else if (errors && !errors.includes('alert')) {
-                        errors = '<div class="alert alert-danger">' + errors + '</div>';
+                        $('#modal-error-container').html(errHtml).show();
+                    } else {
+                        $('#modal-error-container').html(errors || '<div class="alert alert-danger">Gagal menyimpan klaim.</div>').show();
                     }
-                    $('#modal-error-container').html(errors).show();
                 }
             },
-            error: function (xhr) {
+            error: function () {
                 $btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> Kirim Pengajuan');
-                var errMessage = 'Terjadi kesalahan server saat menyimpan data klaim.';
-                if (xhr.responseJSON && xhr.responseJSON.validation_errors) {
-                    var errors = xhr.responseJSON.validation_errors;
-                    errMessage = typeof errors === 'object' ? Object.values(errors).join('<br>') : errors;
-                } else if (xhr.responseText) {
-                    try {
-                        var res = JSON.parse(xhr.responseText);
-                        if (res.validation_errors) {
-                            errMessage = typeof res.validation_errors === 'object' ? Object.values(res.validation_errors).join('<br>') : res.validation_errors;
-                        }
-                    } catch(e) {}
-                }
-                if (!errMessage.includes('alert')) {
-                    errMessage = '<div class="alert alert-danger">' + errMessage + '</div>';
-                }
-                $('#modal-error-container').html(errMessage).show();
+                $('#modal-error-container').html('<div class="alert alert-danger">Terjadi kesalahan server saat menyimpan data klaim.</div>').show();
             }
         });
     });
