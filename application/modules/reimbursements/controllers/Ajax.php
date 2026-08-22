@@ -38,12 +38,23 @@ class Ajax extends Admin_Controller
             return;
         }
 
-        $title       = trim((string) $this->input->post('reimbursement_title'));
-        $amount_raw  = trim((string) ($_POST['reimbursement_amount'] ?? $_POST['amount'] ?? $this->input->post('reimbursement_amount') ?? $this->input->post('amount') ?? ''));
-        $category    = trim((string) $this->input->post('category'));
-        $date_input  = trim((string) $this->input->post('reimbursement_date'));
-        $description = trim((string) $this->input->post('description'));
-        $post_emp_id = trim((string) $this->input->post('employee_id'));
+        $get_input = function ($key) {
+            $val = $this->input->post($key);
+            if ($val === false || $val === null) {
+                $val = $_POST[$key] ?? '';
+            }
+            return trim((string) $val);
+        };
+
+        $title       = $get_input('reimbursement_title');
+        $amount_raw  = $get_input('reimbursement_amount');
+        if ($amount_raw === '') {
+            $amount_raw = $get_input('amount');
+        }
+        $category    = $get_input('category');
+        $date_input  = $get_input('reimbursement_date');
+        $description = $get_input('description');
+        $post_emp_id = $get_input('employee_id');
 
         // Defaults for empty fields
         if (empty($title)) {

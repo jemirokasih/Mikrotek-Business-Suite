@@ -12,7 +12,15 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
-## [v1.7.76] - 2026-08-22
+## [v1.7.78] - 2026-08-22
+
+### 🐛 Fix: Perbaikan Parsing Input Nominal Reimbursement
+- **Fix PHP Null Coalescing Trap**: `$this->input->post('key')` pada CodeIgniter 3 mengembalikan boolean `false` jika key tidak ditemukan. Penggunaan operator `??` dengan `false` tidak memicu fallback ke operand berikutnya. Dibuat helper closure khusus `$get_input` yang memeriksa `=== false || === null` sehingga fallback antara `reimbursement_amount` dan `amount` berjalan sempurna.
+- **JS FormData Double-Key Append**: FormData kini menyertakan baik `reimbursement_amount` maupun `amount` sekaligus dari form input, menjamin kompatibilitas total baik modal lama (dari cache browser) maupun modal baru.
+
+---
+
+## [v1.7.77] - 2026-08-22
 
 ### 🐛 Fix: Nominal Selalu Terbaca 0 Meski Diisi
 - **Root cause**: Field `name="amount"` pada form HTML bentrok dengan properti DOM form native (`HTMLFormElement.amount`). Akibatnya jQuery `$form.find('[name=amount]').val()` mengembalikan objek DOM bukan string nilai, sehingga nilai yang dikirim ke server kosong/undefined.
