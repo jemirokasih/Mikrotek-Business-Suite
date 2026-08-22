@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.72] - 2026-08-22
+
+### 🎨 Clean Currency Display & Tag Script Fix (`index.php`, `modal_approve_reimbursement.php`, `modal_pay_reimbursement.php`, `modal_view_reimbursement.php`)
+- **Fix Tag `<script>` Modals (`modal_approve_reimbursement.php` & `modal_pay_reimbursement.php`)**: Memperbaiki tag pembuka script modal dari `script>` menjadi `<script>` sehingga seluruh handler peninjauan dan pencairan modal berjalan sempurna.
+- **Pembersihan Tampilan Simbol Mata Uang (`index.php` & Modal Views)**: Menghapus duplikasi prefiks `Rp` sebelum panggillan `format_currency()` sehingga nominal ditampilkan bersih dan rapi (misal `Rp 10.000` tanpa duplikasi `Rp Rp 10.000`).
+
+---
+
 ## [v1.7.71] - 2026-08-22
 
 ### 💡 Parser Nominal Bebas Format (`reimbursements/Ajax.php`)

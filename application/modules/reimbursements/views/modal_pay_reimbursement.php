@@ -68,7 +68,7 @@ $(function () {
                 <div class="well well-sm" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; margin-bottom: 15px;">
                     <p style="margin-bottom: 5px;"><strong>No. Klaim:</strong> <code><?php echo htmlsc($reimbursement->reimbursement_number); ?></code></p>
                     <p style="margin-bottom: 5px;"><strong>Judul Klaim:</strong> <?php echo htmlsc($reimbursement->reimbursement_title); ?></p>
-                    <p style="margin-bottom: 0;"><strong>Nominal Dicairkan:</strong> <span style="font-weight: 700; color: #16a34a; font-size: 16px;">Rp <?php echo format_currency($reimbursement->amount); ?></span></p>
+                    <p style="margin-bottom: 0;"><strong>Nominal Dicairkan:</strong> <span style="font-weight: 700; color: #16a34a; font-size: 16px;"><?php echo format_currency($reimbursement->amount); ?></span></p>
                 </div>
 
                 <div class="form-group">

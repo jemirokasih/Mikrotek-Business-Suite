@@ -31,7 +31,7 @@
                         </tr>
                         <tr>
                             <td style="font-weight: 600; background: #f8fafc;">Nominal (Rp)</td>
-                            <td style="font-weight: 700; color: #16a34a; font-size: 15px;">Rp <?php echo format_currency($reimbursement->amount); ?></td>
+                            <td style="font-weight: 700; color: #16a34a; font-size: 15px;"><?php echo format_currency($reimbursement->amount); ?></td>
                         </tr>
                         <tr>
                             <td style="font-weight: 600; background: #f8fafc;">Pemohon</td>

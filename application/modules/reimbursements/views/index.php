@@ -35,7 +35,7 @@
         <div class="col-xs-12 col-sm-6 col-md-3">
             <div class="panel panel-default" style="border-radius: 12px; border: 1px solid #bbf7d0; padding: 15px; background: #f0fdf4; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                 <div style="font-size: 12px; font-weight: 600; color: #15803d; text-transform: uppercase;">Lunas (Paid)</div>
-                <div style="font-size: 24px; font-weight: 800; color: #16a34a; margin-top: 5px;">Rp <?php echo format_currency($kpi_stats->total_approved_amount ?? 0); ?></div>
+                <div style="font-size: 24px; font-weight: 800; color: #16a34a; margin-top: 5px;"><?php echo format_currency($kpi_stats->total_approved_amount ?? 0); ?></div>
             </div>
         </div>
     </div>
@@ -97,7 +97,7 @@
                                     <?php echo date_from_mysql($item->reimbursement_date); ?>
                                 </td>
                                 <td style="padding: 12px 15px; text-align: right; font-weight: 800; color: #0f172a; font-size: 14px;">
-                                    Rp <?php echo format_currency($item->amount); ?>
+                                    <?php echo format_currency($item->amount); ?>
                                 </td>
                                 <td style="padding: 12px 15px; text-align: center;">
                                     <?php if (!empty($item->attachment)) : ?>
