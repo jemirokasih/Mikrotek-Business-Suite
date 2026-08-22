@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.52] - 2026-08-22
+
+### 🐛 Perbaikan Fatal `$.ajaxPrefilter` pada Objek `FormData` & Proteksi Token CSRF
+- **Perbaikan `$.ajaxPrefilter` untuk `FormData` (`assets/core/js/scripts.js`)**: Memperbaiki masalah kritis di mana `$.ajaxPrefilter` sebelumnya mengubah objek `FormData` menjadi string `"[object FormData]&_ip_csrf=..."` saat melakukan konkatenasi string. Hal ini menyebabkan peramban mengirimkan payload yang rusak (tanpa field POST maupun file upload), sehingga melempar error HTTP 403 (*The action you have requested is not allowed*). Sekarang, `$.ajaxPrefilter` mendeteksi objek `FormData` dan menambahkan token CSRF menggunakan `FormData.append()` tanpa merusak struktur data.
+- **Eksplisit CSRF Append pada Form Modal (`modal_create_reimbursement.php`)**: Memastikan token CSRF `_ip_csrf` disisipkan ke objek `FormData` sebelum pengiriman AJAX dan menyempurnakan pesan penanganan error.
+
+---
+
 ## [v1.7.51] - 2026-08-22
 
 ### 🔑 Izin Akses Pengajuan Klaim Reimburse Terjamin untuk Semua Pengguna Terautentikasi

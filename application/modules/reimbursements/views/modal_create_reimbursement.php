@@ -12,6 +12,11 @@ $(function () {
         $('#modal-error-container').hide().empty();
 
         var formData = new FormData($('#form_create_reimbursement')[0]);
+        var csrfName = '<?php echo config_item('csrf_token_name'); ?>';
+        var csrfHash = Cookies.get('ip_csrf_cookie') || '<?php echo $this->security->get_csrf_hash(); ?>';
+        if (!formData.has(csrfName) && csrfHash) {
+            formData.append(csrfName, csrfHash);
+        }
 
         $.ajax({
             url: "<?php echo site_url('reimbursements/ajax/create_reimbursement'); ?>",
@@ -52,7 +57,7 @@ $(function () {
                         }
                     } catch(e) {
                         if (xhr.status === 403) {
-                            errMessage = 'Akses ditolak (403). Anda tidak memiliki izin untuk mengajukan reimburse.';
+                            errMessage = 'Sesi keamanan (CSRF) kadaluarsa. Silakan refresh halaman dan coba kembali.';
                         }
                     }
                 }
