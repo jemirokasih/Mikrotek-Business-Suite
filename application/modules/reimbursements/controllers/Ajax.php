@@ -48,12 +48,23 @@ class Ajax extends Admin_Controller
             return;
         }
 
-        if (!$this->mdl_reimbursements->run_validation()) {
-            $response = [
+        $title = trim((string) $this->input->post('reimbursement_title', true));
+        $amount_raw = trim((string) $this->input->post('amount', true));
+        $category = trim((string) $this->input->post('category', true)) ?: 'Lain-lain';
+
+        $val_errors = [];
+        if (empty($title)) {
+            $val_errors[] = 'Judul Klaim / Pengeluaran wajib diisi.';
+        }
+        if (empty($amount_raw) || (float) str_replace(['.', ','], ['', '.'], $amount_raw) <= 0) {
+            $val_errors[] = 'Nominal Pengeluaran wajib diisi dan harus lebih dari 0.';
+        }
+
+        if (!empty($val_errors)) {
+            echo json_encode([
                 'success' => 0,
-                'validation_errors' => $this->mdl_reimbursements->validation_errors,
-            ];
-            echo json_encode($response);
+                'validation_errors' => '<div class="alert alert-danger"><ul style="margin:0; padding-left:20px;"><li>' . implode('</li><li>', $val_errors) . '</li></ul></div>',
+            ]);
             return;
         }
 

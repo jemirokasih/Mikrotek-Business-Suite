@@ -12,6 +12,14 @@ Dokumen ini mencatat seluruh perubahan, perbaikan, dan fitur baru yang dikembang
 
 ---
 
+## [v1.7.57] - 2026-08-22
+
+### 🛠️ Perbaikan Sintaks HTML Modal & Validasi Input Bahasa Indonesia
+- **Perbaikan Tag Script Modal (`modal_create_reimbursement.php`)**: Memperbaiki karakter tag pembuka `<script>` pada baris pertama tampilan modal yang sebelumnya terpotong menjadi `script>`, yang mengakibatkan skrip eksekusi AJAX tidak dijalankan oleh peramban.
+- **Validasi Input Terarah Berbahasa Indonesia (`reimbursements/Ajax.php`)**: Mengganti pemanggilan validasi generik CodeIgniter dengan validasi PHP langsung yang mengembalikan pesan error dalam Bahasa Indonesia yang jelas (`Judul Klaim / Pengeluaran wajib diisi`, `Nominal Pengeluaran wajib diisi`).
+
+---
+
 ## [v1.7.56] - 2026-08-22
 
 ### 🎯 Pengecualian URI CSRF AJAX & Penguatan Generator Nomor Klaim
